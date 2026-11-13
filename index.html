@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -67,7 +68,7 @@ header {
   gap:15px;
 }
 
-/* LOGO CENTRALIZADA NO TOPO */
+/* LOGO CLÃ AGT - PRATA COM NEON ROXO */
 
 .logo {
   font-size:29px;
@@ -85,11 +86,43 @@ header .logo {
   left:50%;
   transform:translateX(-50%);
   white-space:nowrap;
-  font-size:clamp(21px,3vw,27px);
-  letter-spacing:2px;
+  font-size:clamp(27px,4vw,36px);
+  font-weight:1000;
+  letter-spacing:3px;
+  background:linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e9edf5 18%,
+    #929baa 42%,
+    #ffffff 55%,
+    #aeb8c8 75%,
+    #ffffff 100%
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
   filter:
-    drop-shadow(0 0 2px rgba(255,255,255,.4))
-    drop-shadow(0 0 6px rgba(139,53,255,.65));
+    drop-shadow(0 0 3px #ffffffaa)
+    drop-shadow(0 0 7px #a020ff)
+    drop-shadow(0 0 15px #8b35ff)
+    drop-shadow(0 0 25px #8b35ff88);
+  animation:agtHeaderGlow 3s ease-in-out infinite;
+}
+
+@keyframes agtHeaderGlow {
+  0%,100% {
+    filter:
+      drop-shadow(0 0 3px #ffffff88)
+      drop-shadow(0 0 7px #a020ff)
+      drop-shadow(0 0 15px #8b35ff);
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 5px #ffffff)
+      drop-shadow(0 0 11px #bd75ff)
+      drop-shadow(0 0 23px #8b35ff)
+      drop-shadow(0 0 34px #8b35ffbb);
+  }
 }
 
 .logo span {
@@ -447,43 +480,6 @@ header .logo {
 .menu-profile-link:hover {
   border-color:#bd75ff;
   background:#261638;
-}
-
-/* NOVO BOTÃO RANKING MENSAL */
-
-.menu-navigation .monthly-nav-link {
-  color:#caffd9;
-  background:linear-gradient(110deg,#123d29,#10291e);
-  border:1px solid #56d98a;
-  box-shadow:0 0 12px rgba(64,220,130,.10);
-  transition:.25s;
-}
-
-.menu-navigation .monthly-nav-link:hover {
-  color:#fff;
-  background:linear-gradient(110deg,#17633b,#17472d);
-  border-color:#8cffb4;
-  box-shadow:0 0 17px rgba(64,220,130,.28);
-  transform:translateX(3px);
-}
-
-.menu-logout {
-  margin-top:10px;
-  color:#ff9caa;
-  border-color:#71313f;
-  background:#29121b;
-}
-
-.menu-logout:hover {
-  background:#481b2a;
-}
-
-.menu-section-label {
-  color:#8e7b9f;
-  font-size:10px;
-  letter-spacing:2px;
-  font-weight:bold;
-  margin:20px 0 10px;
 }
 
 /* TÍTULO AGT ARENA */
@@ -892,7 +888,7 @@ section {
   text-align:right;
 }
 
-/* BOTÃO PARA ABRIR O RANKING MENSAL COMPLETO */
+/* BOTÃO VER RANKING MENSAL COMPLETO - VERDE NEON */
 
 .monthly-ranking-button {
   display:block;
@@ -900,7 +896,45 @@ section {
   margin:22px auto 0;
   text-align:center;
   font-size:12px;
-  padding:13px 20px;
+  padding:14px 22px;
+  color:#eafff0;
+  background:linear-gradient(110deg,#126b3c,#159653,#08743b);
+  border:1px solid #62ff9b;
+  border-radius:8px;
+  box-shadow:
+    0 0 8px #27ff7955,
+    0 0 18px #27ff7944,
+    inset 0 0 10px #ffffff12;
+  text-shadow:0 0 7px #baffd0;
+  transition:all .3s ease;
+  animation:monthlyGreenGlow 2.5s ease-in-out infinite;
+}
+
+.monthly-ranking-button:hover {
+  color:#fff;
+  background:linear-gradient(110deg,#159653,#20c66a,#0c8845);
+  border-color:#a0ffc0;
+  box-shadow:
+    0 0 12px #39ff85,
+    0 0 28px #27ff79aa,
+    0 0 45px #27ff7944,
+    inset 0 0 12px #ffffff25;
+  transform:translateY(-4px) scale(1.025);
+}
+
+@keyframes monthlyGreenGlow {
+  0%,100% {
+    box-shadow:
+      0 0 8px #27ff7955,
+      0 0 18px #27ff7944,
+      inset 0 0 10px #ffffff12;
+  }
+  50% {
+    box-shadow:
+      0 0 13px #39ff85aa,
+      0 0 28px #27ff7977,
+      inset 0 0 12px #ffffff20;
+  }
 }
 
 .agt-player-avatar {
@@ -1043,8 +1077,8 @@ footer span {color:var(--neon)}
   }
 
   header .logo {
-    font-size:21px;
-    letter-spacing:1.5px;
+    font-size:25px;
+    letter-spacing:2px;
   }
 
   .menu-toggle {
@@ -1143,8 +1177,8 @@ footer span {color:var(--neon)}
 
 @media (max-width:360px) {
   header .logo {
-    font-size:18px;
-    letter-spacing:1px;
+    font-size:22px;
+    letter-spacing:1.5px;
   }
 
   .menu-toggle {
@@ -1288,7 +1322,7 @@ footer span {color:var(--neon)}
     <a href="#sobre">🐍 O CLÃ</a>
     <a href="#ranking">🏆 RANKINGS</a>
     <a href="#recrutamento">⚔️ RECRUTAMENTO</a>
-    <a href="./ranking-mensal.html" class="monthly-nav-link">🏆 RANKING MENSAL</a>
+    <a href="./ranking-mensal.html">🏆 RANKING MENSAL</a>
   </nav>
 
 </aside>
