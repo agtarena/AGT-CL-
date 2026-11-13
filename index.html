@@ -103,7 +103,7 @@ header {
   -webkit-text-stroke: 0 transparent;
 }
 
-/* TÍTULO AGT ARENA */
+/* TÍTULO AGT ARENA - PRATA METÁLICA */
 
 .hero .hero-content h1 {
   position: relative;
@@ -138,7 +138,9 @@ header {
     drop-shadow(0 0 10px rgba(139,53,255,.8));
 }
 
-.hero .hero-content h1 span {
+/* MESMO EFEITO PRATA NAS DUAS PALAVRAS */
+
+.hero .hero-content h1 > span {
   display: inline-block;
   font-size: inherit;
   font-weight: inherit;
@@ -146,14 +148,14 @@ header {
 
   background: linear-gradient(
     180deg,
-    #69727f 0%,
-    #ffffff 12%,
-    #aeb5c0 25%,
-    #626b78 40%,
-    #f8faff 52%,
-    #8993a1 67%,
-    #e6eaf0 82%,
-    #626b78 100%
+    #ffffff 0%,
+    #dce1e9 15%,
+    #929baa 30%,
+    #ffffff 45%,
+    #737d8b 60%,
+    #e8ebf0 75%,
+    #aeb5c1 90%,
+    #ffffff 100%
   );
 
   -webkit-background-clip: text;
@@ -492,7 +494,7 @@ section {
   margin-bottom: 20px;
 }
 
-/* NOVOS BOTÕES DE REDES SOCIAIS */
+/* BOTÕES DE REDES SOCIAIS */
 
 .recruit-social {
   display: flex;
@@ -515,7 +517,7 @@ section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 9px;
   min-width: 155px;
   padding: 14px 22px;
   border: 1px solid #25d366;
@@ -536,11 +538,20 @@ section {
   fill: currentColor;
 }
 
+.whatsapp-name {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+
 .whatsapp-btn:hover {
   transform: translateY(-4px);
   background: linear-gradient(135deg, #19b95d, #08733e);
   box-shadow: 0 0 25px rgba(37,211,102,.45);
 }
+
+/* YOUTUBE SOMENTE COM ÍCONE */
 
 .youtube-btn {
   display: flex;
@@ -670,7 +681,7 @@ footer span {
     line-height: 1.05;
   }
 
-  .hero .hero-content h1 span {
+  .hero .hero-content h1 > span {
     white-space: nowrap;
   }
 
@@ -732,8 +743,6 @@ footer span {
     font-size: 14px;
   }
 
-  /* WHATSAPP LADO A LADO NO CELULAR */
-
   .whatsapp-buttons {
     gap: 9px;
   }
@@ -751,7 +760,9 @@ footer span {
     height: 20px;
   }
 
-  /* YOUTUBE ABAIXO DOS WHATSAPPS */
+  .whatsapp-name {
+    font-size: 11px;
+  }
 
   .youtube-btn {
     width: 56px;
@@ -775,7 +786,7 @@ footer span {
   }
 }
 
-/* ESTILO DO CADASTRO E LOGIN */
+/* CADASTRO E LOGIN */
 
 .agt-auth {
   max-width: 480px;
@@ -832,7 +843,7 @@ footer span {
 <body>
 
 <header>
-  <div class="logo">AGT <span>ARENA</span></div>
+  <div class="logo">Clã AGT</div>
 
   <nav>
     <a href="#inicio">INÍCIO</a>
@@ -859,12 +870,12 @@ footer span {
       <span></span>
     </div>
 
-    <h1>AGT<br><span>ARENA</span></h1>
+    <h1><span>AGT</span><br><span>ARENA</span></h1>
 
     <p>
       Mais que um clã, uma família.
       Unidos pela habilidade, fortalecidos pela lealdade
-      e determinados a conquistar o topo no Slither.Mania.
+      e determinados a conquistar o topo no SlitherMania.
     </p>
 
     <a class="btn" href="#recrutamento">FAÇA PARTE DA AGT</a>
@@ -915,7 +926,7 @@ footer span {
     <div class="card">
       <div class="symbol">👑</div>
       <h3>Ranking diário</h3>
-      <p>Classificação dos jogadores integrantes da AGT no Slither.Mania.</p>
+      <p>Classificação dos jogadores integrantes da AGT no SlitherMania.</p>
       <div class="status">AGUARDANDO INTEGRAÇÃO</div>
     </div>
 
@@ -946,34 +957,32 @@ footer span {
 
   <div class="recruit-social">
 
-    <!-- DOIS BOTÕES WHATSAPP -->
-
     <div class="whatsapp-buttons">
 
       <a class="whatsapp-btn"
          href="https://wa.me/5511948646144"
          target="_blank"
          rel="noopener"
-         aria-label="Recrutamento pelo WhatsApp 1">
+         aria-label="WhatsApp Quik">
 
         <svg viewBox="0 0 32 32" aria-hidden="true">
           <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>
         </svg>
 
-        <span>WhatsApp</span>
+        <span class="whatsapp-name">Quik</span>
       </a>
 
       <a class="whatsapp-btn"
          href="https://wa.me/5512991173752"
          target="_blank"
          rel="noopener"
-         aria-label="Recrutamento pelo WhatsApp 2">
+         aria-label="WhatsApp Souza">
 
         <svg viewBox="0 0 32 32" aria-hidden="true">
           <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>
         </svg>
 
-        <span>WhatsApp</span>
+        <span class="whatsapp-name">Souza</span>
       </a>
 
     </div>
@@ -1055,7 +1064,7 @@ console.log('AGT Arena conectado ao Supabase!');
 <footer>
   <div class="logo">AGT <span>ARENA</span></div>
   <p>ALIANÇA • GARRA • TALENTO</p>
-  <p>© 2026 AGT Arena — Todos os direitos reservados.</p>
+  <p>© 2026 BY AGT SOUZA — Todos os direitos reservados.</p>
   <p>Uma família, um propósito, uma aliança.</p>
 </footer>
 
