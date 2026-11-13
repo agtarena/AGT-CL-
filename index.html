@@ -68,6 +68,8 @@ header {
   gap:15px;
 }
 
+/* LOGO CENTRALIZADA NO TOPO */
+
 .logo {
   font-size:29px;
   font-weight:1000;
@@ -77,6 +79,18 @@ header {
   background-clip:text;
   -webkit-text-fill-color:transparent;
   filter:drop-shadow(0 0 3px #8b35ff) drop-shadow(0 0 7px #8b35ffaa);
+}
+
+header .logo {
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  font-size:clamp(21px,3vw,27px);
+  letter-spacing:2px;
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.4))
+    drop-shadow(0 0 6px rgba(139,53,255,.65));
 }
 
 .logo span {
@@ -101,6 +115,9 @@ header {
   gap:6px;
   cursor:pointer;
   transition:.25s;
+  margin-left:auto;
+  position:relative;
+  z-index:2;
 }
 
 .menu-toggle:hover {
@@ -431,6 +448,24 @@ header {
 .menu-profile-link:hover {
   border-color:#bd75ff;
   background:#261638;
+}
+
+/* NOVO BOTÃO RANKING MENSAL */
+
+.menu-navigation .monthly-nav-link {
+  color:#caffd9;
+  background:linear-gradient(110deg,#123d29,#10291e);
+  border:1px solid #56d98a;
+  box-shadow:0 0 12px rgba(64,220,130,.10);
+  transition:.25s;
+}
+
+.menu-navigation .monthly-nav-link:hover {
+  color:#fff;
+  background:linear-gradient(110deg,#17633b,#17472d);
+  border-color:#8cffb4;
+  box-shadow:0 0 17px rgba(64,220,130,.28);
+  transform:translateX(3px);
 }
 
 .menu-logout {
@@ -1008,7 +1043,10 @@ footer span {color:var(--neon)}
     justify-content:space-between;
   }
 
-  .logo {font-size:25px}
+  header .logo {
+    font-size:21px;
+    letter-spacing:1.5px;
+  }
 
   .menu-toggle {
     width:44px;
@@ -1102,6 +1140,18 @@ footer span {color:var(--neon)}
   .agt-ranking-details {font-size:9px}
   .agt-player-avatar {width:35px;height:35px}
   footer {padding:28px 6%;font-size:12px}
+}
+
+@media (max-width:360px) {
+  header .logo {
+    font-size:18px;
+    letter-spacing:1px;
+  }
+
+  .menu-toggle {
+    width:40px;
+    height:39px;
+  }
 }
 
 [hidden] {
@@ -1239,6 +1289,7 @@ footer span {color:var(--neon)}
     <a href="#sobre">🐍 O CLÃ</a>
     <a href="#ranking">🏆 RANKINGS</a>
     <a href="#recrutamento">⚔️ RECRUTAMENTO</a>
+    <a href="./ranking-mensal.html" class="monthly-nav-link">🏆 RANKING MENSAL</a>
   </nav>
 
 </aside>
