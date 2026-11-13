@@ -85,19 +85,63 @@ main {
   line-height:1.7;
 }
 
+/* SELETOR DE MÊS */
+
 .month-info {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
+  gap:12px;
   flex-wrap:wrap;
   margin-bottom:20px;
 }
 
-.month-label {
+.month-selector {
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.month-selector label {
   color:#d9c8f2;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.month-select {
+  appearance:none;
+  -webkit-appearance:none;
+  min-width:165px;
+  padding:11px 35px 11px 13px;
+  border:1px solid #8b35ff88;
+  border-radius:8px;
+  color:#fff;
+  background:#21132f;
+  font-size:12px;
   font-weight:bold;
   text-transform:capitalize;
+  cursor:pointer;
+  outline:none;
+  box-shadow:0 0 12px #8b35ff18;
+}
+
+.month-select:focus {
+  border-color:#bd75ff;
+  box-shadow:0 0 12px #8b35ff66;
+}
+
+.month-select option {
+  color:#fff;
+  background:#171020;
+}
+
+.select-arrow {
+  position:absolute;
+  right:12px;
+  pointer-events:none;
+  color:#bd75ff;
+  font-size:13px;
 }
 
 .status {
@@ -162,9 +206,10 @@ main {
 
 .details {
   display:block;
-  margin-top:5px;
+  margin-top:6px;
   color:var(--muted);
   font-size:11px;
+  line-height:1.6;
 }
 
 .score {
@@ -175,11 +220,14 @@ main {
 .score strong {
   display:block;
   font-size:15px;
+  color:#bd75ff;
 }
 
 .score small {
   color:var(--muted);
   font-size:9px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
 
 .player.rank-1 {
@@ -238,14 +286,64 @@ footer {
 }
 
 @media(max-width:600px) {
-  header {padding:15px 5%}
-  .logo {font-size:21px}
-  main {margin:40px auto}
-  .player {gap:8px;padding:11px 9px}
-  .medal,.avatar {width:35px;height:35px}
-  .nick {font-size:13px}
-  .details {font-size:9px}
-  .score strong {font-size:12px}
+  header {
+    padding:15px 5%;
+  }
+
+  .logo {
+    font-size:21px;
+  }
+
+  main {
+    margin:40px auto;
+  }
+
+  .month-info {
+    align-items:flex-start;
+  }
+
+  .month-selector {
+    width:100%;
+  }
+
+  .month-select {
+    flex:1;
+  }
+
+  .status {
+    margin-top:3px;
+  }
+
+  .player {
+    gap:8px;
+    padding:11px 9px;
+  }
+
+  .medal,
+  .avatar {
+    width:35px;
+    height:35px;
+  }
+
+  .medal {
+    font-size:17px;
+  }
+
+  .nick {
+    font-size:13px;
+  }
+
+  .details {
+    font-size:9px;
+  }
+
+  .score strong {
+    font-size:12px;
+  }
+
+  .score small {
+    font-size:8px;
+  }
 }
 </style>
 </head>
@@ -258,6 +356,7 @@ footer {
 </header>
 
 <main>
+
   <div class="heading">
     <h1>RANKING <span>MENSAL</span></h1>
     <p>
@@ -267,8 +366,18 @@ footer {
   </div>
 
   <div class="month-info">
-    <span class="month-label" id="month-label">Carregando mês...</span>
+
+    <div class="month-selector">
+      <label for="month-select">MÊS:</label>
+
+      <select class="month-select" id="month-select">
+      </select>
+
+      <span class="select-arrow">▼</span>
+    </div>
+
     <span class="status" id="month-status">CONECTANDO...</span>
+
   </div>
 
   <div class="ranking-list" id="ranking-list">
@@ -276,6 +385,7 @@ footer {
   </div>
 
   <div class="updated" id="updated"></div>
+
 </main>
 
 <footer>
@@ -288,6 +398,7 @@ footer {
 
 <script>
 (async function() {
+
   const SUPABASE_URL = 'https://lbknsgfpfxkvypkxbcmy.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
 
@@ -298,8 +409,10 @@ footer {
 
   const list = document.getElementById('ranking-list');
   const status = document.getElementById('month-status');
-  const monthLabel = document.getElementById('month-label');
   const updated = document.getElementById('updated');
+  const monthSelect = document.getElementById('month-select');
+
+  let consultaAtual = 0;
 
   function getBrazilDate() {
     const parts = new Intl.DateTimeFormat('en-CA', {
@@ -319,12 +432,52 @@ footer {
     return Number(value || 0).toLocaleString('pt-BR');
   }
 
+  function formatarData(data) {
+    const [ano,mes,dia] = data.split('-');
+    return `${dia}/${mes}`;
+  }
+
+  function criarSeletorMes() {
+    const hoje = getBrazilDate();
+    const [anoAtual,mesAtual] = hoje.split('-').map(Number);
+
+    const meses = [
+      'janeiro','fevereiro','março','abril',
+      'maio','junho','julho','agosto',
+      'setembro','outubro','novembro','dezembro'
+    ];
+
+    monthSelect.innerHTML = '';
+
+    // Disponibiliza os últimos 60 meses, incluindo o atual.
+    for(let i = 0; i < 60; i++) {
+
+      const data = new Date(
+        Date.UTC(anoAtual,mesAtual-1-i,1,12)
+      );
+
+      const ano = data.getUTCFullYear();
+      const mes = String(data.getUTCMonth()+1).padStart(2,'0');
+      const chave = `${ano}-${mes}`;
+
+      const option = document.createElement('option');
+      option.value = chave;
+      option.textContent = `${meses[data.getUTCMonth()]} de ${ano}`;
+
+      monthSelect.appendChild(option);
+    }
+
+    monthSelect.value = `${anoAtual}-${String(mesAtual).padStart(2,'0')}`;
+  }
+
   async function buscarCapturas(inicio,fim) {
+
     let todas = [];
     let pagina = 0;
     const tamanho = 1000;
 
     while(true) {
+
       const {data,error} = await db
         .from('agt_ranking_daily')
         .select('nick,score,source_date,fetched_at')
@@ -346,86 +499,136 @@ footer {
   }
 
   async function carregar() {
-    const hoje = getBrazilDate();
-    const [ano,mes] = hoje.split('-');
-    const inicio = `${ano}-${mes}-01`;
 
-    monthLabel.textContent = new Date(`${inicio}T12:00:00-03:00`)
-      .toLocaleDateString('pt-BR',{
-        timeZone:'America/Sao_Paulo',
-        month:'long',
-        year:'numeric'
-      });
+    const numeroConsulta = ++consultaAtual;
+
+    const hoje = getBrazilDate();
+    const mesEscolhido = monthSelect.value;
+
+    const [ano,mes] = mesEscolhido.split('-').map(Number);
+
+    const inicio = `${mesEscolhido}-01`;
+
+    // No mês atual, consulta somente até hoje.
+    // Nos meses anteriores, consulta até o último dia do mês.
+    const mesAtual = hoje.substring(0,7);
+
+    let fim;
+
+    if(mesEscolhido === mesAtual) {
+      fim = hoje;
+    } else {
+      const ultimoDia = new Date(Date.UTC(ano,mes,0)).getUTCDate();
+      fim = `${mesEscolhido}-${String(ultimoDia).padStart(2,'0')}`;
+    }
 
     status.textContent = 'CALCULANDO...';
+    updated.textContent = '';
+
+    list.innerHTML =
+      '<p class="empty">Calculando classificação mensal...</p>';
 
     try {
+
       const [capturasResult,perfisResult] = await Promise.all([
-        buscarCapturas(inicio,hoje),
+
+        buscarCapturas(inicio,fim),
+
         db.from('agt_profiles').select('nick,avatar_url')
+
       ]);
+
+      // Ignora respostas antigas caso o usuário troque de mês.
+      if(numeroConsulta !== consultaAtual) return;
 
       const perfis = {};
 
       (perfisResult.data || []).forEach(profile => {
+
         if(profile.nick) {
-          perfis[profile.nick.trim().toLowerCase()] = profile.avatar_url;
+          perfis[profile.nick.trim().toLowerCase()] =
+            profile.avatar_url;
         }
+
       });
 
+      // Guarda somente a melhor pontuação de cada jogador por dia.
       const melhorPorDia = new Map();
 
       capturasResult.forEach(player => {
+
         const nick = (player.nick || '').trim();
 
         if(!nick || !/agt/i.test(nick)) return;
 
-        const chave = `${nick.toLowerCase()}|${player.source_date}`;
+        const chave =
+          `${nick.toLowerCase()}|${player.source_date}`;
+
         const score = Number(player.score || 0);
 
-        if(!melhorPorDia.has(chave) ||
-           score > melhorPorDia.get(chave).score) {
+        if(
+          !melhorPorDia.has(chave) ||
+          score > melhorPorDia.get(chave).score
+        ) {
+
           melhorPorDia.set(chave,{
             nick,
             score,
             source_date:player.source_date
           });
+
         }
+
       });
 
+      // Soma as melhores pontuações diárias de cada jogador.
       const totais = new Map();
 
       melhorPorDia.forEach(item => {
+
         const chave = item.nick.toLowerCase();
 
         if(!totais.has(chave)) {
+
           totais.set(chave,{
             nick:item.nick,
             total:0,
-            dias:0
+            datas:[]
           });
+
         }
 
         const jogador = totais.get(chave);
+
         jogador.total += item.score;
-        jogador.dias++;
+        jogador.datas.push(item.source_date);
+
       });
 
       const ranking = Array.from(totais.values())
         .sort((a,b) => b.total-a.total);
 
+      // Ordena as datas de pontuação.
+      ranking.forEach(player => {
+        player.datas.sort();
+      });
+
       list.innerHTML = '';
 
       if(!ranking.length) {
+
         status.textContent = 'SEM DADOS';
+
         list.innerHTML =
           '<p class="empty">Ainda não existem pontuações registradas para este mês.</p>';
+
         return;
       }
 
       const medalhas = ['🥇','🥈','🥉'];
 
       ranking.forEach((player,index) => {
+
         const item = document.createElement('div');
         item.className = 'player';
 
@@ -440,15 +643,20 @@ footer {
         const avatarUrl = perfis[player.nick.toLowerCase()];
 
         if(avatarUrl) {
+
           const avatar = document.createElement('img');
           avatar.className = 'avatar';
           avatar.src = avatarUrl;
           avatar.alt = 'Foto de ' + player.nick;
           avatar.loading = 'lazy';
+
           item.appendChild(medal);
           item.appendChild(avatar);
+
         } else {
+
           item.appendChild(medal);
+
         }
 
         const info = document.createElement('div');
@@ -460,8 +668,10 @@ footer {
 
         const details = document.createElement('span');
         details.className = 'details';
+
         details.textContent =
-          `${index+1}º lugar • ${player.dias} dia(s) pontuados`;
+          'Dias: ' +
+          player.datas.map(formatarData).join(' • ');
 
         info.append(nick,details);
 
@@ -472,11 +682,13 @@ footer {
         value.textContent = formatScore(player.total);
 
         const label = document.createElement('small');
-        label.textContent = 'PONTOS SOMADOS';
+        label.textContent = 'SCORE';
 
         score.append(value,label);
+
         item.append(info,score);
         list.appendChild(item);
+
       });
 
       status.textContent = 'ATUALIZADO';
@@ -489,15 +701,38 @@ footer {
         });
 
     } catch(error) {
+
       console.error(error);
+
+      if(numeroConsulta !== consultaAtual) return;
+
       status.textContent = 'ERRO NA LEITURA';
+
       list.innerHTML =
         '<p class="empty">Não foi possível carregar o ranking. Verifique a conexão e as permissões do Supabase.</p>';
+
     }
+
   }
 
+  criarSeletorMes();
+
+  monthSelect.addEventListener('change',carregar);
+
   await carregar();
-  setInterval(carregar,60000);
+
+  // Atualiza automaticamente enquanto o mês atual estiver selecionado.
+  setInterval(function() {
+
+    const hoje = getBrazilDate();
+    const mesAtual = hoje.substring(0,7);
+
+    if(monthSelect.value === mesAtual) {
+      carregar();
+    }
+
+  },60000);
+
 })();
 </script>
 
