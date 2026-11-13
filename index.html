@@ -60,16 +60,80 @@ header {
   gap: 15px;
 }
 
+/* LOGO PEQUENO DO CABEÇALHO */
 .logo {
   font-size: 25px;
   font-weight: 900;
   letter-spacing: 2px;
-  color: white;
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    #aaa0b9,
+    #ffffff,
+    #665879
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px #a64dff;
+  text-shadow: 0 0 8px #962cff, 0 0 18px #8b35ff;
 }
 
 .logo span {
-  color: var(--neon);
-  text-shadow: 0 0 15px var(--purple);
+  color: transparent;
+  text-shadow: none;
+}
+
+/* AGT ARENA GRANDE */
+h1 {
+  font-size: clamp(48px, 9vw, 90px);
+  line-height: 1;
+  margin: 20px 0;
+  font-weight: 900;
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    #b9a9ca,
+    #ffffff,
+    #705a83,
+    #f4eaff
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px #a64dff;
+  text-shadow: 0 0 12px #9d36ff, 0 0 28px #8b35ff;
+}
+
+h1 span {
+  color: transparent;
+  text-shadow: none;
+}
+
+/* FUMAÇA ROXA */
+h1::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -45px -35px;
+  background:
+    radial-gradient(ellipse at 30% 55%, #8b35ff99, transparent 55%),
+    radial-gradient(ellipse at 70% 45%, #bd75ff88, transparent 55%);
+  filter: blur(35px);
+  animation: fumacaAGT 4s ease-in-out infinite alternate;
+}
+
+@keyframes fumacaAGT {
+  from {
+    opacity: 0.45;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.12);
+  }
 }
 
 nav {
