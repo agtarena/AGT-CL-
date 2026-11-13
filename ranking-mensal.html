@@ -26,55 +26,46 @@ body {
   min-height:100vh;
   background-color:#090611;
   background-image:
-    linear-gradient(
-      rgba(9,6,17,.25),
-      rgba(9,6,17,.40)
-    ),
+    linear-gradient(rgba(9,6,17,.25),rgba(9,6,17,.40)),
     url('./agt-banner2.png');
-
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
   background-attachment:fixed;
-
   color:#fff;
   font-family:Arial,sans-serif;
 }
 
 header {
-  position: relative;
-  min-height: 84px;
-  padding: 18px 7%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-bottom: 1px solid #392052;
-  background: rgba(9,6,17,.82);
-  backdrop-filter: blur(8px);
+  position:relative;
+  min-height:84px;
+  padding:18px 7%;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  border-bottom:1px solid #392052;
+  background:rgba(9,6,17,.82);
+  backdrop-filter:blur(8px);
 }
 
 .logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-
-  font-size: clamp(25px, 4vw, 34px);
-  font-weight: 1000;
-  letter-spacing: 3px;
-
-  background: linear-gradient(
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  font-size:clamp(25px,4vw,34px);
+  font-weight:1000;
+  letter-spacing:3px;
+  background:linear-gradient(
     180deg,
     #ffffff 0%,
     #e5e8ef 30%,
     #aeb5c1 65%,
     #f8f9fc 100%
   );
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
   filter:
     drop-shadow(0 0 2px rgba(255,255,255,.55))
     drop-shadow(0 0 7px rgba(151,65,255,.65))
@@ -198,7 +189,11 @@ main {
   padding:15px;
   border:1px solid #39234f;
   border-radius:11px;
-  background:linear-gradient(110deg,rgba(33,21,47,.94),rgba(16,12,25,.94));
+  background:linear-gradient(
+    110deg,
+    rgba(33,21,47,.94),
+    rgba(16,12,25,.94)
+  );
   backdrop-filter:blur(5px);
 }
 
@@ -268,14 +263,17 @@ main {
   letter-spacing:1px;
 }
 
-.stat-score strong,
-.stat-points strong {
+.stat-score strong {
   color:#bd75ff;
 }
 
 .player.rank-1 {
   border-color:#c99b32;
-  background:linear-gradient(110deg,rgba(58,43,18,.95),rgba(23,16,27,.95));
+  background:linear-gradient(
+    110deg,
+    rgba(58,43,18,.95),
+    rgba(23,16,27,.95)
+  );
 }
 
 .player.rank-1 .nick,
@@ -285,7 +283,11 @@ main {
 
 .player.rank-2 {
   border-color:#9ba4b3;
-  background:linear-gradient(110deg,rgba(41,45,54,.95),rgba(23,19,30,.95));
+  background:linear-gradient(
+    110deg,
+    rgba(41,45,54,.95),
+    rgba(23,19,30,.95)
+  );
 }
 
 .player.rank-2 .nick,
@@ -295,7 +297,11 @@ main {
 
 .player.rank-3 {
   border-color:#a96a3c;
-  background:linear-gradient(110deg,rgba(56,34,22,.95),rgba(23,16,27,.95));
+  background:linear-gradient(
+    110deg,
+    rgba(56,34,22,.95),
+    rgba(23,16,27,.95)
+  );
 }
 
 .player.rank-3 .nick,
@@ -329,34 +335,28 @@ footer {
   background:rgba(9,6,17,.55);
 }
 
-@media (max-width: 600px) {
+@media (max-width:600px) {
   header {
-    padding: 12px 3%;
-    min-height: 68px;
+    padding:12px 3%;
+    min-height:68px;
   }
 
   .logo {
-    font-size: 19px;
-    letter-spacing: 1px;
-    left: 46%;
+    font-size:19px;
+    letter-spacing:1px;
+    left:46%;
   }
 
   .back {
-    padding: 6px 7px;
-    font-size: 9px;
-    border-radius: 6px;
-    position: relative;
-    z-index: 2;
+    padding:6px 7px;
+    font-size:9px;
+    border-radius:6px;
+    position:relative;
+    z-index:2;
   }
 
   main {
-    padding: 20px 12px;
-  }
-
-  /* Mantenha aqui os outros ajustes que já existiam
-     no seu bloco original, se houver. */
-}
-  main {
+    width:94%;
     margin:40px auto;
   }
 
@@ -370,6 +370,7 @@ footer {
 
   .month-select {
     flex:1;
+    min-width:0;
   }
 
   .status {
@@ -478,6 +479,9 @@ footer {
   const updated = document.getElementById('updated');
   const monthSelect = document.getElementById('month-select');
 
+  const PRIMEIRO_MES = '2026-03';
+  const PRIMEIRO_DIA = '2026-03-12';
+
   let consultaAtual = 0;
 
   function getBrazilDate() {
@@ -489,7 +493,10 @@ footer {
     }).formatToParts(new Date());
 
     const values = {};
-    parts.forEach(part => values[part.type] = part.value);
+
+    parts.forEach(part => {
+      values[part.type] = part.value;
+    });
 
     return `${values.year}-${values.month}-${values.day}`;
   }
@@ -515,24 +522,32 @@ footer {
 
     monthSelect.innerHTML = '';
 
-    for(let i = 0; i < 60; i++) {
-      const data = new Date(
-        Date.UTC(anoAtual,mesAtual-1-i,1,12)
-      );
+    const primeiro = new Date(Date.UTC(2026,2,1,12));
+    const atual = new Date(Date.UTC(anoAtual,mesAtual-1,1,12));
 
+    for(
+      let data = atual;
+      data >= primeiro;
+      data = new Date(Date.UTC(
+        data.getUTCFullYear(),
+        data.getUTCMonth()-1,
+        1,
+        12
+      ))
+    ) {
       const ano = data.getUTCFullYear();
       const mes = String(data.getUTCMonth()+1).padStart(2,'0');
       const chave = `${ano}-${mes}`;
 
       const option = document.createElement('option');
       option.value = chave;
-      option.textContent = `${meses[data.getUTCMonth()]} de ${ano}`;
+      option.textContent =
+        `${meses[data.getUTCMonth()]} de ${ano}`;
 
       monthSelect.appendChild(option);
     }
 
-    monthSelect.value =
-      `${anoAtual}-${String(mesAtual).padStart(2,'0')}`;
+    monthSelect.value = hoje.substring(0,7);
   }
 
   async function buscarCapturas(inicio,fim) {
@@ -566,17 +581,28 @@ footer {
 
     const hoje = getBrazilDate();
     const mesEscolhido = monthSelect.value;
+
+    if(!mesEscolhido) return;
+
     const [ano,mes] = mesEscolhido.split('-').map(Number);
 
-    const inicio = `${mesEscolhido}-01`;
     const mesAtual = hoje.substring(0,7);
+
+    let inicio = `${mesEscolhido}-01`;
+
+    if(mesEscolhido === PRIMEIRO_MES) {
+      inicio = PRIMEIRO_DIA;
+    }
 
     let fim;
 
     if(mesEscolhido === mesAtual) {
       fim = hoje;
     } else {
-      const ultimoDia = new Date(Date.UTC(ano,mes,0)).getUTCDate();
+      const ultimoDia = new Date(
+        Date.UTC(ano,mes,0)
+      ).getUTCDate();
+
       fim = `${mesEscolhido}-${String(ultimoDia).padStart(2,'0')}`;
     }
 
@@ -678,6 +704,8 @@ footer {
 
         const avatarUrl = perfis[player.nick.toLowerCase()];
 
+        item.appendChild(medal);
+
         if(avatarUrl) {
           const avatar = document.createElement('img');
           avatar.className = 'avatar';
@@ -685,10 +713,7 @@ footer {
           avatar.alt = 'Foto de ' + player.nick;
           avatar.loading = 'lazy';
 
-          item.appendChild(medal);
           item.appendChild(avatar);
-        } else {
-          item.appendChild(medal);
         }
 
         const info = document.createElement('div');
@@ -718,19 +743,7 @@ footer {
         scoreLabel.textContent = 'SCORE';
 
         score.append(scoreValue,scoreLabel);
-
-        const points = document.createElement('div');
-        points.className = 'stat stat-points';
-
-        const pointsValue = document.createElement('strong');
-        pointsValue.textContent = '0';
-
-        const pointsLabel = document.createElement('small');
-        pointsLabel.textContent = 'PONTOS';
-
-        points.append(pointsValue,pointsLabel);
-
-        stats.append(score,points);
+        stats.appendChild(score);
 
         item.append(info,stats);
         list.appendChild(item);
