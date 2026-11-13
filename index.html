@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<link rel="icon" type="image/png" href="./logo.png?v=2">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090611">
+<link rel="icon" type="image/png" href="./logo.png?v=2">
 <title>AGT Arena | Clã AGT</title>
 
 <style>
@@ -46,6 +46,8 @@ body::before {
   z-index: -1;
 }
 
+/* CABEÇALHO */
+
 header {
   position: sticky;
   top: 0;
@@ -60,7 +62,6 @@ header {
   gap: 15px;
 }
 
-/* LOGO PEQUENO DO CABEÇALHO */
 .logo {
   font-size: 25px;
   font-weight: 900;
@@ -83,212 +84,159 @@ header {
   color: transparent;
   text-shadow: none;
 }
-/* ==========================================
-   AGT ARENA - CHROME PRATA + NEON ROXO
-   FUMAÇA ROXA NASCENDO DEBAIXO DO TÍTULO
-========================================== */
+
+/* AGT ARENA - PRATA METÁLICA */
 
 .hero .hero-content h1 {
-    position: relative;
-    display: inline-block;
-    isolation: isolate;
-    overflow: visible;
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  overflow: visible;
 
-    font-size: clamp(64px, 12vw, 112px);
-    font-weight: 1000;
-    line-height: 0.92;
-    letter-spacing: 2px;
+  font-size: clamp(64px, 12vw, 112px);
+  font-weight: 1000;
+  line-height: 0.92;
+  letter-spacing: 2px;
 
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #e9edf3 12%,
-        #a4abb7 27%,
-        #ffffff 39%,
-        #747e8d 52%,
-        #f9fbff 63%,
-        #a3aab5 78%,
-        #ffffff 100%
-    );
+  background: linear-gradient(
+    180deg,
+    #69727f 0%,
+    #ffffff 12%,
+    #aeb5c0 25%,
+    #626b78 40%,
+    #f8faff 52%,
+    #8993a1 67%,
+    #e6eaf0 82%,
+    #626b78 100%
+  );
 
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px #a020ff;
 
-    -webkit-text-stroke: 1.2px #a020ff;
-
-    text-shadow:
-        0 0 2px #ffffff,
-        0 0 6px #a020ff,
-        0 0 13px rgba(145, 0, 255, 0.8);
+  filter:
+    drop-shadow(0 0 4px #a020ff)
+    drop-shadow(0 0 10px rgba(139,53,255,.8));
 }
 
-/* ARENA: MESMO PRATA METÁLICO */
+/* ARENA PRATA */
 
 .hero .hero-content h1 span {
-    display: inline-block;
-    font-size: inherit;
-    font-weight: inherit;
-    letter-spacing: inherit;
+  display: inline-block;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
 
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #dce1e9 18%,
-        #858e9c 38%,
-        #ffffff 50%,
-        #858d9a 68%,
-        #e8edf5 85%,
-        #ffffff 100%
-    );
+  background: linear-gradient(
+    180deg,
+    #69727f 0%,
+    #ffffff 12%,
+    #aeb5c0 25%,
+    #626b78 40%,
+    #f8faff 52%,
+    #8993a1 67%,
+    #e6eaf0 82%,
+    #626b78 100%
+  );
 
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    -webkit-text-stroke: 1.2px #a020ff;
-
-    text-shadow:
-        0 0 3px #ffffff,
-        0 0 7px #a020ff,
-        0 0 14px rgba(145, 0, 255, 0.8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px #a020ff;
 }
 
-/* PRIMEIRA CAMADA DE FUMAÇA */
+/* FUMAÇA ROXA */
+
+.hero .hero-content h1::before,
+.hero .hero-content h1::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  left: -15%;
+  bottom: -35%;
+  width: 130%;
+  height: 150%;
+  mix-blend-mode: screen;
+
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    #000 18%,
+    #000 55%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    #000 18%,
+    #000 55%,
+    transparent 100%
+  );
+}
 
 .hero .hero-content h1::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    pointer-events: none;
+  background:
+    radial-gradient(ellipse 8% 45% at 12% 100%, rgba(130,0,255,.9), transparent 75%),
+    radial-gradient(ellipse 12% 55% at 30% 100%, rgba(175,35,255,.8), transparent 75%),
+    radial-gradient(ellipse 8% 48% at 48% 100%, rgba(125,0,255,.9), transparent 75%),
+    radial-gradient(ellipse 13% 55% at 68% 100%, rgba(180,40,255,.8), transparent 75%),
+    radial-gradient(ellipse 9% 45% at 88% 100%, rgba(140,0,255,.9), transparent 75%);
 
-    left: -12%;
-    bottom: -28%;
-    width: 124%;
-    height: 120%;
-
-    background:
-        radial-gradient(
-            ellipse at 20% 95%,
-            rgba(135, 0, 255, 0.9) 0%,
-            transparent 48%
-        ),
-        radial-gradient(
-            ellipse at 50% 100%,
-            rgba(190, 65, 255, 0.8) 0%,
-            transparent 45%
-        ),
-        radial-gradient(
-            ellipse at 80% 95%,
-            rgba(115, 0, 255, 0.85) 0%,
-            transparent 48%
-        );
-
-    filter: blur(12px);
-    mix-blend-mode: screen;
-    -webkit-mask-image: linear-gradient(
-        to top,
-        #000 0%,
-        rgba(0,0,0,0.8) 45%,
-        transparent 100%
-    );
-    mask-image: linear-gradient(
-        to top,
-        #000 0%,
-        rgba(0,0,0,0.8) 45%,
-        transparent 100%
-    );
-
-    animation: agtFumacaBase 4s ease-in-out infinite;
-    will-change: transform, opacity;
+  filter: blur(11px);
+  animation: agtSmokeRise 4s ease-in-out infinite;
 }
-
-/* SEGUNDA CAMADA: MOVIMENTO INDEPENDENTE */
 
 .hero .hero-content h1::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    pointer-events: none;
+  background:
+    radial-gradient(ellipse 5% 42% at 20% 100%, rgba(210,120,255,.85), transparent 75%),
+    radial-gradient(ellipse 7% 50% at 42% 100%, rgba(145,0,255,.9), transparent 75%),
+    radial-gradient(ellipse 5% 45% at 62% 100%, rgba(220,130,255,.8), transparent 75%),
+    radial-gradient(ellipse 8% 52% at 82% 100%, rgba(150,0,255,.85), transparent 75%);
 
-    left: 0;
-    bottom: -22%;
-    width: 100%;
-    height: 115%;
-
-    background:
-        radial-gradient(
-            ellipse at 30% 100%,
-            rgba(180, 35, 255, 0.85),
-            transparent 42%
-        ),
-        radial-gradient(
-            ellipse at 65% 95%,
-            rgba(105, 0, 255, 0.8),
-            transparent 45%
-        );
-
-    filter: blur(17px);
-    mix-blend-mode: screen;
-
-    -webkit-mask-image: linear-gradient(
-        to top,
-        #000 0%,
-        transparent 100%
-    );
-    mask-image: linear-gradient(
-        to top,
-        #000 0%,
-        transparent 100%
-    );
-
-    animation: agtFumacaVolante 5.5s ease-in-out infinite;
-    will-change: transform, opacity;
+  filter: blur(15px);
+  animation: agtSmokeRiseSecond 5.2s ease-in-out infinite;
 }
 
-/* FUMAÇA NASCENDO DE BAIXO E SUBINDO */
-
-@keyframes agtFumacaBase {
-    0% {
-        transform: translateY(22px) scale(0.8);
-        opacity: 0;
-    }
-
-    25% {
-        opacity: 0.9;
-    }
-
-    65% {
-        transform: translateY(-28px) scale(1.08);
-        opacity: 0.7;
-    }
-
-    100% {
-        transform: translateY(-65px) scale(1.25);
-        opacity: 0;
-    }
+@keyframes agtSmokeRise {
+  0% {
+    transform: translate(0,20px) scale(.85);
+    opacity: 0;
+  }
+  30% {
+    opacity: .9;
+  }
+  65% {
+    transform: translate(10px,-40px) scale(1.1);
+    opacity: .65;
+  }
+  100% {
+    transform: translate(-8px,-95px) scale(1.25);
+    opacity: 0;
+  }
 }
 
-@keyframes agtFumacaVolante {
-    0% {
-        transform: translate(-12px, 18px) scale(0.85);
-        opacity: 0;
-    }
-
-    30% {
-        opacity: 0.75;
-    }
-
-    70% {
-        transform: translate(15px, -38px) scale(1.12);
-        opacity: 0.65;
-    }
-
-    100% {
-        transform: translate(-8px, -75px) scale(1.3);
-        opacity: 0;
-    }
+@keyframes agtSmokeRiseSecond {
+  0% {
+    transform: translate(8px,15px) scale(.8);
+    opacity: 0;
+  }
+  35% {
+    opacity: .8;
+  }
+  70% {
+    transform: translate(-10px,-50px) scale(1.1);
+    opacity: .6;
+  }
+  100% {
+    transform: translate(8px,-105px) scale(1.3);
+    opacity: 0;
+  }
 }
+
+/* MENU */
+
 nav {
   display: flex;
   gap: 22px;
@@ -305,6 +253,8 @@ nav a {
 nav a:hover {
   color: var(--neon);
 }
+
+/* INÍCIO */
 
 .hero {
   min-height: 570px;
@@ -335,6 +285,7 @@ nav a:hover {
   z-index: 1;
   overflow: visible;
 }
+
 .tag {
   color: var(--neon);
   font-size: 13px;
@@ -348,6 +299,8 @@ nav a:hover {
   max-width: 520px;
   margin-bottom: 30px;
 }
+
+/* BOTÕES */
 
 .btn {
   display: inline-block;
@@ -373,6 +326,8 @@ nav a:hover {
   box-shadow: none;
 }
 
+/* SEÇÕES */
+
 section {
   padding: 75px 8%;
 }
@@ -395,6 +350,8 @@ section {
   color: var(--muted);
   font-size: 14px;
 }
+
+/* CARDS */
 
 .cards {
   display: grid;
@@ -432,6 +389,8 @@ section {
   line-height: 1.7;
 }
 
+/* RANKING */
+
 .ranking {
   max-width: 750px;
   margin: auto;
@@ -459,6 +418,8 @@ section {
   font-weight: bold;
 }
 
+/* RECRUTAMENTO */
+
 .recruit {
   text-align: center;
   background:
@@ -479,6 +440,8 @@ section {
   margin-bottom: 20px;
 }
 
+/* RODAPÉ */
+
 footer {
   padding: 30px 8%;
   text-align: center;
@@ -490,6 +453,8 @@ footer {
 footer span {
   color: var(--neon);
 }
+
+/* AJUSTES PARA CELULARES */
 
 @media(max-width:600px) {
   header {
@@ -504,6 +469,21 @@ footer span {
   .hero {
     padding: 85px 7%;
     min-height: 500px;
+  }
+
+  .hero .hero-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero .hero-content h1 {
+    font-size: clamp(46px, 12vw, 70px);
+    letter-spacing: 0;
+    line-height: 1.08;
+  }
+
+  .hero .hero-content h1 span {
+    white-space: nowrap;
   }
 
   section {
@@ -610,11 +590,11 @@ footer span {
     Então venha conhecer a família AGT!
   </p>
 
-  <a class="btn" href="https://wa.me/5511948646144" target="_blank">
+  <a class="btn" href="https://wa.me/5511948646144" target="_blank" rel="noopener">
     RECRUTAMENTO 01
   </a>
 
-  <a class="btn btn-outline" href="https://wa.me/5512991173752" target="_blank">
+  <a class="btn btn-outline" href="https://wa.me/5512991173752" target="_blank" rel="noopener">
     RECRUTAMENTO 02
   </a>
 
@@ -622,7 +602,8 @@ footer span {
 
   <a class="btn btn-outline"
      href="https://youtube.com/@agtquikyt"
-     target="_blank">
+     target="_blank"
+     rel="noopener">
     ▶ CANAL AGT QUIK YT
   </a>
 </section>
@@ -636,72 +617,84 @@ footer span {
   <p>Uma família, um propósito, uma aliança.</p>
 </footer>
 
-<!-- Conexão do AGT Arena com Supabase -->
+<!-- CONEXÃO SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-  const SUPABASE_URL = 'https://lbknsgfpfxkvypkxbcmy.supabase.co';
+const SUPABASE_URL = 'https://lbknsgfpfxkvypkxbcmy.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
 
-  const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
+window.agtSupabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-  window.agtSupabase = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-  console.log('AGT Arena conectado ao Supabase!');
+console.log('AGT Arena conectado ao Supabase!');
 </script>
+
+<!-- ESTILO DO CADASTRO E LOGIN -->
+
 <style>
-  .agt-auth {
-    max-width: 480px;
-    margin: 45px auto;
-    padding: 25px;
-    background: #100d19;
-    border: 1px solid #792cff;
-    border-radius: 18px;
-    color: white;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 0 20px #792cff33;
-  }
-  .agt-auth h2 {
-    color: #bd83ff;
-    text-align: center;
-  }
-  .agt-auth input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 13px;
-    margin: 8px 0 15px;
-    border: 1px solid #6633aa;
-    border-radius: 8px;
-    background: #211a30;
-    color: white;
-  }
-  .agt-auth button {
-    width: 100%;
-    padding: 13px;
-    margin: 6px 0;
-    border: 0;
-    border-radius: 8px;
-    background: #812cff;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .agt-auth p {
-    color: #d7c9ed;
-    font-size: 14px;
-  }
-  #agt-message {
-    overflow-wrap: anywhere;
-    text-align: center;
-  }
+.agt-auth {
+  max-width: 480px;
+  margin: 45px auto;
+  padding: 25px;
+  background: #100d19;
+  border: 1px solid #792cff;
+  border-radius: 18px;
+  color: white;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 0 20px #792cff33;
+}
+
+.agt-auth h2 {
+  color: #bd83ff;
+  text-align: center;
+}
+
+.agt-auth input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin: 8px 0 15px;
+  border: 1px solid #6633aa;
+  border-radius: 8px;
+  background: #211a30;
+  color: white;
+}
+
+.agt-auth button {
+  width: 100%;
+  padding: 13px;
+  margin: 6px 0;
+  border: 0;
+  border-radius: 8px;
+  background: #812cff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.agt-auth p {
+  color: #d7c9ed;
+  font-size: 14px;
+}
+
+#agt-message {
+  overflow-wrap: anywhere;
+  text-align: center;
+}
 </style>
+
+<!-- CADASTRO E LOGIN -->
 
 <section class="agt-auth">
   <h2>🐍 AGT ARENA</h2>
   <p>Entre para fazer parte da nossa família!</p>
 
   <h3>Criar minha conta</h3>
+
   <form id="agt-register">
     <label>Nick do jogo (precisa conter AGT)</label>
     <input id="agt-nick" placeholder="Ex: AGT Quik" required>
@@ -718,14 +711,17 @@ footer span {
   <hr>
 
   <h3>Já tenho uma conta</h3>
+
   <form id="agt-login">
     <input id="agt-login-email" type="email" placeholder="Seu e-mail" required>
     <input id="agt-login-password" type="password" placeholder="Sua senha" required>
+
     <button type="submit">ENTRAR</button>
     <button type="button" id="agt-forgot-password">ESQUECI MINHA SENHA</button>
   </form>
 
   <button id="agt-logout" type="button" hidden>Sair da conta</button>
+
   <p id="agt-message">AGT Arena — Aliança • Garra • Talento</p>
 </section>
 
@@ -742,6 +738,8 @@ footer span {
     avisar('Erro ao iniciar a conexão com o Supabase.');
     return;
   }
+
+  /* CADASTRO */
 
   document.getElementById('agt-register').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -777,6 +775,8 @@ footer span {
     }
   });
 
+  /* LOGIN */
+
   document.getElementById('agt-login').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -797,18 +797,45 @@ footer span {
     }
   });
 
+  /* RECUPERAÇÃO DE SENHA */
+
+  document.getElementById('agt-forgot-password').addEventListener('click', async function() {
+    const email = document.getElementById('agt-login-email').value.trim();
+
+    if (!email) {
+      avisar('Digite seu e-mail no campo de login primeiro.');
+      return;
+    }
+
+    avisar('Enviando solicitação de recuperação...');
+
+    const { error } = await db.auth.resetPasswordForEmail(email);
+
+    if (error) {
+      avisar('Erro: ' + error.message);
+    } else {
+      avisar('Se o e-mail estiver cadastrado, você receberá as instruções de recuperação.');
+    }
+  });
+
+  /* SAIR DA CONTA */
+
   document.getElementById('agt-logout').addEventListener('click', async function() {
     const { error } = await db.auth.signOut();
     avisar(error ? error.message : 'Você saiu da sua conta.');
   });
 
+  /* ESTADO DA CONTA */
+
   db.auth.onAuthStateChange(function(event, session) {
     document.getElementById('agt-logout').hidden = !session;
+
     if (session) {
       avisar('Conectado: ' + session.user.email);
     }
   });
 })();
 </script>
+
 </body>
 </html>
