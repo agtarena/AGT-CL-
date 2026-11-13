@@ -52,10 +52,6 @@ body {
   z-index: -1;
 }
 
-/* ==================================================
-   CONFIGURAÇÕES GERAIS
-================================================== */
-
 /* CABEÇALHO */
 
 header {
@@ -305,10 +301,7 @@ nav a:hover {
   color: var(--neon);
 }
 
-/* ==================================================
-   PERFIL 1 — COMPUTADOR / DESKTOP
-   Tudo aqui controla a aparência no PC.
-================================================== */
+/* DESKTOP */
 
 .hero {
   min-height: 570px;
@@ -359,7 +352,7 @@ nav a:hover {
   margin-bottom: 30px;
 }
 
-/* BOTÕES */
+/* BOTÕES GERAIS */
 
 .btn {
   display: inline-block;
@@ -499,6 +492,82 @@ section {
   margin-bottom: 20px;
 }
 
+/* NOVOS BOTÕES DE REDES SOCIAIS */
+
+.recruit-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 17px;
+  margin-top: 25px;
+}
+
+.whatsapp-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 155px;
+  padding: 14px 22px;
+  border: 1px solid #25d366;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #128c4a, #075e36);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 0 18px rgba(37,211,102,.22);
+  transition: .3s;
+}
+
+.whatsapp-btn svg {
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, #19b95d, #08733e);
+  box-shadow: 0 0 25px rgba(37,211,102,.45);
+}
+
+.youtube-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ff3030, #b90000);
+  border: 1px solid #ff5555;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255,0,0,.3);
+  text-decoration: none;
+  transition: .3s;
+}
+
+.youtube-btn svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+}
+
+.youtube-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 0 28px rgba(255,0,0,.6);
+}
+
 /* RODAPÉ */
 
 footer {
@@ -513,170 +582,7 @@ footer span {
   color: var(--neon);
 }
 
-/* ==================================================
-   PERFIL 2 — CELULAR / MOBILE
-   Tudo aqui controla a aparência no celular.
-   Alterações nesta área não mudam o PC.
-================================================== */
-
-@media (max-width: 600px) {
-
-  /* CABEÇALHO MOBILE */
-
-  header {
-    padding: 15px 5%;
-    justify-content: center;
-    gap: 13px;
-  }
-
-  .logo {
-    font-size: 25px;
-  }
-
-  nav {
-    width: 100%;
-    justify-content: center;
-    gap: 13px;
-  }
-
-  nav a {
-    font-size: 11px;
-  }
-
-  /* BANNER MOBILE */
-
-  .hero {
-    min-height: 520px;
-    padding: 75px 6% 90px;
-    align-items: center;
-    background-position: center center;
-    background-size: cover;
-  }
-
-  /* MARCA-D'ÁGUA AGT MOBILE */
-
-  .hero::after {
-    right: 4%;
-    bottom: -25px;
-    font-size: clamp(125px, 38vw, 190px);
-    line-height: 1;
-    white-space: nowrap;
-  }
-
-  /* CONTEÚDO MOBILE */
-
-  .hero .hero-content {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .tag {
-    font-size: 10px;
-    letter-spacing: 2.5px;
-  }
-
-  /* TÍTULO MOBILE */
-
-  .hero .hero-content h1 {
-    font-size: clamp(46px, 11.5vw, 68px);
-    letter-spacing: 0;
-    line-height: 1.05;
-  }
-
-  .hero .hero-content h1 span {
-    white-space: nowrap;
-  }
-
-  /* FUMAÇA MOBILE */
-
-  .agt-smoke {
-    left: -5%;
-    top: 35px;
-    width: 110%;
-    height: 180px;
-  }
-
-  .agt-smoke span {
-    filter: blur(11px);
-  }
-
-  /* TEXTO MOBILE */
-
-  .hero p {
-    font-size: 14px;
-    line-height: 1.7;
-    max-width: 100%;
-    margin-top: 18px;
-    margin-bottom: 22px;
-  }
-
-  /* BOTÕES MOBILE */
-
-  .btn {
-    padding: 13px 17px;
-    font-size: 12px;
-    margin: 5px 3px;
-  }
-
-  /* SEÇÕES MOBILE */
-
-  section {
-    padding: 60px 6%;
-  }
-
-  .section-title {
-    margin-bottom: 30px;
-  }
-
-  .section-title h2 {
-    font-size: 26px;
-  }
-
-  .section-title p {
-    font-size: 13px;
-  }
-
-  /* CARDS MOBILE */
-
-  .cards {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .card {
-    padding: 23px;
-  }
-
-  /* RECRUTAMENTO MOBILE */
-
-  .recruit h2 {
-    font-size: 30px;
-  }
-
-  .recruit p {
-    font-size: 14px;
-  }
-
-  /* CADASTRO MOBILE */
-
-  .agt-auth {
-    width: 100%;
-    margin: 30px auto;
-    padding: 20px;
-  }
-
-  /* RODAPÉ MOBILE */
-
-  footer {
-    padding: 28px 6%;
-    font-size: 12px;
-  }
-}
-
-/* ==================================================
-   AJUSTES PARA TABLETS
-   Faixa intermediária entre celular e computador.
-================================================== */
+/* TABLET */
 
 @media (min-width: 601px) and (max-width: 900px) {
 
@@ -705,6 +611,167 @@ footer span {
 
   section {
     padding: 65px 6%;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  header {
+    padding: 15px 5%;
+    justify-content: center;
+    gap: 13px;
+  }
+
+  .logo {
+    font-size: 25px;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: center;
+    gap: 13px;
+  }
+
+  nav a {
+    font-size: 11px;
+  }
+
+  .hero {
+    min-height: 520px;
+    padding: 75px 6% 90px;
+    align-items: center;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  .hero::after {
+    right: 4%;
+    bottom: -25px;
+    font-size: clamp(125px, 38vw, 190px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .hero .hero-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+  }
+
+  .hero .hero-content h1 {
+    font-size: clamp(46px, 11.5vw, 68px);
+    letter-spacing: 0;
+    line-height: 1.05;
+  }
+
+  .hero .hero-content h1 span {
+    white-space: nowrap;
+  }
+
+  .agt-smoke {
+    left: -5%;
+    top: 35px;
+    width: 110%;
+    height: 180px;
+  }
+
+  .agt-smoke span {
+    filter: blur(11px);
+  }
+
+  .hero p {
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 100%;
+    margin-top: 18px;
+    margin-bottom: 22px;
+  }
+
+  .btn {
+    padding: 13px 17px;
+    font-size: 12px;
+    margin: 5px 3px;
+  }
+
+  section {
+    padding: 60px 6%;
+  }
+
+  .section-title {
+    margin-bottom: 30px;
+  }
+
+  .section-title h2 {
+    font-size: 26px;
+  }
+
+  .section-title p {
+    font-size: 13px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card {
+    padding: 23px;
+  }
+
+  .recruit h2 {
+    font-size: 30px;
+  }
+
+  .recruit p {
+    font-size: 14px;
+  }
+
+  /* WHATSAPP LADO A LADO NO CELULAR */
+
+  .whatsapp-buttons {
+    gap: 9px;
+  }
+
+  .whatsapp-btn {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 8px;
+    gap: 7px;
+    font-size: 12px;
+  }
+
+  .whatsapp-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* YOUTUBE ABAIXO DOS WHATSAPPS */
+
+  .youtube-btn {
+    width: 56px;
+    height: 56px;
+  }
+
+  .youtube-btn svg {
+    width: 27px;
+    height: 27px;
+  }
+
+  .agt-auth {
+    width: 100%;
+    margin: 30px auto;
+    padding: 20px;
+  }
+
+  footer {
+    padding: 28px 6%;
+    font-size: 12px;
   }
 }
 
@@ -877,22 +944,55 @@ footer span {
     Então venha conhecer a família AGT!
   </p>
 
-  <a class="btn" href="https://wa.me/5511948646144" target="_blank" rel="noopener">
-    RECRUTAMENTO 01
-  </a>
+  <div class="recruit-social">
 
-  <a class="btn btn-outline" href="https://wa.me/5512991173752" target="_blank" rel="noopener">
-    RECRUTAMENTO 02
-  </a>
+    <!-- DOIS BOTÕES WHATSAPP -->
 
-  <br><br>
+    <div class="whatsapp-buttons">
 
-  <a class="btn btn-outline"
-     href="https://youtube.com/@agtquikyt"
-     target="_blank"
-     rel="noopener">
-    ▶ CANAL AGT QUIK YT
-  </a>
+      <a class="whatsapp-btn"
+         href="https://wa.me/5511948646144"
+         target="_blank"
+         rel="noopener"
+         aria-label="Recrutamento pelo WhatsApp 1">
+
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>
+        </svg>
+
+        <span>WhatsApp</span>
+      </a>
+
+      <a class="whatsapp-btn"
+         href="https://wa.me/5512991173752"
+         target="_blank"
+         rel="noopener"
+         aria-label="Recrutamento pelo WhatsApp 2">
+
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>
+        </svg>
+
+        <span>WhatsApp</span>
+      </a>
+
+    </div>
+
+    <!-- SOMENTE O ÍCONE DO YOUTUBE -->
+
+    <a class="youtube-btn"
+       href="https://youtube.com/@agtquikyt"
+       target="_blank"
+       rel="noopener"
+       aria-label="Canal AGT QUIK YT">
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+      </svg>
+
+    </a>
+
+  </div>
 </section>
 
 <!-- CONEXÃO SUPABASE -->
