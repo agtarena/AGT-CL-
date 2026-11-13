@@ -1,355 +1,293 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<link rel="icon" type="image/png" href="./logo.png?v=2">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090611">
 <title>AGT Arena | Clã AGT</title>
+<link rel="icon" type="image/png" href="./logo.png">
 
-
-  <style>
-
-:root {
+<style>
+:raiz {
   --bg: #090611;
-  --card: #151020;
-  --purple: #8b35ff;
+  --cartão: #151020;
+  --roxo: #8b35ff;
   --neon: #bd75ff;
-  --white: #ffffff;
-  --muted: #aaa0b9;
+  --branco: #ffffff;
+  --silenciado: #aaa0b9;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
+  margem: 0;
+  preenchimento: 0;
+  box-sized: caixa com borda;
+  Comportamento de rolagem: suave;
 }
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Texto Prata Neon com Fumaça</title>
-<style>
-  /* Fundo escuro para destacar o neon e a fumaça */
-  body {
-    background-color: #090512;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: 'Arial Black', Impact, sans-serif;
-    overflow: hidden;
-  }
+corpo {
+  fundo: var(--bg);
+  cor: var(--branco);
+  família de fontes: Arial, sem serifa;
+  overflow-x: oculto;
+}
 
-  /* Contêiner que segura o texto e a fumaça */
-  .container-neon {
-    position: relative;
-    display: inline-block;
-    padding: 20px 40px;
-  }
+cabeçalho {
+  posição: pegajosa;
+  topo: 0;
+  Índice z: 10;
+  fundo: rgba(9,6,17,.94);
+  borda inferior: 1px sólida #392052;
+  preenchimento: 18px 7%;
+  Exibir: flexível;
+  justify-content: espaço-entre;
+  alinhamento-itens: centro;
+  flex-wrap: envolver;
+  espaçamento: 15px;
+}
 
-  /* Estilo da Fonte Prata + Borda Roxo Neon */
-  .texto-prata-neon {
-    position: relative;
-    z-index: 2; /* Fica na frente da fumaça */
-    font-size: 5rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin: 0;
-    
-    /* 1. Efeito Prata Metálico (Degradê) */
-    background: linear-gradient(
-      180deg, 
-      #ffffff 0%, 
-      #d4d4d8 45%, 
-      #71717a 50%, 
-      #e4e4e7 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.logo {
+  tamanho da fonte: 25px;
+  peso da fonte: 900;
+  espaçamento entre letras: 2px;
+  cor: branca;
+}
 
-    /* 2. Faixa / Brilho Roxo Neon em volta */
-    -webkit-text-stroke: 2px #b026ff; /* Contorno fino roxo */
-    filter: drop-shadow(0 0 8px #9d00ff) 
-            drop-shadow(0 0 20px #7000ff);
-  }
+.logo span {
+  cor: var(--neon);
+  sombra-texto: 0 0 15px var(--roxo);
+}
 
-  /* Camadas de Fumaça Subindo */
-  .fumaca {
-    position: absolute;
-    bottom: 10px;
-    left: 10%;
-    width: 80%;
-    height: 60px;
-    z-index: 1; /* Fica atrás do texto */
-    pointer-events: none;
-  }
+nav {
+  Exibir: flexível;
+  espaço: 22px;
+  flex-wrap: envolver;
+}
 
-  .fumaca span {
-    position: absolute;
-    bottom: 0;
-    background: radial-gradient(circle, rgba(200, 180, 255, 0.35) 0%, rgba(157, 0, 255, 0) 70%);
-    border-radius: 50%;
-    filter: blur(18px); /* Deixa com aspecto gasoso/esfumaçado */
-    opacity: 0;
-    animation: subirFumaca 4s infinite ease-in;
-  }
-
-  /* Criando várias partículas de fumaça em posições e tempos diferentes */
-  .fumaca span:nth-child(1) { left: 10%; width: 90px; height: 90px; animation-delay: 0s; }
-  .fumaca span:nth-child(2) { left: 30%; width: 120px; height: 120px; animation-delay: 1.2s; }
-  .fumaca span:nth-child(3) { left: 55%; width: 100px; height: 100px; animation-delay: 0.6s; }
-  .fumaca span:nth-child(4) { left: 75%; width: 110px; height: 110px; animation-delay: 2s; }
-  .fumaca span:nth-child(5) { left: 45%; width: 130px; height: 130px; animation-delay: 2.8s; }
-
-  /* Animação da fumaça subindo e sumindo */
-  @keyframes subirFumaca {
-    0% {
-      transform: translateY(20px) scale(0.8);
-      opacity: 0;
-    }
-    30% {
-      opacity: 0.6; /* Transparência máxima da fumaça */
-    }
-    100% {
-      transform: translateY(-140px) scale(1.8);
-      opacity: 0;
-    }
-  }
-</style>
-</head>
-<body>
-
-  <div class="container-neon">
-    <h1 class="texto-prata-neon">SEU TEXTO</h1>
-    <div class="fumaca">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-
-</body>
-</html>
 nav a {
-  color: #ddd;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: bold;
+  cor: #ddd;
+  decoração de texto: nenhuma;
+  tamanho da fonte: 13px;
+  peso da fonte: negrito;
 }
 
 nav a:hover {
-  color: var(--neon);
+  cor: var(--neon);
 }
 
-.hero {
-  min-height: 570px;
-  padding: 100px 8%;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: visible;
-  background:
-    radial-gradient(ellipse at 75% 50%, #54208b55, transparent 48%),
-    linear-gradient(130deg, #090611, #170b27);
+.herói {
+  altura mínima: 570px;
+  preenchimento: 100px 8%;
+  Exibir: flexível;
+  alinhamento-itens: centro;
+  posição: relativa;
+  overflow: oculto;
+  fundo:
+    gradiente radial (elipse a 75% 50%, #54208b55, transparente 48%),
+    gradiente-linear(130 graus, #090611, #170b27);
 }
 
 .hero::after {
-  content: "AGT";
-  position: absolute;
-  right: -25px;
-  bottom: -60px;
-  font-size: 260px;
-  font-weight: 900;
-  color: #ffffff08;
-  pointer-events: none;
+  Conteúdo: "AGT";
+  posição: absoluta;
+  direita: -25px;
+  parte inferior: -60px;
+  tamanho da fonte: 260px;
+  peso da fonte: 900;
+  cor: #ffffff08;
+  eventos-ponteiro: nenhum;
 }
 
 .hero-content {
-  max-width: 680px;
-  position: relative;
-  z-index: 1;
-  overflow: visible;
-}
-.tag {
-  color: var(--neon);
-  font-size: 13px;
-  letter-spacing: 4px;
-  font-weight: bold;
+  largura máxima: 680px;
+  posição: relativa;
+  Índice z: 1;
 }
 
-.hero p {
-  color: #c7bdcf;
-  line-height: 1.8;
-  max-width: 520px;
-  margin-bottom: 30px;
+.marcação {
+  cor: var(--neon);
+  tamanho da fonte: 13px;
+  espaçamento entre letras: 4px;
+  peso da fonte: negrito;
+}
+
+h1 {
+  tamanho da fonte: clamp(48px, 9vw, 90px);
+  altura da linha: 1;
+  margem: 20px 0;
+  peso da fonte: 900;
+}
+
+h1 span {
+  cor: var(--neon);
+  sombra-do-texto: 0 0 25px #8b35ff99;
+}
+
+.herói p {
+  cor: #c7bdcf;
+  altura da linha: 1,8;
+  largura máxima: 520px;
+  margem-inferior: 30px;
 }
 
 .btn {
-  display: inline-block;
-  background: linear-gradient(100deg, #7624df, #ad55ff);
-  color: white;
-  text-decoration: none;
-  padding: 15px 25px;
-  border-radius: 7px;
-  font-weight: bold;
+  exibição: inline-block;
+  fundo: gradiente-linear(100deg, #7624df, #ad55ff);
+  cor: branca;
+  decoração de texto: nenhuma;
+  preenchimento: 15px 25px;
+  raio da borda: 7px;
+  peso da fonte: negrito;
   box-shadow: 0 0 22px #8b35ff55;
-  transition: .3s;
-  margin: 5px 5px 5px 0;
+  transição: 0,3s;
+  margem: 5px 5px 5px 0;
 }
 
 .btn:hover {
-  transform: translateY(-4px);
+  transformar: translateY(-4px);
   box-shadow: 0 0 30px #a75aff99;
 }
 
 .btn-outline {
-  background: transparent;
-  border: 1px solid var(--purple);
-  box-shadow: none;
+  fundo: transparente;
+  borda: 1px var sólido (--roxo);
+  sombra-da-caixa: nenhuma;
 }
 
-section {
-  padding: 75px 8%;
+seção {
+  preenchimento: 75px 8%;
 }
 
 .section-title {
-  text-align: center;
-  margin-bottom: 40px;
+  alinhamento do texto: centralizado;
+  margem-inferior: 40px;
 }
 
 .section-title h2 {
-  font-size: 32px;
-  margin-bottom: 12px;
+  tamanho da fonte: 32px;
+  margem-inferior: 12px;
 }
 
 .section-title h2 span {
-  color: var(--neon);
+  cor: var(--neon);
 }
 
 .section-title p {
-  color: var(--muted);
-  font-size: 14px;
+  cor: var(--muted);
+  tamanho da fonte: 14px;
 }
 
 .cards {
-  display: grid;
+  Exibir: grade;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  espaço: 20px;
 }
 
 .card {
-  background: linear-gradient(145deg, #1d142c, #100c19);
-  border: 1px solid #49266b;
-  padding: 28px;
-  border-radius: 13px;
-  transition: .3s;
+  fundo: gradiente-linear(145deg, #1d142c, #100c19);
+  borda: 1px sólida #49266b;
+  preenchimento: 28px;
+  raio da borda: 13px;
+  transição: 0,3s;
 }
 
 .card:hover {
-  border-color: var(--neon);
-  transform: translateY(-5px);
+  cor-da-borda: var(--neon);
+  transformar: translateY(-5px);
   box-shadow: 0 0 25px #8b35ff22;
 }
 
 .card .symbol {
-  font-size: 32px;
-  margin-bottom: 18px;
+  tamanho da fonte: 32px;
+  margem-inferior: 18px;
 }
 
 .card h3 {
-  color: var(--neon);
-  margin-bottom: 12px;
+  cor: var(--neon);
+  margem-inferior: 12px;
 }
 
 .card p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.7;
+  cor: var(--muted);
+  tamanho da fonte: 14px;
+  altura da linha: 1,7;
 }
 
-.ranking {
-  max-width: 750px;
-  margin: auto;
-  background: var(--card);
-  border: 1px solid #49266b;
-  border-radius: 12px;
-  padding: 25px;
-  text-align: center;
+.classificação {
+  largura máxima: 750px;
+  margem: automática;
+  fundo: var(--card);
+  borda: 1px sólida #49266b;
+  raio da borda: 12px;
+  preenchimento: 25px;
+  alinhamento do texto: centralizado;
 }
 
-.ranking p {
-  color: var(--muted);
-  line-height: 1.7;
+.classificação p {
+  cor: var(--muted);
+  altura da linha: 1,7;
 }
 
 .status {
-  display: inline-block;
-  margin-top: 18px;
-  color: var(--neon);
-  background: #8b35ff20;
-  border: 1px solid #8b35ff66;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
+  exibição: inline-block;
+  margem superior: 18px;
+  cor: var(--neon);
+  fundo: #8b35ff20;
+  borda: 1px sólida #8b35ff66;
+  preenchimento: 8px 14px;
+  raio da borda: 20px;
+  tamanho da fonte: 12px;
+  peso da fonte: negrito;
 }
 
-.recruit {
-  text-align: center;
-  background:
-    radial-gradient(ellipse at center, #6123a044, transparent 65%),
+.recrutar {
+  alinhamento do texto: centralizado;
+  fundo:
+    gradiente radial (elipse no centro, #6123a044, transparente 65%),
     #100a1a;
-  border-top: 1px solid #49266b;
-  border-bottom: 1px solid #49266b;
+  borda superior: 1px sólida #49266b;
+  borda inferior: 1px sólida #49266b;
 }
 
-.recruit h2 {
-  font-size: clamp(30px, 6vw, 48px);
-  margin-bottom: 18px;
+.recrutar h2 {
+  tamanho da fonte: clamp(30px, 6vw, 48px);
+  margem-inferior: 18px;
 }
 
-.recruit p {
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 20px;
+.recrutar p {
+  cor: var(--muted);
+  altura da linha: 1,8;
+  margem-inferior: 20px;
 }
 
-footer {
-  padding: 30px 8%;
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 2;
+rodapé {
+  preenchimento: 30px 8%;
+  alinhamento do texto: centralizado;
+  cor: var(--muted);
+  tamanho da fonte: 13px;
+  altura da linha: 2;
 }
 
-footer span {
-  color: var(--neon);
+rodapé span {
+  cor: var(--neon);
 }
 
 @media(max-width:600px) {
-  header {
-    justify-content: center;
+  cabeçalho {
+    justificar-conteúdo: centralizado;
   }
 
   nav {
-    justify-content: center;
-    gap: 14px;
+    justificar-conteúdo: centralizado;
+    espaçamento: 14px;
   }
 
-  .hero {
-    padding: 85px 7%;
-    min-height: 500px;
+  .herói {
+    preenchimento: 85px 7%;
+    altura mínima: 500px;
   }
 
-  section {
-    padding: 60px 7%;
+  seção {
+    preenchimento: 60px 7%;
   }
 }
 </style>
@@ -368,7 +306,7 @@ footer span {
   </nav>
 </header>
 
-<main>
+<principal>
 
 <section class="hero" id="inicio">
   <div class="hero-content">
@@ -379,7 +317,7 @@ footer span {
     <p>
       Mais que um clã, uma família.
       Unidos pela habilidade, fortalecidos pela lealdade
-      e determinados a conquistar o topo no Slither.Mania.
+      e determinado a conquistar o topo no Slither.Mania.
     </p>
 
     <a class="btn" href="#recrutamento">FAÇA PARTE DA AGT</a>
@@ -416,14 +354,14 @@ footer span {
 
 <section id="ranking">
   <div class="section-title">
-    <h2>RANKINGS <span>AGT</span></h2>
+    <h2>CLASSIFICAÇÕES <span>AGT</span></h2>
     <p>Acompanhe o desempenho e a evolução competitiva.</p>
   </div>
 
   <div class="cards">
     <div class="card">
       <div class="symbol">👑</div>
-      <h3>Ranking diário</h3>
+      <h3>Ranking de pontuação</h3>
       <p>Classificação dos jogadores integrantes da AGT no Slither.Mania.</p>
       <div class="status">AGUARDANDO INTEGRAÇÃO</div>
     </div>
@@ -438,7 +376,7 @@ footer span {
     <div class="card">
       <div class="symbol">⭐</div>
       <h3>Patentes AGT</h3>
-      <p>Futuramente, cada integrante poderá acompanhar seus pontos e sua evolução.</p>
+      <p>Futuramente, cada membro poderá acompanhar seus pontos e sua evolução.</p>
       <div class="status">EM DESENVOLVIMENTO</div>
     </div>
   </div>
@@ -464,14 +402,14 @@ footer span {
 
   <a class="btn btn-outline"
      href="https://youtube.com/@agtquikyt"
-     target="_blank">
+     alvo="_blank">
     ▶ CANAL AGT QUIK YT
   </a>
 </section>
 
 </main>
 
-<footer>
+<rodapé>
   <div class="logo">AGT <span>ARENA</span></div>
   <p>ALIANÇA • GARRA • TALENTO</p>
   <p>© 2026 AGT Arena — Todos os direitos reservados.</p>
@@ -485,7 +423,7 @@ footer span {
 
   const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
 
-  window.agtSupabase = window.supabase.createClient(
+  janela.agtSupabase = janela.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
@@ -494,53 +432,53 @@ footer span {
 </script>
 <style>
   .agt-auth {
-    max-width: 480px;
-    margin: 45px auto;
-    padding: 25px;
-    background: #100d19;
-    border: 1px solid #792cff;
-    border-radius: 18px;
-    color: white;
-    font-family: Arial, sans-serif;
+    largura máxima: 480px;
+    margem: 45px automática;
+    preenchimento: 25px;
+    fundo: #100d19;
+    borda: 1px sólida #792cff;
+    raio da borda: 18px;
+    cor: branca;
+    família de fontes: Arial, sem serifa;
     box-shadow: 0 0 20px #792cff33;
   }
   .agt-auth h2 {
-    color: #bd83ff;
-    text-align: center;
+    Cor: #bd83ff;
+    alinhamento do texto: centralizado;
   }
   .agt-auth input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 13px;
-    margin: 8px 0 15px;
-    border: 1px solid #6633aa;
-    border-radius: 8px;
-    background: #211a30;
-    color: white;
+    largura: 100%;
+    box-sized: caixa com borda;
+    preenchimento: 13px;
+    margem: 8px 0 15px;
+    borda: 1px sólida #6633aa;
+    raio da borda: 8px;
+    fundo: #211a30;
+    cor: branca;
   }
-  .agt-auth button {
-    width: 100%;
-    padding: 13px;
-    margin: 6px 0;
-    border: 0;
-    border-radius: 8px;
-    background: #812cff;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+  Botão .agt-auth {
+    largura: 100%;
+    preenchimento: 13px;
+    margem: 6px 0;
+    borda: 0;
+    raio da borda: 8px;
+    fundo: #812cff;
+    cor: branca;
+    peso da fonte: negrito;
+    cursor: ponteiro;
   }
   .agt-auth p {
-    color: #d7c9ed;
-    font-size: 14px;
+    cor: #d7c9ed;
+    tamanho da fonte: 14px;
   }
-  #agt-message {
-    overflow-wrap: anywhere;
-    text-align: center;
+  #agt-mensagem {
+    overflow-wrap: em qualquer lugar;
+    alinhamento do texto: centralizado;
   }
 </style>
 
 <section class="agt-auth">
-  <h2>🐍 AGT ARENA</h2>
+  <h2>🐍 ARENA AGT</h2>
   <p>Entre para fazer parte da nossa família!</p>
 
   <h3>Criar minha conta</h3>
@@ -555,7 +493,7 @@ footer span {
     <input id="agt-password" type="password" minlength="6" placeholder="Crie uma senha" required>
 
     <button type="submit">CRIAR CONTA</button>
-  </form>
+  </formulário>
 
   <hr>
 
@@ -565,24 +503,24 @@ footer span {
     <input id="agt-login-password" type="password" placeholder="Sua senha" required>
     <button type="submit">ENTRAR</button>
     <button type="button" id="agt-forgot-password">ESQUECI MINHA SENHA</button>
-  </form>
+  </formulário>
 
   <button id="agt-logout" type="button" hidden>Sair da conta</button>
   <p id="agt-message">AGT Arena — Aliança • Garra • Talento</p>
 </section>
 
 <script>
-(function () {
+(função () {
   const db = window.agtSupabase;
-  const message = document.getElementById('agt-message');
+  const mensagem = document.getElementById('agt-message');
 
-  function avisar(texto) {
-    message.textContent = texto;
+  função sr(texto) {
+    mensagem.textoConteúdo = texto;
   }
 
-  if (!db) {
+  se (!db) {
     avisar('Erro ao iniciar a conexão com o Supabase.');
-    return;
+    retornar;
   }
 
   document.getElementById('agt-register').addEventListener('submit', async function(e) {
@@ -590,31 +528,31 @@ footer span {
 
     const nick = document.getElementById('agt-nick').value.trim();
     const email = document.getElementById('agt-email').value.trim();
-    const password = document.getElementById('agt-password').value;
+    const senha = document.getElementById('agt-password').value;
 
-    if (!/agt/i.test(nick)) {
+    se (!/agt/i.test(nick)) {
       avisar('Seu nick precisa conter AGT.');
-      return;
+      retornar;
     }
 
     avisar('Criando sua conta...');
 
     const { data, error } = await db.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { nick }
+      e-mail,
+      senha,
+      opções: {
+        dados: { apelido }
       }
     });
 
-    if (error) {
-      avisar('Erro: ' + error.message);
-      return;
+    se (erro) {
+      avisar('Erro: ' + erro.mensagem);
+      retornar;
     }
 
-    if (data.session) {
+    se (dados.sessão) {
       avisar('Conta criada! Bem-vindo à AGT!');
-    } else {
+    } outro {
       avisar('Cadastro recebido! Confira seu e-mail para confirmar a conta.');
     }
   });
@@ -623,18 +561,18 @@ footer span {
     e.preventDefault();
 
     const email = document.getElementById('agt-login-email').value.trim();
-    const password = document.getElementById('agt-login-password').value;
+    const senha = document.getElementById('agt-login-password').value;
 
-    avisar('Entrando...');
+    itemr('Entrando...');
 
     const { error } = await db.auth.signInWithPassword({
-      email,
-      password
+      e-mail,
+      senha
     });
 
-    if (error) {
+    se (erro) {
       avisar('Erro ao entrar: ' + error.message);
-    } else {
+    } outro {
       avisar('Login realizado com sucesso! Bem-vindo à AGT!');
     }
   });
@@ -646,7 +584,7 @@ footer span {
 
   db.auth.onAuthStateChange(function(event, session) {
     document.getElementById('agt-logout').hidden = !session;
-    if (session) {
+    se (sessão) {
       avisar('Conectado: ' + session.user.email);
     }
   });
