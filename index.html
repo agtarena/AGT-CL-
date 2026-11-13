@@ -116,6 +116,14 @@ header {
   transition:.25s;
 }
 
+/* MENU MAIS PRÓXIMO DA BORDA DIREITA NO COMPUTADOR */
+
+@media (min-width:901px) {
+  .menu-toggle {
+    margin-right:-5vw;
+  }
+}
+
 /* FUNDO DO MENU */
 
 .menu-overlay {
@@ -850,6 +858,17 @@ section {
   text-align:right;
 }
 
+/* BOTÃO PARA ABRIR O RANKING MENSAL COMPLETO */
+
+.monthly-ranking-button {
+  display:block;
+  width:fit-content;
+  margin:22px auto 0;
+  text-align:center;
+  font-size:12px;
+  padding:13px 20px;
+}
+
 .agt-player-avatar {
   width:42px;
   height:42px;
@@ -1331,6 +1350,10 @@ footer span {color:var(--neon)}
       </div>
 
       <span class="agt-ranking-updated" id="agt-month-updated"></span>
+
+      <a href="./ranking-mensal.html" class="btn btn-outline monthly-ranking-button">
+        VER RANKING MENSAL COMPLETO →
+      </a>
     </div>
 
     <div class="card">
