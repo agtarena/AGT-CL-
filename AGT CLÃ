@@ -16,7 +16,12 @@
   --white: #ffffff;
   --muted: #aaa0b9;
 }
-
+body {
+  background-color: #090611;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
 }
 * {
   margin: 0;
