@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,18 +17,19 @@
   --white: #ffffff;
   --muted: #aaa0b9;
 }
-body {
-  background-color: #090611;
-  color: #ffffff;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
-}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--white);
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 .agt-watermark-area {
@@ -49,6 +51,7 @@ body {
   pointer-events: none;
   z-index: -1;
 }
+
 /* CABEÇALHO */
 
 header {
@@ -81,7 +84,7 @@ header {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
- -webkit-text-stroke: 0px transparent;
+  -webkit-text-stroke: 0 transparent;
   filter: drop-shadow(0 0 3px #8b35ff)
           drop-shadow(0 0 7px rgba(139,53,255,.65));
 }
@@ -97,18 +100,12 @@ header {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px #08060d;
+  -webkit-text-stroke: 0 transparent;
 }
+
 /* AGT ARENA - PRATA METÁLICA */
 
 .hero .hero-content h1 {
-  @media (max-width: 600px) {
-  .hero .hero-content h1 {
-    -webkit-text-stroke: 0px transparent;
-    paint-order: fill stroke;
-    letter-spacing: 1.5px;
-  }
-}
   position: relative;
   display: inline-block;
   isolation: isolate;
@@ -119,7 +116,7 @@ header {
   line-height: 0.92;
   letter-spacing: 2px;
 
- background: linear-gradient(
+  background: linear-gradient(
     180deg,
     #ffffff 0%,
     #f5f6fa 12%,
@@ -130,12 +127,12 @@ header {
     #929baa 75%,
     #ffffff 90%,
     #c4cad4 100%
-);
+  );
 
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 2.5px #08060d;
+  -webkit-text-stroke: 0 transparent;
 
   filter:
     drop-shadow(0 0 4px #a020ff)
@@ -165,8 +162,7 @@ header {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
- -webkit-text-stroke: 1.2px #08060d;
-paint-order: stroke fill;
+  -webkit-text-stroke: 0 transparent;
 }
 
 /* FUMAÇA ROXA ANIMADA AGT */
@@ -174,6 +170,7 @@ paint-order: stroke fill;
 .hero .hero-content {
   position: relative;
   isolation: isolate;
+  overflow: visible;
 }
 
 .hero .hero-content h1 {
@@ -266,7 +263,7 @@ paint-order: stroke fill;
   animation-delay: 3s;
 }
 
-/* ANIMAÇÃO SUBINDO E SE ESPALHANDO */
+/* ANIMAÇÃO DA FUMAÇA */
 
 @keyframes agtSmokeParticles {
   0% {
@@ -293,6 +290,7 @@ paint-order: stroke fill;
     opacity: 0;
   }
 }
+
 /* MENU */
 
 nav {
@@ -325,16 +323,6 @@ nav a:hover {
     radial-gradient(ellipse at 75% 50%, #54208b55, transparent 48%),
     linear-gradient(rgba(9, 6, 17, 0.45), rgba(9, 6, 17, 0.65)),
     url("./agt-banner.png") center / cover no-repeat;
-}
-  min-height: 570px;
-  padding: 100px 8%;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: visible;
-  background:
-    radial-gradient(ellipse at 75% 50%, #54208b55, transparent 48%),
-    linear-gradient(130deg, #090611, #170b27);
 }
 
 .hero::after {
@@ -525,7 +513,7 @@ footer span {
 
 /* AJUSTES PARA CELULARES */
 
-@media(max-width:600px) {
+@media (max-width: 600px) {
   header {
     justify-content: center;
   }
@@ -549,10 +537,12 @@ footer span {
     font-size: clamp(46px, 12vw, 70px);
     letter-spacing: 0;
     line-height: 1.08;
+    -webkit-text-stroke: 0 transparent;
   }
 
   .hero .hero-content h1 span {
     white-space: nowrap;
+    -webkit-text-stroke: 0 transparent;
   }
 
   section {
@@ -579,19 +569,20 @@ footer span {
 
 <section class="hero" id="inicio">
   <div class="hero-content">
- <div class="tag">ALIANÇA • GARRA • TALENTO</div>
 
-<div class="agt-smoke" aria-hidden="true">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
+    <div class="tag">ALIANÇA • GARRA • TALENTO</div>
 
-<h1>AGT<br><span>ARENA</span></h1>
+    <div class="agt-smoke" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <h1>AGT<br><span>ARENA</span></h1>
 
     <p>
       Mais que um clã, uma família.
@@ -601,9 +592,12 @@ footer span {
 
     <a class="btn" href="#recrutamento">FAÇA PARTE DA AGT</a>
     <a class="btn btn-outline" href="#ranking">VER RANKINGS</a>
+
   </div>
 </section>
+
 <div class="agt-watermark-area">
+
 <section id="sobre">
   <div class="section-title">
     <h2>O UNIVERSO <span>AGT</span></h2>
@@ -611,6 +605,7 @@ footer span {
   </div>
 
   <div class="cards">
+
     <div class="card">
       <div class="symbol">🐍</div>
       <h3>Nossa identidade</h3>
@@ -628,6 +623,7 @@ footer span {
       <h3>Nossa família</h3>
       <p>Jogadores unidos por um mesmo objetivo: crescer e representar a AGT.</p>
     </div>
+
   </div>
 </section>
 
@@ -638,6 +634,7 @@ footer span {
   </div>
 
   <div class="cards">
+
     <div class="card">
       <div class="symbol">👑</div>
       <h3>Ranking diário</h3>
@@ -658,6 +655,7 @@ footer span {
       <p>Futuramente, cada integrante poderá acompanhar seus pontos e sua evolução.</p>
       <div class="status">EM DESENVOLVIMENTO</div>
     </div>
+
   </div>
 </section>
 
@@ -686,7 +684,6 @@ footer span {
     ▶ CANAL AGT QUIK YT
   </a>
 </section>
-  
 
 <!-- CONEXÃO SUPABASE -->
 
@@ -795,15 +792,18 @@ console.log('AGT Arena conectado ao Supabase!');
 
   <p id="agt-message">AGT Arena — Aliança • Garra • Talento</p>
 </section>
+
 </div>
 </main>
-  <footer>
+
+<footer>
   <div class="logo">AGT <span>ARENA</span></div>
   <p>ALIANÇA • GARRA • TALENTO</p>
   <p>© 2026 AGT Arena — Todos os direitos reservados.</p>
   <p>Uma família, um propósito, uma aliança.</p>
 </footer>
-  <script>
+
+<script>
 (function () {
   const db = window.agtSupabase;
   const message = document.getElementById('agt-message');
