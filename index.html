@@ -472,6 +472,216 @@ section {
   font-weight: bold;
 }
 
+/* RANKING AUTOMÁTICO AGT */
+
+.ranking-live-card {
+  grid-column: 1 / -1;
+  overflow: hidden;
+}
+
+.ranking-live-card h3 {
+  font-size: 23px;
+}
+
+.ranking-live-card .ranking-description {
+  margin-bottom: 18px;
+}
+
+.agt-ranking-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.agt-ranking-date {
+  color: #d9c8f2;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.agt-ranking-status {
+  color: #bd75ff;
+  background: #8b35ff20;
+  border: 1px solid #8b35ff66;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.agt-ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.agt-ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid #39234f;
+  border-radius: 10px;
+  background: linear-gradient(110deg, #21152f, #100c19);
+  transition: .25s;
+}
+
+.agt-ranking-item:hover {
+  border-color: #a75aff;
+  transform: translateX(3px);
+  box-shadow: 0 0 18px #8b35ff22;
+}
+
+.agt-ranking-medal {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffffff0b;
+  font-size: 25px;
+}
+
+.agt-ranking-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.agt-ranking-nick {
+  display: block;
+  font-size: 16px;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  color: #fff;
+}
+
+.agt-ranking-details {
+  display: block;
+  margin-top: 5px;
+  color: #aaa0b9;
+  font-size: 11px;
+}
+
+.agt-ranking-score {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.agt-ranking-score strong {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+}
+
+.agt-ranking-score small {
+  color: #aaa0b9;
+  font-size: 10px;
+}
+
+.agt-ranking-item.rank-1 {
+  border-color: #c99b32;
+  background: linear-gradient(110deg, #3a2b12, #17101b);
+  box-shadow: 0 0 17px #e5b83b18;
+}
+
+.rank-1 .agt-ranking-nick {
+  background: linear-gradient(
+    180deg,
+    #fff8c9,
+    #f5cf55 35%,
+    #b77a16 65%,
+    #ffe89a
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rank-1 .agt-ranking-medal {
+  background: #d6a52b20;
+  border: 1px solid #e8bd4b88;
+}
+
+.rank-1 .agt-ranking-score strong {
+  color: #f5cf55;
+}
+
+.agt-ranking-item.rank-2 {
+  border-color: #9ba4b3;
+  background: linear-gradient(110deg, #292d36, #17131e);
+}
+
+.rank-2 .agt-ranking-nick {
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    #c8ced8 40%,
+    #7c8798 70%,
+    #eef1f5
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rank-2 .agt-ranking-medal {
+  background: #cbd3df20;
+  border: 1px solid #cbd3df88;
+}
+
+.rank-2 .agt-ranking-score strong {
+  color: #d1d7e1;
+}
+
+.agt-ranking-item.rank-3 {
+  border-color: #a96a3c;
+  background: linear-gradient(110deg, #382216, #17101b);
+}
+
+.agt-ranking-item.rank-3 .agt-ranking-nick {
+  background: linear-gradient(
+    180deg,
+    #ffe0bd,
+    #cd8955 40%,
+    #99562f 70%,
+    #e6b18a
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.agt-ranking-item.rank-3 .agt-ranking-medal {
+  background: #bd754020;
+  border: 1px solid #bd895f88;
+}
+
+.agt-ranking-item.rank-3 .agt-ranking-score strong {
+  color: #d99a6c;
+}
+
+.agt-ranking-empty {
+  padding: 22px 12px;
+  color: #aaa0b9;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.agt-ranking-updated {
+  display: block;
+  margin-top: 15px;
+  color: #82758f;
+  font-size: 10px;
+  text-align: right;
+}
+
 /* RECRUTAMENTO */
 
 .recruit {
@@ -780,6 +990,29 @@ footer span {
     padding: 20px;
   }
 
+  .agt-ranking-item {
+    gap: 10px;
+    padding: 11px 9px;
+  }
+
+  .agt-ranking-medal {
+    width: 37px;
+    height: 37px;
+    font-size: 21px;
+  }
+
+  .agt-ranking-nick {
+    font-size: 14px;
+  }
+
+  .agt-ranking-score strong {
+    font-size: 13px;
+  }
+
+  .agt-ranking-details {
+    font-size: 10px;
+  }
+
   footer {
     padding: 28px 6%;
     font-size: 12px;
@@ -923,11 +1156,39 @@ footer span {
 
   <div class="cards">
 
-    <div class="card">
-      <div class="symbol">👑</div>
-      <h3>Ranking diário</h3>
-      <p>Classificação dos jogadores integrantes da AGT no SlitherMania.</p>
-      <div class="status">AGUARDANDO INTEGRAÇÃO</div>
+    <!-- RANKING DIÁRIO AUTOMÁTICO -->
+
+    <div class="card ranking-live-card">
+      <div class="symbol">🏆</div>
+
+      <h3>Ranking diário AGT</h3>
+
+      <p class="ranking-description">
+        Os melhores jogadores da AGT no SlitherMania.
+        Acompanhe as pontuações e conquiste o topo!
+      </p>
+
+      <div class="agt-ranking-heading">
+        <span class="agt-ranking-date" id="agt-ranking-date">
+          Carregando data...
+        </span>
+
+        <span class="agt-ranking-status" id="agt-ranking-status">
+          CONECTANDO...
+        </span>
+      </div>
+
+      <div
+        class="agt-ranking-list"
+        id="agt-ranking-list"
+        aria-live="polite"
+      >
+        <p class="agt-ranking-empty">
+          Carregando classificação da AGT...
+        </p>
+      </div>
+
+      <span class="agt-ranking-updated" id="agt-ranking-updated"></span>
     </div>
 
     <div class="card">
@@ -1081,6 +1342,194 @@ console.log('AGT Arena conectado ao Supabase!');
     avisar('Erro ao iniciar a conexão com o Supabase.');
     return;
   }
+
+  /* RANKING DIÁRIO AUTOMÁTICO AGT */
+
+  const rankingList = document.getElementById('agt-ranking-list');
+  const rankingStatus = document.getElementById('agt-ranking-status');
+  const rankingDate = document.getElementById('agt-ranking-date');
+  const rankingUpdated = document.getElementById('agt-ranking-updated');
+
+  function getBrazilDate() {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).formatToParts(new Date());
+
+    const values = {};
+
+    parts.forEach(part => {
+      values[part.type] = part.value;
+    });
+
+    return `${values.year}-${values.month}-${values.day}`;
+  }
+
+  function formatScore(score) {
+    return Number(score || 0).toLocaleString('pt-BR');
+  }
+
+  async function carregarRankingAGT() {
+    if (!rankingList) return;
+
+    const hoje = getBrazilDate();
+
+    rankingDate.textContent = new Date(
+      `${hoje}T12:00:00-03:00`
+    ).toLocaleDateString('pt-BR', {
+      timeZone: 'America/Sao_Paulo',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+
+    rankingStatus.textContent = 'ATUALIZANDO';
+
+    const { data, error } = await db
+      .from('agt_ranking_daily')
+      .select('nick, score, position, source_date, fetched_at')
+      .eq('source_date', hoje)
+      .order('fetched_at', { ascending: false })
+      .limit(1000);
+
+    if (error) {
+      console.error('Erro no ranking AGT:', error);
+
+      rankingStatus.textContent = 'ERRO NA LEITURA';
+
+      rankingList.innerHTML = `
+        <p class="agt-ranking-empty">
+          Não foi possível carregar o ranking.
+          Verifique a conexão e as permissões da tabela no Supabase.
+        </p>
+      `;
+
+      return;
+    }
+
+    /*
+      Como a tabela guarda várias capturas do mesmo jogador,
+      aqui selecionamos somente a captura mais recente de cada nick.
+    */
+
+    const jogadoresPorNick = new Map();
+
+    (data || []).forEach(player => {
+      const nickOriginal = (player.nick || '').trim();
+      const chaveNick = nickOriginal.toLowerCase();
+
+      if (!chaveNick) return;
+
+      if (!jogadoresPorNick.has(chaveNick)) {
+        jogadoresPorNick.set(chaveNick, player);
+      }
+    });
+
+    const jogadores = Array.from(jogadoresPorNick.values());
+
+    jogadores.sort((a, b) => {
+      const posA = Number(a.position);
+      const posB = Number(b.position);
+
+      if (Number.isFinite(posA) && Number.isFinite(posB)) {
+        return posA - posB;
+      }
+
+      if (Number.isFinite(posA)) return -1;
+      if (Number.isFinite(posB)) return 1;
+
+      return Number(b.score || 0) - Number(a.score || 0);
+    });
+
+    rankingList.innerHTML = '';
+
+    if (jogadores.length === 0) {
+      rankingStatus.textContent = 'AGUARDANDO JOGADORES';
+
+      rankingList.innerHTML = `
+        <p class="agt-ranking-empty">
+          Ainda não há jogadores AGT registrados hoje.
+          Assim que aparecerem no ranking do SlitherMania,
+          eles serão exibidos aqui automaticamente.
+        </p>
+      `;
+
+      rankingUpdated.textContent = '';
+      return;
+    }
+
+    jogadores.forEach((player, index) => {
+      const colocacao = index + 1;
+
+      const medalhas = ['🥇', '🥈', '🥉'];
+      const medalha = medalhas[index] || String(colocacao);
+
+      const item = document.createElement('div');
+      item.className = 'agt-ranking-item';
+
+      if (colocacao <= 3) {
+        item.classList.add(`rank-${colocacao}`);
+      }
+
+      const medal = document.createElement('div');
+      medal.className = 'agt-ranking-medal';
+      medal.textContent = medalha;
+
+      const info = document.createElement('div');
+      info.className = 'agt-ranking-info';
+
+      const nick = document.createElement('span');
+      nick.className = 'agt-ranking-nick';
+      nick.textContent = player.nick || 'Sem nick';
+
+      const details = document.createElement('span');
+      details.className = 'agt-ranking-details';
+      details.textContent =
+        `${colocacao}º lugar AGT • Posição geral: #${player.position ?? '-'}`;
+
+      info.appendChild(nick);
+      info.appendChild(details);
+
+      const score = document.createElement('div');
+      score.className = 'agt-ranking-score';
+
+      const scoreValue = document.createElement('strong');
+      scoreValue.textContent = formatScore(player.score);
+
+      const scoreLabel = document.createElement('small');
+      scoreLabel.textContent = 'PONTOS';
+
+      score.appendChild(scoreValue);
+      score.appendChild(scoreLabel);
+
+      item.appendChild(medal);
+      item.appendChild(info);
+      item.appendChild(score);
+
+      rankingList.appendChild(item);
+    });
+
+    rankingStatus.textContent = 'ATUALIZADO';
+
+    rankingUpdated.textContent =
+      'Última consulta: ' +
+      new Date().toLocaleTimeString('pt-BR', {
+        timeZone: 'America/Sao_Paulo',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+  }
+
+  /* PRIMEIRA CONSULTA */
+
+  carregarRankingAGT();
+
+  /* ATUALIZAÇÃO AUTOMÁTICA NO SITE */
+
+  setInterval(carregarRankingAGT, 60000);
 
   /* CADASTRO */
 
