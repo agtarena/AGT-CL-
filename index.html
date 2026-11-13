@@ -83,144 +83,156 @@ header {
   color: transparent;
   text-shadow: none;
 }
+/* =====================================
+   AGT ARENA — TÍTULO PRATA METÁLICO
+   CONTORNO ROXO NEON + FUMAÇA ANIMADA
+===================================== */
 
-/* AGT ARENA — PRATA METÁLICO + CONTORNO NEON */
+.hero .hero-content h1 {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  overflow: visible;
 
-.hero h1 {
   font-size: clamp(48px, 9vw, 90px);
   line-height: 1.1;
   margin: 20px 0;
   font-weight: 900;
-  position: relative;
-  isolation: isolate;
-  display: inline-block;
 
   background: linear-gradient(
     180deg,
     #ffffff 0%,
-    #bfc0ca 15%,
-    #ffffff 30%,
-    #777987 48%,
-    #f9f9ff 60%,
-    #a5a6b2 75%,
-    #ffffff 90%,
-    #777987 100%
+    #bfc1cc 12%,
+    #ffffff 25%,
+    #777987 42%,
+    #eeeeF5 52%,
+    #858795 68%,
+    #ffffff 82%,
+    #a4a6b2 100%
   );
 
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  -webkit-text-stroke: 1.8px #a94aff;
+  -webkit-text-stroke: 2px #a020ff;
 
   text-shadow:
     0 0 3px #ffffff,
-    0 0 8px #982aff,
-    0 0 16px #7920cc;
+    0 0 7px #a020ff,
+    0 0 15px #8b35ff;
 }
 
-/* ARENA TAMBÉM PRATA */
-.hero h1 span {
+/* ARENA COM O MESMO PRATA METÁLICO */
+.hero .hero-content h1 span {
   color: transparent;
   background: linear-gradient(
     180deg,
     #ffffff 0%,
-    #bfc0ca 15%,
-    #ffffff 30%,
-    #777987 48%,
-    #f9f9ff 60%,
-    #a5a6b2 75%,
-    #ffffff 90%,
-    #777987 100%
+    #bfc1cc 12%,
+    #ffffff 25%,
+    #777987 42%,
+    #eeeeF5 52%,
+    #858795 68%,
+    #ffffff 82%,
+    #a4a6b2 100%
   );
 
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  -webkit-text-stroke: 1.8px #a94aff;
+  -webkit-text-stroke: 2px #a020ff;
+
   text-shadow:
     0 0 3px #ffffff,
-    0 0 8px #982aff,
-    0 0 16px #7920cc;
+    0 0 7px #a020ff,
+    0 0 15px #8b35ff;
 }
 
-/* FUMAÇA ROXA — CAMADA PRINCIPAL */
-.hero h1::before {
+/* PRIMEIRA CAMADA DE FUMAÇA */
+.hero .hero-content h1::before {
   content: "";
   position: absolute;
   z-index: -1;
   pointer-events: none;
 
-  left: -15%;
-  right: -15%;
-  top: -40%;
-  bottom: -30%;
+  left: -25%;
+  right: -25%;
+  top: -65%;
+  bottom: -45%;
 
   background:
-    radial-gradient(ellipse at 25% 80%, #a020ffcc, transparent 45%),
-    radial-gradient(ellipse at 70% 65%, #bd55ffbb, transparent 48%),
-    radial-gradient(ellipse at 45% 35%, #7020ccaa, transparent 50%),
-    radial-gradient(ellipse at 85% 20%, #a020ff88, transparent 45%);
+    radial-gradient(ellipse at 25% 85%, #a020ffdd 0%, transparent 48%),
+    radial-gradient(ellipse at 70% 75%, #c050ffcc 0%, transparent 45%),
+    radial-gradient(ellipse at 45% 45%, #8b20ffbb 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 25%, #a020ff99 0%, transparent 48%);
 
-  filter: blur(17px);
-  opacity: .9;
+  filter: blur(20px);
+  opacity: .85;
 
-  animation: fumaSubindo 5s ease-in-out infinite alternate;
+  animation: fumaSubindo 4s ease-in-out infinite alternate;
 }
 
 /* SEGUNDA CAMADA DE FUMAÇA */
-.hero h1::after {
+.hero .hero-content h1::after {
   content: "";
   position: absolute;
   z-index: -1;
   pointer-events: none;
 
   left: -20%;
-  right: -10%;
-  top: -55%;
-  bottom: -15%;
+  right: -30%;
+  top: -80%;
+  bottom: -30%;
 
   background:
-    radial-gradient(ellipse at 35% 75%, #8b20ffbb, transparent 40%),
-    radial-gradient(ellipse at 65% 45%, #d080ff99, transparent 45%),
-    radial-gradient(ellipse at 50% 15%, #7920cc99, transparent 42%);
+    radial-gradient(ellipse at 35% 80%, #7620ddcc 0%, transparent 45%),
+    radial-gradient(ellipse at 65% 55%, #d080ffbb 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 20%, #8b35ffbb 0%, transparent 50%);
 
-  filter: blur(23px);
+  filter: blur(27px);
   opacity: .75;
 
-  animation: fumaFlutuante 7s ease-in-out infinite;
+  animation: fumaFlutuante 6s ease-in-out infinite;
 }
 
-/* MOVIMENTO DA FUMAÇA */
+/* FUMAÇA SUBINDO */
 @keyframes fumaSubindo {
   0% {
-    transform: translateY(22px) scale(.85);
-    opacity: .45;
-  }
-
-  100% {
-    transform: translateY(-35px) scale(1.2);
-    opacity: 1;
-  }
-}
-
-@keyframes fumaFlutuante {
-  0% {
-    transform: translate(-12px, 25px) scale(.9);
+    transform: translateY(30px) scale(.85);
     opacity: .35;
   }
 
   50% {
-    transform: translate(12px, -10px) scale(1.12);
+    transform: translateY(0) scale(1);
+    opacity: .8;
+  }
+
+  100% {
+    transform: translateY(-45px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* FUMAÇA FLUTUANDO */
+@keyframes fumaFlutuante {
+  0% {
+    transform: translate(-15px, 30px) scale(.85);
+    opacity: .3;
+  }
+
+  50% {
+    transform: translate(15px, -15px) scale(1.1);
     opacity: .85;
   }
 
   100% {
-    transform: translate(-5px, -40px) scale(1.2);
-    opacity: .55;
+    transform: translate(-5px, -55px) scale(1.25);
+    opacity: .5;
   }
 }
+
 nav {
   display: flex;
   gap: 22px;
@@ -244,7 +256,7 @@ nav a:hover {
   display: flex;
   align-items: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background:
     radial-gradient(ellipse at 75% 50%, #54208b55, transparent 48%),
     linear-gradient(130deg, #090611, #170b27);
@@ -265,25 +277,13 @@ nav a:hover {
   max-width: 680px;
   position: relative;
   z-index: 1;
+  overflow: visible;
 }
-
 .tag {
   color: var(--neon);
   font-size: 13px;
   letter-spacing: 4px;
   font-weight: bold;
-}
-
-h1 {
-  font-size: clamp(48px, 9vw, 90px);
-  line-height: 1;
-  margin: 20px 0;
-  font-weight: 900;
-}
-
-h1 span {
-  color: var(--neon);
-  text-shadow: 0 0 25px #8b35ff99;
 }
 
 .hero p {
