@@ -16,7 +16,12 @@
   --white: #ffffff;
   --muted: #aaa0b9;
 }
-
+body {
+  background-color: #090611;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
 * {
   margin: 0;
   padding: 0;
@@ -27,7 +32,7 @@
 .agt-watermark-area {
   position: relative;
   isolation: isolate;
-  background: var(--bg);
+  background-color: #090611;
 }
 
 .agt-watermark-area::before {
@@ -700,7 +705,7 @@ console.log('AGT Arena conectado ao Supabase!');
   max-width: 480px;
   margin: 45px auto;
   padding: 25px;
-  background: (16,13,25, .82);
+  background: #100d19;
   border: 1px solid #792cff;
   border-radius: 18px;
   color: white;
