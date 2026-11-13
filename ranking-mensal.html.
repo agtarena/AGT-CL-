@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090611">
+<link rel="icon" type="image/png" href="./logo.png?v=2">
+<title>Ranking Mensal | AGT Arena</title>
+
+<style>
+:root {
+  --bg:#090611;
+  --purple:#8b35ff;
+  --neon:#bd75ff;
+  --muted:#aaa0b9;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse at top,#54208b44,transparent 55%),
+    #090611;
+  color:#fff;
+  font-family:Arial,sans-serif;
+}
+
+header {
+  padding:18px 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid #392052;
+  background:#090611ee;
+}
+
+.logo {
+  font-size:26px;
+  font-weight:1000;
+  letter-spacing:2px;
+  color:#fff;
+  text-shadow:0 0 12px #8b35ff;
+}
+
+.back {
+  padding:11px 17px;
+  border:1px solid #7135a9;
+  border-radius:8px;
+  color:#fff;
+  background:#171020;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:bold;
+}
+
+main {
+  width:min(950px,90%);
+  margin:55px auto;
+}
+
+.heading {
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.heading h1 {
+  font-size:clamp(30px,6vw,48px);
+  margin-bottom:12px;
+  text-shadow:0 0 18px #8b35ff88;
+}
+
+.heading h1 span {
+  color:#bd75ff;
+}
+
+.heading p {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+
+.month-info {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.month-label {
+  color:#d9c8f2;
+  font-weight:bold;
+  text-transform:capitalize;
+}
+
+.status {
+  color:#bd75ff;
+  background:#8b35ff20;
+  border:1px solid #8b35ff66;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:bold;
+}
+
+.ranking-list {
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
+
+.player {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:15px;
+  border:1px solid #39234f;
+  border-radius:11px;
+  background:linear-gradient(110deg,#21152f,#100c19);
+}
+
+.medal {
+  width:43px;
+  height:43px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#ffffff0b;
+  font-size:21px;
+  font-weight:bold;
+}
+
+.avatar {
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  object-fit:cover;
+  border:1px solid #8b35ff;
+  background:#21152f;
+  flex-shrink:0;
+}
+
+.info {
+  flex:1;
+  min-width:0;
+}
+
+.nick {
+  display:block;
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+
+.details {
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.score {
+  text-align:right;
+  flex-shrink:0;
+}
+
+.score strong {
+  display:block;
+  font-size:15px;
+}
+
+.score small {
+  color:var(--muted);
+  font-size:9px;
+}
+
+.player.rank-1 {
+  border-color:#c99b32;
+  background:linear-gradient(110deg,#3a2b12,#17101b);
+}
+
+.player.rank-1 .nick,
+.player.rank-1 .score strong {
+  color:#f5cf55;
+}
+
+.player.rank-2 {
+  border-color:#9ba4b3;
+  background:linear-gradient(110deg,#292d36,#17131e);
+}
+
+.player.rank-2 .nick,
+.player.rank-2 .score strong {
+  color:#d1d7e1;
+}
+
+.player.rank-3 {
+  border-color:#a96a3c;
+  background:linear-gradient(110deg,#382216,#17101b);
+}
+
+.player.rank-3 .nick,
+.player.rank-3 .score strong {
+  color:#d99a6c;
+}
+
+.empty {
+  padding:25px 15px;
+  color:var(--muted);
+  text-align:center;
+  line-height:1.7;
+  border:1px solid #39234f;
+  border-radius:10px;
+  background:#151020;
+}
+
+.updated {
+  margin-top:18px;
+  color:#82758f;
+  font-size:10px;
+  text-align:right;
+}
+
+footer {
+  padding:30px 10px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+}
+
+@media(max-width:600px) {
+  header {padding:15px 5%}
+  .logo {font-size:21px}
+  main {margin:40px auto}
+  .player {gap:8px;padding:11px 9px}
+  .medal,.avatar {width:35px;height:35px}
+  .nick {font-size:13px}
+  .details {font-size:9px}
+  .score strong {font-size:12px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">AGT ARENA</div>
+  <a class="back" href="./index.html#ranking">← VOLTAR</a>
+</header>
+
+<main>
+  <div class="heading">
+    <h1>RANKING <span>MENSAL</span></h1>
+    <p>
+      A evolução dos integrantes da AGT durante o mês.
+      Cada jogador soma sua melhor pontuação registrada em cada dia.
+    </p>
+  </div>
+
+  <div class="month-info">
+    <span class="month-label" id="month-label">Carregando mês...</span>
+    <span class="status" id="month-status">CONECTANDO...</span>
+  </div>
+
+  <div class="ranking-list" id="ranking-list">
+    <p class="empty">Calculando classificação mensal...</p>
+  </div>
+
+  <div class="updated" id="updated"></div>
+</main>
+
+<footer>
+  <strong>AGT ARENA</strong><br>
+  ALIANÇA • GARRA • TALENTO<br>
+  © 2026 BY AGT SOUZA
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+(async function() {
+  const SUPABASE_URL = 'https://lbknsgfpfxkvypkxbcmy.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const list = document.getElementById('ranking-list');
+  const status = document.getElementById('month-status');
+  const monthLabel = document.getElementById('month-label');
+  const updated = document.getElementById('updated');
+
+  function getBrazilDate() {
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone:'America/Sao_Paulo',
+      year:'numeric',
+      month:'2-digit',
+      day:'2-digit'
+    }).formatToParts(new Date());
+
+    const values = {};
+    parts.forEach(part => values[part.type] = part.value);
+
+    return `${values.year}-${values.month}-${values.day}`;
+  }
+
+  function formatScore(value) {
+    return Number(value || 0).toLocaleString('pt-BR');
+  }
+
+  async function buscarCapturas(inicio,fim) {
+    let todas = [];
+    let pagina = 0;
+    const tamanho = 1000;
+
+    while(true) {
+      const {data,error} = await db
+        .from('agt_ranking_daily')
+        .select('nick,score,source_date,fetched_at')
+        .gte('source_date',inicio)
+        .lte('source_date',fim)
+        .order('fetched_at',{ascending:false})
+        .range(pagina,pagina+tamanho-1);
+
+      if(error) throw error;
+
+      todas = todas.concat(data || []);
+
+      if(!data || data.length < tamanho) break;
+
+      pagina += tamanho;
+    }
+
+    return todas;
+  }
+
+  async function carregar() {
+    const hoje = getBrazilDate();
+    const [ano,mes] = hoje.split('-');
+    const inicio = `${ano}-${mes}-01`;
+
+    monthLabel.textContent = new Date(`${inicio}T12:00:00-03:00`)
+      .toLocaleDateString('pt-BR',{
+        timeZone:'America/Sao_Paulo',
+        month:'long',
+        year:'numeric'
+      });
+
+    status.textContent = 'CALCULANDO...';
+
+    try {
+      const [capturasResult,perfisResult] = await Promise.all([
+        buscarCapturas(inicio,hoje),
+        db.from('agt_profiles').select('nick,avatar_url')
+      ]);
+
+      const perfis = {};
+
+      (perfisResult.data || []).forEach(profile => {
+        if(profile.nick) {
+          perfis[profile.nick.trim().toLowerCase()] = profile.avatar_url;
+        }
+      });
+
+      const melhorPorDia = new Map();
+
+      capturasResult.forEach(player => {
+        const nick = (player.nick || '').trim();
+
+        if(!nick || !/agt/i.test(nick)) return;
+
+        const chave = `${nick.toLowerCase()}|${player.source_date}`;
+        const score = Number(player.score || 0);
+
+        if(!melhorPorDia.has(chave) ||
+           score > melhorPorDia.get(chave).score) {
+          melhorPorDia.set(chave,{
+            nick,
+            score,
+            source_date:player.source_date
+          });
+        }
+      });
+
+      const totais = new Map();
+
+      melhorPorDia.forEach(item => {
+        const chave = item.nick.toLowerCase();
+
+        if(!totais.has(chave)) {
+          totais.set(chave,{
+            nick:item.nick,
+            total:0,
+            dias:0
+          });
+        }
+
+        const jogador = totais.get(chave);
+        jogador.total += item.score;
+        jogador.dias++;
+      });
+
+      const ranking = Array.from(totais.values())
+        .sort((a,b) => b.total-a.total);
+
+      list.innerHTML = '';
+
+      if(!ranking.length) {
+        status.textContent = 'SEM DADOS';
+        list.innerHTML =
+          '<p class="empty">Ainda não existem pontuações registradas para este mês.</p>';
+        return;
+      }
+
+      const medalhas = ['🥇','🥈','🥉'];
+
+      ranking.forEach((player,index) => {
+        const item = document.createElement('div');
+        item.className = 'player';
+
+        if(index < 3) {
+          item.classList.add(`rank-${index+1}`);
+        }
+
+        const medal = document.createElement('div');
+        medal.className = 'medal';
+        medal.textContent = medalhas[index] || `${index+1}º`;
+
+        const avatarUrl = perfis[player.nick.toLowerCase()];
+
+        if(avatarUrl) {
+          const avatar = document.createElement('img');
+          avatar.className = 'avatar';
+          avatar.src = avatarUrl;
+          avatar.alt = 'Foto de ' + player.nick;
+          avatar.loading = 'lazy';
+          item.appendChild(medal);
+          item.appendChild(avatar);
+        } else {
+          item.appendChild(medal);
+        }
+
+        const info = document.createElement('div');
+        info.className = 'info';
+
+        const nick = document.createElement('span');
+        nick.className = 'nick';
+        nick.textContent = player.nick;
+
+        const details = document.createElement('span');
+        details.className = 'details';
+        details.textContent =
+          `${index+1}º lugar • ${player.dias} dia(s) pontuados`;
+
+        info.append(nick,details);
+
+        const score = document.createElement('div');
+        score.className = 'score';
+
+        const value = document.createElement('strong');
+        value.textContent = formatScore(player.total);
+
+        const label = document.createElement('small');
+        label.textContent = 'PONTOS SOMADOS';
+
+        score.append(value,label);
+        item.append(info,score);
+        list.appendChild(item);
+      });
+
+      status.textContent = 'ATUALIZADO';
+
+      updated.textContent = 'Última consulta: ' +
+        new Date().toLocaleTimeString('pt-BR',{
+          timeZone:'America/Sao_Paulo',
+          hour:'2-digit',
+          minute:'2-digit'
+        });
+
+    } catch(error) {
+      console.error(error);
+      status.textContent = 'ERRO NA LEITURA';
+      list.innerHTML =
+        '<p class="empty">Não foi possível carregar o ranking. Verifique a conexão e as permissões do Supabase.</p>';
+    }
+  }
+
+  await carregar();
+  setInterval(carregar,60000);
+})();
+</script>
+
+</body>
+</html>
