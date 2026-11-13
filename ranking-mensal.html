@@ -57,11 +57,8 @@ header {
   font-weight:1000;
   letter-spacing:3px;
   background:linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #e5e8ef 30%,
-    #aeb5c1 65%,
-    #f8f9fc 100%
+    180deg,#fff 0%,#e5e8ef 30%,
+    #aeb5c1 65%,#f8f9fc 100%
   );
   -webkit-background-clip:text;
   background-clip:text;
@@ -133,7 +130,6 @@ main {
 
 .month-select {
   appearance:none;
-  -webkit-appearance:none;
   min-width:165px;
   padding:11px 35px 11px 13px;
   border:1px solid #8b35ff88;
@@ -190,9 +186,7 @@ main {
   border:1px solid #39234f;
   border-radius:11px;
   background:linear-gradient(
-    110deg,
-    rgba(33,21,47,.94),
-    rgba(16,12,25,.94)
+    110deg,rgba(33,21,47,.94),rgba(16,12,25,.94)
   );
   backdrop-filter:blur(5px);
 }
@@ -242,18 +236,19 @@ main {
 .player-stats {
   display:flex;
   align-items:center;
-  gap:22px;
+  gap:15px;
   flex-shrink:0;
 }
 
 .stat {
-  min-width:65px;
+  min-width:75px;
   text-align:right;
 }
 
 .stat strong {
   display:block;
   font-size:15px;
+  color:#bd75ff;
 }
 
 .stat small {
@@ -263,16 +258,10 @@ main {
   letter-spacing:1px;
 }
 
-.stat-score strong {
-  color:#bd75ff;
-}
-
 .player.rank-1 {
   border-color:#c99b32;
   background:linear-gradient(
-    110deg,
-    rgba(58,43,18,.95),
-    rgba(23,16,27,.95)
+    110deg,rgba(58,43,18,.95),rgba(23,16,27,.95)
   );
 }
 
@@ -284,9 +273,7 @@ main {
 .player.rank-2 {
   border-color:#9ba4b3;
   background:linear-gradient(
-    110deg,
-    rgba(41,45,54,.95),
-    rgba(23,19,30,.95)
+    110deg,rgba(41,45,54,.95),rgba(23,19,30,.95)
   );
 }
 
@@ -298,9 +285,7 @@ main {
 .player.rank-3 {
   border-color:#a96a3c;
   background:linear-gradient(
-    110deg,
-    rgba(56,34,22,.95),
-    rgba(23,16,27,.95)
+    110deg,rgba(56,34,22,.95),rgba(23,16,27,.95)
   );
 }
 
@@ -335,7 +320,7 @@ footer {
   background:rgba(9,6,17,.55);
 }
 
-@media (max-width:600px) {
+@media(max-width:600px) {
   header {
     padding:12px 3%;
     min-height:68px;
@@ -382,8 +367,7 @@ footer {
     padding:11px 9px;
   }
 
-  .medal,
-  .avatar {
+  .medal,.avatar {
     width:35px;
     height:35px;
   }
@@ -401,11 +385,11 @@ footer {
   }
 
   .player-stats {
-    gap:10px;
+    gap:8px;
   }
 
   .stat {
-    min-width:43px;
+    min-width:55px;
   }
 
   .stat strong {
@@ -432,8 +416,8 @@ footer {
   <div class="heading">
     <h1>RANKING <span>MENSAL</span></h1>
     <p>
-      A evolução dos integrantes da AGT durante o mês.
-      Cada jogador soma sua melhor pontuação registrada em cada dia.
+      O maior score alcançado por cada integrante durante o mês.
+      A classificação é atualizada conforme chegam novos registros.
     </p>
   </div>
 
@@ -448,7 +432,7 @@ footer {
   </div>
 
   <div class="ranking-list" id="ranking-list">
-    <p class="empty">Calculando classificação mensal...</p>
+    <p class="empty">Buscando histórico de pontuações...</p>
   </div>
 
   <div class="updated" id="updated"></div>
@@ -466,8 +450,11 @@ footer {
 <script>
 (async function() {
 
-  const SUPABASE_URL = 'https://lbknsgfpfxkvypkxbcmy.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
+  const SUPABASE_URL =
+    'https://lbknsgfpfxkvypkxbcmy.supabase.co';
+
+  const SUPABASE_KEY =
+    'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
 
   const db = window.supabase.createClient(
     SUPABASE_URL,
@@ -507,7 +494,7 @@ footer {
 
   function formatarData(data) {
     const [ano,mes,dia] = data.split('-');
-    return `${dia}/${mes}`;
+    return `${dia}/${mes}/${ano}`;
   }
 
   function criarSeletorMes() {
@@ -561,6 +548,7 @@ footer {
         .select('nick,score,source_date,fetched_at')
         .gte('source_date',inicio)
         .lte('source_date',fim)
+        .order('source_date',{ascending:true})
         .order('fetched_at',{ascending:false})
         .range(pagina,pagina+tamanho-1);
 
@@ -585,7 +573,6 @@ footer {
     if(!mesEscolhido) return;
 
     const [ano,mes] = mesEscolhido.split('-').map(Number);
-
     const mesAtual = hoje.substring(0,7);
 
     let inicio = `${mesEscolhido}-01`;
@@ -606,11 +593,11 @@ footer {
       fim = `${mesEscolhido}-${String(ultimoDia).padStart(2,'0')}`;
     }
 
-    status.textContent = 'CALCULANDO...';
+    status.textContent = 'BUSCANDO SCORES...';
     updated.textContent = '';
 
     list.innerHTML =
-      '<p class="empty">Calculando classificação mensal...</p>';
+      '<p class="empty">Analisando as melhores pontuações do mês...</p>';
 
     try {
       const [capturasResult,perfisResult] = await Promise.all([
@@ -619,6 +606,10 @@ footer {
       ]);
 
       if(numeroConsulta !== consultaAtual) return;
+
+      if(perfisResult.error) {
+        console.warn('Não foi possível carregar os avatares:',perfisResult.error);
+      }
 
       const perfis = {};
 
@@ -629,53 +620,41 @@ footer {
         }
       });
 
-      const melhorPorDia = new Map();
+      /*
+        REGRA DO RANKING:
 
-      capturasResult.forEach(player => {
-        const nick = (player.nick || '').trim();
+        Cada nick fica somente com seu MAIOR SCORE
+        encontrado em qualquer dia do mês.
+
+        Não soma pontuações de dias diferentes.
+      */
+
+      const melhores = new Map();
+
+      capturasResult.forEach(registro => {
+        const nick = (registro.nick || '').trim();
 
         if(!nick || !/agt/i.test(nick)) return;
 
-        const chave =
-          `${nick.toLowerCase()}|${player.source_date}`;
+        const chave = nick.toLowerCase();
+        const score = Number(registro.score || 0);
 
-        const score = Number(player.score || 0);
+        if(!Number.isFinite(score)) return;
 
         if(
-          !melhorPorDia.has(chave) ||
-          score > melhorPorDia.get(chave).score
+          !melhores.has(chave) ||
+          score > melhores.get(chave).score
         ) {
-          melhorPorDia.set(chave,{
+          melhores.set(chave,{
             nick,
             score,
-            source_date:player.source_date
+            data:registro.source_date
           });
         }
       });
 
-      const totais = new Map();
-
-      melhorPorDia.forEach(item => {
-        const chave = item.nick.toLowerCase();
-
-        if(!totais.has(chave)) {
-          totais.set(chave,{
-            nick:item.nick,
-            total:0,
-            datas:[]
-          });
-        }
-
-        const jogador = totais.get(chave);
-
-        jogador.total += item.score;
-        jogador.datas.push(item.source_date);
-      });
-
-      const ranking = Array.from(totais.values())
-        .sort((a,b) => b.total-a.total);
-
-      ranking.forEach(player => player.datas.sort());
+      const ranking = Array.from(melhores.values())
+        .sort((a,b) => b.score-a.score);
 
       list.innerHTML = '';
 
@@ -683,7 +662,7 @@ footer {
         status.textContent = 'SEM DADOS';
 
         list.innerHTML =
-          '<p class="empty">Ainda não existem pontuações registradas para este mês.</p>';
+          '<p class="empty">Não foram encontrados scores AGT registrados neste mês.</p>';
 
         return;
       }
@@ -702,9 +681,9 @@ footer {
         medal.className = 'medal';
         medal.textContent = medalhas[index] || `${index+1}º`;
 
-        const avatarUrl = perfis[player.nick.toLowerCase()];
-
         item.appendChild(medal);
+
+        const avatarUrl = perfis[player.nick.toLowerCase()];
 
         if(avatarUrl) {
           const avatar = document.createElement('img');
@@ -726,7 +705,7 @@ footer {
         const details = document.createElement('span');
         details.className = 'details';
         details.textContent =
-          'Dias: ' + player.datas.map(formatarData).join(' • ');
+          'Melhor score em ' + formatarData(player.data);
 
         info.append(nick,details);
 
@@ -734,13 +713,13 @@ footer {
         stats.className = 'player-stats';
 
         const score = document.createElement('div');
-        score.className = 'stat stat-score';
+        score.className = 'stat';
 
         const scoreValue = document.createElement('strong');
-        scoreValue.textContent = formatScore(player.total);
+        scoreValue.textContent = formatScore(player.score);
 
         const scoreLabel = document.createElement('small');
-        scoreLabel.textContent = 'SCORE';
+        scoreLabel.textContent = 'MAIOR SCORE';
 
         score.append(scoreValue,scoreLabel);
         stats.appendChild(score);
@@ -749,9 +728,11 @@ footer {
         list.appendChild(item);
       });
 
-      status.textContent = 'ATUALIZADO';
+      status.textContent =
+        `${ranking.length} INTEGRANTE${ranking.length === 1 ? '' : 'S'}`;
 
-      updated.textContent = 'Última consulta: ' +
+      updated.textContent =
+        'Última consulta: ' +
         new Date().toLocaleTimeString('pt-BR',{
           timeZone:'America/Sao_Paulo',
           hour:'2-digit',
@@ -766,7 +747,7 @@ footer {
       status.textContent = 'ERRO NA LEITURA';
 
       list.innerHTML =
-        '<p class="empty">Não foi possível carregar o ranking. Verifique a conexão e as permissões do Supabase.</p>';
+        '<p class="empty">Não foi possível carregar o histórico. Verifique a conexão e as permissões de leitura do Supabase.</p>';
     }
   }
 
