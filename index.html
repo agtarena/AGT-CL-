@@ -32,9 +32,7 @@ body {
   overflow-x:hidden;
 }
 
-body.menu-open {
-  overflow:hidden;
-}
+body.menu-open { overflow:hidden; }
 
 .agt-watermark-area {
   position:relative;
@@ -67,8 +65,6 @@ header {
   align-items:center;
   gap:15px;
 }
-
-/* LOGO CLÃ AGT - PRATA COM NEON ROXO */
 
 .logo {
   font-size:29px;
@@ -165,15 +161,11 @@ header .logo {
   transition:.25s;
 }
 
-/* MENU MAIS PRÓXIMO DA BORDA DIREITA NO COMPUTADOR */
-
 @media (min-width:901px) {
-  .menu-toggle {
-    margin-right:-5vw;
-  }
+  .menu-toggle { margin-right:-5vw; }
 }
 
-/* FUNDO DO MENU */
+/* MENU */
 
 .menu-overlay {
   position:fixed;
@@ -189,8 +181,6 @@ header .logo {
   opacity:1;
   visibility:visible;
 }
-
-/* PAINEL DO MENU */
 
 .menu-panel {
   position:fixed;
@@ -237,9 +227,7 @@ header .logo {
   cursor:pointer;
 }
 
-.menu-back:hover {
-  background:#512080;
-}
+.menu-back:hover { background:#512080; }
 
 .menu-title {
   color:#bd75ff;
@@ -259,10 +247,12 @@ header .logo {
   margin-bottom:22px;
 }
 
-.profile-avatar {
+.profile-avatar,
+.profile-avatar-placeholder {
   width:94px;
   height:94px;
   border-radius:50%;
+  margin:auto;
   object-fit:cover;
   border:3px solid #bd75ff;
   box-shadow:0 0 22px #8b35ff66;
@@ -270,17 +260,10 @@ header .logo {
 }
 
 .profile-avatar-placeholder {
-  width:94px;
-  height:94px;
-  border-radius:50%;
-  margin:auto;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:40px;
-  background:#21152f;
-  border:3px solid #bd75ff;
-  box-shadow:0 0 22px #8b35ff66;
 }
 
 .profile-nick {
@@ -323,13 +306,8 @@ header .logo {
   cursor:pointer;
 }
 
-.avatar-upload:hover {
-  background:#512080;
-}
-
-.avatar-upload input {
-  display:none;
-}
+.avatar-upload:hover { background:#512080; }
+.avatar-upload input { display:none; }
 
 .profile-note {
   margin-top:10px;
@@ -338,11 +316,9 @@ header .logo {
   line-height:1.5;
 }
 
-/* AUTENTICAÇÃO NO MENU */
+/* AUTENTICAÇÃO */
 
-.auth-menu {
-  margin-bottom:25px;
-}
+.auth-menu { margin-bottom:25px; }
 
 .auth-menu h3 {
   color:#bd75ff;
@@ -370,9 +346,7 @@ header .logo {
   cursor:pointer;
 }
 
-.auth-accordion:hover {
-  border-color:#bd75ff;
-}
+.auth-accordion:hover { border-color:#bd75ff; }
 
 .auth-content {
   display:none;
@@ -383,9 +357,7 @@ header .logo {
   background:#100b19;
 }
 
-.auth-content.open {
-  display:block;
-}
+.auth-content.open { display:block; }
 
 .auth-content label {
   display:block;
@@ -449,7 +421,7 @@ header .logo {
   text-align:center;
 }
 
-/* NAVEGAÇÃO DO MENU */
+/* NAVEGAÇÃO */
 
 .menu-navigation {
   display:flex;
@@ -641,9 +613,7 @@ header .logo {
 
 /* SEÇÕES */
 
-section {
-  padding:75px 8%;
-}
+section { padding:75px 8%; }
 
 .section-title {
   text-align:center;
@@ -655,9 +625,7 @@ section {
   margin-bottom:12px;
 }
 
-.section-title h2 span {
-  color:var(--neon);
-}
+.section-title h2 span { color:var(--neon); }
 
 .section-title p {
   color:var(--muted);
@@ -709,13 +677,8 @@ section {
   overflow:hidden;
 }
 
-.ranking-live-card h3 {
-  font-size:23px;
-}
-
-.ranking-live-card .ranking-description {
-  margin-bottom:18px;
-}
+.ranking-live-card h3 { font-size:23px; }
+.ranking-live-card .ranking-description { margin-bottom:18px; }
 
 .agt-ranking-heading {
   display:flex;
@@ -766,16 +729,52 @@ section {
   box-shadow:0 0 18px #8b35ff22;
 }
 
-.agt-ranking-medal {
-  width:43px;
-  height:43px;
+/* NOVO: FOTO MAIOR COM MEDALHA OU NÚMERO SOBREPOSTO */
+
+.agt-ranking-avatar-wrap {
+  position:relative;
+  width:58px;
+  height:58px;
   flex-shrink:0;
+}
+
+.agt-player-avatar,
+.agt-player-avatar-placeholder {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #8b35ff;
+  background:linear-gradient(145deg,#35204c,#171020);
+  box-shadow:0 0 12px #8b35ff33;
+}
+
+.agt-player-avatar-placeholder {
+  color:#d9c5f2;
+  font-size:25px;
+}
+
+.agt-ranking-medal {
+  position:absolute;
+  right:-4px;
+  bottom:-3px;
+  z-index:2;
+  width:23px;
+  height:23px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:50%;
-  background:#ffffff0b;
-  font-size:25px;
+  background:#21152f;
+  border:1px solid #80649e;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  line-height:1;
+  box-shadow:0 2px 7px #000b;
 }
 
 .agt-ranking-info {
@@ -814,6 +813,8 @@ section {
   font-size:10px;
 }
 
+/* PRIMEIRO LUGAR */
+
 .rank-1 {
   border-color:#c99b32;
   background:linear-gradient(110deg,#3a2b12,#17101b);
@@ -828,11 +829,19 @@ section {
 }
 
 .rank-1 .agt-ranking-medal {
-  background:#d6a52b20;
-  border:1px solid #e8bd4b88;
+  background:#6b4c0d;
+  border:1px solid #e8bd4b;
 }
 
-.rank-1 .agt-ranking-score strong {color:#f5cf55}
+.rank-1 .agt-ranking-avatar-wrap .agt-player-avatar,
+.rank-1 .agt-ranking-avatar-wrap .agt-player-avatar-placeholder {
+  border-color:#e8bd4b;
+  box-shadow:0 0 13px #e5b83b55;
+}
+
+.rank-1 .agt-ranking-score strong { color:#f5cf55; }
+
+/* SEGUNDO LUGAR */
 
 .rank-2 {
   border-color:#9ba4b3;
@@ -847,11 +856,19 @@ section {
 }
 
 .rank-2 .agt-ranking-medal {
-  background:#cbd3df20;
-  border:1px solid #cbd3df88;
+  background:#414957;
+  border:1px solid #cbd3df;
 }
 
-.rank-2 .agt-ranking-score strong {color:#d1d7e1}
+.rank-2 .agt-ranking-avatar-wrap .agt-player-avatar,
+.rank-2 .agt-ranking-avatar-wrap .agt-player-avatar-placeholder {
+  border-color:#cbd3df;
+  box-shadow:0 0 13px #cbd3df44;
+}
+
+.rank-2 .agt-ranking-score strong { color:#d1d7e1; }
+
+/* TERCEIRO LUGAR */
 
 .rank-3 {
   border-color:#a96a3c;
@@ -866,11 +883,17 @@ section {
 }
 
 .rank-3 .agt-ranking-medal {
-  background:#bd754020;
-  border:1px solid #bd895f88;
+  background:#59321d;
+  border:1px solid #bd895f;
 }
 
-.rank-3 .agt-ranking-score strong {color:#d99a6c}
+.rank-3 .agt-ranking-avatar-wrap .agt-player-avatar,
+.rank-3 .agt-ranking-avatar-wrap .agt-player-avatar-placeholder {
+  border-color:#bd895f;
+  box-shadow:0 0 13px #bd895f44;
+}
+
+.rank-3 .agt-ranking-score strong { color:#d99a6c; }
 
 .agt-ranking-empty {
   padding:22px 12px;
@@ -888,7 +911,7 @@ section {
   text-align:right;
 }
 
-/* BOTÃO VER RANKING MENSAL COMPLETO - VERDE NEON */
+/* BOTÃO RANKING MENSAL */
 
 .monthly-ranking-button {
   display:block;
@@ -935,16 +958,6 @@ section {
       0 0 28px #27ff7977,
       inset 0 0 12px #ffffff20;
   }
-}
-
-.agt-player-avatar {
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  object-fit:cover;
-  border:1px solid #8b35ff;
-  flex-shrink:0;
-  background:#21152f;
 }
 
 /* RECRUTAMENTO */
@@ -1058,16 +1071,16 @@ footer {
   line-height:2;
 }
 
-footer span {color:var(--neon)}
+footer span { color:var(--neon); }
 
 /* RESPONSIVIDADE */
 
 @media (min-width:601px) and (max-width:900px) {
-  header {padding:17px 5%}
-  .hero {min-height:540px;padding:85px 6%}
-  .hero .hero-content h1 {font-size:clamp(65px,11vw,95px)}
-  .hero::after {right:1%;font-size:200px}
-  section {padding:65px 6%}
+  header { padding:17px 5%; }
+  .hero { min-height:540px;padding:85px 6%; }
+  .hero .hero-content h1 { font-size:clamp(65px,11vw,95px); }
+  .hero::after { right:1%;font-size:200px; }
+  section { padding:65px 6%; }
 }
 
 @media (max-width:600px) {
@@ -1100,8 +1113,8 @@ footer span {color:var(--neon)}
     font-size:clamp(125px,38vw,190px);
   }
 
-  .hero .hero-content {width:100%;max-width:100%}
-  .tag {font-size:10px;letter-spacing:2.5px}
+  .hero .hero-content { width:100%;max-width:100%; }
+  .tag { font-size:10px;letter-spacing:2.5px; }
 
   .hero .hero-content h1 {
     font-size:clamp(46px,11.5vw,68px);
@@ -1109,7 +1122,7 @@ footer span {color:var(--neon)}
     line-height:1.05;
   }
 
-  .hero .hero-content h1 > span {white-space:nowrap}
+  .hero .hero-content h1 > span { white-space:nowrap; }
 
   .agt-smoke {
     left:-5%;
@@ -1118,7 +1131,7 @@ footer span {color:var(--neon)}
     height:180px;
   }
 
-  .agt-smoke span {filter:blur(11px)}
+  .agt-smoke span { filter:blur(11px); }
 
   .hero p {
     font-size:14px;
@@ -1134,15 +1147,15 @@ footer span {color:var(--neon)}
     margin:5px 3px;
   }
 
-  section {padding:60px 6%}
-  .section-title {margin-bottom:30px}
-  .section-title h2 {font-size:26px}
-  .section-title p {font-size:13px}
-  .cards {grid-template-columns:1fr;gap:15px}
-  .card {padding:23px}
-  .recruit h2 {font-size:30px}
-  .recruit p {font-size:14px}
-  .whatsapp-buttons {gap:9px}
+  section { padding:60px 6%; }
+  .section-title { margin-bottom:30px; }
+  .section-title h2 { font-size:26px; }
+  .section-title p { font-size:13px; }
+  .cards { grid-template-columns:1fr;gap:15px; }
+  .card { padding:23px; }
+  .recruit h2 { font-size:30px; }
+  .recruit p { font-size:14px; }
+  .whatsapp-buttons { gap:9px; }
 
   .whatsapp-btn {
     flex:1;
@@ -1152,27 +1165,36 @@ footer span {color:var(--neon)}
     font-size:12px;
   }
 
-  .whatsapp-btn svg {width:20px;height:20px}
-  .whatsapp-name {font-size:11px}
-  .youtube-btn {width:56px;height:56px}
-  .youtube-btn svg {width:27px;height:27px}
+  .whatsapp-btn svg { width:20px;height:20px; }
+  .whatsapp-name { font-size:11px; }
+  .youtube-btn { width:56px;height:56px; }
+  .youtube-btn svg { width:27px;height:27px; }
 
   .agt-ranking-item {
-    gap:8px;
+    gap:9px;
     padding:11px 9px;
   }
 
-  .agt-ranking-medal {
-    width:34px;
-    height:34px;
-    font-size:19px;
+  .agt-ranking-avatar-wrap {
+    width:49px;
+    height:49px;
   }
 
-  .agt-ranking-nick {font-size:13px}
-  .agt-ranking-score strong {font-size:12px}
-  .agt-ranking-details {font-size:9px}
-  .agt-player-avatar {width:35px;height:35px}
-  footer {padding:28px 6%;font-size:12px}
+  .agt-ranking-medal {
+    width:21px;
+    height:21px;
+    right:-4px;
+    bottom:-3px;
+    font-size:11px;
+  }
+
+  .agt-player-avatar-placeholder { font-size:21px; }
+
+  .agt-ranking-nick { font-size:13px; }
+  .agt-ranking-score strong { font-size:12px; }
+  .agt-ranking-details { font-size:9px; }
+
+  footer { padding:28px 6%;font-size:12px; }
 }
 
 @media (max-width:360px) {
@@ -1185,11 +1207,14 @@ footer span {color:var(--neon)}
     width:40px;
     height:39px;
   }
+
+  .agt-ranking-item { gap:7px; }
+  .agt-ranking-avatar-wrap { width:44px;height:44px; }
+  .agt-ranking-nick { font-size:12px; }
+  .agt-ranking-score strong { font-size:11px; }
 }
 
-[hidden] {
-  display:none !important;
-}
+[hidden] { display:none !important; }
 </style>
 </head>
 
@@ -1198,38 +1223,24 @@ footer span {color:var(--neon)}
 <header>
   <div class="logo">Clã AGT</div>
 
-  <button
-    class="menu-toggle"
-    id="menu-toggle"
-    type="button"
-    aria-label="Abrir menu"
-    aria-expanded="false"
-    aria-controls="menu-panel"
-  >
-    <span></span>
-    <span></span>
-    <span></span>
+  <button class="menu-toggle" id="menu-toggle" type="button"
+    aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-panel">
+    <span></span><span></span><span></span>
   </button>
 </header>
 
 <div class="menu-overlay" id="menu-overlay"></div>
 
 <aside class="menu-panel" id="menu-panel" aria-hidden="true">
-
   <div class="menu-top">
     <button class="menu-back" id="menu-close" type="button" aria-label="Fechar menu">←</button>
     <div class="menu-title">AGT ARENA</div>
   </div>
 
-  <!-- ÁREA DE USUÁRIO DESCONECTADO -->
-
   <div id="logged-out-area">
-
     <div class="auth-menu">
       <h3>Faça parte da AGT</h3>
-      <p class="auth-intro">
-        Entre na sua conta ou crie seu perfil de jogador.
-      </p>
+      <p class="auth-intro">Entre na sua conta ou crie seu perfil de jogador.</p>
 
       <button class="auth-accordion" type="button" data-auth-target="register-content">
         ＋ Criar minha conta
@@ -1274,15 +1285,10 @@ footer span {color:var(--neon)}
         AGT Arena — Aliança • Garra • Talento
       </p>
     </div>
-
   </div>
 
-  <!-- ÁREA DE USUÁRIO CONECTADO -->
-
   <div id="logged-in-area" hidden>
-
     <div class="profile-card">
-
       <div id="profile-avatar-container">
         <div class="profile-avatar-placeholder">🐍</div>
       </div>
@@ -1313,7 +1319,6 @@ footer span {color:var(--neon)}
     <button class="menu-logout" id="agt-logout" type="button">
       ↪ Sair da conta
     </button>
-
   </div>
 
   <div class="menu-section-label">NAVEGAÇÃO</div>
@@ -1324,14 +1329,12 @@ footer span {color:var(--neon)}
     <a href="#recrutamento">⚔️ RECRUTAMENTO</a>
     <a href="./ranking-mensal.html">🏆 RANKING MENSAL</a>
   </nav>
-
 </aside>
 
 <main>
 
 <section class="hero" id="inicio">
   <div class="hero-content">
-
     <div class="tag">ALIANÇA • GARRA • TALENTO</div>
 
     <div class="agt-smoke" aria-hidden="true">
@@ -1349,7 +1352,6 @@ footer span {color:var(--neon)}
 
     <a class="btn" href="#recrutamento">FAÇA PARTE DA AGT</a>
     <a class="btn btn-outline" href="#ranking">VER RANKINGS</a>
-
   </div>
 </section>
 
@@ -1362,7 +1364,6 @@ footer span {color:var(--neon)}
   </div>
 
   <div class="cards">
-
     <div class="card">
       <div class="symbol">🐍</div>
       <h3>Nossa identidade</h3>
@@ -1380,7 +1381,6 @@ footer span {color:var(--neon)}
       <h3>Nossa família</h3>
       <p>Jogadores unidos por um mesmo objetivo: crescer e representar a AGT.</p>
     </div>
-
   </div>
 </section>
 
@@ -1412,8 +1412,6 @@ footer span {color:var(--neon)}
 
       <span class="agt-ranking-updated" id="agt-ranking-updated"></span>
     </div>
-
-    <!-- PRÉVIA DO RANKING MENSAL -->
 
     <div class="card ranking-live-card">
       <div class="symbol">👑</div>
@@ -1466,7 +1464,6 @@ footer span {color:var(--neon)}
   </p>
 
   <div class="recruit-social">
-
     <div class="whatsapp-buttons">
 
       <a class="whatsapp-btn"
@@ -1474,11 +1471,9 @@ footer span {color:var(--neon)}
          target="_blank"
          rel="noopener"
          aria-label="WhatsApp Quik">
-
         <svg viewBox="0 0 32 32" aria-hidden="true">
           <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>
         </svg>
-
         <span class="whatsapp-name">Quik</span>
       </a>
 
@@ -1487,11 +1482,9 @@ footer span {color:var(--neon)}
          target="_blank"
          rel="noopener"
          aria-label="WhatsApp Souza">
-
         <svg viewBox="0 0 32 32" aria-hidden="true">
           <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>
         </svg>
-
         <span class="whatsapp-name">Souza</span>
       </a>
 
@@ -1502,13 +1495,10 @@ footer span {color:var(--neon)}
        target="_blank"
        rel="noopener"
        aria-label="Canal AGT QUIK YT">
-
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
       </svg>
-
     </a>
-
   </div>
 </section>
 
@@ -1656,14 +1646,14 @@ footer span {color:var(--neon)}
   /* CARREGAR PERFIL PÚBLICO */
 
   async function carregarPerfilPublico(user) {
-    const {data, error} = await db
+    const {data,error} = await db
       .from('agt_profiles')
       .select('nick, avatar_url')
-      .eq('id', user.id)
+      .eq('id',user.id)
       .maybeSingle();
 
     if (error) {
-      console.warn('Perfil público ainda não configurado:', error.message);
+      console.warn('Perfil público ainda não configurado:',error.message);
       return;
     }
 
@@ -1692,12 +1682,10 @@ footer span {color:var(--neon)}
     avisar('Criando sua conta...');
 
     try {
-      const {data, error} = await db.auth.signUp({
+      const {data,error} = await db.auth.signUp({
         email,
         password,
-        options: {
-          data: {nick}
-        }
+        options:{data:{nick}}
       });
 
       if (error) throw error;
@@ -1709,7 +1697,6 @@ footer span {color:var(--neon)}
             : 'Cadastro recebido! Confira seu e-mail para confirmar a conta.'
         );
       }
-
     } catch(error) {
       avisar('Erro ao criar conta: ' + error.message);
     } finally {
@@ -1731,12 +1718,10 @@ footer span {color:var(--neon)}
 
     try {
       const {error} = await db.auth.signInWithPassword({email,password});
-
       if (error) throw error;
 
       avisar('Login realizado com sucesso! Bem-vindo à AGT!');
       fecharMenu();
-
     } catch(error) {
       avisar('Erro ao entrar: ' + error.message);
     } finally {
@@ -1756,8 +1741,8 @@ footer span {color:var(--neon)}
 
     avisar('Enviando solicitação de recuperação...');
 
-    const {error} = await db.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + window.location.pathname
+    const {error} = await db.auth.resetPasswordForEmail(email,{
+      redirectTo:window.location.origin + window.location.pathname
     });
 
     avisar(
@@ -1812,9 +1797,9 @@ footer span {color:var(--neon)}
 
       const caminho = `${currentUser.id}/avatar.${extensao}`;
 
-      const {error: uploadError} = await db.storage
+      const {error:uploadError} = await db.storage
         .from('agt-avatars')
-        .upload(caminho, file, {
+        .upload(caminho,file,{
           upsert:true,
           contentType:file.type,
           cacheControl:'3600'
@@ -1839,7 +1824,7 @@ footer span {color:var(--neon)}
           nick:nick,
           avatar_url:avatarUrl,
           updated_at:new Date().toISOString()
-        }, {onConflict:'id'});
+        },{onConflict:'id'});
 
       if (profileError) throw profileError;
 
@@ -1848,7 +1833,7 @@ footer span {color:var(--neon)}
       });
 
       if (metadataError) {
-        console.warn('Foto salva no perfil público, mas não nos metadados:', metadataError);
+        console.warn('Foto salva no perfil público, mas não nos metadados:',metadataError);
       }
 
       mostrarAvatar(avatarUrl);
@@ -1870,7 +1855,7 @@ footer span {color:var(--neon)}
 
   /* ESTADO DA CONTA */
 
-  db.auth.onAuthStateChange(function(event, session) {
+  db.auth.onAuthStateChange(function(event,session) {
     atualizarInterfaceConta(session);
 
     if (session && event === 'SIGNED_IN') {
@@ -1885,7 +1870,7 @@ footer span {color:var(--neon)}
   /* DATA BRASILEIRA */
 
   function getBrazilDate() {
-    const parts = new Intl.DateTimeFormat('en-CA', {
+    const parts = new Intl.DateTimeFormat('en-CA',{
       timeZone:'America/Sao_Paulo',
       year:'numeric',
       month:'2-digit',
@@ -1912,7 +1897,7 @@ footer span {color:var(--neon)}
       .select('nick, avatar_url');
 
     if (error) {
-      console.warn('Não foi possível carregar fotos dos jogadores:', error.message);
+      console.warn('Não foi possível carregar fotos dos jogadores:',error.message);
       return;
     }
 
@@ -1925,18 +1910,53 @@ footer span {color:var(--neon)}
     });
   }
 
-  function adicionarAvatarRanking(container, nick) {
+  /*
+    NOVO MODELO DA FOTO:
+    - Foto redonda maior.
+    - Medalha no canto inferior direito para os três primeiros.
+    - Número pequeno no mesmo lugar a partir do quarto.
+    - Se o jogador ainda não tiver foto, mostra o símbolo provisório.
+  */
+
+  function criarAvatarRanking(nick,colocacao) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'agt-ranking-avatar-wrap';
+
     const url = profilesCache[(nick || '').trim().toLowerCase()];
 
-    if (!url) return;
+    if (url) {
+      const img = document.createElement('img');
+      img.className = 'agt-player-avatar';
+      img.src = url;
+      img.alt = 'Foto de ' + nick;
+      img.loading = 'lazy';
 
-    const img = document.createElement('img');
-    img.className = 'agt-player-avatar';
-    img.src = url;
-    img.alt = 'Foto de ' + nick;
-    img.loading = 'lazy';
+      img.onerror = function() {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'agt-player-avatar-placeholder';
+        placeholder.textContent = '🐍';
+        img.replaceWith(placeholder);
+      };
 
-    container.appendChild(img);
+      wrapper.appendChild(img);
+    } else {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'agt-player-avatar-placeholder';
+      placeholder.textContent = '🐍';
+      wrapper.appendChild(placeholder);
+    }
+
+    const badge = document.createElement('div');
+    badge.className = 'agt-ranking-medal';
+
+    const medalhas = ['🥇','🥈','🥉'];
+    badge.textContent = colocacao <= 3
+      ? medalhas[colocacao - 1]
+      : String(colocacao);
+
+    wrapper.appendChild(badge);
+
+    return wrapper;
   }
 
   /* RANKING DIÁRIO */
@@ -2004,19 +2024,16 @@ footer span {color:var(--neon)}
     }
 
     jogadores.forEach((player,index) => {
-      const colocacao = index+1;
-      const medalhas = ['🥇','🥈','🥉'];
+      const colocacao = index + 1;
 
       const item = document.createElement('div');
       item.className = 'agt-ranking-item';
 
-      if (colocacao <= 3) item.classList.add(`rank-${colocacao}`);
+      if (colocacao <= 3) {
+        item.classList.add(`rank-${colocacao}`);
+      }
 
-      const medal = document.createElement('div');
-      medal.className = 'agt-ranking-medal';
-      medal.textContent = medalhas[index] || String(colocacao);
-
-      adicionarAvatarRanking(item,player.nick);
+      const avatar = criarAvatarRanking(player.nick,colocacao);
 
       const info = document.createElement('div');
       info.className = 'agt-ranking-info';
@@ -2041,7 +2058,8 @@ footer span {color:var(--neon)}
       scoreLabel.textContent = 'PONTOS';
 
       score.append(scoreValue,scoreLabel);
-      item.append(medal,info,score);
+
+      item.append(avatar,info,score);
       rankingList.appendChild(item);
     });
 
@@ -2153,17 +2171,13 @@ footer span {color:var(--neon)}
         return;
       }
 
-      const medalhas = ['🥇','🥈','🥉'];
-
       ranking.forEach((player,index) => {
+        const colocacao = index + 1;
+
         const item = document.createElement('div');
-        item.className = 'agt-ranking-item rank-' + (index+1);
+        item.className = 'agt-ranking-item rank-' + colocacao;
 
-        const medal = document.createElement('div');
-        medal.className = 'agt-ranking-medal';
-        medal.textContent = medalhas[index];
-
-        adicionarAvatarRanking(item,player.nick);
+        const avatar = criarAvatarRanking(player.nick,colocacao);
 
         const info = document.createElement('div');
         info.className = 'agt-ranking-info';
@@ -2174,7 +2188,7 @@ footer span {color:var(--neon)}
 
         const details = document.createElement('span');
         details.className = 'agt-ranking-details';
-        details.textContent = `${index+1}º lugar mensal • ${player.dias} dia(s) pontuados`;
+        details.textContent = `${colocacao}º lugar mensal • ${player.dias} dia(s) pontuados`;
 
         info.append(nick,details);
 
@@ -2188,7 +2202,8 @@ footer span {color:var(--neon)}
         label.textContent = 'PONTOS SOMADOS';
 
         score.append(value,label);
-        item.append(medal,info,score);
+
+        item.append(avatar,info,score);
         monthList.appendChild(item);
       });
 
