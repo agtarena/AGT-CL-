@@ -84,70 +84,141 @@ header {
   text-shadow: none;
 }
 
-/* AGT ARENA GRANDE - PRATA METÁLICO */
-h1 {
+/* AGT ARENA — PRATA METÁLICO + CONTORNO NEON */
+
+.hero h1 {
   font-size: clamp(48px, 9vw, 90px);
   line-height: 1.1;
   margin: 20px 0;
   font-weight: 900;
   position: relative;
   isolation: isolate;
+  display: inline-block;
 
   background: linear-gradient(
     180deg,
     #ffffff 0%,
-    #d9d9e0 25%,
-    #ffffff 45%,
-    #858590 65%,
-    #f5f5ff 85%,
-    #a9a9b5 100%
+    #bfc0ca 15%,
+    #ffffff 30%,
+    #777987 48%,
+    #f9f9ff 60%,
+    #a5a6b2 75%,
+    #ffffff 90%,
+    #777987 100%
   );
 
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
 
-  -webkit-text-stroke: 1.5px #a64dff;
+  -webkit-text-stroke: 1.8px #a94aff;
 
   text-shadow:
-    0 0 2px #ffffff,
-    0 0 5px #8b35ff;
+    0 0 3px #ffffff,
+    0 0 8px #982aff,
+    0 0 16px #7920cc;
 }
 
-/* MANTÉM O PRATA NAS PARTES INTERNAS */
-h1 span {
+/* ARENA TAMBÉM PRATA */
+.hero h1 span {
   color: transparent;
-  text-shadow: none;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #bfc0ca 15%,
+    #ffffff 30%,
+    #777987 48%,
+    #f9f9ff 60%,
+    #a5a6b2 75%,
+    #ffffff 90%,
+    #777987 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -webkit-text-stroke: 1.8px #a94aff;
+  text-shadow:
+    0 0 3px #ffffff,
+    0 0 8px #982aff,
+    0 0 16px #7920cc;
 }
 
-/* FUMAÇA ROXA SUBINDO */
-h1::before {
+/* FUMAÇA ROXA — CAMADA PRINCIPAL */
+.hero h1::before {
   content: "";
   position: absolute;
   z-index: -1;
-  left: -15%;
-  right: -15%;
-  top: -100%;
-  bottom: -20%;
   pointer-events: none;
 
-  background:
-    radial-gradient(ellipse at 30% 75%, #9b36ff99, transparent 35%),
-    radial-gradient(ellipse at 65% 55%, #bd75ff88, transparent 40%),
-    radial-gradient(ellipse at 50% 30%, #7020cc77, transparent 45%);
+  left: -15%;
+  right: -15%;
+  top: -40%;
+  bottom: -30%;
 
-  filter: blur(24px);
-  animation: fumacaAGT 5s ease-in-out infinite alternate;
+  background:
+    radial-gradient(ellipse at 25% 80%, #a020ffcc, transparent 45%),
+    radial-gradient(ellipse at 70% 65%, #bd55ffbb, transparent 48%),
+    radial-gradient(ellipse at 45% 35%, #7020ccaa, transparent 50%),
+    radial-gradient(ellipse at 85% 20%, #a020ff88, transparent 45%);
+
+  filter: blur(17px);
+  opacity: .9;
+
+  animation: fumaSubindo 5s ease-in-out infinite alternate;
 }
 
-@keyframes fumacaAGT {
+/* SEGUNDA CAMADA DE FUMAÇA */
+.hero h1::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+
+  left: -20%;
+  right: -10%;
+  top: -55%;
+  bottom: -15%;
+
+  background:
+    radial-gradient(ellipse at 35% 75%, #8b20ffbb, transparent 40%),
+    radial-gradient(ellipse at 65% 45%, #d080ff99, transparent 45%),
+    radial-gradient(ellipse at 50% 15%, #7920cc99, transparent 42%);
+
+  filter: blur(23px);
+  opacity: .75;
+
+  animation: fumaFlutuante 7s ease-in-out infinite;
+}
+
+/* MOVIMENTO DA FUMAÇA */
+@keyframes fumaSubindo {
   0% {
-    transform: translateY(25px) scale(.9);
+    transform: translateY(22px) scale(.85);
+    opacity: .45;
+  }
+
+  100% {
+    transform: translateY(-35px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes fumaFlutuante {
+  0% {
+    transform: translate(-12px, 25px) scale(.9);
     opacity: .35;
   }
+
+  50% {
+    transform: translate(12px, -10px) scale(1.12);
+    opacity: .85;
+  }
+
   100% {
-    transform: translateY(-25px) scale(1.15);
-    opacity: .9;
+    transform: translate(-5px, -40px) scale(1.2);
+    opacity: .55;
   }
 }
 nav {
