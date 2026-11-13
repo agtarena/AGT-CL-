@@ -26,188 +26,117 @@
   scroll-behavior: smooth;
 }
 
-body {
-  background-color: var(--bg);
-  color: var(--white);
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
-  position: relative;
-  isolation: isolate;
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Texto Prata Neon com Fumaça</title>
+<style>
+  /* Fundo escuro para destacar o neon e a fumaça */
+  body {
+    background-color: #090512;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial Black', Impact, sans-serif;
+    overflow: hidden;
+  }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("./logo%20(2).png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: min(75vw, 550px);
-  opacity: 0.07;
-  pointer-events: none;
-  z-index: -1;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(9,6,17,.94);
-  border-bottom: 1px solid #392052;
-  padding: 18px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-/* LOGO PEQUENO DO CABEÇALHO */
-.logo {
-  font-size: 25px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  background: linear-gradient(
-    180deg,
-    #ffffff,
-    #aaa0b9,
-    #ffffff,
-    #665879
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-stroke: 1px #a64dff;
-  text-shadow: 0 0 8px #962cff, 0 0 18px #8b35ff;
-}
-
-.logo span {
-  color: transparent;
-  text-shadow: none;
-}
-/* AGT ARENA - PRATA METÁLICA E FUMAÇA ROXA */
-
-.hero .hero-content h1 {
+  /* Contêiner que segura o texto e a fumaça */
+  .container-neon {
     position: relative;
     display: inline-block;
-    z-index: 1;
+    padding: 20px 40px;
+  }
 
-    font-size: clamp(64px, 12vw, 112px);
-    font-weight: 1000;
-    line-height: 0.92;
-    letter-spacing: 2px;
-
-    color: #dce1e9;
-
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #d9dce4 15%,
-        #8992a0 30%,
-        #ffffff 45%,
-        #737d8b 58%,
-        #e9edf5 72%,
-        #a4abb7 86%,
-        #ffffff 100%
-    );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    -webkit-text-stroke: 1.7px #a020ff;
-
-    filter: drop-shadow(0 0 5px #8b35ff);
-    text-shadow:
-        0 0 3px #ffffff,
-        0 0 9px rgba(160, 32, 255, .95);
-}
-
-/* ARENA TAMBÉM PRATA */
-
-.hero .hero-content h1 span {
-    display: inline-block;
-    color: #ffffff;
-    font-size: inherit;
-    font-weight: inherit;
-
-    background: linear-gradient(
-        180deg,
-        #ffffff,
-        #bfc6d1 25%,
-        #737e8e 45%,
-        #ffffff 55%,
-        #8b94a2 75%,
-        #ffffff
-    );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1.7px #a020ff;
-}
-
-/* FUMAÇA ROXA ABAIXO DO TÍTULO */
-
-.hero .hero-content h1 {
+  /* Estilo da Fonte Prata + Borda Roxo Neon */
+  .texto-prata-neon {
     position: relative;
-    display: inline-block;
-    isolation: isolate;
-    overflow: visible;
-    z-index: 1;
-
-    font-size: clamp(64px, 12vw, 112px);
-    font-weight: 1000;
-    line-height: 0.92;
-    letter-spacing: 2px;
-
+    z-index: 2; /* Fica na frente da fumaça */
+    font-size: 5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0;
+    
+    /* 1. Efeito Prata Metálico (Degradê) */
     background: linear-gradient(
-        180deg,
-        #737b87 0%,
-        #f5f6f8 12%,
-        #8b929d 25%,
-        #d9dde3 38%,
-        #626b78 50%,
-        #f0f2f5 62%,
-        #858d99 76%,
-        #e5e8ed 88%,
-        #626a76 100%
+      180deg, 
+      #ffffff 0%, 
+      #d4d4d8 45%, 
+      #71717a 50%, 
+      #e4e4e7 100%
     );
-
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1.5px #a020ff;
 
-    filter: drop-shadow(0 0 5px #a020ff);
-}
+    /* 2. Faixa / Brilho Roxo Neon em volta */
+    -webkit-text-stroke: 2px #b026ff; /* Contorno fino roxo */
+    filter: drop-shadow(0 0 8px #9d00ff) 
+            drop-shadow(0 0 20px #7000ff);
+  }
 
-.hero .hero-content h1 span {
-    display: inline-block;
-    font-size: inherit;
-    font-weight: inherit;
-    letter-spacing: inherit;
+  /* Camadas de Fumaça Subindo */
+  .fumaca {
+    position: absolute;
+    bottom: 10px;
+    left: 10%;
+    width: 80%;
+    height: 60px;
+    z-index: 1; /* Fica atrás do texto */
+    pointer-events: none;
+  }
 
-    background: linear-gradient(
-        180deg,
-        #737b87 0%,
-        #f5f6f8 12%,
-        #8b929d 25%,
-        #d9dde3 38%,
-        #626b78 50%,
-        #f0f2f5 62%,
-        #858d99 76%,
-        #e5e8ed 88%,
-        #626a76 100%
-    );
+  .fumaca span {
+    position: absolute;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(200, 180, 255, 0.35) 0%, rgba(157, 0, 255, 0) 70%);
+    border-radius: 50%;
+    filter: blur(18px); /* Deixa com aspecto gasoso/esfumaçado */
+    opacity: 0;
+    animation: subirFumaca 4s infinite ease-in;
+  }
 
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1.5px #a020ff;
+  /* Criando várias partículas de fumaça em posições e tempos diferentes */
+  .fumaca span:nth-child(1) { left: 10%; width: 90px; height: 90px; animation-delay: 0s; }
+  .fumaca span:nth-child(2) { left: 30%; width: 120px; height: 120px; animation-delay: 1.2s; }
+  .fumaca span:nth-child(3) { left: 55%; width: 100px; height: 100px; animation-delay: 0.6s; }
+  .fumaca span:nth-child(4) { left: 75%; width: 110px; height: 110px; animation-delay: 2s; }
+  .fumaca span:nth-child(5) { left: 45%; width: 130px; height: 130px; animation-delay: 2.8s; }
 
-    filter: drop-shadow(0 0 5px #a020ff);
-}
+  /* Animação da fumaça subindo e sumindo */
+  @keyframes subirFumaca {
+    0% {
+      transform: translateY(20px) scale(0.8);
+      opacity: 0;
+    }
+    30% {
+      opacity: 0.6; /* Transparência máxima da fumaça */
+    }
+    100% {
+      transform: translateY(-140px) scale(1.8);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="container-neon">
+    <h1 class="texto-prata-neon">SEU TEXTO</h1>
+    <div class="fumaca">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+</body>
+</html>
 nav a {
   color: #ddd;
   text-decoration: none;
