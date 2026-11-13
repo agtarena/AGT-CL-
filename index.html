@@ -1,942 +1,265 @@
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090611">
-<title>AGT Arena | Clã AGT</title>
-
-<style>
-:root {
-  --bg: #090611;
-  --panel: #151020;
-  --panel2: #1c1429;
-  --purple: #9b42ff;
-  --neon: #a855f7;
-  --green: #19e66b;
-  --white: #f5f1ff;
-  --muted: #b9afc8;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(112,35,180,.22), transparent 45%),
-    var(--bg);
-  color: var(--white);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button, input {
-  font: inherit;
-}
-
-section {
-  width: min(1100px, 92%);
-  margin: auto;
-  padding: 75px 0;
-}
-
-.section-heading {
-  text-align: center;
-  margin-bottom: 35px;
-}
-
-.section-heading h2 {
-  font-size: clamp(25px, 5vw, 36px);
-  margin-bottom: 10px;
-  text-shadow: 0 0 15px rgba(168,85,247,.5);
-}
-
-.section-heading p {
-  color: var(--muted);
-}
-
-/* CABEÇALHO */
-
-.site-header {
-  position: relative;
-  z-index: 20;
-  padding: 17px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(9,6,17,.88);
-  border-bottom: 1px solid rgba(168,85,247,.2);
-  backdrop-filter: blur(12px);
-}
-
-.clan-brand {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: clamp(17px, 4vw, 24px);
-  font-weight: 1000;
-  letter-spacing: .24em;
-  color: #fff;
-  text-shadow:
-    0 0 5px #a855f7,
-    0 0 14px #a855f7,
-    0 0 28px #7020bd;
-  animation: brandGlow 2.5s ease-in-out infinite alternate;
-}
-
-@keyframes brandGlow {
-  from {
-    text-shadow: 0 0 5px #a855f7, 0 0 12px #a855f7;
-  }
-  to {
-    text-shadow: 0 0 8px #d8aaff, 0 0 22px #a855f7, 0 0 35px #7020bd;
-  }
-}
-
-.menu-toggle {
-  width: 43px;
-  height: 40px;
-  border: 1px solid rgba(168,85,247,.4);
-  border-radius: 10px;
-  background: #171020;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  align-items: center;
-  cursor: pointer;
-}
-
-.menu-toggle span {
-  width: 20px;
-  height: 2px;
-  background: white;
-  border-radius: 5px;
-}
-
-.back-home {
-  font-weight: 900;
-  font-size: 13px;
-  letter-spacing: 1px;
-}
-
-/* MENU */
-
-.menu-panel {
-  display: none;
-  position: absolute;
-  top: 70px;
-  left: 5%;
-  width: min(330px, 90%);
-  padding: 17px;
-  background: #130d1e;
-  border: 1px solid rgba(168,85,247,.45);
-  border-radius: 15px;
-  box-shadow: 0 15px 45px #000;
-}
-
-.menu-panel.open {
-  display: block;
-}
-
-.menu-panel a,
-.menu-panel button {
-  display: block;
-  width: 100%;
-  padding: 13px;
-  margin: 5px 0;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 9px;
-  color: white;
-  background: #21172e;
-  text-align: left;
-  cursor: pointer;
-  font-weight: 800;
-  transition: .2s;
-}
-
-.menu-panel a:hover,
-.menu-panel button:hover {
-  background: #30203f;
-  border-color: var(--purple);
-  transform: translateX(3px);
-}
-
-.menu-section-label {
-  color: #b98bea;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  margin: 18px 5px 8px;
-}
-
-/* CONTA */
-
-.auth-menu,
-.profile-card {
-  background: var(--panel);
-  border: 1px solid rgba(168,85,247,.3);
-  padding: 20px;
-  border-radius: 14px;
-  margin-top: 12px;
-}
-
-.auth-menu h3 {
-  margin-top: 0;
-}
-
-.auth-intro,
-.profile-note {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.auth-accordion,
-.auth-submit,
-.auth-link,
-.menu-logout {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(168,85,247,.4);
-  background: #241630;
-  color: white;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.auth-content {
-  display: none;
-  padding: 12px 0;
-}
-
-.auth-content.open {
-  display: block;
-}
-
-.auth-menu label {
-  display: block;
-  margin: 12px 0 6px;
-  font-size: 13px;
-  color: #d9c9ec;
-}
-
-.auth-menu input {
-  width: 100%;
-  padding: 12px;
-  background: #0c0813;
-  color: white;
-  border: 1px solid #49335f;
-  border-radius: 8px;
-}
-
-.auth-submit {
-  background: linear-gradient(135deg,#7024bb,#a855f7);
-}
-
-.auth-link {
-  background: transparent;
-  border: none;
-  color: #c89aff;
-}
-
-.profile-card {
-  text-align: center;
-}
-
-.profile-avatar-placeholder {
-  width: 75px;
-  height: 75px;
-  display: grid;
-  place-items: center;
-  margin: auto;
-  background: #2c1b3d;
-  border: 2px solid var(--purple);
-  border-radius: 50%;
-  font-size: 35px;
-}
-
-.profile-nick {
-  font-size: 20px;
-  font-weight: 900;
-  margin-top: 12px;
-}
-
-.profile-email {
-  color: var(--muted);
-  font-size: 12px;
-  margin: 6px;
-}
-
-.profile-label {
-  color: var(--green);
-  font-size: 11px;
-  font-weight: 900;
-}
-
-.avatar-upload {
-  display: block;
-  margin: 15px auto;
-  padding: 12px;
-  background: #241630;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.avatar-upload input {
-  display: none;
-}
-
-.menu-profile-link {
-  display: block;
-  padding: 12px;
-  background: #21172e;
-  border-radius: 8px;
-}
-
-/* HERO */
-
-.hero {
-  min-height: 570px;
-  width: 100%;
-  padding: 85px 5% 75px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 65%, rgba(111,31,172,.3), transparent 55%);
-}
-
-.tag {
-  display: inline-block;
-  padding: 8px 15px;
-  border: 1px solid rgba(168,85,247,.5);
-  color: #d6b2ff;
-  border-radius: 30px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.hero h1 {
-  position: relative;
-  z-index: 2;
-  margin: 25px 0;
-  font-size: clamp(65px, 15vw, 120px);
-  line-height: .82;
-  font-weight: 1000;
-  letter-spacing: -5px;
-  color: #e8e8ed;
-  -webkit-text-stroke: 2px #17121e;
-  text-shadow:
-    3px 4px 0 #55505e,
-    0 0 18px rgba(168,85,247,.7);
-}
-
-.hero h1 span:last-child {
-  color: #c9c7d2;
-}
-
-.hero p {
-  max-width: 650px;
-  color: #c5bbd0;
-  line-height: 1.7;
-  font-size: 15px;
-}
-
-.agt-smoke {
-  position: absolute;
-  inset: 30% 0 0;
-  pointer-events: none;
-  opacity: .4;
-}
-
-.agt-smoke span {
-  position: absolute;
-  bottom: 0;
-  left: calc(10% + var(--i, 0) * 10%);
-  width: 55px;
-  height: 160px;
-  border-radius: 50%;
-  background: rgba(137,54,205,.15);
-  filter: blur(24px);
-  animation: smoke 5s ease-in-out infinite alternate;
-}
-
-.agt-smoke span:nth-child(2n) {
-  animation-delay: -2s;
-  height: 220px;
-}
-
-@keyframes smoke {
-  from { transform: translateY(30px) scale(.8); opacity: .2; }
-  to { transform: translateY(-80px) scale(1.5); opacity: .8; }
-}
-
-/* BOTÕES */
-
-.btn {
-  display: inline-block;
-  padding: 13px 21px;
-  margin: 8px 4px;
-  border-radius: 8px;
-  background: linear-gradient(135deg,#7627bb,#a855f7);
-  border: 1px solid #b77bff;
-  color: white;
-  font-weight: 1000;
-  font-size: 12px;
-  letter-spacing: .5px;
-  transition: .25s;
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 20px rgba(168,85,247,.45);
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid #9e55d9;
-}
-
-/* DESTAQUE EXCLUSIVO DO RANKING MENSAL */
-
-.monthly-ranking-button {
-  display: block;
-  width: fit-content;
-  max-width: 100%;
-  margin: 20px auto 0;
-  background: linear-gradient(135deg,#087a37,#13d65e) !important;
-  border: 1px solid #68ff9d !important;
-  color: #fff !important;
-  box-shadow:
-    0 0 8px rgba(0,255,100,.55),
-    0 0 20px rgba(0,255,100,.25);
-  animation: monthlyGlow 2s ease-in-out infinite alternate;
-}
-
-.monthly-ranking-button:hover {
-  background: linear-gradient(135deg,#0ca94b,#35ff82) !important;
-  transform: translateY(-3px);
-  box-shadow: 0 0 12px #19e66b, 0 0 28px rgba(0,255,100,.5);
-}
-
-@keyframes monthlyGlow {
-  from { box-shadow: 0 0 6px rgba(0,255,100,.35); }
-  to { box-shadow: 0 0 15px rgba(0,255,100,.75),0 0 27px rgba(0,255,100,.25); }
-}
-
-/* CARDS */
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 18px;
-}
-
-.card {
-  padding: 23px;
-  background: linear-gradient(145deg,#1c1429,#110c19);
-  border: 1px solid rgba(168,85,247,.25);
-  border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(0,0,0,.18);
-}
-
-.card h3 {
-  margin: 12px 0;
-}
-
-.card p {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.symbol {
-  font-size: 30px;
-}
-
-.status {
-  color: #c49ae9;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  margin-top: 18px;
-}
-
-/* RANKINGS */
-
-.ranking-live-card {
-  min-width: 0;
-}
-
-.ranking-description {
-  margin-bottom: 20px;
-}
-
-.agt-ranking-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-  padding: 12px;
-  background: #0c0813;
-  border-radius: 8px;
-  font-size: 11px;
-}
-
-.agt-ranking-status {
-  color: var(--green);
-  font-weight: 900;
-}
-
-.agt-ranking-list {
-  margin-top: 12px;
-  min-height: 55px;
-}
-
-.agt-ranking-empty {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.agt-ranking-updated {
-  display: block;
-  margin-top: 10px;
-  color: #8f849b;
-  font-size: 10px;
-}
-
-/* RECRUTAMENTO */
-
-.recruitment {
-  text-align: center;
-}
-
-.recruitment h2 {
-  font-size: clamp(25px,5vw,38px);
-}
-
-.recruitment p {
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.whatsapp-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin: 25px 0;
-}
-
-.whatsapp-btn,
-.youtube-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 13px 22px;
-  border-radius: 9px;
-  background: #137c42;
-  color: white;
-  font-weight: 900;
-}
-
-.whatsapp-btn svg,
-.youtube-btn svg {
-  width: 22px;
-  height: 22px;
-  fill: white;
-}
-
-.youtube-btn {
-  background: #c51d2a;
-  min-width: 55px;
-}
-
-/* RODAPÉ */
-
-footer {
-  text-align: center;
-  padding: 35px 15px;
-  background: #07040c;
-  border-top: 1px solid rgba(168,85,247,.2);
-}
-
-footer strong {
-  display: block;
-  font-size: 23px;
-  letter-spacing: 3px;
-  text-shadow: 0 0 15px #9b42ff;
-}
-
-footer p {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.8;
-}
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-  .site-header {
-    padding: 14px 4%;
-  }
-
-  .clan-brand {
-    font-size: 16px;
-    letter-spacing: 3px;
-  }
-
-  .hero {
-    min-height: 510px;
-  }
-
-  .hero h1 {
-    letter-spacing: -3px;
-  }
-
-  section {
-    padding: 55px 0;
-  }
-
-  .agt-ranking-heading {
-    flex-direction: column;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header class="site-header">
-  <button class="menu-toggle" id="menu-toggle" type="button"
-    aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-panel">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
-  <div class="clan-brand">CLÃ AGT</div>
-
-  <a class="back-home" href="#inicio">← AGT ARENA</a>
-
-  <nav class="menu-panel" id="menu-panel">
-    <div class="menu-section-label">NAVEGAÇÃO</div>
-    <a href="#clã">🐍 O CLÃ</a>
-    <a href="#ranking">🏆 RANKINGS</a>
-    <a href="#recrutamento">⚔️ RECRUTAMENTO</a>
-    <a href="./ranking-mensal.html">🏆 RANKING MENSAL</a>
-
-    <div class="menu-section-label">MINHA CONTA</div>
-
-    <div class="auth-menu">
-      <h3>Faça parte da AGT</h3>
-      <p class="auth-intro">Entre na sua conta ou crie seu perfil de jogador.</p>
-
-      <button class="auth-accordion" type="button" data-auth-target="register-content">
-        ＋ Criar minha conta
-      </button>
-
-      <div class="auth-content" id="register-content">
-        <form id="agt-register">
-          <label for="agt-nick">Nick do jogo (precisa conter AGT)</label>
-          <input id="agt-nick" type="text" placeholder="Ex: AGT Quik" maxlength="30" required>
-
-          <label for="agt-email">E-mail</label>
-          <input id="agt-email" type="email" placeholder="Seu e-mail" required>
-
-          <label for="agt-password">Senha (mínimo 6 caracteres)</label>
-          <input id="agt-password" type="password" minlength="6" placeholder="Crie uma senha" required>
-
-          <button class="auth-submit" type="submit">CRIAR CONTA</button>
-        </form>
-      </div>
-
-      <button class="auth-accordion" type="button" data-auth-target="login-content">
-        ⇥ Já tenho uma conta
-      </button>
-
-      <div class="auth-content" id="login-content">
-        <form id="agt-login">
-          <label for="agt-login-email">E-mail</label>
-          <input id="agt-login-email" type="email" placeholder="Seu e-mail" required>
-
-          <label for="agt-login-password">Senha</label>
-          <input id="agt-login-password" type="password" placeholder="Sua senha" required>
-
-          <button class="auth-submit" type="submit">ENTRAR NA CONTA</button>
-        </form>
-
-        <button class="auth-link" id="agt-forgot-password" type="button">
-          Esqueci minha senha
-        </button>
-      </div>
-
-      <p id="agt-message" aria-live="polite">
-        AGT Arena — Aliança • Garra • Talento
-      </p>
-    </div>
-
-    <div class="profile-card">
-      <div id="profile-avatar-container">
-        <div class="profile-avatar-placeholder">🐍</div>
-      </div>
-
-      <div class="profile-nick" id="profile-nick">Jogador AGT</div>
-      <div class="profile-email" id="profile-email"></div>
-      <span class="profile-label">● CONECTADO À AGT</span>
-
-      <label class="avatar-upload">
-        📷 ESCOLHER FOTO DA GALERIA
-        <input type="file" id="agt-avatar-file" accept="image/png,image/jpeg,image/webp">
-      </label>
-
-      <p class="profile-note">
-        Sua foto ficará visível para os outros jogadores.
-        Somente você poderá alterar sua própria foto.
-      </p>
-
-      <p id="profile-message" class="profile-note" aria-live="polite"></p>
-    </div>
-
-    <a class="menu-profile-link" href="#meu-perfil" id="my-profile-link">👤 Meu perfil</a>
-    <button class="menu-logout" id="agt-logout" type="button">↪ Sair da conta</button>
-  </nav>
-</header>
-
-<main>
-
-<section class="hero" id="inicio">
-  <div class="tag">ALIANÇA • GARRA • TALENTO</div>
-
-  <div class="agt-smoke" aria-hidden="true">
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span>
-  </div>
-
-  <h1><span>AGT</span><br><span>ARENA</span></h1>
-
-  <p>
-    Mais que um clã, uma família.
-    Unidos pela habilidade, fortalecidos pela lealdade
-    e determinados a conquistar o topo no SlitherMania.
-  </p>
-
-  <div>
-    <a class="btn" href="#recrutamento">FAÇA PARTE DA AGT</a>
-    <a class="btn btn-outline" href="#ranking">VER RANKINGS</a>
-  </div>
-</section>
-
-<section id="clã">
-  <div class="section-heading">
-    <h2>O UNIVERSO AGT</h2>
-    <p>Conheça nossa comunidade e nossos objetivos.</p>
-  </div>
-
-  <div class="cards-grid">
-    <div class="card">
-      <div class="symbol">🐍</div>
-      <h3>Nossa identidade</h3>
-      <p>Uma equipe construída com união, respeito, habilidade e espírito competitivo.</p>
-    </div>
-
-    <div class="card">
-      <div class="symbol">🏆</div>
-      <h3>Nossas conquistas</h3>
-      <p>Cada evolução e cada vitória merecem reconhecimento dentro da nossa comunidade.</p>
-    </div>
-
-    <div class="card">
-      <div class="symbol">💜</div>
-      <h3>Nossa família</h3>
-      <p>Jogadores unidos por um mesmo objetivo: crescer e representar a AGT.</p>
-    </div>
-  </div>
-</section>
-
-<section id="ranking">
-  <div class="section-heading">
-    <h2>RANKINGS AGT</h2>
-    <p>Acompanhe o desempenho e a evolução competitiva.</p>
-  </div>
-
-  <div class="cards-grid">
-    <div class="card ranking-live-card">
-      <div class="symbol">🏆</div>
-      <h3>Ranking diário AGT</h3>
-
-      <p class="ranking-description">
-        Os melhores jogadores da AGT no SlitherMania.
-        Acompanhe as pontuações e conquiste o topo!
-      </p>
-
-      <div class="agt-ranking-heading">
-        <span class="agt-ranking-date" id="agt-ranking-date">Carregando data...</span>
-        <span class="agt-ranking-status" id="agt-ranking-status">CONECTANDO...</span>
-      </div>
-
-      <div class="agt-ranking-list" id="agt-ranking-list" aria-live="polite">
-        <p class="agt-ranking-empty">Carregando classificação da AGT...</p>
-      </div>
-
-      <span class="agt-ranking-updated" id="agt-ranking-updated"></span>
-    </div>
-
-    <div class="card ranking-live-card">
-      <div class="symbol">👑</div>
-      <h3>Ranking mensal AGT</h3>
-
-      <p class="ranking-description">
-        Os três jogadores que mais pontuaram no mês,
-        considerando a melhor pontuação diária de cada integrante.
-      </p>
-
-      <div class="agt-ranking-heading">
-        <span class="agt-ranking-date" id="agt-month-label">Mês atual</span>
-        <span class="agt-ranking-status" id="agt-month-status">CALCULANDO...</span>
-      </div>
-
-      <div class="agt-ranking-list" id="agt-month-list" aria-live="polite">
-        <p class="agt-ranking-empty">Carregando ranking mensal...</p>
-      </div>
-
-      <span class="agt-ranking-updated" id="agt-month-updated"></span>
-
-      <a href="./ranking-mensal.html" class="btn monthly-ranking-button">
-        VER RANKING MENSAL COMPLETO →
-      </a>
-    </div>
-
-    <div class="card">
-      <div class="symbol">⚔️</div>
-      <h3>Ranking de clãs</h3>
-      <p>Acompanhe a posição oficial da AGT diante dos outros clãs.</p>
-      <div class="status">AGUARDANDO INTEGRAÇÃO</div>
-    </div>
-
-    <div class="card">
-      <div class="symbol">⭐</div>
-      <h3>Patentes AGT</h3>
-      <p>Futuramente, cada integrante poderá acompanhar seus pontos e sua evolução.</p>
-      <div class="status">EM DESENVOLVIMENTO</div>
-    </div>
-  </div>
-</section>
-
-<section id="recrutamento" class="recruitment">
-  <h2>SUA PRÓXIMA HISTÓRIA COMEÇA AQUI.</h2>
-  <p>
-    Tem habilidade, determinação e vontade de evoluir?
-    <br>
-    Então venha conhecer a família AGT!
-  </p>
-
-  <div class="whatsapp-buttons">
-    <a class="whatsapp-btn" href="https://wa.me/5511948646144"
-      target="_blank" rel="noopener" aria-label="WhatsApp Quik">
-      <svg viewBox="0 0 32 32" aria-hidden="true">
-        <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>
-      </svg>
-      <span class="whatsapp-name">Quik</span>
-    </a>
-
-    <a class="whatsapp-btn" href="https://wa.me/5512991173752"
-      target="_blank" rel="noopener" aria-label="WhatsApp Souza">
-      <svg viewBox="0 0 32 32" aria-hidden="true">
-        <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>
-      </svg>
-      <span class="whatsapp-name">Souza</span>
-    </a>
-  </div>
-
-  <a class="youtube-btn" href="https://youtube.com/@agtquikyt"
-    target="_blank" rel="noopener" aria-label="Canal AGT QUIK YT">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
-    </svg>
-  </a>
-</section>
-
-</main>
-
-<footer>
-  <strong>AGT ARENA</strong>
-  <p>ALIANÇA • GARRA • TALENTO</p>
-  <p>© 2026 BY AGT SOUZA — Todos os direitos reservados.</p>
-  <p>Uma família, um propósito, uma aliança.</p>
-</footer>
-
-<script>
-const menuToggle = document.getElementById("menu-toggle");
-const menuPanel = document.getElementById("menu-panel");
-
-menuToggle.addEventListener("click", () => {
-  const opened = menuPanel.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(opened));
-  menuToggle.setAttribute("aria-label", opened ? "Fechar menu" : "Abrir menu");
-});
-
-menuPanel.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener("click", () => {
-    menuPanel.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-  });
-});
-
-document.querySelectorAll(".auth-accordion").forEach(button => {
-  button.addEventListener("click", () => {
-    const target = document.getElementById(button.dataset.authTarget);
-    target.classList.toggle("open");
-  });
-});
-
-document.getElementById("agt-avatar-file").addEventListener("change", event => {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  if (!file.type.startsWith("image/")) return;
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    document.getElementById("profile-avatar-container").innerHTML =
-      '<img src="' + reader.result + '" alt="Foto do perfil" style="width:75px;height:75px;object-fit:cover;border-radius:50%;border:2px solid #a855f7">';
-  };
-  reader.readAsDataURL(file);
-});
-
-const now = new Date();
-const dateLabel = now.toLocaleDateString("pt-BR", {
-  day: "2-digit",
-  month: "long",
-  year: "numeric"
-});
-
-document.getElementById("agt-ranking-date").textContent = dateLabel;
-document.getElementById("agt-month-label").textContent =
-  now.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
-</script>
-
-</body>
-</html>
+Clã AGT
+
+<button
+class="menu-toggle"
+id="menu-toggle"
+type="button"
+aria-label="Abrir menu"
+aria-expanded="false"
+aria-controls="menu-panel"
+
+> 
+
+<span></span>    
+<span></span>    
+<span></span>
+
+←
+
+AGT ARENA
+
+<div class="auth-menu">    
+  <h3>Faça parte da AGT</h3>    
+  <p class="auth-intro">    
+    Entre na sua conta ou crie seu perfil de jogador.    
+  </p>    
+  
+  <button class="auth-accordion" type="button" data-auth-target="register-content">    
+    ＋ Criar minha conta    
+  </button>    
+  
+  <div class="auth-content" id="register-content">    
+    <form id="agt-register">    
+      <label for="agt-nick">Nick do jogo (precisa conter AGT)</label>    
+      <input id="agt-nick" type="text" placeholder="Ex: AGT Quik" maxlength="30" required>    
+  
+      <label for="agt-email">E-mail</label>    
+      <input id="agt-email" type="email" placeholder="Seu e-mail" required>    
+  
+      <label for="agt-password">Senha (mínimo 6 caracteres)</label>    
+      <input id="agt-password" type="password" minlength="6" placeholder="Crie uma senha" required>    
+  
+      <button class="auth-submit" type="submit">CRIAR CONTA</button>    
+    </form>    
+  </div>    
+  
+  <button class="auth-accordion" type="button" data-auth-target="login-content">    
+    ⇥ Já tenho uma conta    
+  </button>    
+  
+  <div class="auth-content" id="login-content">    
+    <form id="agt-login">    
+      <label for="agt-login-email">E-mail</label>    
+      <input id="agt-login-email" type="email" placeholder="Seu e-mail" required>    
+  
+      <label for="agt-login-password">Senha</label>    
+      <input id="agt-login-password" type="password" placeholder="Sua senha" required>    
+  
+      <button class="auth-submit" type="submit">ENTRAR NA CONTA</button>    
+    </form>    
+  
+    <button class="auth-link" id="agt-forgot-password" type="button">    
+      Esqueci minha senha    
+    </button>    
+  </div>    
+  
+  <p id="agt-message" aria-live="polite">    
+    AGT Arena — Aliança • Garra • Talento    
+  </p>    
+</div>
+
+<div class="profile-card">    
+  
+  <div id="profile-avatar-container">    
+    <div class="profile-avatar-placeholder">🐍</div>    
+  </div>    
+  
+  <div class="profile-nick" id="profile-nick">Jogador AGT</div>    
+  <div class="profile-email" id="profile-email"></div>    
+  <span class="profile-label">● CONECTADO À AGT</span>    
+  
+  <label class="avatar-upload">    
+    📷 ESCOLHER FOTO DA GALERIA    
+    <input type="file" id="agt-avatar-file" accept="image/png,image/jpeg,image/webp">    
+  </label>    
+  
+  <p class="profile-note">    
+    Sua foto ficará visível para os outros jogadores.    
+    Somente você poderá alterar sua própria foto.    
+  </p>    
+  
+  <p id="profile-message" class="profile-note" aria-live="polite"></p>    
+</div>    
+  
+<div class="menu-section-label">MINHA CONTA</div>    
+  
+<a class="menu-profile-link" href="#meu-perfil" id="my-profile-link">    
+  👤 Meu perfil    
+</a>    
+  
+<button class="menu-logout" id="agt-logout" type="button">    
+  ↪ Sair da conta    
+</button>
+
+NAVEGAÇÃO
+🐍 O CLÃ       🏆 RANKINGS       ⚔️ RECRUTAMENTO       🏆 RANKING MENSAL
+
+<div class="tag">ALIANÇA • GARRA • TALENTO</div>    
+  
+<div class="agt-smoke" aria-hidden="true">    
+  <span></span><span></span><span></span><span></span>    
+  <span></span><span></span><span></span>    
+</div>    
+  
+<h1><span>AGT</span><br><span>ARENA</span></h1>    
+  
+<p>    
+  Mais que um clã, uma família.    
+  Unidos pela habilidade, fortalecidos pela lealdade    
+  e determinados a conquistar o topo no SlitherMania.    
+</p>    
+  
+<a class="btn" href="#recrutamento">FAÇA PARTE DA AGT</a>    
+<a class="btn btn-outline" href="#ranking">VER RANKINGS</a>
+
+O UNIVERSO AGT
+
+Conheça nossa comunidade e nossos objetivos.
+
+<div class="card">    
+  <div class="symbol">🐍</div>    
+  <h3>Nossa identidade</h3>    
+  <p>Uma equipe construída com união, respeito, habilidade e espírito competitivo.</p>    
+</div>    
+  
+<div class="card">    
+  <div class="symbol">🏆</div>    
+  <h3>Nossas conquistas</h3>    
+  <p>Cada evolução e cada vitória merecem reconhecimento dentro da nossa comunidade.</p>    
+</div>    
+  
+<div class="card">    
+  <div class="symbol">💜</div>    
+  <h3>Nossa família</h3>    
+  <p>Jogadores unidos por um mesmo objetivo: crescer e representar a AGT.</p>    
+</div>
+
+RANKINGS AGT
+
+Acompanhe o desempenho e a evolução competitiva.
+
+<div class="card ranking-live-card">    
+  <div class="symbol">🏆</div>    
+  <h3>Ranking diário AGT</h3>    
+  
+  <p class="ranking-description">    
+    Os melhores jogadores da AGT no SlitherMania.    
+    Acompanhe as pontuações e conquiste o topo!    
+  </p>    
+  
+  <div class="agt-ranking-heading">    
+    <span class="agt-ranking-date" id="agt-ranking-date">Carregando data...</span>    
+    <span class="agt-ranking-status" id="agt-ranking-status">CONECTANDO...</span>    
+  </div>    
+  
+  <div class="agt-ranking-list" id="agt-ranking-list" aria-live="polite">    
+    <p class="agt-ranking-empty">Carregando classificação da AGT...</p>    
+  </div>    
+  
+  <span class="agt-ranking-updated" id="agt-ranking-updated"></span>    
+</div>    
+  
+<!-- PRÉVIA DO RANKING MENSAL -->    
+  
+<div class="card ranking-live-card">    
+  <div class="symbol">👑</div>    
+  <h3>Ranking mensal AGT</h3>    
+  
+  <p class="ranking-description">    
+    Os três jogadores que mais pontuaram no mês,    
+    considerando a melhor pontuação diária de cada integrante.    
+  </p>    
+  
+  <div class="agt-ranking-heading">    
+    <span class="agt-ranking-date" id="agt-month-label">Mês atual</span>    
+    <span class="agt-ranking-status" id="agt-month-status">CALCULANDO...</span>    
+  </div>    
+  
+  <div class="agt-ranking-list" id="agt-month-list" aria-live="polite">    
+    <p class="agt-ranking-empty">Carregando ranking mensal...</p>    
+  </div>    
+  
+  <span class="agt-ranking-updated" id="agt-month-updated"></span>    
+  
+  <a href="./ranking-mensal.html" class="btn btn-outline monthly-ranking-button">    
+    VER RANKING MENSAL COMPLETO →    
+  </a>    
+</div>    
+  
+<div class="card">    
+  <div class="symbol">⚔️</div>    
+  <h3>Ranking de clãs</h3>    
+  <p>Acompanhe a posição oficial da AGT diante dos outros clãs.</p>    
+  <div class="status">AGUARDANDO INTEGRAÇÃO</div>    
+</div>    
+  
+<div class="card">    
+  <div class="symbol">⭐</div>    
+  <h3>Patentes AGT</h3>    
+  <p>Futuramente, cada integrante poderá acompanhar seus pontos e sua evolução.</p>    
+  <div class="status">EM DESENVOLVIMENTO</div>    
+</div>
+
+SUA PRÓXIMA HISTÓRIA COMEÇA AQUI.
+
+Tem habilidade, determinação e vontade de evoluir?       Então venha conhecer a família AGT!
+
+<div class="whatsapp-buttons">    
+  
+  <a class="whatsapp-btn"    
+     href="https://wa.me/5511948646144"    
+     target="_blank"    
+     rel="noopener"    
+     aria-label="WhatsApp Quik">    
+  
+    <svg viewBox="0 0 32 32" aria-hidden="true">    
+      <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>    
+    </svg>    
+  
+    <span class="whatsapp-name">Quik</span>    
+  </a>    
+  
+  <a class="whatsapp-btn"    
+     href="https://wa.me/5512991173752"    
+     target="_blank"    
+     rel="noopener"    
+     aria-label="WhatsApp Souza">    
+  
+    <svg viewBox="0 0 32 32" aria-hidden="true">    
+      <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>    
+    </svg>    
+  
+    <span class="whatsapp-name">Souza</span>    
+  </a>    
+  
+</div>    
+  
+<a class="youtube-btn"    
+   href="https://youtube.com/@agtquikyt"    
+   target="_blank"    
+   rel="noopener"    
+   aria-label="Canal AGT QUIK YT">    
+  
+  <svg viewBox="0 0 24 24" aria-hidden="true">    
+    <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>    
+  </svg>    
+  
+</a>
+
+AGT ARENA
+
+ALIANÇA • GARRA • TALENTO
+
+© 2026 BY AGT SOUZA — Todos os direitos reservados.
+
+Uma família, um propósito, uma aliança.
