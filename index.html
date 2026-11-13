@@ -45,12 +45,16 @@ body {
   background-image: url("./fundo.png");
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: 100% 100%;
+  background-size: cover;
   opacity: 0.08;
   filter: blur(1px);
   pointer-events: none;
   z-index: -1;
 }
+
+/* ==================================================
+   CONFIGURAÇÕES GERAIS
+================================================== */
 
 /* CABEÇALHO */
 
@@ -103,14 +107,13 @@ header {
   -webkit-text-stroke: 0 transparent;
 }
 
-/* AGT ARENA - PRATA METÁLICA */
+/* TÍTULO AGT ARENA */
 
 .hero .hero-content h1 {
   position: relative;
   display: inline-block;
   isolation: isolate;
   overflow: visible;
-
   font-size: clamp(64px, 12vw, 112px);
   font-weight: 1000;
   line-height: 0.92;
@@ -139,8 +142,6 @@ header {
     drop-shadow(0 0 10px rgba(139,53,255,.8));
 }
 
-/* ARENA PRATA */
-
 .hero .hero-content h1 span {
   display: inline-block;
   font-size: inherit;
@@ -165,7 +166,7 @@ header {
   -webkit-text-stroke: 0 transparent;
 }
 
-/* FUMAÇA ROXA ANIMADA AGT */
+/* FUMAÇA ROXA */
 
 .hero .hero-content {
   position: relative;
@@ -177,8 +178,6 @@ header {
   position: relative;
   z-index: 2;
 }
-
-/* ÁREA DA FUMAÇA */
 
 .agt-smoke {
   position: absolute;
@@ -211,8 +210,6 @@ header {
   transform-origin: center bottom;
   animation: agtSmokeParticles 4s ease-in-out infinite;
 }
-
-/* POSIÇÃO E TEMPO DAS PARTÍCULAS */
 
 .agt-smoke span:nth-child(1) {
   left: 3%;
@@ -263,8 +260,6 @@ header {
   animation-delay: 3s;
 }
 
-/* ANIMAÇÃO DA FUMAÇA */
-
 @keyframes agtSmokeParticles {
   0% {
     transform: translate(0, 20px) scale(.65, .8);
@@ -310,7 +305,10 @@ nav a:hover {
   color: var(--neon);
 }
 
-/* INÍCIO */
+/* ==================================================
+   PERFIL 1 — COMPUTADOR / DESKTOP
+   Tudo aqui controla a aparência no PC.
+================================================== */
 
 .hero {
   min-height: 570px;
@@ -318,25 +316,29 @@ nav a:hover {
   display: flex;
   align-items: center;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
+
   background:
     radial-gradient(ellipse at 75% 50%, #54208b55, transparent 48%),
     linear-gradient(rgba(9, 6, 17, 0.45), rgba(9, 6, 17, 0.65)),
-    url("./agt-banner.png") center / cover no-repeat;
+    url("./agt-banner.png") center center / cover no-repeat;
 }
 
 .hero::after {
   content: "AGT";
   position: absolute;
-  right: -25px;
-  bottom: -60px;
-  font-size: 260px;
+  right: 2%;
+  bottom: -55px;
+  font-size: clamp(180px, 22vw, 290px);
   font-weight: 900;
+  line-height: 1;
   color: #ffffff08;
   pointer-events: none;
+  white-space: nowrap;
 }
 
 .hero-content {
+  width: 100%;
   max-width: 680px;
   position: relative;
   z-index: 1;
@@ -511,43 +513,251 @@ footer span {
   color: var(--neon);
 }
 
-/* AJUSTES PARA CELULARES */
+/* ==================================================
+   PERFIL 2 — CELULAR / MOBILE
+   Tudo aqui controla a aparência no celular.
+   Alterações nesta área não mudam o PC.
+================================================== */
 
 @media (max-width: 600px) {
+
+  /* CABEÇALHO MOBILE */
+
   header {
+    padding: 15px 5%;
     justify-content: center;
+    gap: 13px;
+  }
+
+  .logo {
+    font-size: 25px;
   }
 
   nav {
+    width: 100%;
     justify-content: center;
-    gap: 14px;
+    gap: 13px;
   }
 
-  .hero {
-    padding: 85px 7%;
-    min-height: 500px;
+  nav a {
+    font-size: 11px;
   }
+
+  /* BANNER MOBILE */
+
+  .hero {
+    min-height: 520px;
+    padding: 75px 6% 90px;
+    align-items: center;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  /* MARCA-D'ÁGUA AGT MOBILE */
+
+  .hero::after {
+    right: 4%;
+    bottom: -25px;
+    font-size: clamp(125px, 38vw, 190px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* CONTEÚDO MOBILE */
 
   .hero .hero-content {
     width: 100%;
     max-width: 100%;
   }
 
+  .tag {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+  }
+
+  /* TÍTULO MOBILE */
+
   .hero .hero-content h1 {
-    font-size: clamp(46px, 12vw, 70px);
+    font-size: clamp(46px, 11.5vw, 68px);
     letter-spacing: 0;
-    line-height: 1.08;
-    -webkit-text-stroke: 0 transparent;
+    line-height: 1.05;
   }
 
   .hero .hero-content h1 span {
     white-space: nowrap;
-    -webkit-text-stroke: 0 transparent;
+  }
+
+  /* FUMAÇA MOBILE */
+
+  .agt-smoke {
+    left: -5%;
+    top: 35px;
+    width: 110%;
+    height: 180px;
+  }
+
+  .agt-smoke span {
+    filter: blur(11px);
+  }
+
+  /* TEXTO MOBILE */
+
+  .hero p {
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 100%;
+    margin-top: 18px;
+    margin-bottom: 22px;
+  }
+
+  /* BOTÕES MOBILE */
+
+  .btn {
+    padding: 13px 17px;
+    font-size: 12px;
+    margin: 5px 3px;
+  }
+
+  /* SEÇÕES MOBILE */
+
+  section {
+    padding: 60px 6%;
+  }
+
+  .section-title {
+    margin-bottom: 30px;
+  }
+
+  .section-title h2 {
+    font-size: 26px;
+  }
+
+  .section-title p {
+    font-size: 13px;
+  }
+
+  /* CARDS MOBILE */
+
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card {
+    padding: 23px;
+  }
+
+  /* RECRUTAMENTO MOBILE */
+
+  .recruit h2 {
+    font-size: 30px;
+  }
+
+  .recruit p {
+    font-size: 14px;
+  }
+
+  /* CADASTRO MOBILE */
+
+  .agt-auth {
+    width: 100%;
+    margin: 30px auto;
+    padding: 20px;
+  }
+
+  /* RODAPÉ MOBILE */
+
+  footer {
+    padding: 28px 6%;
+    font-size: 12px;
+  }
+}
+
+/* ==================================================
+   AJUSTES PARA TABLETS
+   Faixa intermediária entre celular e computador.
+================================================== */
+
+@media (min-width: 601px) and (max-width: 900px) {
+
+  header {
+    padding: 17px 5%;
+  }
+
+  nav {
+    gap: 14px;
+  }
+
+  .hero {
+    min-height: 540px;
+    padding: 85px 6%;
+    background-position: center center;
+  }
+
+  .hero .hero-content h1 {
+    font-size: clamp(65px, 11vw, 95px);
+  }
+
+  .hero::after {
+    right: 1%;
+    font-size: 200px;
   }
 
   section {
-    padding: 60px 7%;
+    padding: 65px 6%;
   }
+}
+
+/* ESTILO DO CADASTRO E LOGIN */
+
+.agt-auth {
+  max-width: 480px;
+  margin: 45px auto;
+  padding: 25px;
+  background: #100d19;
+  border: 1px solid #792cff;
+  border-radius: 18px;
+  color: white;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 0 20px #792cff33;
+}
+
+.agt-auth h2 {
+  color: #bd83ff;
+  text-align: center;
+}
+
+.agt-auth input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin: 8px 0 15px;
+  border: 1px solid #6633aa;
+  border-radius: 8px;
+  background: #211a30;
+  color: white;
+}
+
+.agt-auth button {
+  width: 100%;
+  padding: 13px;
+  margin: 6px 0;
+  border: 0;
+  border-radius: 8px;
+  background: #812cff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.agt-auth p {
+  color: #d7c9ed;
+  font-size: 14px;
+}
+
+#agt-message {
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 </style>
 </head>
@@ -700,60 +910,6 @@ window.agtSupabase = window.supabase.createClient(
 
 console.log('AGT Arena conectado ao Supabase!');
 </script>
-
-<!-- ESTILO DO CADASTRO E LOGIN -->
-
-<style>
-.agt-auth {
-  max-width: 480px;
-  margin: 45px auto;
-  padding: 25px;
-  background: #100d19;
-  border: 1px solid #792cff;
-  border-radius: 18px;
-  color: white;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 0 20px #792cff33;
-}
-
-.agt-auth h2 {
-  color: #bd83ff;
-  text-align: center;
-}
-
-.agt-auth input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 13px;
-  margin: 8px 0 15px;
-  border: 1px solid #6633aa;
-  border-radius: 8px;
-  background: #211a30;
-  color: white;
-}
-
-.agt-auth button {
-  width: 100%;
-  padding: 13px;
-  margin: 6px 0;
-  border: 0;
-  border-radius: 8px;
-  background: #812cff;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.agt-auth p {
-  color: #d7c9ed;
-  font-size: 14px;
-}
-
-#agt-message {
-  overflow-wrap: anywhere;
-  text-align: center;
-}
-</style>
 
 <!-- CADASTRO E LOGIN -->
 
