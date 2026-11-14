@@ -1696,12 +1696,22 @@ db.auth.onAuthStateChange(async function(event) {
     link.addEventListener('click', fecharMenu);  
   });  
   
-  document.getElementById('my-profile-link').addEventListener('click', function(event) {  
-    event.preventDefault();  
-    fecharMenu();  
-    abrirMenu();  
-    document.getElementById('logged-in-area').scrollIntoView({behavior:'smooth',block:'start'});  
-  });  
+ document.getElementById('my-profile-link').addEventListener('click', async function(event) {
+  event.preventDefault();
+
+  fecharMenu();
+
+  const { data } = await db.auth.getSession();
+  const user = data.session?.user;
+
+  if (!user) {
+    alert('Entre na sua conta para acessar seu perfil.');
+    abrirMenu();
+    return;
+  }
+
+  window.location.href = './perfil.html?id=' + encodeURIComponent(user.id);
+});
   
   /* ABAS DE CADASTRO E LOGIN */  
   
