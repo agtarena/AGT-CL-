@@ -1855,193 +1855,39 @@ try {
     }  
   });  
   
-  /* LOGIN */  
-  
-  document.getElementById('agt-login').addEventListener('submit', async function(event) {  
-    event.preventDefault();  
-  
-    const email = document.getElementById('agt-login-email').value.trim();  
-    const password = document.getElementById('agt-login-password').value;  
-    const button = this.querySelector('button[type="submit"]');  
-  
-    button.disabled = true;  
-    avisar('Entrando...');  
-  
-    try {  
-      const {error} = await db.auth.signInWithPassword({email,password});  
-      if (error) throw error;  
-  
-      avisar('Login realizado com sucesso! Bem-vindo à AGT!');  
-      fecharMenu();  
-    } catch(error) {  
-      avisar('Erro ao entrar: ' + error.message);  
-    } finally {  
-      button.disabled = false;  
-    }  
-  });  
-  
-```javascript
+ 
 
-document.addEventListener('click', function(event) {
-  if (event.target.closest('#agt-forgot-password')) {
-    alert('O clique no botão foi detectado!');
-  }
-});
-    if (error) {
-      avisar('Erro ao enviar: ' + error.message);
-    } else {
-      avisar('Solicitação enviada! Verifique seu e-mail e a caixa de spam.');
-    }
+/* LOGIN */
 
-  } catch (erro) {
-    avisar('Erro inesperado: ' + erro.message);
+document.getElementById('agt-login').addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  const email = document.getElementById('agt-login-email').value.trim();
+  const password = document.getElementById('agt-login-password').value;
+  const button = this.querySelector('button[type="submit"]');
+
+  button.disabled = true;
+  avisar('Entrando...');
+
+  try {
+    const { error } = await db.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) throw error;
+
+    avisar('Login realizado com sucesso! Bem-vindo à AGT!');
+    fecharMenu();
+
+  } catch (error) {
+    avisar('Erro ao entrar: ' + error.message);
 
   } finally {
-    botao.disabled = false;
+    button.disabled = false;
   }
 });
 
-  avisar(
-    error
-      ? 'Erro: ' + error.message
-      : 'Se o e-mail estiver cadastrado, você receberá as instruções de recuperação.'
-  );
-});
-```
-  
-  /* SAIR DA CONTA */  
-  
- 
-/* RECUPERAÇÃO DE SENHA */
-
-const forgotPasswordButton = document.getElementById('agt-forgot-password');
-
-if (forgotPasswordButton) {
-  forgotPasswordButton.addEventListener('click', async function(event) {
-    event.preventDefault();
-
-    const email = document.getElementById('agt-login-email').value.trim();
-
-    if (!email) {
-      avisar('Digite seu e-mail no campo de login primeiro.');
-      return;
-    }
-
-    try {
-      avisar('Enviando solicitação de recuperação...');
-
-     const { error } = await db.auth.resetPasswordForEmail(email, {
-  redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
-});
-
-      if (error) {
-        avisar('Erro ao enviar: ' + error.message);
-        return;
-      }
-
-      avisar('Solicitação enviada! Verifique sua caixa de entrada e também o spam.');
-    } catch (error) {
-      avisar('Erro inesperado: ' + error.message);
-    }
-  });
-}
-
-  
-   
-  
-/* FOTO DE PERFIL */  
-  
-avatarFile.addEventListener('change', async function() {  
-  const file = this.files?.[0];  
-  
-  if (!file || !currentUser) return;  
-  
-  const formatosPermitidos = ['image/jpeg','image/png','image/webp'];  
-  
-  if (!formatosPermitidos.includes(file.type)) {  
-    avisarPerfil('Escolha uma imagem JPG, PNG ou WEBP.');  
-    this.value = '';  
-    return;  
-  }  
-  
-  if (file.size > 5 * 1024 * 1024) {  
-    avisarPerfil('A imagem precisa ter no máximo 5 MB.');  
-    this.value = '';  
-    return;  
-  }  
-  
-  avisarPerfil('Enviando sua foto...');  
-  
-  let etapa = 'ENVIO DA IMAGEM';  
-  
-  try {  
-    const extensao = file.type === 'image/png'  
-      ? 'png'  
-      : file.type === 'image/webp'  
-        ? 'webp'  
-        : 'jpg';  
-  
-    const caminho = `${currentUser.id}/avatar.${extensao}`;  
-  
-    const {error:uploadError} = await db.storage  
-      .from('agt-avatars')  
-      .upload(caminho,file,{  
-        upsert:true,  
-        contentType:file.type,  
-        cacheControl:'3600'  
-      });  
-  
-    if (uploadError) throw uploadError;  
-  
-    const {data:publicData} = db.storage  
-      .from('agt-avatars')  
-      .getPublicUrl(caminho);  
-  
-    const avatarUrl = publicData.publicUrl + '?v=' + Date.now();  
-  
-    const nick = currentUser.user_metadata?.nick ||  
-      currentUser.email?.split('@')[0] ||  
-      'Jogador AGT';  
-  
-    etapa = 'SALVAMENTO DO PERFIL';  
-  
-    const {error:profileError} = await db  
-      .from('profiles')  
-      .upsert({  
-        id:currentUser.id,  
-        nick:nick,  
-        avatar_url:avatarUrl  
-      },{onConflict:'id'});  
-  
-    if (profileError) throw profileError;  
-  
-    etapa = 'ATUALIZAÇÃO DA CONTA';  
-  
-    const {error:metadataError} = await db.auth.updateUser({  
-      data:{avatar_url:avatarUrl}  
-    });  
-  
-    if (metadataError) {  
-      console.warn('Foto salva no perfil público, mas não nos metadados:',metadataError);  
-    }  
-  
-    mostrarAvatar(avatarUrl);  
-    avisarPerfil('Foto de perfil atualizada com sucesso!');  
-  
-    carregarRankingAGT();  
-    carregarRankingMensal();  
-  
-  } catch(error) {  
-    console.error('Erro na etapa:', etapa, error);  
-  
-    avisarPerfil(  
-      'FALHA EM ' + etapa + ': ' + error.message  
-    );  
-  
-  } finally {  
-    this.value = '';  
-  }  
-});  
   
   
   /* ESTADO DA CONTA */  
@@ -2414,21 +2260,37 @@ avatarFile.addEventListener('change', async function() {
     }  
   }  
   
-  /* INICIALIZAÇÃO E ATUALIZAÇÕES */  
-  
-  async function iniciarRankings() {  
-    await carregarPerfisPublicos();  
-    await carregarRankingAGT();  
-    await carregarRankingMensal();  
-  }  
-  
-  iniciarRankings();  
-  
-  setInterval(async function() {  
-    await carregarPerfisPublicos();  
-    await carregarRankingAGT();  
-    await carregarRankingMensal();  
-  },60000);  
+ 
+/* INICIALIZAÇÃO E ATUALIZAÇÕES */
+
+async function iniciarRankings() {
+  try {
+    await carregarPerfisPublicos();
+  } catch (error) {
+    console.error('Erro ao carregar perfis:', error);
+  }
+
+  await Promise.allSettled([
+    carregarRankingAGT(),
+    carregarRankingMensal()
+  ]);
+}
+
+iniciarRankings();
+
+setInterval(async function() {
+  try {
+    await carregarPerfisPublicos();
+  } catch (error) {
+    console.error('Erro ao atualizar perfis:', error);
+  }
+
+  await Promise.allSettled([
+    carregarRankingAGT(),
+    carregarRankingMensal()
+  ]);
+}, 60000);
+
   
 })();  
 </script>  </body>  
