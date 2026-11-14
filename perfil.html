@@ -1019,8 +1019,12 @@ function renderTopScores(rows){
 
 async function findBestScoreForNick(nickSalvo){
   const semPrefixo=nickSalvo.replace(/^AGT\s*\|\s*/i,'').trim();
-  const variantes=[...new Set([nickSalvo,semPrefixo].filter(Boolean))];
-
+const variantes=[...new Set([
+  nickSalvo,
+  'AGT| '+semPrefixo,
+  'AGT | '+semPrefixo,
+  semPrefixo
+].filter(Boolean))];
   const hoje=new Intl.DateTimeFormat('en-CA',{
     timeZone:'America/Sao_Paulo',
     year:'numeric',
