@@ -1021,4 +1021,388 @@ async function closePrivateCall(sendSignal=true){
   if(sendSignal&&roomId){
     try{await sendCallSignal(roomId,friendId,"hangup",{})}catch(error){}
   }
-  if
+
+  if(privatePeer){
+    privatePeer.ontrack=null;
+    privatePeer.onicecandidate=null;
+    privatePeer.close();
+    privatePeer=null;
+  }
+
+  if(privateSignalChannel){
+    await db.removeChannel(privateSignalChannel);
+    privateSignalChannel=null;
+  }
+
+  if(roomId){
+    try{
+      await db.rpc("leave_call_room",{p_room_id:roomId});
+    }catch(error){
+      console.error("Erro ao sair da sala privada:",error);
+    }
+  }
+
+  removeRemoteAudio("private");
+  activePrivateRoom=null;
+  privateCallActive=false;
+  $("hangup-private-call").disabled=true;
+  $("start-private-call").disabled=false;
+  $("private-mute").classList.add("hidden");
+  setCallStatus("Nenhuma ligação ativa.");
+
+  if(!generalCallActive)stopLocalStream();
+}
+
+/* =========================================================
+   CHAMADA GERAL AGT
+========================================================= */
+
+async function joinGeneralCall(){
+  if(privateCallActive||generalCallActive){
+    setGeneralStatus("Você já está em uma chamada.");
+    return;
+  }
+
+  try{
+    $("join-general-call").disabled=true;
+    setGeneralStatus("Solicitando acesso ao microfone...");
+
+    await getLocalStream();
+
+    const {data:roomId,error}=await db.rpc("join_general_call");
+    if(error)throw error;
+    if(!roomId)throw new Error("O Supabase não retornou a sala geral.");
+
+    activeGeneralRoom=roomId;
+    generalCallActive=true;
+
+    $("leave-general-call").disabled=false;
+    $("general-mute").classList.remove("hidden");
+    setMuteUI("general",false);
+
+    await subscribeGeneralCall(roomId);
+    await loadGeneralParticipants();
+
+    setGeneralStatus("Você entrou na sala geral AGT.");
+  }catch(error){
+    setGeneralStatus("Erro ao entrar: "+error.message);
+    $("join-general-call").disabled=false;
+    $("leave-general-call").disabled=true;
+    stopLocalStream();
+  }
+}
+
+async function subscribeGeneralCall(roomId){
+  if(generalSignalChannel){
+    await db.removeChannel(generalSignalChannel);
+    generalSignalChannel=null;
+  }
+
+  if(generalParticipantChannel){
+    await db.removeChannel(generalParticipantChannel);
+    generalParticipantChannel=null;
+  }
+
+  generalSignalChannel=subscribeCallSignals(
+    roomId,
+    handleGeneralSignal
+  );
+
+  generalParticipantChannel=db.channel("agt-general-members-"+roomId)
+    .on("postgres_changes",{
+      event:"*",
+      schema:"public",
+      table:"call_participants",
+      filter:"room_id=eq."+roomId
+    },async()=>{
+      await loadGeneralParticipants();
+    })
+    .subscribe();
+}
+
+async function loadGeneralParticipants(){
+  if(!activeGeneralRoom)return;
+
+  const {data:participants,error}=await db.from("call_participants")
+    .select("user_id,joined_at,left_at")
+    .eq("room_id",activeGeneralRoom)
+    .is("left_at",null);
+
+  if(error){
+    setGeneralStatus("Erro ao carregar participantes: "+error.message);
+    return;
+  }
+
+  const ids=(participants||[]).map(p=>p.user_id);
+  const remoteIds=ids.filter(id=>id!==currentUser.id);
+
+  $("general-participants").innerHTML="";
+
+  if(ids.length){
+    const {data:profiles}=await db.from("profiles")
+      .select("id,nick")
+      .in("id",ids);
+
+    for(const profile of profiles||[]){
+      const chip=document.createElement("span");
+      chip.className="participant-chip";
+      chip.textContent=profile.id===currentUser.id
+        ?(profile.nick||"Você")+" (Você)"
+        :profile.nick||"Jogador";
+      $("general-participants").appendChild(chip);
+    }
+  }
+
+  for(const userId of remoteIds){
+    if(!generalPeers.has(userId)&&currentUser.id<userId){
+      await startGeneralPeer(userId,true);
+    }
+  }
+
+  for(const [userId,peer] of generalPeers){
+    if(!remoteIds.includes(userId)){
+      peer.close();
+      generalPeers.delete(userId);
+      removeRemoteAudio("general-"+userId);
+    }
+  }
+
+  setGeneralStatus(
+    "Conectado à sala. Participantes: "+ids.length
+  );
+}
+
+async function startGeneralPeer(remoteUser,createOffer){
+  if(!generalCallActive||generalPeers.has(remoteUser))return;
+
+  const stream=await getLocalStream();
+  const peer=new RTCPeerConnection(RTC_CONFIG);
+
+  stream.getTracks().forEach(track=>{
+    peer.addTrack(track,stream);
+  });
+
+  peer.ontrack=event=>{
+    addRemoteAudio("general-"+remoteUser,event.streams[0]);
+  };
+
+  peer.onicecandidate=event=>{
+    if(event.candidate){
+      sendCallSignal(
+        activeGeneralRoom,
+        remoteUser,
+        "ice_candidate",
+        {candidate:event.candidate.toJSON()}
+      ).catch(error=>{
+        console.error("Erro ao enviar ICE:",error);
+      });
+    }
+  };
+
+  peer.onconnectionstatechange=()=>{
+    if(peer.connectionState==="failed"){
+      setGeneralStatus(
+        "Falha na conexão de áudio com um participante."
+      );
+    }
+  };
+
+  generalPeers.set(remoteUser,peer);
+
+  if(createOffer){
+    try{
+      const offer=await peer.createOffer();
+      await peer.setLocalDescription(offer);
+
+      await sendCallSignal(
+        activeGeneralRoom,
+        remoteUser,
+        "offer",
+        {description:peer.localDescription.toJSON()}
+      );
+    }catch(error){
+      console.error("Erro ao iniciar conexão geral:",error);
+    }
+  }
+
+  return peer;
+}
+
+async function handleGeneralSignal(signal){
+  if(!generalCallActive)return;
+
+  const data=signal.payload||{};
+  const remoteUser=signal.from_user;
+
+  try{
+    let peer=generalPeers.get(remoteUser);
+
+    if(signal.event_type==="offer"){
+      if(!peer){
+        peer=await startGeneralPeer(remoteUser,false);
+      }
+
+      await peer.setRemoteDescription(data.description);
+
+      const answer=await peer.createAnswer();
+      await peer.setLocalDescription(answer);
+
+      await sendCallSignal(
+        activeGeneralRoom,
+        remoteUser,
+        "answer",
+        {description:peer.localDescription.toJSON()}
+      );
+
+    }else if(signal.event_type==="answer"){
+      if(peer&&!peer.currentRemoteDescription){
+        await peer.setRemoteDescription(data.description);
+      }
+
+    }else if(signal.event_type==="ice_candidate"){
+      if(peer&&data.candidate){
+        await peer.addIceCandidate(data.candidate);
+      }
+
+    }else if(signal.event_type==="hangup"){
+      if(peer){
+        peer.close();
+        generalPeers.delete(remoteUser);
+        removeRemoteAudio("general-"+remoteUser);
+      }
+
+      await loadGeneralParticipants();
+    }
+
+  }catch(error){
+    console.error("Erro na sinalização da sala geral:",error);
+  }
+}
+
+async function leaveGeneralCall(){
+  const roomId=activeGeneralRoom;
+
+  if(!roomId)return;
+
+  setGeneralStatus("Saindo da sala...");
+
+  for(const [userId,peer] of generalPeers){
+    try{
+      await sendCallSignal(
+        roomId,
+        userId,
+        "hangup",
+        {}
+      );
+    }catch(error){}
+
+    peer.close();
+    removeRemoteAudio("general-"+userId);
+  }
+
+  generalPeers.clear();
+
+  if(generalSignalChannel){
+    await db.removeChannel(generalSignalChannel);
+    generalSignalChannel=null;
+  }
+
+  if(generalParticipantChannel){
+    await db.removeChannel(generalParticipantChannel);
+    generalParticipantChannel=null;
+  }
+
+  try{
+    await db.rpc("leave_call_room",{p_room_id:roomId});
+  }catch(error){
+    console.error("Erro ao sair da sala:",error);
+  }
+
+  activeGeneralRoom=null;
+  generalCallActive=false;
+
+  $("join-general-call").disabled=false;
+  $("leave-general-call").disabled=true;
+  $("general-mute").classList.add("hidden");
+  $("general-participants").innerHTML="";
+
+  if(!privateCallActive)stopLocalStream();
+
+  setGeneralStatus("Você saiu da sala geral.");
+}
+
+/* =========================================================
+   BOTÕES DE CHAMADA
+========================================================= */
+
+$("start-private-call").addEventListener(
+  "click",
+  startPrivateCall
+);
+
+$("hangup-private-call").addEventListener(
+  "click",
+  ()=>closePrivateCall(true)
+);
+
+$("join-general-call").addEventListener(
+  "click",
+  joinGeneralCall
+);
+
+$("leave-general-call").addEventListener(
+  "click",
+  leaveGeneralCall
+);
+
+/* =========================================================
+   LIMPEZA AO SAIR DA CONTA
+========================================================= */
+
+async function cleanupAllCalls(){
+  try{
+    if(privateCallActive){
+      await closePrivateCall(true);
+    }
+
+    if(generalCallActive){
+      await leaveGeneralCall();
+    }
+
+    if(presenceChannel){
+      await db.removeChannel(presenceChannel);
+      presenceChannel=null;
+    }
+
+    if(inviteChannel){
+      await db.removeChannel(inviteChannel);
+      inviteChannel=null;
+    }
+
+    if(messageChannel){
+      await db.removeChannel(messageChannel);
+      messageChannel=null;
+    }
+
+    stopLocalStream();
+
+  }catch(error){
+    console.error("Erro ao limpar chamadas:",error);
+  }
+}
+
+/* =========================================================
+   INICIALIZAÇÃO DO AGT SOCIAL
+========================================================= */
+
+window.addEventListener("DOMContentLoaded",()=>{
+  initializeSocial().catch(error=>{
+    console.error("Erro ao iniciar AGT Social:",error);
+    setStatus("Erro ao conectar: "+error.message);
+    $("login-panel").classList.remove("hidden");
+  });
+});
+</script>
+</body>
+</html>
+
