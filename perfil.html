@@ -1,0 +1,683 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090611">
+<link rel="icon" type="image/png" href="./logo.png?v=2">
+<title>Perfil do jogador | AGT Arena</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --bg:#090611;
+  --card:#151020;
+  --purple:#8b35ff;
+  --green:#36e66b;
+  --white:#fff;
+  --muted:#aaa0b9;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+body {
+  min-height:100vh;
+  background:radial-gradient(ellipse at top,#211033 0%,var(--bg) 55%);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+  padding:25px 15px 50px;
+}
+a {color:inherit;text-decoration:none}
+.topbar {
+  max-width:850px;
+  margin:0 auto 25px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+.logo {
+  font-size:25px;
+  font-weight:1000;
+  letter-spacing:3px;
+  color:#fff;
+  text-shadow:0 0 12px var(--purple);
+}
+.back {
+  padding:11px 15px;
+  border:1px solid #49305e;
+  border-radius:9px;
+  background:#171020;
+  font-size:13px;
+}
+.container {max-width:850px;margin:auto}
+.card {
+  background:rgba(21,16,32,.96);
+  border:1px solid #39234e;
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:18px;
+  box-shadow:0 10px 35px #0005;
+}
+.profile-head {text-align:center}
+.avatar-wrap {
+  width:125px;height:125px;
+  margin:0 auto 15px;
+  border-radius:50%;
+  padding:4px;
+  background:linear-gradient(135deg,var(--green),var(--purple));
+  box-shadow:0 0 25px #8b35ff55;
+}
+.avatar-wrap img,.avatar-placeholder {
+  width:100%;height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  background:#241a32;
+}
+.avatar-placeholder {
+  display:grid;
+  place-items:center;
+  font-size:55px;
+}
+h1 {font-size:clamp(25px,5vw,36px);margin-bottom:8px}
+.subtitle {color:var(--muted);font-size:13px}
+.status {
+  display:inline-block;
+  margin-top:13px;
+  padding:7px 12px;
+  border-radius:30px;
+  color:var(--green);
+  background:#36e66b15;
+  border:1px solid #36e66b55;
+  font-size:11px;
+  font-weight:bold;
+}
+h2 {
+  font-size:17px;
+  margin-bottom:16px;
+  color:#e5d3ff;
+}
+.field {margin-bottom:15px}
+label {
+  display:block;
+  margin-bottom:7px;
+  font-size:12px;
+  color:#c9bdd8;
+}
+input,textarea {
+  width:100%;
+  padding:13px;
+  border-radius:9px;
+  border:1px solid #49365c;
+  background:#0d0915;
+  color:white;
+  outline:none;
+  font:inherit;
+}
+input:focus,textarea:focus {border-color:var(--green)}
+textarea {resize:vertical;min-height:105px}
+.nick-row {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:10px;
+}
+.nick-prefix {
+  flex-shrink:0;
+  padding:13px 10px;
+  background:#251735;
+  border:1px solid #49365c;
+  border-radius:9px;
+  color:var(--green);
+  font-size:13px;
+  font-weight:bold;
+}
+.nick-row input {min-width:0}
+.remove-nick {
+  flex-shrink:0;
+  width:40px;
+  height:42px;
+  border:1px solid #733b48;
+  background:#351722;
+  color:#ff9aa8;
+  border-radius:9px;
+  cursor:pointer;
+}
+button {
+  cursor:pointer;
+  font-weight:bold;
+  font-family:inherit;
+}
+.primary {
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:9px;
+  background:var(--green);
+  color:#07110a;
+  font-size:13px;
+}
+.secondary {
+  padding:12px 15px;
+  border:1px solid #68418a;
+  border-radius:9px;
+  background:#251735;
+  color:white;
+  font-size:12px;
+}
+.avatar-button {
+  display:inline-block;
+  margin-top:12px;
+  padding:10px 14px;
+  border:1px solid #68418a;
+  border-radius:9px;
+  background:#251735;
+  color:white;
+  font-size:12px;
+  cursor:pointer;
+}
+.avatar-button input {display:none}
+.note {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+  margin-top:10px;
+}
+.message {
+  min-height:18px;
+  margin-top:12px;
+  color:var(--green);
+  font-size:13px;
+  text-align:center;
+}
+.score-list {display:grid;gap:10px}
+.score-item {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:13px;
+  border:1px solid #382749;
+  background:#100b19;
+  border-radius:10px;
+}
+.score-nick {font-size:13px;font-weight:bold}
+.score-value {color:var(--green);font-weight:bold}
+.score-date {font-size:11px;color:var(--muted);margin-top:5px}
+.empty {
+  color:var(--muted);
+  text-align:center;
+  padding:20px 8px;
+  font-size:13px;
+  line-height:1.5;
+}
+.hidden {display:none!important}
+.owner-only {display:none}
+body.is-owner .owner-only {display:block}
+body.is-owner .owner-inline {display:inline-block}
+.achievement-placeholder {
+  padding:22px;
+  text-align:center;
+  border:1px dashed #604477;
+  border-radius:12px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+footer {
+  text-align:center;
+  color:#756982;
+  font-size:11px;
+  margin-top:30px;
+}
+@media(max-width:520px) {
+  .card {padding:19px}
+  .topbar {align-items:flex-start}
+  .logo {font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">AGT ARENA</div>
+  <a class="back" href="./index.html">← VOLTAR AO SITE</a>
+</header>
+
+<main class="container">
+
+  <section class="card profile-head">
+    <div class="avatar-wrap" id="avatar-wrap">
+      <div class="avatar-placeholder">🐍</div>
+    </div>
+
+    <h1 id="display-nick">CARREGANDO PERFIL...</h1>
+    <p class="subtitle">JOGADOR DA ALIANÇA • GARRA • TALENTO</p>
+    <span class="status">● PERFIL AGT</span>
+
+    <div class="owner-only">
+      <label class="avatar-button">
+        📷 ALTERAR FOTO
+        <input type="file" id="avatar-file" accept="image/png,image/jpeg,image/webp">
+      </label>
+    </div>
+
+    <p class="message" id="avatar-message"></p>
+  </section>
+
+  <section class="card">
+    <h2>👤 Sobre o jogador</h2>
+    <p id="bio-display" class="note">Este jogador ainda não adicionou uma biografia.</p>
+
+    <div class="owner-only" style="margin-top:18px">
+      <div class="field">
+        <label for="bio-input">SUA BIOGRAFIA</label>
+        <textarea id="bio-input" maxlength="500"
+          placeholder="Conte um pouco sobre você..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="card owner-only" id="edit-card">
+    <h2>⚙️ Editar meu perfil</h2>
+
+    <div class="field">
+      <label>SEU NICK PRINCIPAL</label>
+      <div class="nick-row">
+        <span class="nick-prefix">AGT |</span>
+        <input id="main-nick" maxlength="35"
+          placeholder="Digite seu nick">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>NICKS ADICIONAIS</label>
+      <div id="extra-nicks"></div>
+      <button type="button" class="secondary" id="add-nick">
+        + ADICIONAR OUTRO NICK
+      </button>
+      <p class="note">
+        Adicione os outros nicks que você utiliza no SlitherMania.
+        O prefixo AGT será colocado automaticamente.
+      </p>
+    </div>
+
+    <button class="primary" id="save-profile">SALVAR ALTERAÇÕES</button>
+    <p class="message" id="save-message"></p>
+  </section>
+
+  <section class="card">
+    <h2>🏆 Melhores scores</h2>
+    <div id="scores" class="score-list">
+      <p class="empty">Carregando scores...</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🎖️ Conquistas</h2>
+    <div class="achievement-placeholder">
+      <div style="font-size:30px;margin-bottom:8px">🏅</div>
+      A área de conquistas está preparada.<br>
+      Em breve, os jogadores poderão exibir suas conquistas da AGT.
+    </div>
+  </section>
+
+</main>
+
+<footer>AGT ARENA • ALIANÇA • GARRA • TALENTO</footer>
+
+<script>
+(function() {
+  const SUPABASE_URL = 'https://lbknsgfpfxkvypkxbcmy.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const params = new URLSearchParams(window.location.search);
+  const profileId = params.get('id');
+
+  const displayNick = document.getElementById('display-nick');
+  const avatarWrap = document.getElementById('avatar-wrap');
+  const bioDisplay = document.getElementById('bio-display');
+  const bioInput = document.getElementById('bio-input');
+  const mainNick = document.getElementById('main-nick');
+  const extraNicks = document.getElementById('extra-nicks');
+  const scoresBox = document.getElementById('scores');
+  const saveMessage = document.getElementById('save-message');
+
+  let currentUser = null;
+  let existingExtraNicks = [];
+
+  function showMessage(id, text, isError) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.style.color = isError ? '#ff8797' : '#36e66b';
+  }
+
+  function normalizeNick(value) {
+    let nick = String(value || '').trim();
+    nick = nick.replace(/^AGT\s*\|\s*/i, '');
+    nick = nick.trim();
+    return nick ? 'AGT | ' + nick : '';
+  }
+
+  function renderAvatar(url) {
+    avatarWrap.replaceChildren();
+
+    if (url) {
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = 'Foto do jogador';
+      img.onerror = () => renderAvatar(null);
+      avatarWrap.appendChild(img);
+    } else {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'avatar-placeholder';
+      placeholder.textContent = '🐍';
+      avatarWrap.appendChild(placeholder);
+    }
+  }
+
+  function addNickField(value = '', id = '') {
+    const row = document.createElement('div');
+    row.className = 'nick-row';
+    row.dataset.id = id;
+
+    const prefix = document.createElement('span');
+    prefix.className = 'nick-prefix';
+    prefix.textContent = 'AGT |';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.maxLength = 35;
+    input.placeholder = 'Digite outro nick';
+    input.value = String(value).replace(/^AGT\s*\|\s*/i, '');
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'remove-nick';
+    remove.textContent = '×';
+    remove.title = 'Remover nick';
+    remove.addEventListener('click', () => row.remove());
+
+    row.append(prefix, input, remove);
+    extraNicks.appendChild(row);
+  }
+
+  async function loadProfile() {
+    if (!profileId) {
+      displayNick.textContent = 'PERFIL NÃO INFORMADO';
+      bioDisplay.textContent = 'O endereço deste perfil está incompleto.';
+      scoresBox.innerHTML = '<p class="empty">Perfil não encontrado.</p>';
+      return;
+    }
+
+    const { data: profile, error } = await db
+      .from('profiles')
+      .select('id,nick,avatar_url,bio')
+      .eq('id', profileId)
+      .maybeSingle();
+
+    if (error) {
+      console.error(error);
+      displayNick.textContent = 'ERRO AO CARREGAR PERFIL';
+      bioDisplay.textContent = 'Não foi possível carregar este perfil.';
+      return;
+    }
+
+    const { data: extras, error: nickError } = await db
+      .from('profile_nicks')
+      .select('id,nick')
+      .eq('user_id', profileId)
+      .order('created_at', { ascending: true });
+
+    if (nickError) console.error(nickError);
+
+    existingExtraNicks = extras || [];
+
+    const main = profile?.nick || 'Jogador AGT';
+    displayNick.textContent = main;
+    bioDisplay.textContent = profile?.bio || 'Este jogador ainda não adicionou uma biografia.';
+    renderAvatar(profile?.avatar_url || null);
+
+    const { data: sessionData } = await db.auth.getSession();
+    currentUser = sessionData?.session?.user || null;
+
+    if (currentUser && currentUser.id === profileId) {
+      document.body.classList.add('is-owner');
+      mainNick.value = String(main).replace(/^AGT\s*\|\s*/i, '');
+      bioInput.value = profile?.bio || '';
+
+      existingExtraNicks.forEach(item => {
+        addNickField(item.nick, item.id);
+      });
+    }
+
+    await loadScores([main, ...existingExtraNicks.map(item => item.nick)]);
+  }
+
+  async function loadScores(nicks) {
+    const normalized = [...new Set(
+      nicks.map(normalizeNick).filter(Boolean)
+    )];
+
+    if (!normalized.length) {
+      scoresBox.innerHTML = '<p class="empty">Nenhum nick associado a este perfil.</p>';
+      return;
+    }
+
+    const { data, error } = await db
+      .from('agt_ranking_daily')
+      .select('nick,score,source_date')
+      .order('score', { ascending: false })
+      .limit(5000);
+
+    if (error) {
+      console.error(error);
+      scoresBox.innerHTML = '<p class="empty">Não foi possível consultar os scores.</p>';
+      return;
+    }
+
+    const accepted = new Set(normalized.map(n => n.toLowerCase()));
+    const bestByNick = new Map();
+
+    (data || []).forEach(row => {
+      const nick = String(row.nick || '').trim();
+      if (!accepted.has(nick.toLowerCase())) return;
+
+      const score = Number(row.score || 0);
+      const key = nick.toLowerCase();
+      const previous = bestByNick.get(key);
+
+      if (!previous || score > Number(previous.score || 0)) {
+        bestByNick.set(key, row);
+      }
+    });
+
+    const best = [...bestByNick.values()]
+      .sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
+
+    if (!best.length) {
+      scoresBox.innerHTML = '<p class="empty">Ainda não encontramos scores registrados para os nicks deste jogador.</p>';
+      return;
+    }
+
+    scoresBox.replaceChildren();
+
+    best.forEach(row => {
+      const item = document.createElement('div');
+      item.className = 'score-item';
+
+      const info = document.createElement('div');
+      const nick = document.createElement('div');
+      nick.className = 'score-nick';
+      nick.textContent = row.nick;
+
+      const date = document.createElement('div');
+      date.className = 'score-date';
+      date.textContent = row.source_date
+        ? 'Data: ' + new Date(row.source_date + 'T12:00:00').toLocaleDateString('pt-BR')
+        : 'Data não informada';
+
+      info.append(nick, date);
+
+      const score = document.createElement('div');
+      score.className = 'score-value';
+      score.textContent = Number(row.score || 0).toLocaleString('pt-BR');
+
+      item.append(info, score);
+      scoresBox.appendChild(item);
+    });
+  }
+
+  document.getElementById('add-nick').addEventListener('click', () => {
+    addNickField();
+  });
+
+  document.getElementById('save-profile').addEventListener('click', async () => {
+    if (!currentUser || currentUser.id !== profileId) {
+      showMessage('save-message', 'Você não tem permissão para editar este perfil.', true);
+      return;
+    }
+
+    const nick = normalizeNick(mainNick.value);
+    const bio = bioInput.value.trim();
+
+    if (!nick) {
+      showMessage('save-message', 'Digite seu nick principal.', true);
+      return;
+    }
+
+    const extraRows = [...extraNicks.querySelectorAll('.nick-row')];
+    const newNicks = extraRows
+      .map(row => ({
+        id: row.dataset.id || null,
+        nick: normalizeNick(row.querySelector('input').value)
+      }))
+      .filter(item => item.nick);
+
+    const allNicks = [nick, ...newNicks.map(item => item.nick)];
+    const unique = new Set(allNicks.map(n => n.toLowerCase()));
+
+    if (unique.size !== allNicks.length) {
+      showMessage('save-message', 'Você repetiu um nick. Verifique os campos.', true);
+      return;
+    }
+
+    const button = document.getElementById('save-profile');
+    button.disabled = true;
+    button.textContent = 'SALVANDO...';
+
+    try {
+      const { error: profileError } = await db
+        .from('profiles')
+        .upsert({
+          id: currentUser.id,
+          nick,
+          bio
+        }, { onConflict: 'id' });
+
+      if (profileError) throw profileError;
+
+      const keepIds = newNicks.filter(item => item.id).map(item => item.id);
+      const removeIds = existingExtraNicks
+        .filter(item => !keepIds.includes(item.id))
+        .map(item => item.id);
+
+      if (removeIds.length) {
+        const { error } = await db
+          .from('profile_nicks')
+          .delete()
+          .in('id', removeIds);
+        if (error) throw error;
+      }
+
+      const toInsert = newNicks
+        .filter(item => !item.id)
+        .map(item => ({
+          user_id: currentUser.id,
+          nick: item.nick
+        }));
+
+      if (toInsert.length) {
+        const { error } = await db
+          .from('profile_nicks')
+          .insert(toInsert);
+        if (error) throw error;
+      }
+
+      showMessage('save-message', 'Perfil atualizado com sucesso!', false);
+      await loadProfile();
+
+    } catch (error) {
+      console.error(error);
+      showMessage('save-message', 'Erro ao salvar: ' + error.message, true);
+    } finally {
+      button.disabled = false;
+      button.textContent = 'SALVAR ALTERAÇÕES';
+    }
+  });
+
+  document.getElementById('avatar-file').addEventListener('change', async event => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!currentUser || currentUser.id !== profileId) {
+      showMessage('avatar-message', 'Você não pode alterar este perfil.', true);
+      return;
+    }
+
+    if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
+      showMessage('avatar-message', 'Use uma imagem PNG, JPG ou WEBP.', true);
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      showMessage('avatar-message', 'A imagem deve ter no máximo 5 MB.', true);
+      return;
+    }
+
+    showMessage('avatar-message', 'Enviando foto...', false);
+
+    try {
+      const extension = file.name.split('.').pop().toLowerCase();
+      const path = currentUser.id + '/' + Date.now() + '.' + extension;
+
+      const { error: uploadError } = await db.storage
+        .from('profile-avatars')
+        .upload(path, file, {
+          cacheControl: '3600',
+          upsert: false,
+          contentType: file.type
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicData } = db.storage
+        .from('profile-avatars')
+        .getPublicUrl(path);
+
+      const avatarUrl = publicData.publicUrl;
+
+      const { error: updateError } = await db
+        .from('profiles')
+        .upsert({
+          id: currentUser.id,
+          avatar_url: avatarUrl
+        }, { onConflict: 'id' });
+
+      if (updateError) throw updateError;
+
+      renderAvatar(avatarUrl);
+      showMessage('avatar-message', 'Foto atualizada!', false);
+
+    } catch (error) {
+      console.error(error);
+      showMessage('avatar-message', 'Erro ao enviar foto: ' + error.message, true);
+    } finally {
+      event.target.value = '';
+    }
+  });
+
+  loadProfile();
+})();
+</script>
+</body>
+</html>
