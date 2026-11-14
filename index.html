@@ -7,7 +7,7 @@
 <title>AGT Arena | Clã AGT</title>  <style>  
 :root {  
   --bg:#090611;  
-  --card:#151020;  
+  --card:#151020; 
   --purple:#8b35ff;  
   --neon:#bd75ff;  
   --white:#fff;  
@@ -1524,7 +1524,45 @@ aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-panel">
   const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';  
   
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
-  window.agtSupabase = db;  
+  window.agtSupabase = db; 
+  /* RECUPERAÇÃO DE SENHA - AGT ARENA */
+
+document.addEventListener('click', async function(event) {
+  const botao = event.target.closest('#agt-forgot-password');
+
+  if (!botao) return;
+
+  event.preventDefault();
+
+  const email = document.getElementById('agt-login-email')?.value.trim();
+
+  if (!email) {
+    alert('Digite seu e-mail no campo de login primeiro.');
+    return;
+  }
+
+  botao.disabled = true;
+
+  try {
+    alert('Enviando solicitação de recuperação...');
+
+    const { error } = await db.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
+    });
+
+    if (error) {
+      alert('Erro ao enviar: ' + error.message);
+    } else {
+      alert('Solicitação enviada! Verifique seu e-mail e a caixa de spam.');
+    }
+
+  } catch (erro) {
+    alert('Erro inesperado: ' + erro.message);
+
+  } finally {
+    botao.disabled = false;
+  }
+});
   
 /* DETECTAR RECUPERAÇÃO DE SENHA */
 
