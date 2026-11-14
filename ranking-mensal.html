@@ -643,20 +643,17 @@ footer {
 
       const melhores = new Map();
 
-      capturasResult.forEach(registro => {
-        const nick = (registro.nick || '').trim();
+     capturasResult.forEach(registro => {
+  const nick = (registro.nick || '').trim();
+  const clan = (registro.clan || '').trim().toUpperCase();
 
-        if(!nick || !/agt/i.test(nick)) return;
+  const integranteAGT =
+    clan === 'AGT' ||
+    /agt/i.test(nick);
 
-        const chave = nick.toLowerCase();
-        const score = Number(registro.score || 0);
+  if(!nick || !integranteAGT) return;
 
-        if(!Number.isFinite(score)) return;
-
-        if(
-          !melhores.has(chave) ||
-          score > melhores.get(chave).score
-        ) {
+  const chave = nick.toLowerCase();
           melhores.set(chave,{
             nick,
             score,
