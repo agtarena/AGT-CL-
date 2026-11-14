@@ -30,7 +30,7 @@ body{
   position:relative;
 }
 
-/* FUMAÇA SUAVE SUBINDO AO FUNDO */
+/* FUMAÇA AMBIENTE DO FUNDO */
 body::before,
 body::after{
   content:"";
@@ -55,7 +55,6 @@ body::after{
   filter:blur(58px);
   animation:smokeRise 27s linear infinite;
   animation-delay:-11s;
-  transform:scale(1.2);
 }
 @keyframes smokeRise{
   0%{transform:translate3d(0,0,0) scale(1);opacity:.07}
@@ -68,7 +67,7 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
 
 .topbar{
   max-width:850px;
-  height:65px;
+  height:75px;
   margin:0 auto 25px;
   position:relative;
   display:flex;
@@ -94,24 +93,74 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   transform:translate(-4px,-50%);
 }
 
+/* AGT PRATA METÁLICA */
 .logo{
-  font-size:36px;
+  position:relative;
+  display:inline-block;
+  padding:5px 17px 8px;
+  font-size:44px;
   font-weight:1000;
-  letter-spacing:7px;
-  color:#fff;
-  text-shadow:
-    0 0 5px #fff,
-    0 0 12px #a84cff,
-    0 0 25px #8b35ff,
-    0 0 45px #8b35ff;
-  animation:logoNeon 3s ease-in-out infinite alternate;
+  letter-spacing:9px;
+  line-height:1.1;
+
+  background:linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f4f6ff 16%,
+    #bfc7d5 34%,
+    #ffffff 48%,
+    #8995a8 67%,
+    #e8edf5 82%,
+    #ffffff 100%
+  );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.65);
+
+  filter:
+    drop-shadow(0 2px 0 #3b4050)
+    drop-shadow(0 0 5px rgba(255,255,255,.75))
+    drop-shadow(0 0 13px rgba(174,190,220,.55))
+    drop-shadow(0 0 22px rgba(139,53,255,.45));
+
+  animation:logoSilver 3.5s ease-in-out infinite alternate;
 }
-@keyframes logoNeon{
+
+.logo::before{
+  content:"";
+  position:absolute;
+  left:12%;
+  right:12%;
+  bottom:0;
+  height:2px;
+  border-radius:50%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #ffffff,
+    #b9c5d8,
+    #ffffff,
+    transparent
+  );
+  box-shadow:0 0 8px #fff,0 0 17px #a98aff;
+  opacity:.85;
+}
+
+@keyframes logoSilver{
   from{
-    text-shadow:0 0 5px #fff,0 0 12px #a84cff,0 0 25px #8b35ff;
+    filter:
+      drop-shadow(0 2px 0 #3b4050)
+      drop-shadow(0 0 5px rgba(255,255,255,.55))
+      drop-shadow(0 0 12px rgba(174,190,220,.4))
+      drop-shadow(0 0 19px rgba(139,53,255,.3));
   }
   to{
-    text-shadow:0 0 7px #fff,0 0 18px #c18aff,0 0 35px #8b35ff,0 0 55px #8b35ff;
+    filter:
+      drop-shadow(0 2px 0 #3b4050)
+      drop-shadow(0 0 8px rgba(255,255,255,.95))
+      drop-shadow(0 0 17px rgba(210,220,240,.75))
+      drop-shadow(0 0 28px rgba(139,53,255,.55));
   }
 }
 
@@ -137,11 +186,132 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
 .profile-head{
   text-align:center;
   position:relative;
+  isolation:isolate;
   overflow:hidden;
   padding-top:30px;
   padding-bottom:25px;
   border-color:#53336f;
   box-shadow:0 0 28px #8b35ff12,0 10px 35px #0005;
+}
+
+/*
+  FUMAÇA DENTRO DO CARTÃO:
+  começa abaixo do ONLINE e sobe em direção ao topo.
+  Fica atrás da foto, do nick e dos outros elementos.
+*/
+.profile-head::before,
+.profile-head::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  z-index:0;
+  left:-12%;
+  width:124%;
+  height:85%;
+  bottom:-8%;
+  opacity:.65;
+  filter:blur(24px);
+  transform:translate3d(0,0,0);
+
+  background:
+    radial-gradient(
+      ellipse at 18% 85%,
+      rgba(238,242,255,.52) 0%,
+      rgba(238,242,255,.16) 24%,
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 48% 92%,
+      rgba(166,91,255,.58) 0%,
+      rgba(166,91,255,.19) 28%,
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse at 78% 80%,
+      rgba(238,232,255,.48) 0%,
+      rgba(238,232,255,.13) 26%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse at 60% 60%,
+      rgba(124,62,190,.25) 0%,
+      transparent 58%
+    );
+
+  animation:profileSmoke 10s ease-in-out infinite;
+}
+
+.profile-head::after{
+  left:-20%;
+  width:140%;
+  height:95%;
+  bottom:-12%;
+  opacity:.42;
+  filter:blur(34px);
+
+  background:
+    radial-gradient(
+      ellipse at 30% 88%,
+      rgba(255,255,255,.42) 0%,
+      transparent 43%
+    ),
+    radial-gradient(
+      ellipse at 72% 75%,
+      rgba(151,83,255,.52) 0%,
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 50% 55%,
+      rgba(218,205,255,.24) 0%,
+      transparent 55%
+    );
+
+  animation:profileSmokeSecond 14s ease-in-out infinite;
+  animation-delay:-5s;
+}
+
+@keyframes profileSmoke{
+  0%{
+    transform:translate3d(-2%,12%,0) scale(.95);
+    opacity:.30;
+  }
+  30%{
+    transform:translate3d(2%,-15%,0) scale(1.08);
+    opacity:.68;
+  }
+  65%{
+    transform:translate3d(-3%,-48%,0) scale(1.14);
+    opacity:.48;
+  }
+  100%{
+    transform:translate3d(2%,-85%,0) scale(1.2);
+    opacity:.10;
+  }
+}
+
+@keyframes profileSmokeSecond{
+  0%{
+    transform:translate3d(3%,15%,0) scale(1.08);
+    opacity:.18;
+  }
+  35%{
+    transform:translate3d(-3%,-22%,0) scale(1.16);
+    opacity:.48;
+  }
+  70%{
+    transform:translate3d(2%,-60%,0) scale(1.22);
+    opacity:.34;
+  }
+  100%{
+    transform:translate3d(-2%,-100%,0) scale(1.28);
+    opacity:.08;
+  }
+}
+
+/* CONTEÚDO ACIMA DA FUMAÇA */
+.profile-head > *{
+  position:relative;
+  z-index:1;
 }
 
 .avatar-wrap{
@@ -153,6 +323,7 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   background:linear-gradient(135deg,var(--green),var(--purple),#d9b4ff);
   box-shadow:0 0 25px #8b35ff55;
   position:relative;
+  z-index:2;
 }
 
 .avatar-media{
@@ -218,7 +389,7 @@ h1{
 }
 
 .profile-email{
-  color:#bcb1ca;
+  color:#d0c6dc;
   font-size:13px;
   overflow-wrap:anywhere;
   margin:0 auto 13px;
@@ -427,8 +598,12 @@ footer{
 
 @media(max-width:520px){
   body{padding:12px 12px 40px}
-  .topbar{height:58px;margin-bottom:18px}
-  .logo{font-size:31px;letter-spacing:6px}
+  .topbar{height:65px;margin-bottom:18px}
+  .logo{
+    font-size:37px;
+    letter-spacing:7px;
+    padding:5px 14px 8px;
+  }
   .back-arrow{font-size:32px;left:0}
   .card{padding:19px}
   .profile-head{padding-top:25px}
@@ -437,8 +612,15 @@ footer{
   .see-history{font-size:10px}
   .score-number{font-size:16px}
 }
+
 @media(prefers-reduced-motion:reduce){
-  body::before,body::after,.logo{animation:none}
+  body::before,
+  body::after,
+  .logo,
+  .profile-head::before,
+  .profile-head::after{
+    animation:none;
+  }
 }
 </style>
 </head>
@@ -590,11 +772,6 @@ function showMessage(id,message,isError=false){
   element.style.color=isError?'#ff8797':'#36e66b';
 }
 
-/*
- * O banco atual ainda exige o prefixo AGT | nos registros.
- * Ele é mantido internamente para compatibilidade,
- * mas não aparece na tela para o jogador.
- */
 function normalizeNick(value){
   let nick=String(value||'').trim();
   nick=nick.replace(/^AGT\s*\|\s*/i,'').trim();
@@ -635,11 +812,6 @@ function setOnlineStatus(isOnline){
   text.textContent=isOnline?'ONLINE':'OFFLINE';
 }
 
-/*
- * Presença em tempo real:
- * o próprio dono anuncia que está com o perfil aberto.
- * Outros visitantes recebem o estado pelo canal compartilhado.
- */
 function startPresence(isOwner){
   if(!profileId)return;
 
