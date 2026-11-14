@@ -656,13 +656,12 @@ footer {
 
       const avatarUrl = publicData.publicUrl;
 
-      const { error: updateError } = await db
-        .from('profiles')
-        .upsert({
-          id: currentUser.id,
-          avatar_url: avatarUrl
-        }, { onConflict: 'id' });
-
+   const { error: updateError } = await db
+  .from('profiles')
+  .update({
+    avatar_url: avatarUrl
+  })
+  .eq('id', currentUser.id);
       if (updateError) throw updateError;
 
       renderAvatar(avatarUrl);
