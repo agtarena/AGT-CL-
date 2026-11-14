@@ -15,7 +15,6 @@
 :root{
   --bg:#090611;
   --panel:rgba(21,16,32,.94);
-  --panel2:#1d172b;
   --purple:#9b5cff;
   --purple2:#7136c8;
   --purple-light:#c6a5ff;
@@ -25,464 +24,172 @@
   --green:#45e58b;
   --danger:#ff647c;
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
-
 body{
-  min-height:100vh;
-  color:var(--text);
-  font-family:Arial,sans-serif;
-  background:
-    linear-gradient(rgba(9,6,17,.91),rgba(9,6,17,.96)),
-    url("./agt-banner.png") center center/cover fixed no-repeat,
-    var(--bg);
+  min-height:100vh;color:var(--text);font-family:Arial,sans-serif;
+  background:linear-gradient(rgba(9,6,17,.91),rgba(9,6,17,.96)),
+  url("./agt-banner.png") center center/cover fixed no-repeat,var(--bg);
 }
-
 body::after{
-  content:"AGT";
-  position:fixed;
-  right:22px;
-  bottom:12px;
-  z-index:-1;
-  color:rgba(255,255,255,.055);
-  font-size:clamp(75px,15vw,155px);
-  font-weight:1000;
-  letter-spacing:5px;
-  pointer-events:none;
+  content:"AGT";position:fixed;right:22px;bottom:12px;z-index:-1;
+  color:rgba(255,255,255,.055);font-size:clamp(75px,15vw,155px);
+  font-weight:1000;letter-spacing:5px;pointer-events:none;
 }
-
 button,input{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.5;cursor:not-allowed}
 a{color:inherit}
-
 header{
-  min-height:70px;
-  padding:12px 5%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  border-bottom:1px solid var(--border);
-  background:rgba(9,6,17,.92);
-  position:sticky;
-  top:0;
-  z-index:20;
+  min-height:70px;padding:12px 5%;display:flex;align-items:center;
+  justify-content:space-between;gap:15px;border-bottom:1px solid var(--border);
+  background:rgba(9,6,17,.92);position:sticky;top:0;z-index:20;
   backdrop-filter:blur(14px);
 }
-
-.brand{
-  color:var(--purple-light);
-  font-size:23px;
-  font-weight:1000;
-  letter-spacing:2px;
-  text-shadow:0 0 17px rgba(155,92,255,.5);
-}
-
+.brand{color:var(--purple-light);font-size:23px;font-weight:1000;
+  letter-spacing:2px;text-shadow:0 0 17px rgba(155,92,255,.5)}
 .brand span{color:white}
-
 .back-link{
-  width:39px;
-  height:39px;
-  display:grid;
-  place-items:center;
-  border:1px solid var(--border);
-  border-radius:50%;
-  color:white;
-  text-decoration:none;
-  font-size:22px;
-  transition:.2s;
+  width:39px;height:39px;display:grid;place-items:center;
+  border:1px solid var(--border);border-radius:50%;color:white;
+  text-decoration:none;font-size:22px;transition:.2s;
 }
-
-.back-link:hover{
-  color:var(--purple-light);
-  border-color:var(--purple);
-  transform:translateX(-3px);
-}
-
-main{
-  width:min(1200px,94%);
-  margin:32px auto 55px;
-}
-
+.back-link:hover{color:var(--purple-light);border-color:var(--purple);transform:translateX(-3px)}
+main{width:min(1200px,94%);margin:32px auto 55px}
 .welcome{margin-bottom:24px}
-.welcome h1{
-  font-size:clamp(27px,5vw,40px);
-  margin-bottom:8px;
-}
+.welcome h1{font-size:clamp(27px,5vw,40px);margin-bottom:8px}
 .welcome h1 span{color:var(--purple-light)}
 .welcome p{color:var(--muted);line-height:1.5}
-
-.layout{
-  display:grid;
-  grid-template-columns:340px minmax(0,1fr);
-  gap:20px;
-  align-items:start;
-}
-
+.layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:20px;align-items:start}
 .panel{
   background:linear-gradient(145deg,rgba(29,23,43,.97),rgba(15,11,23,.97));
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:19px;
-  box-shadow:0 12px 35px rgba(0,0,0,.28);
-  min-width:0;
+  border:1px solid var(--border);border-radius:16px;padding:19px;
+  box-shadow:0 12px 35px rgba(0,0,0,.28);min-width:0;
 }
-
-.panel h2{
-  font-size:17px;
-  margin-bottom:15px;
-}
-
+.panel h2{font-size:17px;margin-bottom:15px}
 .panel+.panel{margin-top:16px}
-
 input{
-  width:100%;
-  min-width:0;
-  padding:12px;
-  color:white;
-  background:#0d0915;
-  border:1px solid var(--border);
-  border-radius:9px;
-  outline:none;
+  width:100%;min-width:0;padding:12px;color:white;background:#0d0915;
+  border:1px solid var(--border);border-radius:9px;outline:none;
 }
-
 input:focus{border-color:var(--purple)}
-
 .primary-btn{
-  border:1px solid transparent;
-  border-radius:9px;
-  padding:11px 15px;
-  color:white;
-  background:linear-gradient(135deg,var(--purple),var(--purple2));
-  font-weight:800;
-  white-space:nowrap;
-  transition:.2s;
+  border:1px solid transparent;border-radius:9px;padding:11px 15px;
+  color:white;background:linear-gradient(135deg,var(--purple),var(--purple2));
+  font-weight:800;white-space:nowrap;transition:.2s;
 }
-
-.primary-btn:hover{
-  filter:brightness(1.15);
-  box-shadow:0 0 15px rgba(155,92,255,.25);
-}
-
+.primary-btn:hover{filter:brightness(1.15);box-shadow:0 0 15px rgba(155,92,255,.25)}
 .secondary-btn{
-  background:#302440;
-  color:white;
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:9px 12px;
-  transition:.2s;
+  background:#302440;color:white;border:1px solid var(--border);
+  border-radius:8px;padding:9px 12px;transition:.2s;
 }
-
-.secondary-btn:hover{
-  border-color:var(--purple);
-  color:var(--purple-light);
-}
-
+.secondary-btn:hover{border-color:var(--purple);color:var(--purple-light)}
 .danger-btn{
-  background:rgba(255,100,124,.10);
-  color:#ff9baa;
-  border:1px solid rgba(255,100,124,.25);
-  border-radius:8px;
-  padding:9px 12px;
+  background:rgba(255,100,124,.10);color:#ff9baa;
+  border:1px solid rgba(255,100,124,.25);border-radius:8px;padding:9px 12px;
 }
-
-.search-box{
-  display:flex;
-  gap:8px;
-  margin-bottom:12px;
-}
-
-.tabs{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:17px;
-}
-
+.search-box{display:flex;gap:8px;margin-bottom:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:17px}
 .tab{
-  background:#211a2d;
-  border:1px solid var(--border);
-  color:var(--muted);
-  padding:10px 13px;
-  border-radius:9px;
-  transition:.2s;
+  background:#211a2d;border:1px solid var(--border);color:var(--muted);
+  padding:10px 13px;border-radius:9px;transition:.2s;
 }
-
 .tab.active{
-  color:var(--purple-light);
-  border-color:var(--purple);
-  background:rgba(155,92,255,.13);
-  box-shadow:0 0 13px rgba(155,92,255,.10);
+  color:var(--purple-light);border-color:var(--purple);
+  background:rgba(155,92,255,.13);box-shadow:0 0 13px rgba(155,92,255,.10);
 }
-
 .person,.conversation{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  padding:12px 0;
-  border-bottom:1px solid var(--border);
-  min-width:0;
+  display:flex;align-items:center;gap:11px;padding:12px 0;
+  border-bottom:1px solid var(--border);min-width:0;
 }
-
 .person:last-child,.conversation:last-child{border-bottom:0}
-
 .avatar-link{
-  flex:0 0 44px;
-  width:44px;
-  height:44px;
-  position:relative;
-  display:block;
-  text-decoration:none;
+  flex:0 0 44px;width:44px;height:44px;position:relative;
+  display:block;text-decoration:none;
 }
-
 .avatar{
-  width:44px;
-  height:44px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:linear-gradient(135deg,#7441b8,#29203c);
-  color:white;
-  font-weight:900;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.14);
+  width:44px;height:44px;display:grid;place-items:center;border-radius:50%;
+  background:linear-gradient(135deg,#7441b8,#29203c);color:white;
+  font-weight:900;overflow:hidden;border:1px solid rgba(255,255,255,.14);
 }
-
-.avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
+.avatar img{width:100%;height:100%;object-fit:cover}
 .online-dot{
-  position:absolute;
-  right:0;
-  bottom:0;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:var(--green);
-  border:2px solid #171020;
+  position:absolute;right:0;bottom:0;width:12px;height:12px;
+  border-radius:50%;background:var(--green);border:2px solid #171020;
   box-shadow:0 0 9px rgba(69,229,139,.7);
 }
-
-.person-info{
-  flex:1;
-  min-width:0;
-}
-
-.person-info strong{
-  display:block;
-  overflow-wrap:anywhere;
-  font-size:14px;
-}
-
-.person-info small{
-  display:block;
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.nick-link{
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
-}
-
+.person-info{flex:1;min-width:0}
+.person-info strong{display:block;overflow-wrap:anywhere;font-size:14px}
+.person-info small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.nick-link{color:white;text-decoration:none;font-weight:bold}
 .nick-link:hover{color:var(--purple-light)}
-
-.empty{
-  color:var(--muted);
-  font-size:13px;
-  padding:15px 0;
-  line-height:1.5;
-}
-
-.request-text{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.4;
-}
-
-.request-actions{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-
-.request-actions button{
-  padding:8px 10px;
-  font-size:12px;
-}
-
-#chat-area{
-  min-height:500px;
-  display:flex;
-  flex-direction:column;
-}
-
+.empty{color:var(--muted);font-size:13px;padding:15px 0;line-height:1.5}
+.request-text{color:var(--muted);font-size:13px;line-height:1.4}
+.request-actions{display:flex;gap:6px;flex-wrap:wrap}
+.request-actions button{padding:8px 10px;font-size:12px}
+#chat-area{min-height:500px;display:flex;flex-direction:column}
 #chat-header{
-  padding-bottom:14px;
-  border-bottom:1px solid var(--border);
-  font-weight:bold;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+  padding-bottom:14px;border-bottom:1px solid var(--border);font-weight:bold;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
 }
-
-.chat-person{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.chat-person .avatar-link{
-  width:37px;
-  height:37px;
-  flex-basis:37px;
-}
-
-.chat-person .avatar{
-  width:37px;
-  height:37px;
-}
-
-.chat-actions{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-}
-
-.chat-actions button{
-  font-size:12px;
-  padding:8px 10px;
-}
-
+.chat-person{display:flex;align-items:center;gap:10px;min-width:0}
+.chat-person .avatar-link{width:37px;height:37px;flex-basis:37px}
+.chat-person .avatar{width:37px;height:37px}
+.chat-actions{display:flex;gap:7px;flex-wrap:wrap}
+.chat-actions button{font-size:12px;padding:8px 10px}
 #messages{
-  flex:1;
-  min-height:250px;
-  max-height:430px;
-  overflow-y:auto;
-  padding:15px 0;
+  flex:1;min-height:250px;max-height:430px;overflow-y:auto;padding:15px 0;
 }
-
 .message{
-  width:fit-content;
-  max-width:85%;
-  background:#292038;
-  border:1px solid var(--border);
-  border-radius:12px 12px 12px 3px;
-  padding:10px 12px;
-  margin-bottom:10px;
-  overflow-wrap:anywhere;
-  white-space:pre-wrap;
-  font-size:14px;
+  width:fit-content;max-width:85%;background:#292038;border:1px solid var(--border);
+  border-radius:12px 12px 12px 3px;padding:10px 12px;margin-bottom:10px;
+  overflow-wrap:anywhere;white-space:pre-wrap;font-size:14px;
 }
-
 .message.mine{
-  margin-left:auto;
-  background:rgba(117,65,190,.25);
-  border-color:rgba(155,92,255,.3);
-  border-radius:12px 12px 3px 12px;
+  margin-left:auto;background:rgba(117,65,190,.25);
+  border-color:rgba(155,92,255,.3);border-radius:12px 12px 3px 12px;
 }
-
-.message small{
-  display:block;
-  margin-top:5px;
-  color:var(--muted);
-  font-size:10px;
-}
-
-#message-form{
-  display:flex;
-  gap:9px;
-  padding-top:12px;
-  border-top:1px solid var(--border);
-}
-
-#status{
-  margin-top:16px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.5;
-}
-
+.message small{display:block;margin-top:5px;color:var(--muted);font-size:10px}
+#message-form{display:flex;gap:9px;padding-top:12px;border-top:1px solid var(--border)}
+#status{margin-top:16px;color:var(--muted);font-size:12px;line-height:1.5}
 .hidden{display:none!important}
-
 .section-view{display:none}
 .section-view.active{display:block}
-
 .call-card{
   background:linear-gradient(135deg,rgba(112,55,190,.22),rgba(29,23,43,.8));
-  border:1px solid rgba(155,92,255,.25);
-  border-radius:13px;
-  padding:15px;
-  margin-top:14px;
+  border:1px solid rgba(155,92,255,.25);border-radius:13px;padding:15px;margin-top:14px;
 }
-
 .call-card h3{font-size:15px;margin-bottom:7px}
 .call-card p{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px}
-
 .call-actions{display:flex;gap:8px;flex-wrap:wrap}
-
 .call-actions button{font-size:12px}
-
-#call-status{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.5;
-  margin-top:10px;
-}
-
-#call-video-area{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
-  margin-top:12px;
-}
-
-#call-video-area video{
-  width:100%;
-  min-height:120px;
-  max-height:230px;
-  background:#08050e;
-  border-radius:10px;
-  object-fit:cover;
-}
-
+.call-status{color:var(--muted);font-size:12px;line-height:1.5;margin-top:10px}
 .incoming-call{
-  padding:12px;
-  border:1px solid rgba(155,92,255,.4);
-  background:rgba(155,92,255,.12);
-  border-radius:10px;
-  margin-top:12px;
+  padding:12px;border:1px solid rgba(155,92,255,.4);
+  background:rgba(155,92,255,.12);border-radius:10px;margin-top:12px;
 }
-
 .incoming-call p{font-size:13px;margin-bottom:10px}
-
-@media(max-width:850px){
-  .layout{grid-template-columns:1fr}
+#remote-audio audio{display:none}
+.participant-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.participant-chip{
+  padding:7px 10px;border-radius:20px;background:#211a2d;
+  border:1px solid var(--border);font-size:11px;color:var(--purple-light);
 }
-
+.call-controls{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px;
+}
+.mic-btn{background:#302440;color:white;border:1px solid var(--border);padding:9px 12px;border-radius:8px}
+.mic-btn.muted{background:rgba(255,100,124,.15);border-color:var(--danger);color:#ff9baa}
+@media(max-width:850px){.layout{grid-template-columns:1fr}}
 @media(max-width:520px){
-  header{padding:11px 4%}
-  main{margin-top:23px}
-  .panel{padding:15px}
-  .person{gap:8px}
-  .request-actions{width:100%;margin-left:52px}
-  .request-actions button{flex:1}
-  #chat-area{min-height:420px}
-  .search-box{flex-wrap:wrap}
-  .search-box button{width:100%}
+  header{padding:11px 4%}main{margin-top:23px}.panel{padding:15px}
+  .person{gap:8px}.request-actions{width:100%;margin-left:52px}
+  .request-actions button{flex:1}#chat-area{min-height:420px}
+  .search-box{flex-wrap:wrap}.search-box button{width:100%}
 }
 </style>
 </head>
 
 <body>
-
 <header>
   <div class="brand">AGT <span>SOCIAL</span></div>
   <a class="back-link" href="./index.html" aria-label="Voltar à Arena" title="Voltar à Arena">←</a>
@@ -524,7 +231,6 @@ input:focus{border-color:var(--purple)}
           <button class="tab" data-list-tab="recent" type="button">Conversas</button>
           <button class="tab" data-list-tab="requests" type="button">Solicitações</button>
         </div>
-
         <div id="friends-list" class="section-view active empty">Carregando amigos...</div>
         <div id="recent-list" class="section-view empty">Carregando conversas...</div>
         <div id="requests-list" class="section-view empty">Carregando solicitações...</div>
@@ -534,20 +240,22 @@ input:focus{border-color:var(--purple)}
         <h2>🌐 Ligação geral AGT</h2>
         <div class="call-card">
           <h3>Sala comunitária</h3>
-          <p>Entre na sala para conversar com outros membros da AGT. A sala fica disponível enquanto houver participantes.</p>
+          <p>Entre na sala para conversar por voz com outros membros da AGT.</p>
           <div class="call-actions">
-            <button id="join-general-call" class="primary-btn" type="button">Entrar na sala</button>
-            <button id="leave-general-call" class="secondary-btn" type="button" disabled>Sair da sala</button>
+            <button id="join-general-call" class="primary-btn" type="button">🎙️ Entrar na sala</button>
+            <button id="leave-general-call" class="danger-btn" type="button" disabled>Sair da sala</button>
           </div>
           <div id="general-call-status" class="call-status">Sala não conectada.</div>
+          <div id="general-participants" class="participant-list"></div>
+          <div class="call-controls">
+            <button id="general-mute" class="mic-btn hidden" type="button">🎙️ Microfone ligado</button>
+          </div>
         </div>
       </div>
     </aside>
 
     <section class="panel" id="chat-area">
-      <div id="chat-header">
-        <span>💬 Direct AGT</span>
-      </div>
+      <div id="chat-header"><span>💬 Direct AGT</span></div>
 
       <div id="incoming-call" class="incoming-call hidden">
         <p id="incoming-call-text">Você está recebendo uma ligação.</p>
@@ -557,9 +265,7 @@ input:focus{border-color:var(--purple)}
         </div>
       </div>
 
-      <div id="messages" class="empty">
-        Selecione um amigo para começar uma conversa.
-      </div>
+      <div id="messages" class="empty">Selecione um amigo para começar uma conversa.</div>
 
       <form id="message-form" class="hidden">
         <input id="message-input" maxlength="4000" placeholder="Digite sua mensagem..." required>
@@ -570,14 +276,15 @@ input:focus{border-color:var(--purple)}
         <h3>📞 Ligação privada</h3>
         <p>Somente você e o amigo selecionado participam desta chamada.</p>
         <div class="call-actions">
-          <button id="start-private-call" class="primary-btn" type="button">Ligar</button>
+          <button id="start-private-call" class="primary-btn" type="button">🎙️ Ligar</button>
           <button id="hangup-private-call" class="danger-btn" type="button" disabled>Desligar</button>
         </div>
-        <div id="private-call-status">Nenhuma ligação ativa.</div>
-        <div id="private-video-area"></div>
+        <div id="private-call-status" class="call-status">Nenhuma ligação ativa.</div>
+        <div class="call-controls">
+          <button id="private-mute" class="mic-btn hidden" type="button">🎙️ Microfone ligado</button>
+        </div>
       </div>
-
-      <div id="call-video-area"></div>
+      <div id="remote-audio"></div>
     </section>
   </section>
 
@@ -586,82 +293,75 @@ input:focus{border-color:var(--purple)}
 
 <script>
 /* =========================================================
-   AGT SOCIAL — CONFIGURAÇÃO
+   AGT SOCIAL - CONFIGURAÇÃO
 ========================================================= */
-
 const SUPABASE_URL = "https://lbknsgfpfxkvypkxbcmy.supabase.co";
 const SUPABASE_KEY = "sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA";
-
 const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
 const $ = id => document.getElementById(id);
 
-let currentUser = null;
-let currentProfile = null;
-let currentConversation = null;
-let currentFriend = null;
+let currentUser=null;
+let currentProfile=null;
+let currentConversation=null;
+let currentFriend=null;
 
-let messageChannel = null;
-let presenceChannel = null;
-let privateCallChannel = null;
-let generalCallChannel = null;
+let messageChannel=null;
+let presenceChannel=null;
+let inviteChannel=null;
+let privateSignalChannel=null;
+let generalSignalChannel=null;
+let generalParticipantChannel=null;
 
-let onlineUsers = new Set();
-let incomingPrivateCall = null;
+let onlineUsers=new Set();
+let incomingPrivateCall=null;
+let activePrivateRoom=null;
+let activeGeneralRoom=null;
 
-let localStream = null;
-let privatePeer = null;
-let generalPeers = new Map();
+let privatePeer=null;
+let localStream=null;
+let generalPeers=new Map();
+let remoteStreams=new Map();
 
-let privateCallActive = false;
-let generalCallActive = false;
+let privateCallActive=false;
+let generalCallActive=false;
+let microphoneMuted=false;
 
-const RTC_CONFIG = {
+const RTC_CONFIG={
   iceServers:[
     {urls:"stun:stun.l.google.com:19302"},
     {urls:"stun:stun1.l.google.com:19302"}
   ]
 };
 
-function setStatus(message){
-  $("status").textContent = message;
-}
+function setStatus(message){$("status").textContent=message}
+function setCallStatus(message){$("private-call-status").textContent=message}
+function setGeneralStatus(message){$("general-call-status").textContent=message}
 
 function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g,char=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
+  return String(value??"").replace(/[&<>"']/g,char=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
   })[char]);
 }
 
-function profileURL(id){
-  return "./perfil.html?id="+encodeURIComponent(id);
-}
+function profileURL(id){return "./perfil.html?id="+encodeURIComponent(id)}
 
 function avatarHTML(profile,showOnline=false){
-  const nick = escapeHTML(profile?.nick || "?");
-  const avatar = profile?.avatar_url
+  const nick=escapeHTML(profile?.nick||"?");
+  const avatar=profile?.avatar_url
     ? `<img src="${escapeHTML(profile.avatar_url)}" alt="${nick}">`
     : nick.charAt(0).toUpperCase();
-
-  const online = showOnline && onlineUsers.has(profile?.id);
-
+  const online=showOnline&&onlineUsers.has(profile?.id);
   return `
     <a class="avatar-link" href="${profileURL(profile?.id)}" title="Ver perfil de ${nick}">
       <div class="avatar">${avatar}</div>
-      ${online ? '<span class="online-dot" title="Online"></span>' : ""}
-    </a>
-  `;
+      ${online?'<span class="online-dot" title="Online"></span>':""}
+    </a>`;
 }
 
 function setListTab(name){
   document.querySelectorAll("[data-list-tab]").forEach(button=>{
     button.classList.toggle("active",button.dataset.listTab===name);
   });
-
   ["friends","recent","requests"].forEach(id=>{
     $(id+"-list").classList.toggle("active",id===name);
   });
@@ -674,33 +374,24 @@ document.querySelectorAll("[data-list-tab]").forEach(button=>{
 /* =========================================================
    LOGIN E PERFIL
 ========================================================= */
-
 async function loadMyProfile(){
-  const {data,error} = await db
-    .from("profiles")
+  const {data,error}=await db.from("profiles")
     .select("id,nick,avatar_url,bio")
-    .eq("id",currentUser.id)
-    .maybeSingle();
-
-  if(error) throw error;
-
-  currentProfile = data;
-
-  if(!currentProfile){
-    throw new Error("Seu perfil não foi encontrado. Confira seu cadastro no AGT Arena.");
-  }
+    .eq("id",currentUser.id).maybeSingle();
+  if(error)throw error;
+  currentProfile=data;
+  if(!currentProfile)throw new Error("Seu perfil não foi encontrado.");
 }
 
 async function startSocial(){
   $("login-panel").classList.add("hidden");
   $("social-app").classList.remove("hidden");
-
   try{
     await loadMyProfile();
-
-    setStatus("Conectado como "+(currentProfile.nick || "jogador")+".");
-
+    setStatus("Conectado como "+(currentProfile.nick||"jogador")+".");
     await startPresence();
+    await subscribeFriendRequests();
+    await subscribeCallInvites();
     await loadFriends();
     await loadRequests();
     await loadRecentConversations();
@@ -710,88 +401,63 @@ async function startSocial(){
 }
 
 async function showLogin(){
-  currentUser = null;
-  currentProfile = null;
-
+  currentUser=null;
+  currentProfile=null;
   $("social-app").classList.add("hidden");
   $("login-panel").classList.remove("hidden");
-
   setStatus("Entre com a mesma conta usada no AGT Arena.");
 }
 
 $("login-form").addEventListener("submit",async event=>{
   event.preventDefault();
-
-  const email = $("login-email").value.trim();
-  const password = $("login-password").value;
-
+  const email=$("login-email").value.trim();
+  const password=$("login-password").value;
   setStatus("Entrando na sua conta...");
-
-  const {data,error} = await db.auth.signInWithPassword({email,password});
-
-  if(error){
-    setStatus("Erro ao entrar: "+error.message);
-    return;
-  }
-
-  currentUser = data.user;
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  if(error){setStatus("Erro ao entrar: "+error.message);return}
+  currentUser=data.user;
   await startSocial();
 });
 
 async function initializeSocial(){
-  const {data,error} = await db.auth.getSession();
-
-  if(error){
-    setStatus("Erro ao verificar sessão: "+error.message);
-    await showLogin();
-    return;
-  }
-
-  currentUser = data.session?.user || null;
-
-  if(currentUser) await startSocial();
+  const {data,error}=await db.auth.getSession();
+  if(error){setStatus("Erro ao verificar sessão: "+error.message);await showLogin();return}
+  currentUser=data.session?.user||null;
+  if(currentUser)await startSocial();
   else await showLogin();
 }
 
 db.auth.onAuthStateChange((event,session)=>{
   if(event==="SIGNED_OUT"){
-    currentUser = null;
-    currentProfile = null;
+    cleanupAllCalls();
+    currentUser=null;
+    currentProfile=null;
     showLogin();
-  }else if(event==="SIGNED_IN" && session?.user){
-    currentUser = session.user;
-    startSocial();
   }
 });
 
 /* =========================================================
    PRESENÇA ONLINE
-   A bolinha só aparece para usuários online.
 ========================================================= */
-
 async function startPresence(){
   if(presenceChannel){
     await db.removeChannel(presenceChannel);
-    presenceChannel = null;
+    presenceChannel=null;
   }
-
-  presenceChannel = db.channel("agt-social-presence",{
-    config:{
-      presence:{key:currentUser.id}
-    }
+  presenceChannel=db.channel("agt-social-presence",{
+    config:{presence:{key:currentUser.id}}
   });
-
   presenceChannel
     .on("presence",{event:"sync"},()=>{
-      const state = presenceChannel.presenceState();
-      onlineUsers = new Set(Object.keys(state));
+      const state=presenceChannel.presenceState();
+      onlineUsers=new Set(Object.keys(state));
       refreshPresenceIndicators();
     })
     .subscribe(async status=>{
       if(status==="SUBSCRIBED"){
         await presenceChannel.track({
           user_id:currentUser.id,
-          nick:currentProfile?.nick || "",
+          nick:currentProfile?.nick||"",
           online_at:new Date().toISOString()
         });
       }
@@ -806,210 +472,108 @@ function refreshPresenceIndicators(){
 /* =========================================================
    BUSCA DE JOGADORES
 ========================================================= */
-
 $("search-form").addEventListener("submit",async event=>{
   event.preventDefault();
-
-  if(!currentUser) return;
-
-  const nick = $("search-nick").value.trim();
-
-  if(nick.length<2){
-    $("search-results").textContent = "Digite pelo menos 2 caracteres.";
-    return;
-  }
-
-  $("search-results").textContent = "Buscando jogadores...";
-
-  const {data,error} = await db
-    .from("profiles")
+  if(!currentUser)return;
+  const nick=$("search-nick").value.trim();
+  if(nick.length<2){$("search-results").textContent="Digite pelo menos 2 caracteres.";return}
+  $("search-results").textContent="Buscando jogadores...";
+  const {data,error}=await db.from("profiles")
     .select("id,nick,avatar_url")
     .ilike("nick","%"+nick+"%")
-    .neq("id",currentUser.id)
-    .limit(15);
-
-  if(error){
-    $("search-results").textContent = "Erro na busca: "+error.message;
-    return;
-  }
-
-  if(!data?.length){
-    $("search-results").textContent = "Nenhum jogador encontrado.";
-    return;
-  }
-
-  $("search-results").innerHTML = "";
-
+    .neq("id",currentUser.id).limit(15);
+  if(error){$("search-results").textContent="Erro na busca: "+error.message;return}
+  if(!data?.length){$("search-results").textContent="Nenhum jogador encontrado.";return}
+  $("search-results").innerHTML="";
   for(const profile of data){
-    const item = document.createElement("div");
-    item.className = "person";
-
-    item.innerHTML = `
+    const item=document.createElement("div");
+    item.className="person";
+    item.innerHTML=`
       ${avatarHTML(profile,true)}
-      <div class="person-info">
-        <strong>${escapeHTML(profile.nick)}</strong>
-        <small>Jogador AGT</small>
-      </div>
-      <button class="secondary-btn" type="button">Adicionar</button>
-    `;
-
+      <div class="person-info"><strong>${escapeHTML(profile.nick)}</strong><small>Jogador AGT</small></div>
+      <button class="secondary-btn" type="button">Adicionar</button>`;
     item.querySelector("button").addEventListener("click",()=>{
       sendFriendRequest(profile.id,item.querySelector("button"));
     });
-
     $("search-results").appendChild(item);
   }
 });
 
-/* =========================================================
-   SOLICITAÇÕES DE AMIZADE
-========================================================= */
-
 async function sendFriendRequest(receiverId,button){
-  button.disabled = true;
-  button.textContent = "Enviando...";
-
-  const {error} = await db
-    .from("friend_requests")
-    .insert({
-      sender_id:currentUser.id,
-      receiver_id:receiverId,
-      status:"pending"
-    });
-
+  button.disabled=true;
+  button.textContent="Enviando...";
+  const {error}=await db.from("friend_requests").insert({
+    sender_id:currentUser.id,receiver_id:receiverId,status:"pending"
+  });
   if(error){
-    button.disabled = false;
-    button.textContent = "Adicionar";
-
-    if(error.code==="23505"){
-      setStatus("Já existe uma solicitação entre esses jogadores.");
-    }else{
-      setStatus("Não foi possível enviar: "+error.message);
-    }
+    button.disabled=false;
+    button.textContent="Adicionar";
+    setStatus(error.code==="23505"
+      ?"Já existe uma solicitação pendente entre esses jogadores."
+      :"Não foi possível enviar: "+error.message);
     return;
   }
-
-  button.textContent = "Enviado";
+  button.textContent="Enviado";
   setStatus("Solicitação de amizade enviada!");
 }
 
+/* =========================================================
+   SOLICITAÇÕES DE AMIZADE
+========================================================= */
+async function subscribeFriendRequests(){
+  const channel=db.channel("agt-friend-requests-"+currentUser.id);
+  channel.on("postgres_changes",{
+    event:"*",schema:"public",table:"friend_requests"
+  },()=>{
+    loadRequests();
+  }).subscribe();
+}
+
 async function loadRequests(){
-  const {data:requests,error} = await db
-    .from("friend_requests")
+  if(!currentUser)return;
+  const {data:requests,error}=await db.from("friend_requests")
     .select("id,sender_id,created_at")
     .eq("receiver_id",currentUser.id)
     .eq("status","pending")
     .order("created_at",{ascending:false});
-
-  if(error){
-    $("requests-list").textContent = "Erro ao carregar solicitações: "+error.message;
-    return;
-  }
-
-  if(!requests?.length){
-    $("requests-list").textContent = "Nenhuma solicitação pendente.";
-    return;
-  }
-
-  const senderIds = requests.map(request=>request.sender_id);
-
-  const {data:profiles,error:profileError} = await db
-    .from("profiles")
-    .select("id,nick,avatar_url")
-    .in("id",senderIds);
-
-  if(profileError){
-    $("requests-list").textContent = "Erro ao buscar jogadores: "+profileError.message;
-    return;
-  }
-
-  $("requests-list").innerHTML = "";
-
+  if(error){$("requests-list").textContent="Erro ao carregar solicitações: "+error.message;return}
+  if(!requests?.length){$("requests-list").textContent="Nenhuma solicitação pendente.";return}
+  const ids=requests.map(r=>r.sender_id);
+  const {data:profiles,error:profileError}=await db.from("profiles")
+    .select("id,nick,avatar_url").in("id",ids);
+  if(profileError){$("requests-list").textContent="Erro ao buscar jogadores: "+profileError.message;return}
+  $("requests-list").innerHTML="";
   for(const request of requests){
-    const profile = (profiles || []).find(p=>p.id===request.sender_id);
-    if(!profile) continue;
-
-    const item = document.createElement("div");
-    item.className = "person";
-
-    item.innerHTML = `
+    const profile=(profiles||[]).find(p=>p.id===request.sender_id);
+    if(!profile)continue;
+    const item=document.createElement("div");
+    item.className="person";
+    item.innerHTML=`
       ${avatarHTML(profile,true)}
-      <div class="person-info">
-        <div class="request-text">Quer ser seu amigo?</div>
-      </div>
+      <div class="person-info"><div class="request-text">Quer ser seu amigo?</div></div>
       <div class="request-actions">
         <button class="primary-btn" type="button">Aceitar</button>
         <button class="danger-btn" type="button">Recusar</button>
-      </div>
-    `;
-
-    const buttons = item.querySelectorAll("button");
-
-    buttons[0].addEventListener("click",()=>{
-      respondFriendRequest(request,"accept",item,buttons);
-    });
-
-    buttons[1].addEventListener("click",()=>{
-      respondFriendRequest(request,"reject",item,buttons);
-    });
-
+      </div>`;
+    const buttons=item.querySelectorAll("button");
+    buttons[0].addEventListener("click",()=>respondFriendRequest(request,"accept",item,buttons));
+    buttons[1].addEventListener("click",()=>respondFriendRequest(request,"reject",item,buttons));
     $("requests-list").appendChild(item);
   }
 }
 
-/*
-  A resposta não chama mais accept_friend_request(request_id).
-  Isso evita depender da assinatura antiga da função RPC.
-*/
 async function respondFriendRequest(request,action,item,buttons){
-  buttons.forEach(button=>button.disabled=true);
-
-  const newStatus = action==="accept" ? "accepted" : "rejected";
-
-  const {data,error} = await db
-    .from("friend_requests")
-    .update({status:newStatus})
-    .eq("id",request.id)
-    .eq("receiver_id",currentUser.id)
-    .eq("status","pending")
-    .select("id")
-    .maybeSingle();
-
-  if(error || !data){
-    buttons.forEach(button=>button.disabled=false);
-    setStatus("Não foi possível responder: "+(error?.message || "Solicitação não encontrada ou sem permissão."));
+  buttons.forEach(b=>b.disabled=true);
+  const rpcName=action==="accept"?"accept_friend_request":"reject_friend_request";
+  const {error}=await db.rpc(rpcName,{p_request_id:request.id});
+  if(error){
+    buttons.forEach(b=>b.disabled=false);
+    setStatus("Não foi possível responder: "+error.message);
     return;
   }
-
-  if(action==="accept"){
-    const firstId = currentUser.id < request.sender_id
-      ? currentUser.id
-      : request.sender_id;
-
-    const secondId = currentUser.id < request.sender_id
-      ? request.sender_id
-      : currentUser.id;
-
-    const {error:friendError} = await db
-      .from("friendships")
-      .upsert({
-        user1_id:firstId,
-        user2_id:secondId
-      },{onConflict:"user1_id,user2_id"});
-
-    if(friendError){
-      setStatus("Solicitação aceita, mas não foi possível criar a amizade: "+friendError.message);
-      await loadRequests();
-      return;
-    }
-
-    setStatus("Amizade aceita! O jogador foi adicionado à sua lista.");
-  }else{
-    setStatus("Solicitação recusada.");
-  }
-
   item.remove();
-
+  if(action==="accept")setStatus("Amizade aceita! O jogador foi adicionado à sua lista.");
+  else setStatus("Solicitação recusada.");
   await loadFriends();
   await loadRequests();
   await loadRecentConversations();
@@ -1018,70 +582,38 @@ async function respondFriendRequest(request,action,item,buttons){
 /* =========================================================
    AMIGOS
 ========================================================= */
-
 async function getFriendIds(){
-  const {data:links,error} = await db
-    .from("friendships")
+  const {data,error}=await db.from("friendships")
     .select("user1_id,user2_id")
     .or("user1_id.eq."+currentUser.id+",user2_id.eq."+currentUser.id);
-
-  if(error) throw error;
-
-  return (links || []).map(link=>
-    link.user1_id===currentUser.id ? link.user2_id : link.user1_id
+  if(error)throw error;
+  return (data||[]).map(link=>
+    link.user1_id===currentUser.id?link.user2_id:link.user1_id
   );
 }
 
 async function loadFriends(){
-  if(!currentUser) return;
-
-  let friendIds;
-
-  try{
-    friendIds = await getFriendIds();
-  }catch(error){
-    $("friends-list").textContent = "Erro ao carregar amigos: "+error.message;
-    return;
-  }
-
-  if(!friendIds.length){
-    $("friends-list").textContent = "Você ainda não tem amigos. Use a busca para encontrar jogadores!";
-    return;
-  }
-
-  const {data:profiles,error} = await db
-    .from("profiles")
-    .select("id,nick,avatar_url")
-    .in("id",friendIds);
-
-  if(error){
-    $("friends-list").textContent = "Erro ao carregar perfis: "+error.message;
-    return;
-  }
-
-  $("friends-list").innerHTML = "";
-
-  for(const profile of profiles || []){
-    const item = document.createElement("div");
-    item.className = "person";
-
-    item.innerHTML = `
+  if(!currentUser)return;
+  let ids;
+  try{ids=await getFriendIds()}
+  catch(error){$("friends-list").textContent="Erro ao carregar amigos: "+error.message;return}
+  if(!ids.length){$("friends-list").textContent="Você ainda não tem amigos. Use a busca para encontrar jogadores!";return}
+  const {data:profiles,error}=await db.from("profiles")
+    .select("id,nick,avatar_url").in("id",ids);
+  if(error){$("friends-list").textContent="Erro ao carregar perfis: "+error.message;return}
+  $("friends-list").innerHTML="";
+  for(const profile of profiles||[]){
+    const item=document.createElement("div");
+    item.className="person";
+    item.innerHTML=`
       ${avatarHTML(profile,true)}
       <div class="person-info">
-        <strong>
-          <a class="nick-link" href="#" title="Abrir Direct">
-            ${escapeHTML(profile.nick)}
-          </a>
-        </strong>
-        <small>${onlineUsers.has(profile.id) ? "Online" : "Amigo"}</small>
-      </div>
-    `;
-
+        <strong><a class="nick-link" href="#">${escapeHTML(profile.nick)}</a></strong>
+        <small>${onlineUsers.has(profile.id)?"Online":"Amigo"}</small>
+      </div>`;
     item.querySelector(".nick-link").addEventListener("click",event=>{
-      event.preventDefault();
-      openDirect(profile);
+      event.preventDefault();openDirect(profile);
     });
-
     $("friends-list").appendChild(item);
   }
 }
@@ -1089,743 +621,404 @@ async function loadFriends(){
 /* =========================================================
    DIRECT E CONVERSAS RECENTES
 ========================================================= */
-
 async function openDirect(profile){
-  if(!profile || !currentUser) return;
-
-  currentFriend = profile;
-  currentConversation = null;
-
-  $("chat-header").innerHTML = `
+  if(!profile||!currentUser)return;
+  if(privateCallActive||generalCallActive){
+    setStatus("Encerre sua chamada atual antes de abrir outra conversa.");
+    return;
+  }
+  currentFriend=profile;
+  currentConversation=null;
+  $("chat-header").innerHTML=`
     <div class="chat-person">
       ${avatarHTML(profile,true)}
-      <a class="nick-link" href="${profileURL(profile.id)}">
-        ${escapeHTML(profile.nick)}
-      </a>
+      <a class="nick-link" href="${profileURL(profile.id)}">${escapeHTML(profile.nick)}</a>
     </div>
-    <div class="chat-actions">
-      <button id="open-private-call" class="secondary-btn" type="button">📞 Ligar</button>
-    </div>
-  `;
-
-  $("messages").textContent = "Preparando conversa...";
+    <div class="chat-actions"><button id="open-private-call" class="secondary-btn" type="button">📞 Ligar</button></div>`;
+  $("messages").textContent="Preparando conversa...";
   $("message-form").classList.add("hidden");
   $("private-call-controls").classList.remove("hidden");
-
   $("open-private-call").addEventListener("click",startPrivateCall);
 
-  if(messageChannel){
-    await db.removeChannel(messageChannel);
-    messageChannel = null;
-  }
-
-  const {data,error} = await db.rpc("create_direct_conversation",{
-    other_user_id:profile.id
+  if(messageChannel){await db.removeChannel(messageChannel);messageChannel=null}
+  const {data,error}=await db.rpc("create_direct_conversation",{
+    p_other_user_id:profile.id
   });
-
   if(error){
-    $("messages").textContent = "Não foi possível abrir a conversa: "+error.message;
-    setStatus("Verifique se a amizade foi aceita e se a função de Direct está configurada.");
+    $("messages").textContent="Não foi possível abrir a conversa: "+error.message;
+    setStatus("Erro ao abrir Direct: "+error.message);
     return;
   }
-
-  currentConversation = typeof data==="string" ? data : data?.id || data?.conversation_id || data;
-
+  currentConversation=typeof data==="string"?data:data?.id||data?.conversation_id||null;
   if(!currentConversation){
-    $("messages").textContent = "A função de conversa não retornou um identificador válido.";
+    $("messages").textContent="A função de conversa não retornou um identificador válido.";
     return;
   }
-
   setStatus("Conversa aberta com "+profile.nick+".");
-
   await loadMessages();
   await subscribeMessages();
-  await subscribePrivateCall();
   await loadRecentConversations();
 }
 
 async function loadMessages(){
-  if(!currentConversation) return;
-
-  const {data,error} = await db
-    .from("messages")
+  if(!currentConversation)return;
+  const {data,error}=await db.from("messages")
     .select("id,sender_id,body,created_at")
     .eq("conversation_id",currentConversation)
-    .order("created_at",{ascending:true})
-    .limit(100);
-
-  if(error){
-    $("messages").textContent = "Erro ao carregar mensagens: "+error.message;
-    return;
-  }
-
-  renderMessages(data || []);
+    .order("created_at",{ascending:true}).limit(100);
+  if(error){$("messages").textContent="Erro ao carregar mensagens: "+error.message;return}
+  renderMessages(data||[]);
   $("message-form").classList.remove("hidden");
 }
 
 function renderMessages(messages){
-  const area = $("messages");
-  area.innerHTML = "";
-
-  if(!messages.length){
-    area.textContent = "Conversa iniciada! Envie a primeira mensagem.";
-    return;
-  }
-
+  const area=$("messages");
+  area.innerHTML="";
+  if(!messages.length){area.textContent="Conversa iniciada! Envie a primeira mensagem.";return}
   for(const message of messages){
-    const item = document.createElement("div");
-
-    item.className = "message"+(
-      message.sender_id===currentUser.id ? " mine" : ""
-    );
-
-    const time = new Date(message.created_at).toLocaleTimeString("pt-BR",{
-      hour:"2-digit",
-      minute:"2-digit"
-    });
-
-    item.innerHTML = `
-      ${escapeHTML(message.body)}
-      <small>${time}</small>
-    `;
-
+    const item=document.createElement("div");
+    item.className="message"+(message.sender_id===currentUser.id?" mine":"");
+    const time=new Date(message.created_at).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+    item.innerHTML=`${escapeHTML(message.body)}<small>${time}</small>`;
     area.appendChild(item);
   }
-
-  area.scrollTop = area.scrollHeight;
+  area.scrollTop=area.scrollHeight;
 }
 
 $("message-form").addEventListener("submit",async event=>{
   event.preventDefault();
-
-  if(!currentUser || !currentConversation) return;
-
-  const input = $("message-input");
-  const body = input.value.trim();
-
-  if(!body) return;
-
-  const button = $("message-form").querySelector("button");
-  button.disabled = true;
-  button.textContent = "Enviando...";
-
-  const {error} = await db
-    .from("messages")
-    .insert({
-      conversation_id:currentConversation,
-      sender_id:currentUser.id,
-      body
-    });
-
-  button.disabled = false;
-  button.textContent = "Enviar";
-
-  if(error){
-    setStatus("Erro ao enviar mensagem: "+error.message);
-    return;
-  }
-
-  input.value = "";
-
+  if(!currentUser||!currentConversation)return;
+  const input=$("message-input");
+  const body=input.value.trim();
+  if(!body)return;
+  const button=$("message-form").querySelector("button");
+  button.disabled=true;button.textContent="Enviando...";
+  const {error}=await db.from("messages").insert({
+    conversation_id:currentConversation,sender_id:currentUser.id,body
+  });
+  button.disabled=false;button.textContent="Enviar";
+  if(error){setStatus("Erro ao enviar mensagem: "+error.message);return}
+  input.value="";
   await loadMessages();
   await loadRecentConversations();
 });
 
 async function subscribeMessages(){
-  if(messageChannel){
-    await db.removeChannel(messageChannel);
-    messageChannel = null;
-  }
-
-  if(!currentConversation) return;
-
-  const conversationId = currentConversation;
-
-  messageChannel = db
-    .channel("agt-social-messages-"+conversationId)
+  if(messageChannel){await db.removeChannel(messageChannel);messageChannel=null}
+  if(!currentConversation)return;
+  const id=currentConversation;
+  messageChannel=db.channel("agt-messages-"+id)
     .on("postgres_changes",{
-      event:"INSERT",
-      schema:"public",
-      table:"messages",
-      filter:"conversation_id=eq."+conversationId
+      event:"INSERT",schema:"public",table:"messages",
+      filter:"conversation_id=eq."+id
     },async payload=>{
       if(payload.new?.conversation_id===currentConversation){
         await loadMessages();
         await loadRecentConversations();
       }
-    })
-    .subscribe(status=>{
-      if(status==="SUBSCRIBED"){
-        setStatus("Direct conectado em tempo real.");
-      }else if(status==="CHANNEL_ERROR"){
-        setStatus("Não foi possível conectar as mensagens em tempo real.");
-      }
-    });
+    }).subscribe();
 }
 
-/*
-  A lista de conversas recentes usa a tabela conversations,
-  com user1_id, user2_id e id.
-*/
 async function loadRecentConversations(){
-  if(!currentUser) return;
-
-  const {data:conversations,error} = await db
-    .from("conversations")
-    .select("id,user1_id,user2_id,updated_at")
+  if(!currentUser)return;
+  const {data:conversations,error}=await db.from("conversations")
+    .select("id,type,user1_id,user2_id,last_message_at")
+    .eq("type","direct")
     .or("user1_id.eq."+currentUser.id+",user2_id.eq."+currentUser.id)
-    .order("updated_at",{ascending:false})
+    .order("last_message_at",{ascending:false,nullsFirst:false})
     .limit(30);
-
-  if(error){
-    $("recent-list").textContent =
-      "Não foi possível carregar conversas recentes: "+error.message;
-    return;
-  }
-
-  if(!conversations?.length){
-    $("recent-list").textContent = "Suas conversas recentes aparecerão aqui.";
-    return;
-  }
-
-  const friendIds = conversations.map(conversation=>
-    conversation.user1_id===currentUser.id
-      ? conversation.user2_id
-      : conversation.user1_id
-  );
-
-  const {data:profiles,error:profileError} = await db
-    .from("profiles")
-    .select("id,nick,avatar_url")
-    .in("id",friendIds);
-
-  if(profileError){
-    $("recent-list").textContent = "Erro ao carregar contatos: "+profileError.message;
-    return;
-  }
-
-  $("recent-list").innerHTML = "";
-
+  if(error){$("recent-list").textContent="Não foi possível carregar conversas: "+error.message;return}
+  if(!conversations?.length){$("recent-list").textContent="Suas conversas recentes aparecerão aqui.";return}
+  const ids=conversations.map(c=>c.user1_id===currentUser.id?c.user2_id:c.user1_id).filter(Boolean);
+  if(!ids.length){$("recent-list").textContent="Suas conversas recentes aparecerão aqui.";return}
+  const {data:profiles,error:profileError}=await db.from("profiles")
+    .select("id,nick,avatar_url").in("id",ids);
+  if(profileError){$("recent-list").textContent="Erro ao carregar contatos: "+profileError.message;return}
+  $("recent-list").innerHTML="";
   for(const conversation of conversations){
-    const friendId = conversation.user1_id===currentUser.id
-      ? conversation.user2_id
-      : conversation.user1_id;
-
-    const profile = (profiles || []).find(p=>p.id===friendId);
-    if(!profile) continue;
-
-    const item = document.createElement("div");
-    item.className = "conversation";
-
-    item.innerHTML = `
+    const friendId=conversation.user1_id===currentUser.id?conversation.user2_id:conversation.user1_id;
+    const profile=(profiles||[]).find(p=>p.id===friendId);
+    if(!profile)continue;
+    const item=document.createElement("div");
+    item.className="conversation";
+    item.innerHTML=`
       ${avatarHTML(profile,true)}
       <div class="person-info">
-        <strong>
-          <a href="#" class="nick-link">${escapeHTML(profile.nick)}</a>
-        </strong>
-        <small>Conversa recente</small>
-      </div>
-    `;
-
+        <strong><a href="#" class="nick-link">${escapeHTML(profile.nick)}</a></strong>
+        <small>${conversation.last_message_at?"Conversa recente":"Direct iniciado"}</small>
+      </div>`;
     item.querySelector(".nick-link").addEventListener("click",event=>{
-      event.preventDefault();
-      openDirect(profile);
+      event.preventDefault();openDirect(profile);
     });
-
     $("recent-list").appendChild(item);
   }
 }
 
 /* =========================================================
-   LIGAÇÃO PRIVADA — DOIS PARTICIPANTES
+   ÁUDIO E UTILITÁRIOS WEBRTC
 ========================================================= */
-
-function privateChannelName(){
-  if(!currentFriend) return null;
-
-  const ids = [currentUser.id,currentFriend.id].sort();
-
-  return "agt-private-call-"+ids[0]+"-"+ids[1];
-}
-
-async function subscribePrivateCall(){
-  if(privateCallChannel){
-    await db.removeChannel(privateCallChannel);
-    privateCallChannel = null;
-  }
-
-  if(!currentFriend) return;
-
-  const channelName = privateChannelName();
-
-  privateCallChannel = db.channel(channelName,{
-    config:{
-      private:true,
-      broadcast:{self:false}
-    }
-  });
-
-  privateCallChannel
-    .on("broadcast",{event:"signal"},async({payload})=>{
-      if(!payload || payload.to!==currentUser.id) return;
-      await handlePrivateSignal(payload);
-    })
-    .subscribe(status=>{
-      if(status==="CHANNEL_ERROR"){
-        $("private-call-status").textContent =
-          "Erro no canal da ligação. Confira as permissões Realtime do Supabase.";
-      }
-    });
-}
-
-async function sendPrivateSignal(type,data={}){
-  if(!privateCallChannel || !currentFriend) return;
-
-  await privateCallChannel.send({
-    type:"broadcast",
-    event:"signal",
-    payload:{
-      from:currentUser.id,
-      to:currentFriend.id,
-      kind:type,
-      data
-    }
-  });
-}
-
 async function getLocalStream(){
-  if(localStream) return localStream;
-
-  localStream = await navigator.mediaDevices.getUserMedia({
-    audio:true,
+  if(!navigator.mediaDevices?.getUserMedia){
+    throw new Error("Seu navegador não permite acesso ao microfone. Use HTTPS.");
+  }
+  if(localStream)return localStream;
+  localStream=await navigator.mediaDevices.getUserMedia({
+    audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true},
     video:false
   });
-
   return localStream;
 }
 
-function showPrivateRemoteStream(stream){
-  const area = $("private-video-area");
-  area.innerHTML = "";
-
-  const video = document.createElement("video");
-  video.autoplay = true;
-  video.playsInline = true;
-  video.srcObject = stream;
-
-  area.appendChild(video);
+function addRemoteAudio(key,stream){
+  let audio=document.getElementById("audio-"+key);
+  if(!audio){
+    audio=document.createElement("audio");
+    audio.id="audio-"+key;
+    audio.autoplay=true;
+    audio.playsInline=true;
+    $("remote-audio").appendChild(audio);
+  }
+  audio.srcObject=stream;
+  audio.play().catch(()=>setStatus("Clique na página para liberar a reprodução de áudio."));
 }
 
-async function createPrivatePeer(){
-  if(privatePeer) return privatePeer;
+function removeRemoteAudio(key){
+  const audio=document.getElementById("audio-"+key);
+  if(audio){audio.srcObject=null;audio.remove()}
+}
 
-  privatePeer = new RTCPeerConnection(RTC_CONFIG);
+function setMuteUI(type,muted){
+  const button=$(type==="private"?"private-mute":"general-mute");
+  button.classList.toggle("muted",muted);
+  button.textContent=muted?"🔇 Microfone desligado":"🎙️ Microfone ligado";
+}
 
-  const stream = await getLocalStream();
+function toggleMute(type){
+  if(!localStream)return;
+  microphoneMuted=!microphoneMuted;
+  localStream.getAudioTracks().forEach(track=>track.enabled=!microphoneMuted);
+  setMuteUI(type,microphoneMuted);
+}
 
-  stream.getTracks().forEach(track=>{
-    privatePeer.addTrack(track,stream);
+$("private-mute").addEventListener("click",()=>toggleMute("private"));
+$("general-mute").addEventListener("click",()=>toggleMute("general"));
+
+function stopLocalStream(){
+  if(localStream){
+    localStream.getTracks().forEach(track=>track.stop());
+    localStream=null;
+  }
+  microphoneMuted=false;
+}
+
+/* =========================================================
+   SINALIZAÇÃO PELO BANCO
+========================================================= */
+async function sendCallSignal(roomId,toUser,eventType,payload={}){
+  const {error}=await db.from("call_signals").insert({
+    room_id:roomId,
+    from_user:currentUser.id,
+    to_user:toUser||null,
+    event_type:eventType,
+    payload
   });
+  if(error)throw error;
+}
 
-  privatePeer.ontrack = event=>{
-    showPrivateRemoteStream(event.streams[0]);
-  };
+function subscribeCallSignals(roomId,callback){
+  return db.channel("agt-call-signals-"+roomId+"-"+currentUser.id)
+    .on("postgres_changes",{
+      event:"INSERT",schema:"public",table:"call_signals",
+      filter:"room_id=eq."+roomId
+    },payload=>{
+      const signal=payload.new;
+      if(signal.from_user===currentUser.id)return;
+      if(signal.to_user&&signal.to_user!==currentUser.id)return;
+      callback(signal);
+    }).subscribe();
+}
 
-  privatePeer.onicecandidate = event=>{
-    if(event.candidate){
-      sendPrivateSignal("ice",{
-        candidate:event.candidate
-      });
-    }
-  };
+/* =========================================================
+   CHAMADAS PRIVADAS
+========================================================= */
+async function subscribeCallInvites(){
+  if(inviteChannel){await db.removeChannel(inviteChannel);inviteChannel=null}
+  inviteChannel=db.channel("agt-call-invites-"+currentUser.id)
+    .on("postgres_changes",{
+      event:"INSERT",schema:"public",table:"call_invites",
+      filter:"to_user=eq."+currentUser.id
+    },async payload=>{
+      const invite=payload.new;
+      if(invite.status!=="pending")return;
+      await showIncomingCall(invite);
+    })
+    .on("postgres_changes",{
+      event:"UPDATE",schema:"public",table:"call_invites",
+      filter:"from_user=eq."+currentUser.id
+    },payload=>{
+      if(payload.new.status==="accepted"&&activePrivateRoom===payload.new.room_id){
+        startPrivatePeerAsCaller(payload.new.room_id,payload.new.to_user);
+      }
+      if(payload.new.status==="rejected"&&activePrivateRoom===payload.new.room_id){
+        setCallStatus("O jogador recusou a chamada.");
+        closePrivateCall(false);
+      }
+    }).subscribe();
+}
 
-  privatePeer.onconnectionstatechange = ()=>{
-    $("private-call-status").textContent =
-      "Estado da ligação: "+privatePeer.connectionState;
-  };
-
-  return privatePeer;
+async function showIncomingCall(invite){
+  if(privateCallActive||generalCallActive||incomingPrivateCall)return;
+  const {data:profile}=await db.from("profiles")
+    .select("id,nick,avatar_url").eq("id",invite.from_user).maybeSingle();
+  incomingPrivateCall={...invite,profile};
+  $("incoming-call-text").textContent=
+    (profile?.nick||"Um jogador")+" está ligando para você.";
+  $("incoming-call").classList.remove("hidden");
 }
 
 async function startPrivateCall(){
-  if(!currentFriend || !currentConversation) return;
-
+  if(!currentFriend||!currentConversation)return;
+  if(privateCallActive||generalCallActive){
+    setCallStatus("Você já está em outra chamada.");
+    return;
+  }
   try{
-    await subscribePrivateCall();
-
-    if(!privateCallChannel){
-      throw new Error("Canal privado indisponível.");
-    }
-
+    $("start-private-call").disabled=true;
+    setCallStatus("Preparando chamada...");
     await getLocalStream();
 
-    const peer = await createPrivatePeer();
-    const offer = await peer.createOffer();
-
-    await peer.setLocalDescription(offer);
-
-    await sendPrivateSignal("offer",{
-      description:peer.localDescription
+    const {data:roomId,error}=await db.rpc("create_direct_call",{
+      p_conversation_id:currentConversation
     });
+    if(error)throw error;
+    if(!roomId)throw new Error("O banco não retornou a sala da chamada.");
 
-    privateCallActive = true;
-
-    $("private-call-status").textContent =
-      "Chamando "+currentFriend.nick+"...";
-
-    $("start-private-call").disabled = true;
-    $("hangup-private-call").disabled = false;
+    activePrivateRoom=roomId;
+    privateCallActive=true;
+    await subscribePrivateSignals(roomId);
+    const {data:inviteId,error:inviteError}=await db.rpc("invite_direct_call",{
+      p_room_id:roomId,
+      p_to_user:currentFriend.id
+    });
+    if(inviteError)throw inviteError;
+    setCallStatus("Chamando "+currentFriend.nick+"... Aguarde o atendimento.");
+    $("hangup-private-call").disabled=false;
+    $("private-mute").classList.remove("hidden");
+    setMuteUI("private",false);
   }catch(error){
-    $("private-call-status").textContent =
-      "Não foi possível iniciar a ligação: "+error.message;
+    setCallStatus("Não foi possível iniciar: "+error.message);
+    $("start-private-call").disabled=false;
+    await closePrivateCall(false);
   }
 }
 
-async function handlePrivateSignal(payload){
-  const kind = payload.kind;
-  const data = payload.data || {};
+async function subscribePrivateSignals(roomId){
+  if(privateSignalChannel){await db.removeChannel(privateSignalChannel);privateSignalChannel=null}
+  privateSignalChannel=subscribeCallSignals(roomId,handlePrivateSignal);
+}
 
+async function createPrivatePeer(roomId,remoteUser){
+  if(privatePeer)return privatePeer;
+  const stream=await getLocalStream();
+  const peer=new RTCPeerConnection(RTC_CONFIG);
+  stream.getTracks().forEach(track=>peer.addTrack(track,stream));
+  peer.ontrack=event=>addRemoteAudio("private",event.streams[0]);
+  peer.onicecandidate=event=>{
+    if(event.candidate){
+      sendCallSignal(roomId,remoteUser,"ice_candidate",{
+        candidate:event.candidate.toJSON()
+      }).catch(error=>setCallStatus("Erro ICE: "+error.message));
+    }
+  };
+  peer.onconnectionstatechange=()=>{
+    setCallStatus("Estado da ligação: "+peer.connectionState);
+    if(peer.connectionState==="failed"){
+      setCallStatus("Não foi possível estabelecer áudio. Verifique a conexão de internet.");
+    }
+  };
+  privatePeer=peer;
+  return peer;
+}
+
+async function startPrivatePeerAsCaller(roomId,remoteUser){
   try{
-    if(kind==="offer"){
-      incomingPrivateCall = payload;
+    if(!privateCallActive||privatePeer)return;
+    const peer=await createPrivatePeer(roomId,remoteUser);
+    const offer=await peer.createOffer();
+    await peer.setLocalDescription(offer);
+    await sendCallSignal(roomId,remoteUser,"offer",{
+      description:peer.localDescription.toJSON()
+    });
+    setCallStatus("Convite aceito. Conectando o áudio...");
+  }catch(error){
+    setCallStatus("Erro ao iniciar áudio: "+error.message);
+  }
+}
 
-      $("incoming-call-text").textContent =
-        "Você está recebendo uma ligação privada.";
-
-      $("incoming-call").classList.remove("hidden");
-
-      return;
-    }
-
-    if(kind==="answer"){
-      if(privatePeer && data.description){
-        await privatePeer.setRemoteDescription(data.description);
+async function handlePrivateSignal(signal){
+  const data=signal.payload||{};
+  try{
+    if(signal.event_type==="offer"){
+      if(!privatePeer){
+        const peer=await createPrivatePeer(signal.room_id,signal.from_user);
+        await peer.setRemoteDescription(data.description);
+        const answer=await peer.createAnswer();
+        await peer.setLocalDescription(answer);
+        await sendCallSignal(signal.room_id,signal.from_user,"answer",{
+          description:peer.localDescription.toJSON()
+        });
+        setCallStatus("Conectando áudio...");
       }
-      return;
-    }
-
-    if(kind==="ice" && privatePeer && data.candidate){
+    }else if(signal.event_type==="answer"&&privatePeer){
+      await privatePeer.setRemoteDescription(data.description);
+    }else if(signal.event_type==="ice_candidate"&&privatePeer&&data.candidate){
       await privatePeer.addIceCandidate(data.candidate);
-      return;
-    }
-
-    if(kind==="hangup"){
-      closePrivateCall(false);
+    }else if(signal.event_type==="hangup"){
+      await closePrivateCall(false);
     }
   }catch(error){
-    $("private-call-status").textContent =
-      "Erro na ligação: "+error.message;
+    setCallStatus("Erro na chamada: "+error.message);
   }
 }
 
 $("answer-call").addEventListener("click",async()=>{
-  if(!incomingPrivateCall) return;
-
+  if(!incomingPrivateCall)return;
   try{
-    await getLocalStream();
-
-    const peer = await createPrivatePeer();
-
-    await peer.setRemoteDescription(
-      incomingPrivateCall.data.description
-    );
-
-    const answer = await peer.createAnswer();
-
-    await peer.setLocalDescription(answer);
-
-    await sendPrivateSignal("answer",{
-      description:peer.localDescription
+    if(privateCallActive||generalCallActive)throw new Error("Encerre sua chamada atual primeiro.");
+    const invite=incomingPrivateCall;
+    const {data:roomId,error}=await db.rpc("accept_direct_call",{
+      p_invite_id:invite.id
     });
-
-    incomingPrivateCall = null;
+    if(error)throw error;
+    if(!roomId)throw new Error("A sala não foi retornada pelo Supabase.");
+    activePrivateRoom=roomId;
+    privateCallActive=true;
+    await getLocalStream();
+    await subscribePrivateSignals(roomId);
+    incomingPrivateCall=null;
     $("incoming-call").classList.add("hidden");
-
-    privateCallActive = true;
-    $("hangup-private-call").disabled = false;
-    $("start-private-call").disabled = true;
-
-    $("private-call-status").textContent = "Ligação conectada.";
+    $("hangup-private-call").disabled=false;
+    $("private-mute").classList.remove("hidden");
+    setMuteUI("private",false);
+    setCallStatus("Você atendeu. Conectando o áudio...");
   }catch(error){
-    $("private-call-status").textContent =
-      "Não foi possível atender: "+error.message;
+    setCallStatus("Não foi possível atender: "+error.message);
   }
 });
 
 $("decline-call").addEventListener("click",async()=>{
-  if(incomingPrivateCall){
-    await sendPrivateSignal("hangup");
-  }
-
-  incomingPrivateCall = null;
+  if(!incomingPrivateCall)return;
+  const invite=incomingPrivateCall;
+  incomingPrivateCall=null;
   $("incoming-call").classList.add("hidden");
+  const {error}=await db.rpc("reject_direct_call",{p_invite_id:invite.id});
+  if(error)setStatus("Erro ao recusar: "+error.message);
 });
 
 async function closePrivateCall(sendSignal=true){
-  if(sendSignal) await sendPrivateSignal("hangup");
-
-  if(privatePeer){
-    privatePeer.close();
-    privatePeer = null;
+  const roomId=activePrivateRoom;
+  const friendId=currentFriend?.id||incomingPrivateCall?.from_user||null;
+  if(sendSignal&&roomId){
+    try{await sendCallSignal(roomId,friendId,"hangup",{})}catch(error){}
   }
-
-  if(localStream){
-    localStream.getTracks().forEach(track=>track.stop());
-    localStream = null;
-  }
-
-  privateCallActive = false;
-
-  $("private-call-status").textContent = "Ligação encerrada.";
-  $("private-video-area").innerHTML = "";
-  $("start-private-call").disabled = false;
-  $("hangup-private-call").disabled = true;
-}
-
-$("hangup-private-call").addEventListener("click",()=>{
-  closePrivateCall(true);
-});
-
-/* =========================================================
-   LIGAÇÃO GERAL — SALA DA COMUNIDADE
-========================================================= */
-
-async function joinGeneralCall(){
-  if(generalCallActive) return;
-
-  try{
-    await getLocalStream();
-
-    generalCallChannel = db.channel("agt-general-call",{
-      config:{
-        private:true,
-        broadcast:{self:false},
-        presence:{key:currentUser.id}
-      }
-    });
-
-    generalCallChannel
-      .on("broadcast",{event:"signal"},async({payload})=>{
-        if(!payload || payload.to!==currentUser.id) return;
-        await handleGeneralSignal(payload);
-      })
-      .on("presence",{event:"sync"},async()=>{
-        await connectGeneralPeers();
-      })
-      .subscribe(async status=>{
-        if(status==="SUBSCRIBED"){
-          await generalCallChannel.track({
-            user_id:currentUser.id,
-            nick:currentProfile.nick,
-            joined_at:new Date().toISOString()
-          });
-
-          generalCallActive = true;
-
-          $("join-general-call").disabled = true;
-          $("leave-general-call").disabled = false;
-
-          $("general-call-status").textContent =
-            "Você entrou na sala geral AGT.";
-        }else if(status==="CHANNEL_ERROR"){
-          $("general-call-status").textContent =
-            "Erro ao entrar na sala. Confira as permissões Realtime.";
-        }
-      });
-  }catch(error){
-    $("general-call-status").textContent =
-      "Não foi possível entrar: "+error.message;
-  }
-}
-
-async function connectGeneralPeers(){
-  if(!generalCallChannel || !generalCallActive) return;
-
-  const state = generalCallChannel.presenceState();
-
-  for(const peerId of Object.keys(state)){
-    if(peerId===currentUser.id) continue;
-
-    if(currentUser.id.localeCompare(peerId)<0){
-      await createGeneralOffer(peerId);
-    }
-  }
-}
-
-async function createGeneralPeer(peerId){
-  if(generalPeers.has(peerId)){
-    return generalPeers.get(peerId);
-  }
-
-  const peer = new RTCPeerConnection(RTC_CONFIG);
-
-  const stream = await getLocalStream();
-
-  stream.getTracks().forEach(track=>{
-    peer.addTrack(track,stream);
-  });
-
-  peer.onicecandidate = event=>{
-    if(event.candidate){
-      sendGeneralSignal(peerId,"ice",{
-        candidate:event.candidate
-      });
-    }
-  };
-
-  peer.ontrack = event=>{
-    showGeneralRemoteStream(peerId,event.streams[0]);
-  };
-
-  peer.onconnectionstatechange = ()=>{
-    if(peer.connectionState==="failed" ||
-       peer.connectionState==="closed"){
-      peer.close();
-      generalPeers.delete(peerId);
-    }
-  };
-
-  generalPeers.set(peerId,peer);
-
-  return peer;
-}
-
-async function sendGeneralSignal(to,kind,data={}){
-  if(!generalCallChannel) return;
-
-  await generalCallChannel.send({
-    type:"broadcast",
-    event:"signal",
-    payload:{
-      from:currentUser.id,
-      to,
-      kind,
-      data
-    }
-  });
-}
-
-async function createGeneralOffer(peerId){
-  if(generalPeers.has(peerId)) return;
-
-  const peer = await createGeneralPeer(peerId);
-  const offer = await peer.createOffer();
-
-  await peer.setLocalDescription(offer);
-
-  await sendGeneralSignal(peerId,"offer",{
-    description:peer.localDescription
-  });
-}
-
-async function handleGeneralSignal(payload){
-  const peerId = payload.from;
-  const data = payload.data || {};
-
-  try{
-    if(payload.kind==="offer"){
-      const peer = await createGeneralPeer(peerId);
-
-      await peer.setRemoteDescription(data.description);
-
-      const answer = await peer.createAnswer();
-
-      await peer.setLocalDescription(answer);
-
-      await sendGeneralSignal(peerId,"answer",{
-        description:peer.localDescription
-      });
-
-      return;
-    }
-
-    const peer = generalPeers.get(peerId);
-
-    if(!peer) return;
-
-    if(payload.kind==="answer"){
-      await peer.setRemoteDescription(data.description);
-    }else if(payload.kind==="ice" && data.candidate){
-      await peer.addIceCandidate(data.candidate);
-    }else if(payload.kind==="leave"){
-      peer.close();
-      generalPeers.delete(peerId);
-      removeGeneralRemoteVideo(peerId);
-    }
-  }catch(error){
-    $("general-call-status").textContent =
-      "Problema na conexão com um participante: "+error.message;
-  }
-}
-
-function showGeneralRemoteStream(peerId,stream){
-  const area = $("call-video-area");
-
-  let video = document.getElementById("general-video-"+peerId);
-
-  if(!video){
-    video = document.createElement("video");
-    video.id = "general-video-"+peerId;
-    video.autoplay = true;
-    video.playsInline = true;
-    area.appendChild(video);
-  }
-
-  video.srcObject = stream;
-}
-
-function removeGeneralRemoteVideo(peerId){
-  document.getElementById("general-video-"+peerId)?.remove();
-}
-
-async function leaveGeneralCall(){
-  if(!generalCallActive) return;
-
-  for(const peerId of generalPeers.keys()){
-    await sendGeneralSignal(peerId,"leave");
-  }
-
-  generalPeers.forEach(peer=>peer.close());
-  generalPeers.clear();
-
-  if(generalCallChannel){
-    await generalCallChannel.untrack();
-    await db.removeChannel(generalCallChannel);
-    generalCallChannel = null;
-  }
-
-  if(localStream){
-    localStream.getTracks().forEach(track=>track.stop());
-    localStream = null;
-  }
-
-  generalCallActive = false;
-
-  $("join-general-call").disabled = false;
-  $("leave-general-call").disabled = true;
-  $("general-call-status").textContent = "Você saiu da sala geral.";
-  $("call-video-area").innerHTML = "";
-}
-
-$("join-general-call").addEventListener("click",joinGeneralCall);
-$("leave-general-call").addEventListener("click",leaveGeneralCall);
-
-/* =========================================================
-   ENCERRAMENTO E INICIALIZAÇÃO
-========================================================= */
-
-window.addEventListener("beforeunload",()=>{
-  if(localStream){
-    localStream.getTracks().forEach(track=>track.stop());
-  }
-
-  if(privatePeer) privatePeer.close();
-
-  generalPeers.forEach(peer=>peer.close());
-});
-
-initializeSocial();
-</script>
-
-</body>
-</html>
+  if
