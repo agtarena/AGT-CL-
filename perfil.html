@@ -463,17 +463,30 @@ footer {
       return;
     }
 
-    const { data, error } = await db
-      .from('agt_ranking_daily')
-      .select('nick,score,source_date')
-      .order('score', { ascending: false })
-      .limit(5000);
+   let data = [];
+let offset = 0;
+const pageSize = 1000;
 
-    if (error) {
-      console.error(error);
-      scoresBox.innerHTML = '<p class="empty">Não foi possível consultar os scores.</p>';
-      return;
-    }
+while (true) {
+  const { data: page, error } = await db
+    .from('agt_ranking_daily')
+    .select('nick,score,source_date')
+    .order('score', { ascending: false })
+    .range(offset, offset + pageSize - 1);
+
+  if (error) {
+    console.error(error);
+    scoresBox.innerHTML =
+      '<p class="empty">Não foi possível consultar os scores.</p>';
+    return;
+  }
+
+  data.push(...(page || []));
+
+  if (!page || page.length < pageSize) break;
+
+  offset += pageSize;
+}
 
     const accepted = new Set(normalized.map(n => n.toLowerCase()));
     const bestByNick = new Map();
@@ -654,18 +667,35 @@ footer {
         .from('profile-avatars')
         .getPublicUrl(path);
 
-      const avatarUrl = publicData.publicUrl;
+     const avatarUrl = publicData.publicUrl;
 
-   const { error: updateError } = await db
-  .from('profiles')
-  .update({
-  const { data: perfilExistente, error: buscaError } = await db
+const { data: perfilExistente, error: buscaError } = await db
   .from('profiles')
   .select('nick')
   .eq('id', currentUser.id)
   .maybeSingle();
 
 if (buscaError) throw buscaError;
+
+let nickAtual = perfilExistente?.nick || mainNick.value.trim();
+
+if (!nickAtual) {
+  throw new Error('Salve seu nick principal antes de enviar a foto.');
+}
+
+if (!nickAtual.startsWith('AGT | ')) {
+  nickAtual = 'AGT | ' + nickAtual;
+}
+
+const { error: updateError } = await db
+  .from('profiles')
+  .upsert({
+    id: currentUser.id,
+    nick: nickAtual,
+    avatar_url: avatarUrl
+  }, { onConflict: 'id' });
+
+if (updateError) throw updateError;
 
 let nickAtual = perfilExistente?.nick || mainNick.value.trim();
 
