@@ -1647,7 +1647,7 @@ footer span { color:var(--neon); }
 
   async function carregarPerfilPublico(user) {
     const {data,error} = await db
-      .from('agt_profiles')
+      .from('profiles')
       .select('nick, avatar_url')
       .eq('id',user.id)
       .maybeSingle();
@@ -1818,7 +1818,7 @@ footer span { color:var(--neon); }
         'Jogador AGT';
 
       const {error:profileError} = await db
-        .from('agt_profiles')
+        .from('profiles')
         .upsert({
           id:currentUser.id,
           nick:nick,
@@ -1893,7 +1893,7 @@ footer span { color:var(--neon); }
 
   async function carregarPerfisPublicos() {
     const {data,error} = await db
-      .from('agt_profiles')
+      .from('profiles')
       .select('nick, avatar_url');
 
     if (error) {
