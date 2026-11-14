@@ -1846,7 +1846,10 @@ try {
       const {data,error} = await db.auth.signUp({  
         email,  
         password,  
-        options:{data:{nick}}  
+       options: {
+  data: { nick },
+  emailRedirectTo: 'https://agtarena.github.io/AGT-CL-/?confirmacao=1'
+}
       });  
   
       if (error) throw error;  
@@ -1902,13 +1905,20 @@ document.getElementById('agt-login').addEventListener('submit', async function(e
   
   /* ESTADO DA CONTA */  
   
-  db.auth.onAuthStateChange(function(event,session) {  
-    atualizarInterfaceConta(session);  
-  
-    if (session && event === 'SIGNED_IN') {  
-      avisar('Conectado à AGT! Bem-vindo!');  
-    }  
-  });  
+db.auth.onAuthStateChange(function(event, session) {
+  atualizarInterfaceConta(session);
+
+  if (session && event === 'SIGNED_IN') {
+    if (window.location.search.includes('confirmacao=1')) {
+      window.location.replace(
+        './perfil.html?id=' + encodeURIComponent(session.user.id)
+      );
+      return;
+    }
+
+    avisar('Conectado à AGT! Bem-vindo!');
+  }
+});
   
   db.auth.getSession().then(({data}) => {  
     atualizarInterfaceConta(data.session);  
