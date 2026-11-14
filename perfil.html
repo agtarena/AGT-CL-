@@ -659,11 +659,33 @@ footer {
    const { error: updateError } = await db
   .from('profiles')
   .update({
-    avatar_url: avatarUrl
-  })
-  .eq('id', currentUser.id);
-      if (updateError) throw updateError;
+  const { data: perfilExistente, error: buscaError } = await db
+  .from('profiles')
+  .select('nick')
+  .eq('id', currentUser.id)
+  .maybeSingle();
 
+if (buscaError) throw buscaError;
+
+let nickAtual = perfilExistente?.nick || mainNick.value.trim();
+
+if (!nickAtual) {
+  throw new Error('Salve seu nick principal antes de enviar a foto.');
+}
+
+if (!nickAtual.startsWith('AGT | ')) {
+  nickAtual = 'AGT | ' + nickAtual;
+}
+
+const { error: updateError } = await db
+  .from('profiles')
+  .upsert({
+    id: currentUser.id,
+    nick: nickAtual,
+    avatar_url: avatarUrl
+  }, { onConflict: 'id' });
+
+if (updateError) throw updateError;
       renderAvatar(avatarUrl);
       showMessage('avatar-message', 'Foto atualizada!', false);
 
