@@ -466,8 +466,9 @@ footer {
   const updated = document.getElementById('updated');
   const monthSelect = document.getElementById('month-select');
 
-  const PRIMEIRO_MES = '2026-03';
-  const PRIMEIRO_DIA = '2026-03-12';
+  // INÍCIO REAL DO HISTÓRICO DA AGT
+  const PRIMEIRO_DIA = '2026-05-17';
+  const PRIMEIRO_MES = PRIMEIRO_DIA.substring(0,7);
 
   let consultaAtual = 0;
 
@@ -497,6 +498,7 @@ footer {
     return `${dia}/${mes}/${ano}`;
   }
 
+  // CRIA OS MESES DISPONÍVEIS DESDE 17/05/2026
   function criarSeletorMes() {
     const hoje = getBrazilDate();
     const [anoAtual,mesAtual] = hoje.split('-').map(Number);
@@ -509,7 +511,7 @@ footer {
 
     monthSelect.innerHTML = '';
 
-    const primeiro = new Date(Date.UTC(2026,2,1,12));
+    const primeiro = new Date(Date.UTC(2026,4,1,12));
     const atual = new Date(Date.UTC(anoAtual,mesAtual-1,1,12));
 
     for(
@@ -537,6 +539,9 @@ footer {
     monthSelect.value = hoje.substring(0,7);
   }
 
+  // BUSCA TODO O HISTÓRICO, SEM LIMITAÇÃO DE 14 DIAS
+  // A PAGINAÇÃO EVITA QUE O LIMITE DE 1000 REGISTROS
+  // IMPEÇA A LEITURA COMPLETA DOS DADOS.
   async function buscarCapturas(inicio,fim) {
     let todas = [];
     let pagina = 0;
@@ -572,11 +577,14 @@ footer {
 
     if(!mesEscolhido) return;
 
+    if(mesEscolhido < PRIMEIRO_MES) return;
+
     const [ano,mes] = mesEscolhido.split('-').map(Number);
     const mesAtual = hoje.substring(0,7);
 
     let inicio = `${mesEscolhido}-01`;
 
+    // MAIO COMEÇA SOMENTE NO DIA 17
     if(mesEscolhido === PRIMEIRO_MES) {
       inicio = PRIMEIRO_DIA;
     }
@@ -593,13 +601,14 @@ footer {
       fim = `${mesEscolhido}-${String(ultimoDia).padStart(2,'0')}`;
     }
 
-    status.textContent = 'BUSCANDO SCORES...';
+    status.textContent = 'BUSCANDO HISTÓRICO...';
     updated.textContent = '';
 
     list.innerHTML =
-      '<p class="empty">Analisando as melhores pontuações do mês...</p>';
+      '<p class="empty">Buscando todos os registros disponíveis deste mês...</p>';
 
     try {
+
       const [capturasResult,perfisResult] = await Promise.all([
         buscarCapturas(inicio,fim),
         db.from('agt_profiles').select('nick,avatar_url')
@@ -608,7 +617,10 @@ footer {
       if(numeroConsulta !== consultaAtual) return;
 
       if(perfisResult.error) {
-        console.warn('Não foi possível carregar os avatares:',perfisResult.error);
+        console.warn(
+          'Não foi possível carregar os avatares:',
+          perfisResult.error
+        );
       }
 
       const perfis = {};
@@ -621,12 +633,12 @@ footer {
       });
 
       /*
-        REGRA DO RANKING:
+        RANKING MENSAL:
 
-        Cada nick fica somente com seu MAIOR SCORE
-        encontrado em qualquer dia do mês.
-
-        Não soma pontuações de dias diferentes.
+        1. Lê todas as capturas encontradas no mês.
+        2. Identifica os integrantes AGT.
+        3. Guarda somente o maior score de cada nick.
+        4. Não soma pontuações de dias diferentes.
       */
 
       const melhores = new Map();
@@ -664,6 +676,10 @@ footer {
         list.innerHTML =
           '<p class="empty">Não foram encontrados scores AGT registrados neste mês.</p>';
 
+        updated.textContent =
+          'Período consultado: ' +
+          formatarData(inicio) + ' até ' + formatarData(fim);
+
         return;
       }
 
@@ -683,7 +699,8 @@ footer {
 
         item.appendChild(medal);
 
-        const avatarUrl = perfis[player.nick.toLowerCase()];
+        const avatarUrl =
+          perfis[player.nick.trim().toLowerCase()];
 
         if(avatarUrl) {
           const avatar = document.createElement('img');
@@ -691,6 +708,10 @@ footer {
           avatar.src = avatarUrl;
           avatar.alt = 'Foto de ' + player.nick;
           avatar.loading = 'lazy';
+
+          avatar.onerror = function() {
+            avatar.style.display = 'none';
+          };
 
           item.appendChild(avatar);
         }
@@ -732,7 +753,13 @@ footer {
         `${ranking.length} INTEGRANTE${ranking.length === 1 ? '' : 'S'}`;
 
       updated.textContent =
-        'Última consulta: ' +
+        'Registros analisados: ' +
+        formatScore(capturasResult.length) +
+        ' | Período: ' +
+        formatarData(inicio) +
+        ' até ' +
+        formatarData(fim) +
+        ' | Atualizado: ' +
         new Date().toLocaleTimeString('pt-BR',{
           timeZone:'America/Sao_Paulo',
           hour:'2-digit',
@@ -740,7 +767,7 @@ footer {
         });
 
     } catch(error) {
-      console.error(error);
+      console.error('Erro ao carregar ranking:',error);
 
       if(numeroConsulta !== consultaAtual) return;
 
@@ -757,6 +784,7 @@ footer {
 
   await carregar();
 
+  // ATUALIZA O MÊS ATUAL A CADA 1 MINUTO
   setInterval(function() {
     const hoje = getBrazilDate();
     const mesAtual = hoje.substring(0,7);
