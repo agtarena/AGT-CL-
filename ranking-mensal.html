@@ -609,10 +609,8 @@ footer {
 
     try {
 
-      const [capturasResult,perfisResult] = await Promise.all([
-        buscarCapturas(inicio,fim),
-        db.from('agt_profiles').select('nick,avatar_url')
-      ]);
+     const capturasResult = await buscarCapturas(inicio,fim);
+const perfisResult = { data: [], error: null };
 
       if(numeroConsulta !== consultaAtual) return;
 
