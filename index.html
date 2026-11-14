@@ -1837,31 +1837,11 @@ try {
   
 ```javascript
 
-/* RECUPERAÇÃO DE SENHA - AGT ARENA */
-
-document.addEventListener('click', async function(event) {
-  const botao = event.target.closest('#agt-forgot-password');
-
-  if (!botao) return;
-
-  event.preventDefault();
-
-  const email = document.getElementById('agt-login-email')?.value.trim();
-
-  if (!email) {
-    avisar('Digite seu e-mail no campo de login primeiro.');
-    return;
+document.addEventListener('click', function(event) {
+  if (event.target.closest('#agt-forgot-password')) {
+    alert('O clique no botão foi detectado!');
   }
-
-  botao.disabled = true;
-
-  try {
-    avisar('Enviando solicitação de recuperação...');
-
-    const { error } = await db.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
-    });
-
+});
     if (error) {
       avisar('Erro ao enviar: ' + error.message);
     } else {
