@@ -1836,21 +1836,45 @@ try {
   });  
   
 ```javascript
-/* RECUPERAÇÃO DE SENHA */
 
-document.getElementById('agt-forgot-password').addEventListener('click', async function() {
-  const email = document.getElementById('agt-login-email').value.trim();
+/* RECUPERAÇÃO DE SENHA - AGT ARENA */
+
+document.addEventListener('click', async function(event) {
+  const botao = event.target.closest('#agt-forgot-password');
+
+  if (!botao) return;
+
+  event.preventDefault();
+
+  const email = document.getElementById('agt-login-email')?.value.trim();
 
   if (!email) {
     avisar('Digite seu e-mail no campo de login primeiro.');
     return;
   }
 
-  avisar('Enviando solicitação de recuperação...');
+  botao.disabled = true;
 
-  const { error } = await db.auth.resetPasswordForEmail(email, {
-    redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
-  });
+  try {
+    avisar('Enviando solicitação de recuperação...');
+
+    const { error } = await db.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
+    });
+
+    if (error) {
+      avisar('Erro ao enviar: ' + error.message);
+    } else {
+      avisar('Solicitação enviada! Verifique seu e-mail e a caixa de spam.');
+    }
+
+  } catch (erro) {
+    avisar('Erro inesperado: ' + erro.message);
+
+  } finally {
+    botao.disabled = false;
+  }
+});
 
   avisar(
     error
