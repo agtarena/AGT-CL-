@@ -1778,6 +1778,7 @@ try {
   });
 
  
+
 /* FOTO DE PERFIL */
 
 avatarFile.addEventListener('change', async function() {
@@ -1800,6 +1801,8 @@ avatarFile.addEventListener('change', async function() {
   }
 
   avisarPerfil('Enviando sua foto...');
+
+  let etapa = 'ENVIO DA IMAGEM';
 
   try {
     const extensao = file.type === 'image/png'
@@ -1830,6 +1833,8 @@ avatarFile.addEventListener('change', async function() {
       currentUser.email?.split('@')[0] ||
       'Jogador AGT';
 
+    etapa = 'SALVAMENTO DO PERFIL';
+
     const {error:profileError} = await db
       .from('profiles')
       .upsert({
@@ -1839,6 +1844,8 @@ avatarFile.addEventListener('change', async function() {
       },{onConflict:'id'});
 
     if (profileError) throw profileError;
+
+    etapa = 'ATUALIZAÇÃO DA CONTA';
 
     const {error:metadataError} = await db.auth.updateUser({
       data:{avatar_url:avatarUrl}
@@ -1855,15 +1862,17 @@ avatarFile.addEventListener('change', async function() {
     carregarRankingMensal();
 
   } catch(error) {
-    console.error(error);
+    console.error('Erro na etapa:', etapa, error);
+
     avisarPerfil(
-      'Não foi possível salvar a foto. Confira a configuração do Supabase. ' +
-      error.message
+      'FALHA EM ' + etapa + ': ' + error.message
     );
+
   } finally {
     this.value = '';
   }
 });
+
 
   /* ESTADO DA CONTA */
 
