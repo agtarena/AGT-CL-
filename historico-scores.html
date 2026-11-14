@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090611">
+<link rel="icon" type="image/png" href="./logo.png?v=2">
+<title>Histórico de scores | AGT Arena</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#090611;--purple:#8b35ff;--green:#36e66b;--muted:#aaa0b9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:radial-gradient(ellipse at top,#211033 0%,var(--bg) 55%);color:#fff;font-family:Arial,sans-serif;padding:25px 15px 50px}
+.topbar,.container{max-width:850px;margin-left:auto;margin-right:auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}
+.logo{font-size:24px;font-weight:1000;letter-spacing:3px;text-shadow:0 0 12px var(--purple)}
+.back{padding:11px 15px;border:1px solid #49305e;border-radius:9px;background:#171020;color:#fff;text-decoration:none;font-size:12px}
+.card{background:rgba(21,16,32,.96);border:1px solid #39234e;border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:0 10px 35px #0005}
+h1{font-size:clamp(23px,5vw,34px);margin-bottom:8px}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.5}
+h2{font-size:17px;color:#e5d3ff;margin-bottom:15px}
+.summary{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.total{font-size:12px;color:var(--green);font-weight:bold}
+.score-list{display:grid;gap:10px}
+.score-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px;border:1px solid #382749;background:#100b19;border-radius:11px}
+.score-left{display:flex;align-items:center;gap:11px;min-width:0}
+.medal{font-size:25px;flex-shrink:0;width:28px;text-align:center}
+.score-nick{font-size:13px;font-weight:bold;overflow-wrap:anywhere}
+.score-date{font-size:11px;color:var(--muted);margin-top:5px}
+.score-number{font-size:18px;font-weight:1000;white-space:nowrap;text-align:right}
+.score-label{display:block;font-size:9px;letter-spacing:1.5px;color:var(--muted);margin-bottom:3px}
+.rank-gold .score-nick,.rank-gold .score-number{color:#ffd45c}
+.rank-silver .score-nick,.rank-silver .score-number{color:#d8e0ec}
+.rank-bronze .score-nick,.rank-bronze .score-number{color:#d99a68}
+.rank-other .medal{font-size:13px;color:#8c7b9f}
+.empty{color:var(--muted);text-align:center;padding:25px 10px;font-size:13px;line-height:1.6}
+.error{color:#ff8797}
+footer{text-align:center;color:#756982;font-size:11px;margin-top:30px}
+@media(max-width:520px){body{padding:18px 12px 40px}.card{padding:18px}.logo{font-size:19px}.back{font-size:10px;padding:10px}.score-number{font-size:16px}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">AGT ARENA</div>
+  <a class="back" id="back-profile" href="./index.html">← VOLTAR AO PERFIL</a>
+</header>
+
+<main class="container">
+  <section class="card">
+    <h1>🏆 Histórico de scores</h1>
+    <p class="subtitle" id="player-name">Carregando jogador...</p>
+    <p class="subtitle" style="margin-top:8px">Todos os scores registrados para os nicks associados a este perfil, do maior para o menor.</p>
+  </section>
+
+  <section class="card">
+    <div class="summary">
+      <h2>📊 Histórico completo</h2>
+      <span class="total" id="total-count">CARREGANDO...</span>
+    </div>
+    <div id="history-list" class="score-list">
+      <p class="empty">Buscando histórico no banco de dados...</p>
+    </div>
+  </section>
+</main>
+
+<footer>AGT ARENA • ALIANÇA • GARRA • TALENTO</footer>
+
+<script>
+(function(){
+'use strict';
+
+const SUPABASE_URL='https://lbknsgfpfxkvypkxbcmy.supabase.co';
+const SUPABASE_KEY='sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const profileId=new URLSearchParams(location.search).get('id');
+const list=document.getElementById('history-list');
+const totalCount=document.getElementById('total-count');
+const playerName=document.getElementById('player-name');
+
+document.getElementById('back-profile').href=
+  './perfil.html?id='+encodeURIComponent(profileId||'');
+
+function normalizeNick(value){
+  let nick=String(value||'').trim();
+  nick=nick.replace(/^AGT\s*\|\s*/i,'').trim();
+  return nick?'AGT | '+nick:'';
+}
+
+function showError(message){
+  list.innerHTML='';
+  const p=document.createElement('p');
+  p.className='empty error';
+  p.textContent=message;
+  list.appendChild(p);
+  totalCount.textContent='ERRO';
+}
+
+function medalFor(index){
+  if(index===0)return {icon:'🥇',className:'rank-gold'};
+  if(index===1)return {icon:'🥈',className:'rank-silver'};
+  if(index===2)return {icon:'🥉',className:'rank-bronze'};
+  return {icon:String(index+1),className:'rank-other'};
+}
+
+/*
+ * Busca todos os registros de uma variação de nick.
+ * Usa paginação para não ficar limitado aos primeiros 1.000 registros.
+ */
+async function fetchAllRows(variation){
+  const escaped=variation.replace(/[\\%_]/g,'\\$&');
+  const all=[];
+  const pageSize=1000;
+  let from=0;
+
+  while(true){
+    const to=from+pageSize-1;
+
+    const {data,error}=await db.from('agt_ranking_daily')
+      .select('nick,score,source_date,fetched_at')
+      .ilike('nick',escaped)
+      .gte('source_date','2026-05-17')
+      .order('score',{ascending:false})
+      .order('source_date',{ascending:false})
+      .range(from,to);
+
+    if(error)throw error;
+
+    const batch=data||[];
+    all.push(...batch);
+
+    if(batch.length<pageSize)break;
+    from+=pageSize;
+  }
+
+  return all;
+}
+
+function deduplicateRows(rows){
+  const map=new Map();
+
+  rows.forEach(function(row){
+    const nickKey=String(row.nick||'').trim().toLowerCase();
+    const dateKey=String(row.source_date||'sem-data');
+    const key=nickKey+'|'+dateKey;
+    const current=map.get(key);
+
+    if(!current||Number(row.score||0)>Number(current.score||0)){
+      map.set(key,row);
+    }
+  });
+
+  return [...map.values()].sort(function(a,b){
+    const scoreDifference=Number(b.score||0)-Number(a.score||0);
+    if(scoreDifference!==0)return scoreDifference;
+    return String(b.source_date||'').localeCompare(String(a.source_date||''));
+  });
+}
+
+function renderHistory(rows){
+  list.replaceChildren();
+
+  if(!rows.length){
+    const empty=document.createElement('p');
+    empty.className='empty';
+    empty.textContent='Nenhum registro histórico foi encontrado para os nicks deste perfil.';
+    list.appendChild(empty);
+    totalCount.textContent='0 REGISTROS';
+    return;
+  }
+
+  totalCount.textContent=rows.length.toLocaleString('pt-BR')+' REGISTROS';
+
+  rows.forEach(function(row,index){
+    const medal=medalFor(index);
+    const item=document.createElement('div');
+    item.className='score-item '+medal.className;
+
+    const left=document.createElement('div');
+    left.className='score-left';
+
+    const icon=document.createElement('span');
+    icon.className='medal';
+    icon.textContent=medal.icon;
+
+    const info=document.createElement('div');
+
+    const nick=document.createElement('div');
+    nick.className='score-nick';
+    nick.textContent=row.nick||'Nick não informado';
+
+    const date=document.createElement('div');
+    date.className='score-date';
+
+    if(row.source_date){
+      const parsed=new Date(row.source_date+'T12:00:00');
+      date.textContent='Data: '+parsed.toLocaleDateString('pt-BR');
+    }else{
+      date.textContent='Data não informada';
+    }
+
+    info.append(nick,date);
+    left.append(icon,info);
+
+    const right=document.createElement('div');
+    right.className='score-number';
+
+    const label=document.createElement('span');
+    label.className='score-label';
+    label.textContent='SCORE';
+
+    const number=document.createElement('span');
+    number.textContent=Number(row.score||0).toLocaleString('pt-BR');
+
+    right.append(label,number);
+    item.append(left,right);
+    list.appendChild(item);
+  });
+}
+
+async function loadHistory(){
+  if(!profileId){
+    showError('Não foi informado o jogador. Volte ao perfil e tente novamente.');
+    return;
+  }
+
+  try{
+    const {data:profile,error:profileError}=await db.from('profiles')
+      .select('id,nick')
+      .eq('id',profileId)
+      .maybeSingle();
+
+    if(profileError)throw profileError;
+    if(!profile)throw new Error('Perfil não encontrado.');
+
+    playerName.textContent='Jogador: '+(profile.nick||'Jogador AGT');
+
+    const {data:extras,error:extrasError}=await db.from('profile_nicks')
+      .select('nick')
+      .eq('user_id',profileId);
+
+    if(extrasError)throw extrasError;
+
+    const nicks=[...new Set([
+      profile.nick,
+      ...(extras||[]).map(item=>item.nick)
+    ].map(normalizeNick).filter(Boolean))];
+
+    if(!nicks.length){
+      renderHistory([]);
+      return;
+    }
+
+    list.innerHTML='<p class="empty">Consultando todos os registros dos nicks...</p>';
+
+    const allRows=[];
+
+    for(const nick of nicks){
+      const withoutPrefix=nick.replace(/^AGT\s*\|\s*/i,'').trim();
+      const variants=[...new Set([nick,withoutPrefix].filter(Boolean))];
+
+      for(const variant of variants){
+        const found=await fetchAllRows(variant);
+        allRows.push(...found);
+      }
+    }
+
+    const uniqueRows=deduplicateRows(allRows);
+    renderHistory(uniqueRows);
+
+  }catch(error){
+    console.error('Erro ao carregar histórico:',error);
+    showError('Não foi possível carregar o histórico. '+(error.message||'Verifique a conexão e tente novamente.'));
+  }
+}
+
+loadHistory();
+})();
+</script>
+</body>
+</html>
