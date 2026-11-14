@@ -84,6 +84,8 @@ document.getElementById('back-profile').href=
   './perfil.html?id='+encodeURIComponent(profileId||'');
 
 function normalizeNick(value){
+  return String(value||'').trim();
+}
   let nick=String(value||'').trim();
   nick=nick.replace(/^AGT\s*\|\s*/i,'').trim();
   return nick?'AGT | '+nick:'';
