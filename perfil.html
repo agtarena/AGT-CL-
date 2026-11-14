@@ -7,7 +7,9 @@
 <meta name="theme-color" content="#090611">
 <link rel="icon" type="image/png" href="./logo.png?v=2">
 <title>Perfil do jogador | AGT Arena</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 :root {
   --bg:#090611;
@@ -17,7 +19,13 @@
   --white:#fff;
   --muted:#aaa0b9;
 }
-* {box-sizing:border-box;margin:0;padding:0}
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
 body {
   min-height:100vh;
   background:radial-gradient(ellipse at top,#211033 0%,var(--bg) 55%);
@@ -25,7 +33,18 @@ body {
   font-family:Arial,sans-serif;
   padding:25px 15px 50px;
 }
-a {color:inherit;text-decoration:none}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button {
+  cursor:pointer;
+  font-family:inherit;
+  font-weight:bold;
+}
+
 .topbar {
   max-width:850px;
   margin:0 auto 25px;
@@ -34,6 +53,7 @@ a {color:inherit;text-decoration:none}
   justify-content:space-between;
   gap:15px;
 }
+
 .logo {
   font-size:25px;
   font-weight:1000;
@@ -41,6 +61,7 @@ a {color:inherit;text-decoration:none}
   color:#fff;
   text-shadow:0 0 12px var(--purple);
 }
+
 .back {
   padding:11px 15px;
   border:1px solid #49305e;
@@ -48,7 +69,12 @@ a {color:inherit;text-decoration:none}
   background:#171020;
   font-size:13px;
 }
-.container {max-width:850px;margin:auto}
+
+.container {
+  max-width:850px;
+  margin:auto;
+}
+
 .card {
   background:rgba(21,16,32,.96);
   border:1px solid #39234e;
@@ -57,28 +83,47 @@ a {color:inherit;text-decoration:none}
   margin-bottom:18px;
   box-shadow:0 10px 35px #0005;
 }
-.profile-head {text-align:center}
+
+.profile-head {
+  text-align:center;
+}
+
 .avatar-wrap {
-  width:125px;height:125px;
+  width:125px;
+  height:125px;
   margin:0 auto 15px;
   border-radius:50%;
   padding:4px;
   background:linear-gradient(135deg,var(--green),var(--purple));
   box-shadow:0 0 25px #8b35ff55;
 }
-.avatar-wrap img,.avatar-placeholder {
-  width:100%;height:100%;
+
+.avatar-wrap img,
+.avatar-placeholder {
+  width:100%;
+  height:100%;
   border-radius:50%;
   object-fit:cover;
   background:#241a32;
 }
+
 .avatar-placeholder {
   display:grid;
   place-items:center;
   font-size:55px;
 }
-h1 {font-size:clamp(25px,5vw,36px);margin-bottom:8px}
-.subtitle {color:var(--muted);font-size:13px}
+
+h1 {
+  font-size:clamp(25px,5vw,36px);
+  margin-bottom:8px;
+  overflow-wrap:anywhere;
+}
+
+.subtitle {
+  color:var(--muted);
+  font-size:13px;
+}
+
 .status {
   display:inline-block;
   margin-top:13px;
@@ -90,19 +135,26 @@ h1 {font-size:clamp(25px,5vw,36px);margin-bottom:8px}
   font-size:11px;
   font-weight:bold;
 }
+
 h2 {
   font-size:17px;
   margin-bottom:16px;
   color:#e5d3ff;
 }
-.field {margin-bottom:15px}
+
+.field {
+  margin-bottom:15px;
+}
+
 label {
   display:block;
   margin-bottom:7px;
   font-size:12px;
   color:#c9bdd8;
 }
-input,textarea {
+
+input,
+textarea {
   width:100%;
   padding:13px;
   border-radius:9px;
@@ -112,14 +164,24 @@ input,textarea {
   outline:none;
   font:inherit;
 }
-input:focus,textarea:focus {border-color:var(--green)}
-textarea {resize:vertical;min-height:105px}
+
+input:focus,
+textarea:focus {
+  border-color:var(--green);
+}
+
+textarea {
+  resize:vertical;
+  min-height:105px;
+}
+
 .nick-row {
   display:flex;
   align-items:center;
   gap:8px;
   margin-bottom:10px;
 }
+
 .nick-prefix {
   flex-shrink:0;
   padding:13px 10px;
@@ -130,7 +192,11 @@ textarea {resize:vertical;min-height:105px}
   font-size:13px;
   font-weight:bold;
 }
-.nick-row input {min-width:0}
+
+.nick-row input {
+  min-width:0;
+}
+
 .remove-nick {
   flex-shrink:0;
   width:40px;
@@ -139,13 +205,9 @@ textarea {resize:vertical;min-height:105px}
   background:#351722;
   color:#ff9aa8;
   border-radius:9px;
-  cursor:pointer;
+  font-size:20px;
 }
-button {
-  cursor:pointer;
-  font-weight:bold;
-  font-family:inherit;
-}
+
 .primary {
   width:100%;
   padding:14px;
@@ -155,6 +217,12 @@ button {
   color:#07110a;
   font-size:13px;
 }
+
+.primary:disabled {
+  opacity:.6;
+  cursor:wait;
+}
+
 .secondary {
   padding:12px 15px;
   border:1px solid #68418a;
@@ -163,6 +231,7 @@ button {
   color:white;
   font-size:12px;
 }
+
 .avatar-button {
   display:inline-block;
   margin-top:12px;
@@ -174,21 +243,33 @@ button {
   font-size:12px;
   cursor:pointer;
 }
-.avatar-button input {display:none}
+
+.avatar-button input {
+  display:none;
+}
+
 .note {
   color:var(--muted);
   font-size:12px;
   line-height:1.5;
   margin-top:10px;
+  overflow-wrap:anywhere;
 }
+
 .message {
   min-height:18px;
   margin-top:12px;
   color:var(--green);
   font-size:13px;
   text-align:center;
+  overflow-wrap:anywhere;
 }
-.score-list {display:grid;gap:10px}
+
+.score-list {
+  display:grid;
+  gap:10px;
+}
+
 .score-item {
   display:flex;
   justify-content:space-between;
@@ -199,9 +280,25 @@ button {
   background:#100b19;
   border-radius:10px;
 }
-.score-nick {font-size:13px;font-weight:bold}
-.score-value {color:var(--green);font-weight:bold}
-.score-date {font-size:11px;color:var(--muted);margin-top:5px}
+
+.score-nick {
+  font-size:13px;
+  font-weight:bold;
+  overflow-wrap:anywhere;
+}
+
+.score-value {
+  color:var(--green);
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.score-date {
+  font-size:11px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
 .empty {
   color:var(--muted);
   text-align:center;
@@ -209,10 +306,15 @@ button {
   font-size:13px;
   line-height:1.5;
 }
-.hidden {display:none!important}
-.owner-only {display:none}
-body.is-owner .owner-only {display:block}
-body.is-owner .owner-inline {display:inline-block}
+
+.owner-only {
+  display:none;
+}
+
+body.is-owner .owner-only {
+  display:block;
+}
+
 .achievement-placeholder {
   padding:22px;
   text-align:center;
@@ -222,19 +324,39 @@ body.is-owner .owner-inline {display:inline-block}
   font-size:13px;
   line-height:1.6;
 }
+
 footer {
   text-align:center;
   color:#756982;
   font-size:11px;
   margin-top:30px;
 }
+
 @media(max-width:520px) {
-  .card {padding:19px}
-  .topbar {align-items:flex-start}
-  .logo {font-size:20px}
+  body {
+    padding:18px 12px 40px;
+  }
+
+  .card {
+    padding:19px;
+  }
+
+  .topbar {
+    align-items:flex-start;
+  }
+
+  .logo {
+    font-size:20px;
+  }
+
+  .back {
+    font-size:11px;
+    padding:10px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header class="topbar">
@@ -256,7 +378,11 @@ footer {
     <div class="owner-only">
       <label class="avatar-button">
         📷 ALTERAR FOTO
-        <input type="file" id="avatar-file" accept="image/png,image/jpeg,image/webp">
+        <input
+          type="file"
+          id="avatar-file"
+          accept="image/png,image/jpeg,image/webp"
+        >
       </label>
     </div>
 
@@ -265,13 +391,19 @@ footer {
 
   <section class="card">
     <h2>👤 Sobre o jogador</h2>
-    <p id="bio-display" class="note">Este jogador ainda não adicionou uma biografia.</p>
+
+    <p id="bio-display" class="note">
+      Este jogador ainda não adicionou uma biografia.
+    </p>
 
     <div class="owner-only" style="margin-top:18px">
       <div class="field">
         <label for="bio-input">SUA BIOGRAFIA</label>
-        <textarea id="bio-input" maxlength="500"
-          placeholder="Conte um pouco sobre você..."></textarea>
+        <textarea
+          id="bio-input"
+          maxlength="500"
+          placeholder="Conte um pouco sobre você..."
+        ></textarea>
       </div>
     </div>
   </section>
@@ -281,31 +413,42 @@ footer {
 
     <div class="field">
       <label>SEU NICK PRINCIPAL</label>
+
       <div class="nick-row">
         <span class="nick-prefix">AGT |</span>
-        <input id="main-nick" maxlength="35"
-          placeholder="Digite seu nick">
+        <input
+          id="main-nick"
+          maxlength="35"
+          placeholder="Digite seu nick"
+        >
       </div>
     </div>
 
     <div class="field">
       <label>NICKS ADICIONAIS</label>
+
       <div id="extra-nicks"></div>
+
       <button type="button" class="secondary" id="add-nick">
         + ADICIONAR OUTRO NICK
       </button>
+
       <p class="note">
         Adicione os outros nicks que você utiliza no SlitherMania.
         O prefixo AGT será colocado automaticamente.
       </p>
     </div>
 
-    <button class="primary" id="save-profile">SALVAR ALTERAÇÕES</button>
+    <button class="primary" id="save-profile">
+      SALVAR ALTERAÇÕES
+    </button>
+
     <p class="message" id="save-message"></p>
   </section>
 
   <section class="card">
     <h2>🏆 Melhores scores</h2>
+
     <div id="scores" class="score-list">
       <p class="empty">Carregando scores...</p>
     </div>
@@ -313,6 +456,7 @@ footer {
 
   <section class="card">
     <h2>🎖️ Conquistas</h2>
+
     <div class="achievement-placeholder">
       <div style="font-size:30px;margin-bottom:8px">🏅</div>
       A área de conquistas está preparada.<br>
@@ -326,9 +470,15 @@ footer {
 
 <script>
 (function() {
+  'use strict';
+
   const SUPABASE_URL = 'https://lbknsgfpfxkvypkxbcmy.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
-  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
   const params = new URLSearchParams(window.location.search);
   const profileId = params.get('id');
@@ -340,395 +490,629 @@ footer {
   const mainNick = document.getElementById('main-nick');
   const extraNicks = document.getElementById('extra-nicks');
   const scoresBox = document.getElementById('scores');
-  const saveMessage = document.getElementById('save-message');
 
   let currentUser = null;
   let existingExtraNicks = [];
+  let profileAvatarUrl = null;
 
-  function showMessage(id, text, isError) {
-    const el = document.getElementById(id);
-    el.textContent = text;
-    el.style.color = isError ? '#ff8797' : '#36e66b';
+  function showMessage(id, message, isError = false) {
+    const element = document.getElementById(id);
+
+    element.textContent = message;
+    element.style.color = isError ? '#ff8797' : '#36e66b';
   }
 
   function normalizeNick(value) {
     let nick = String(value || '').trim();
+
     nick = nick.replace(/^AGT\s*\|\s*/i, '');
     nick = nick.trim();
+
     return nick ? 'AGT | ' + nick : '';
+  }
+
+  function nickInputValue(value) {
+    return String(value || '').replace(/^AGT\s*\|\s*/i, '');
   }
 
   function renderAvatar(url) {
     avatarWrap.replaceChildren();
 
     if (url) {
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = 'Foto do jogador';
-      img.onerror = () => renderAvatar(null);
-      avatarWrap.appendChild(img);
-    } else {
-      const placeholder = document.createElement('div');
-      placeholder.className = 'avatar-placeholder';
-      placeholder.textContent = '🐍';
-      avatarWrap.appendChild(placeholder);
+      const image = document.createElement('img');
+
+      image.src = url;
+      image.alt = 'Foto do jogador';
+
+      image.onerror = function() {
+        renderAvatar(null);
+      };
+
+      avatarWrap.appendChild(image);
+      return;
     }
+
+    const placeholder = document.createElement('div');
+
+    placeholder.className = 'avatar-placeholder';
+    placeholder.textContent = '🐍';
+
+    avatarWrap.appendChild(placeholder);
   }
 
   function addNickField(value = '', id = '') {
     const row = document.createElement('div');
+
     row.className = 'nick-row';
     row.dataset.id = id;
 
     const prefix = document.createElement('span');
+
     prefix.className = 'nick-prefix';
     prefix.textContent = 'AGT |';
 
     const input = document.createElement('input');
+
     input.type = 'text';
     input.maxLength = 35;
     input.placeholder = 'Digite outro nick';
-    input.value = String(value).replace(/^AGT\s*\|\s*/i, '');
+    input.value = nickInputValue(value);
 
     const remove = document.createElement('button');
+
     remove.type = 'button';
     remove.className = 'remove-nick';
     remove.textContent = '×';
     remove.title = 'Remover nick';
-    remove.addEventListener('click', () => row.remove());
+
+    remove.addEventListener('click', function() {
+      row.remove();
+    });
 
     row.append(prefix, input, remove);
     extraNicks.appendChild(row);
   }
 
+  function setProfileError(message) {
+    displayNick.textContent = 'NÃO FOI POSSÍVEL CARREGAR';
+    bioDisplay.textContent = message;
+
+    scoresBox.innerHTML = '';
+
+    const error = document.createElement('p');
+    error.className = 'empty';
+    error.textContent = message;
+
+    scoresBox.appendChild(error);
+  }
+
   async function loadProfile() {
     if (!profileId) {
-      displayNick.textContent = 'PERFIL NÃO INFORMADO';
-      bioDisplay.textContent = 'O endereço deste perfil está incompleto.';
-      scoresBox.innerHTML = '<p class="empty">Perfil não encontrado.</p>';
+      setProfileError(
+        'O endereço deste perfil está incompleto. Acesse pelo botão Meu perfil.'
+      );
       return;
     }
 
-    const { data: profile, error } = await db
-      .from('profiles')
-      .select('id,nick,avatar_url,bio')
-      .eq('id', profileId)
-      .maybeSingle();
+    displayNick.textContent = 'CARREGANDO PERFIL...';
+    scoresBox.innerHTML =
+      '<p class="empty">Carregando melhores scores...</p>';
 
-    if (error) {
-      console.error(error);
-      displayNick.textContent = 'ERRO AO CARREGAR PERFIL';
-      bioDisplay.textContent = 'Não foi possível carregar este perfil.';
-      return;
+    try {
+      const { data: profile, error: profileError } = await db
+        .from('profiles')
+        .select('id,nick,avatar_url,bio')
+        .eq('id', profileId)
+        .maybeSingle();
+
+      if (profileError) {
+        throw profileError;
+      }
+
+      const { data: extras, error: extrasError } = await db
+        .from('profile_nicks')
+        .select('id,nick')
+        .eq('user_id', profileId)
+        .order('created_at', { ascending: true });
+
+      if (extrasError) {
+        throw extrasError;
+      }
+
+      existingExtraNicks = extras || [];
+      profileAvatarUrl = profile?.avatar_url || null;
+
+      const main = profile?.nick || 'Jogador AGT';
+
+      displayNick.textContent = main;
+
+      bioDisplay.textContent =
+        profile?.bio || 'Este jogador ainda não adicionou uma biografia.';
+
+      renderAvatar(profileAvatarUrl);
+
+      /*
+       * A consulta pública do perfil acontece antes da verificação
+       * da sessão. Assim, visitantes também conseguem visualizar.
+       */
+      currentUser = null;
+
+      try {
+        const { data: sessionData, error: sessionError } =
+          await db.auth.getSession();
+
+        if (sessionError) {
+          console.warn('Não foi possível verificar a sessão:', sessionError);
+        } else {
+          currentUser = sessionData?.session?.user || null;
+        }
+      } catch (sessionError) {
+        console.warn('Erro ao verificar sessão:', sessionError);
+      }
+
+      const isOwner =
+        Boolean(currentUser && currentUser.id === profileId);
+
+      document.body.classList.toggle('is-owner', isOwner);
+
+      if (isOwner) {
+        mainNick.value = nickInputValue(profile?.nick || '');
+        bioInput.value = profile?.bio || '';
+
+        extraNicks.replaceChildren();
+
+        existingExtraNicks.forEach(function(item) {
+          addNickField(item.nick, item.id);
+        });
+      }
+
+      const allNicks = [
+        profile?.nick,
+        ...existingExtraNicks.map(item => item.nick)
+      ].filter(Boolean);
+
+      await loadScores(allNicks);
+
+    } catch (error) {
+      console.error('Erro ao carregar perfil:', error);
+
+      setProfileError(
+        'Não foi possível carregar o perfil. Atualize a página e tente novamente. Detalhe: ' +
+        (error.message || 'erro de conexão')
+      );
     }
-
-    const { data: extras, error: nickError } = await db
-      .from('profile_nicks')
-      .select('id,nick')
-      .eq('user_id', profileId)
-      .order('created_at', { ascending: true });
-
-    if (nickError) console.error(nickError);
-
-    existingExtraNicks = extras || [];
-
-    const main = profile?.nick || 'Jogador AGT';
-    displayNick.textContent = main;
-    bioDisplay.textContent = profile?.bio || 'Este jogador ainda não adicionou uma biografia.';
-    renderAvatar(profile?.avatar_url || null);
-
-    const { data: sessionData } = await db.auth.getSession();
-    currentUser = sessionData?.session?.user || null;
-
-    if (currentUser && currentUser.id === profileId) {
-      document.body.classList.add('is-owner');
-      mainNick.value = String(main).replace(/^AGT\s*\|\s*/i, '');
-      bioInput.value = profile?.bio || '';
-
-      existingExtraNicks.forEach(item => {
-        addNickField(item.nick, item.id);
-      });
-    }
-
-    await loadScores([main, ...existingExtraNicks.map(item => item.nick)]);
   }
 
   async function loadScores(nicks) {
-    const normalized = [...new Set(
-      nicks.map(normalizeNick).filter(Boolean)
-    )];
+    const normalized = [
+      ...new Set(
+        nicks
+          .map(normalizeNick)
+          .filter(Boolean)
+      )
+    ];
 
     if (!normalized.length) {
-      scoresBox.innerHTML = '<p class="empty">Nenhum nick associado a este perfil.</p>';
+      scoresBox.innerHTML =
+        '<p class="empty">Nenhum nick associado a este perfil.</p>';
       return;
     }
 
-   let data = [];
-let offset = 0;
-const pageSize = 1000;
-
-while (true) {
-  const { data: page, error } = await db
-    .from('agt_ranking_daily')
-    .select('nick,score,source_date')
-    .order('score', { ascending: false })
-    .range(offset, offset + pageSize - 1);
-
-  if (error) {
-    console.error(error);
     scoresBox.innerHTML =
-      '<p class="empty">Não foi possível consultar os scores.</p>';
-    return;
-  }
-
-  data.push(...(page || []));
-
-  if (!page || page.length < pageSize) break;
-
-  offset += pageSize;
-}
-
-    const accepted = new Set(normalized.map(n => n.toLowerCase()));
-    const bestByNick = new Map();
-
-    (data || []).forEach(row => {
-      const nick = String(row.nick || '').trim();
-      if (!accepted.has(nick.toLowerCase())) return;
-
-      const score = Number(row.score || 0);
-      const key = nick.toLowerCase();
-      const previous = bestByNick.get(key);
-
-      if (!previous || score > Number(previous.score || 0)) {
-        bestByNick.set(key, row);
-      }
-    });
-
-    const best = [...bestByNick.values()]
-      .sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
-
-    if (!best.length) {
-      scoresBox.innerHTML = '<p class="empty">Ainda não encontramos scores registrados para os nicks deste jogador.</p>';
-      return;
-    }
-
-    scoresBox.replaceChildren();
-
-    best.forEach(row => {
-      const item = document.createElement('div');
-      item.className = 'score-item';
-
-      const info = document.createElement('div');
-      const nick = document.createElement('div');
-      nick.className = 'score-nick';
-      nick.textContent = row.nick;
-
-      const date = document.createElement('div');
-      date.className = 'score-date';
-      date.textContent = row.source_date
-        ? 'Data: ' + new Date(row.source_date + 'T12:00:00').toLocaleDateString('pt-BR')
-        : 'Data não informada';
-
-      info.append(nick, date);
-
-      const score = document.createElement('div');
-      score.className = 'score-value';
-      score.textContent = Number(row.score || 0).toLocaleString('pt-BR');
-
-      item.append(info, score);
-      scoresBox.appendChild(item);
-    });
-  }
-
-  document.getElementById('add-nick').addEventListener('click', () => {
-    addNickField();
-  });
-
-  document.getElementById('save-profile').addEventListener('click', async () => {
-    if (!currentUser || currentUser.id !== profileId) {
-      showMessage('save-message', 'Você não tem permissão para editar este perfil.', true);
-      return;
-    }
-
-    const nick = normalizeNick(mainNick.value);
-    const bio = bioInput.value.trim();
-
-    if (!nick) {
-      showMessage('save-message', 'Digite seu nick principal.', true);
-      return;
-    }
-
-    const extraRows = [...extraNicks.querySelectorAll('.nick-row')];
-    const newNicks = extraRows
-      .map(row => ({
-        id: row.dataset.id || null,
-        nick: normalizeNick(row.querySelector('input').value)
-      }))
-      .filter(item => item.nick);
-
-    const allNicks = [nick, ...newNicks.map(item => item.nick)];
-    const unique = new Set(allNicks.map(n => n.toLowerCase()));
-
-    if (unique.size !== allNicks.length) {
-      showMessage('save-message', 'Você repetiu um nick. Verifique os campos.', true);
-      return;
-    }
-
-    const button = document.getElementById('save-profile');
-    button.disabled = true;
-    button.textContent = 'SALVANDO...';
+      '<p class="empty">Buscando os melhores resultados...</p>';
 
     try {
-      const { error: profileError } = await db
-        .from('profiles')
-        .upsert({
-          id: currentUser.id,
-          nick,
-          bio
-        }, { onConflict: 'id' });
+      /*
+       * Consulta somente os nicks deste perfil.
+       * Para cada nick, busca o maior score registrado.
+       * Não baixa o ranking inteiro para o celular.
+       */
+      const results = await Promise.all(
+        normalized.map(async function(nick) {
+          const { data, error } = await db
+            .from('agt_ranking_daily')
+            .select('nick,score,source_date')
+            .eq('nick', nick)
+            .order('score', { ascending: false })
+            .order('source_date', { ascending: false })
+            .limit(1)
+            .maybeSingle();
 
-      if (profileError) throw profileError;
+          if (error) {
+            throw error;
+          }
 
-      const keepIds = newNicks.filter(item => item.id).map(item => item.id);
-      const removeIds = existingExtraNicks
-        .filter(item => !keepIds.includes(item.id))
-        .map(item => item.id);
+          return data;
+        })
+      );
 
-      if (removeIds.length) {
-        const { error } = await db
-          .from('profile_nicks')
-          .delete()
-          .in('id', removeIds);
-        if (error) throw error;
-      }
-
-      const toInsert = newNicks
-        .filter(item => !item.id)
-        .map(item => ({
-          user_id: currentUser.id,
-          nick: item.nick
-        }));
-
-      if (toInsert.length) {
-        const { error } = await db
-          .from('profile_nicks')
-          .insert(toInsert);
-        if (error) throw error;
-      }
-
-      showMessage('save-message', 'Perfil atualizado com sucesso!', false);
-      await loadProfile();
-
-    } catch (error) {
-      console.error(error);
-      showMessage('save-message', 'Erro ao salvar: ' + error.message, true);
-    } finally {
-      button.disabled = false;
-      button.textContent = 'SALVAR ALTERAÇÕES';
-    }
-  });
-
-  document.getElementById('avatar-file').addEventListener('change', async event => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    if (!currentUser || currentUser.id !== profileId) {
-      showMessage('avatar-message', 'Você não pode alterar este perfil.', true);
-      return;
-    }
-
-    if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
-      showMessage('avatar-message', 'Use uma imagem PNG, JPG ou WEBP.', true);
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      showMessage('avatar-message', 'A imagem deve ter no máximo 5 MB.', true);
-      return;
-    }
-
-    showMessage('avatar-message', 'Enviando foto...', false);
-
-    try {
-      const extension = file.name.split('.').pop().toLowerCase();
-      const path = currentUser.id + '/' + Date.now() + '.' + extension;
-
-      const { error: uploadError } = await db.storage
-        .from('profile-avatars')
-        .upload(path, file, {
-          cacheControl: '3600',
-          upsert: false,
-          contentType: file.type
+      const best = results
+        .filter(Boolean)
+        .sort(function(a, b) {
+          return Number(b.score || 0) - Number(a.score || 0);
         });
 
-      if (uploadError) throw uploadError;
+      if (!best.length) {
+        scoresBox.innerHTML =
+          '<p class="empty">Ainda não encontramos scores registrados para os nicks deste jogador.</p>';
+        return;
+      }
 
-      const { data: publicData } = db.storage
-        .from('profile-avatars')
-        .getPublicUrl(path);
+      scoresBox.replaceChildren();
 
-     const avatarUrl = publicData.publicUrl;
+      best.forEach(function(row) {
+        const item = document.createElement('div');
+        item.className = 'score-item';
 
-const { data: perfilExistente, error: buscaError } = await db
-  .from('profiles')
-  .select('nick')
-  .eq('id', currentUser.id)
-  .maybeSingle();
+        const info = document.createElement('div');
 
-if (buscaError) throw buscaError;
+        const nick = document.createElement('div');
+        nick.className = 'score-nick';
+        nick.textContent = row.nick;
 
-let nickAtual = perfilExistente?.nick || mainNick.value.trim();
+        const date = document.createElement('div');
+        date.className = 'score-date';
 
-if (!nickAtual) {
-  throw new Error('Salve seu nick principal antes de enviar a foto.');
-}
+        if (row.source_date) {
+          const parsedDate = new Date(
+            row.source_date + 'T12:00:00'
+          );
 
-if (!nickAtual.startsWith('AGT | ')) {
-  nickAtual = 'AGT | ' + nickAtual;
-}
+          date.textContent =
+            'Data: ' + parsedDate.toLocaleDateString('pt-BR');
+        } else {
+          date.textContent = 'Data não informada';
+        }
 
-const { error: updateError } = await db
-  .from('profiles')
-  .upsert({
-    id: currentUser.id,
-    nick: nickAtual,
-    avatar_url: avatarUrl
-  }, { onConflict: 'id' });
+        info.append(nick, date);
 
-if (updateError) throw updateError;
+        const score = document.createElement('div');
+        score.className = 'score-value';
 
-let nickAtual = perfilExistente?.nick || mainNick.value.trim();
+        score.textContent = Number(row.score || 0)
+          .toLocaleString('pt-BR');
 
-if (!nickAtual) {
-  throw new Error('Salve seu nick principal antes de enviar a foto.');
-}
-
-if (!nickAtual.startsWith('AGT | ')) {
-  nickAtual = 'AGT | ' + nickAtual;
-}
-
-const { error: updateError } = await db
-  .from('profiles')
-  .upsert({
-    id: currentUser.id,
-    nick: nickAtual,
-    avatar_url: avatarUrl
-  }, { onConflict: 'id' });
-
-if (updateError) throw updateError;
-      renderAvatar(avatarUrl);
-      showMessage('avatar-message', 'Foto atualizada!', false);
+        item.append(info, score);
+        scoresBox.appendChild(item);
+      });
 
     } catch (error) {
-      console.error(error);
-      showMessage('avatar-message', 'Erro ao enviar foto: ' + error.message, true);
-    } finally {
-      event.target.value = '';
+      console.error('Erro ao buscar scores:', error);
+
+      scoresBox.innerHTML =
+        '<p class="empty">Não foi possível consultar os scores. Tente atualizar a página.</p>';
     }
-  });
+  }
+
+  document.getElementById('add-nick').addEventListener(
+    'click',
+    function() {
+      addNickField();
+    }
+  );
+
+  document.getElementById('save-profile').addEventListener(
+    'click',
+    async function() {
+      if (!currentUser || currentUser.id !== profileId) {
+        showMessage(
+          'save-message',
+          'Você não tem permissão para editar este perfil.',
+          true
+        );
+        return;
+      }
+
+      const nick = normalizeNick(mainNick.value);
+      const bio = bioInput.value.trim();
+
+      if (!nick) {
+        showMessage(
+          'save-message',
+          'Digite seu nick principal.',
+          true
+        );
+        return;
+      }
+
+      const rows = [
+        ...extraNicks.querySelectorAll('.nick-row')
+      ];
+
+      const newNicks = rows
+        .map(function(row) {
+          return {
+            id: row.dataset.id || null,
+            nick: normalizeNick(
+              row.querySelector('input').value
+            )
+          };
+        })
+        .filter(function(item) {
+          return Boolean(item.nick);
+        });
+
+      const allNicks = [
+        nick,
+        ...newNicks.map(item => item.nick)
+      ];
+
+      const uniqueNicks = new Set(
+        allNicks.map(item => item.toLowerCase())
+      );
+
+      if (uniqueNicks.size !== allNicks.length) {
+        showMessage(
+          'save-message',
+          'Você repetiu um nick. Verifique os campos.',
+          true
+        );
+        return;
+      }
+
+      const button = document.getElementById('save-profile');
+
+      button.disabled = true;
+      button.textContent = 'SALVANDO...';
+
+      try {
+        /*
+         * Salva o perfil principal.
+         * O ID da conta é usado como identificador do dono.
+         */
+        const { error: profileError } = await db
+          .from('profiles')
+          .upsert({
+            id: currentUser.id,
+            nick: nick,
+            bio: bio
+          }, {
+            onConflict: 'id'
+          });
+
+        if (profileError) {
+          throw profileError;
+        }
+
+        /*
+         * Remove os nicks adicionais que foram apagados.
+         */
+        const keepIds = newNicks
+          .filter(item => item.id)
+          .map(item => item.id);
+
+        const removeIds = existingExtraNicks
+          .filter(item => !keepIds.includes(item.id))
+          .map(item => item.id);
+
+        if (removeIds.length) {
+          const { error: deleteError } = await db
+            .from('profile_nicks')
+            .delete()
+            .eq('user_id', currentUser.id)
+            .in('id', removeIds);
+
+          if (deleteError) {
+            throw deleteError;
+          }
+        }
+
+        /*
+         * Atualiza os nicks adicionais que já existiam.
+         */
+        for (const item of newNicks.filter(item => item.id)) {
+          const { error: updateError } = await db
+            .from('profile_nicks')
+            .update({
+              nick: item.nick
+            })
+            .eq('id', item.id)
+            .eq('user_id', currentUser.id);
+
+          if (updateError) {
+            throw updateError;
+          }
+        }
+
+        /*
+         * Cadastra os novos nicks adicionais.
+         */
+        const toInsert = newNicks
+          .filter(item => !item.id)
+          .map(item => ({
+            user_id: currentUser.id,
+            nick: item.nick
+          }));
+
+        if (toInsert.length) {
+          const { error: insertError } = await db
+            .from('profile_nicks')
+            .insert(toInsert);
+
+          if (insertError) {
+            throw insertError;
+          }
+        }
+
+        showMessage(
+          'save-message',
+          'Perfil atualizado com sucesso!',
+          false
+        );
+
+        await loadProfile();
+
+      } catch (error) {
+        console.error('Erro ao salvar perfil:', error);
+
+        showMessage(
+          'save-message',
+          'Erro ao salvar: ' + (error.message || 'verifique sua conexão'),
+          true
+        );
+
+      } finally {
+        button.disabled = false;
+        button.textContent = 'SALVAR ALTERAÇÕES';
+      }
+    }
+  );
+
+  document.getElementById('avatar-file').addEventListener(
+    'change',
+    async function(event) {
+      const file = event.target.files?.[0];
+
+      if (!file) {
+        return;
+      }
+
+      if (!currentUser || currentUser.id !== profileId) {
+        showMessage(
+          'avatar-message',
+          'Você não pode alterar este perfil.',
+          true
+        );
+
+        event.target.value = '';
+        return;
+      }
+
+      const allowedTypes = [
+        'image/png',
+        'image/jpeg',
+        'image/webp'
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        showMessage(
+          'avatar-message',
+          'Use uma imagem PNG, JPG ou WEBP.',
+          true
+        );
+
+        event.target.value = '';
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        showMessage(
+          'avatar-message',
+          'A imagem deve ter no máximo 5 MB.',
+          true
+        );
+
+        event.target.value = '';
+        return;
+      }
+
+      showMessage(
+        'avatar-message',
+        'Enviando foto...',
+        false
+      );
+
+      try {
+        const extensionByType = {
+          'image/png':'png',
+          'image/jpeg':'jpg',
+          'image/webp':'webp'
+        };
+
+        const extension = extensionByType[file.type];
+
+        const path =
+          currentUser.id + '/' +
+          Date.now() + '.' +
+          extension;
+
+        const { error: uploadError } = await db.storage
+          .from('profile-avatars')
+          .upload(path, file, {
+            cacheControl:'3600',
+            upsert:false,
+            contentType:file.type
+          });
+
+        if (uploadError) {
+          throw uploadError;
+        }
+
+        const { data: publicData } = db.storage
+          .from('profile-avatars')
+          .getPublicUrl(path);
+
+        const avatarUrl = publicData.publicUrl;
+
+        /*
+         * Recupera o nick salvo para não criar um perfil sem nick.
+         */
+        const { data: existingProfile, error: searchError } = await db
+          .from('profiles')
+          .select('nick')
+          .eq('id', currentUser.id)
+          .maybeSingle();
+
+        if (searchError) {
+          throw searchError;
+        }
+
+        const savedNick = normalizeNick(
+          existingProfile?.nick || mainNick.value
+        );
+
+        if (!savedNick) {
+          throw new Error(
+            'Salve seu nick principal antes de enviar a foto.'
+          );
+        }
+
+        /*
+         * Uma única atualização, sem declarações duplicadas.
+         */
+        const { error: updateError } = await db
+          .from('profiles')
+          .upsert({
+            id: currentUser.id,
+            nick: savedNick,
+            avatar_url: avatarUrl
+          }, {
+            onConflict:'id'
+          });
+
+        if (updateError) {
+          throw updateError;
+        }
+
+        profileAvatarUrl = avatarUrl;
+        renderAvatar(avatarUrl);
+
+        showMessage(
+          'avatar-message',
+          'Foto atualizada com sucesso!',
+          false
+        );
+
+      } catch (error) {
+        console.error('Erro ao enviar foto:', error);
+
+        showMessage(
+          'avatar-message',
+          'Erro ao enviar foto: ' +
+          (error.message || 'verifique sua conexão'),
+          true
+        );
+
+      } finally {
+        event.target.value = '';
+      }
+    }
+  );
 
   loadProfile();
+
 })();
 </script>
+
 </body>
 </html>
