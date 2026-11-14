@@ -1745,28 +1745,30 @@ try {
     }  
   });  
   
-  /* RECUPERAÇÃO DE SENHA */  
-  
-  document.getElementById('agt-forgot-password').addEventListener('click', async function() {  
-    const email = document.getElementById('agt-login-email').value.trim();  
-  
-    if (!email) {  
-      avisar('Digite seu e-mail no campo de login primeiro.');  
-      return;  
-    }  
-  
-    avisar('Enviando solicitação de recuperação...');  
-  
-    const {error} = await db.auth.resetPasswordForEmail(email,{  
-      redirectTo:window.location.origin + window.location.pathname  
-    });  
-  
-    avisar(  
-      error  
-        ? 'Erro: ' + error.message  
-        : 'Se o e-mail estiver cadastrado, você receberá as instruções de recuperação.'  
-    );  
-  });  
+```javascript
+/* RECUPERAÇÃO DE SENHA */
+
+document.getElementById('agt-forgot-password').addEventListener('click', async function() {
+  const email = document.getElementById('agt-login-email').value.trim();
+
+  if (!email) {
+    avisar('Digite seu e-mail no campo de login primeiro.');
+    return;
+  }
+
+  avisar('Enviando solicitação de recuperação...');
+
+  const { error } = await db.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
+  });
+
+  avisar(
+    error
+      ? 'Erro: ' + error.message
+      : 'Se o e-mail estiver cadastrado, você receberá as instruções de recuperação.'
+  );
+});
+```
   
   /* SAIR DA CONTA */  
   
