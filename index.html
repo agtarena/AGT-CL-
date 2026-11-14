@@ -1649,7 +1649,7 @@ db.auth.onAuthStateChange(async function(event, session) {
 
     setTimeout(() => {
       panel.remove();
-     window.location.replace('https://agtarena.github.io/AGT-CL-/index.html');
+  window.location.replace('https://cimadomkayque-ui.github.io/AGT-ARENA/');
     }, 1800);
   });
 });
@@ -1923,9 +1923,9 @@ if (forgotPasswordButton) {
     try {
       avisar('Enviando solicitação de recuperação...');
 
-      const { error } = await db.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
-      });
+     const { error } = await db.auth.resetPasswordForEmail(email, {
+  redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
+});
 
       if (error) {
         avisar('Erro ao enviar: ' + error.message);
