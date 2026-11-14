@@ -1525,7 +1525,8 @@ aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-panel">
   
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
   window.agtSupabase = db; 
-  /* RECUPERAÇÃO DE SENHA - AGT ARENA */
+ 
+/* RECUPERAÇÃO DE SENHA - AGT ARENA */
 
 document.addEventListener('click', async function(event) {
   const botao = event.target.closest('#agt-forgot-password');
@@ -1544,10 +1545,8 @@ document.addEventListener('click', async function(event) {
   botao.disabled = true;
 
   try {
-    alert('Enviando solicitação de recuperação...');
-
     const { error } = await db.auth.resetPasswordForEmail(email, {
-     redirectTo: 'https://agtarena.github.io/AGT-CL-/index.html'
+      redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
     });
 
     if (error) {
@@ -1563,10 +1562,10 @@ document.addEventListener('click', async function(event) {
     botao.disabled = false;
   }
 });
-  
+
 /* DETECTAR RECUPERAÇÃO DE SENHA */
 
-db.auth.onAuthStateChange(async function(event, session) {
+db.auth.onAuthStateChange(async function(event) {
   if (event !== 'PASSWORD_RECOVERY') return;
 
   if (document.getElementById('agt-recovery-panel')) return;
@@ -1636,23 +1635,31 @@ db.auth.onAuthStateChange(async function(event, session) {
     button.disabled = true;
     button.textContent = 'SALVANDO...';
 
-    const { error } = await db.auth.updateUser({ password });
+    try {
+      const { error } = await db.auth.updateUser({ password });
 
-    if (error) {
-      message.textContent = 'Erro: ' + error.message;
+      if (error) {
+        message.textContent = 'Erro: ' + error.message;
+        button.disabled = false;
+        button.textContent = 'SALVAR NOVA SENHA';
+        return;
+      }
+
+      message.textContent = 'Senha alterada com sucesso!';
+
+      setTimeout(() => {
+        panel.remove();
+        window.location.replace('https://cimadomkayque-ui.github.io/AGT-ARENA/');
+      }, 1800);
+
+    } catch (erro) {
+      message.textContent = 'Erro inesperado: ' + erro.message;
       button.disabled = false;
       button.textContent = 'SALVAR NOVA SENHA';
-      return;
     }
-
-    message.textContent = 'Senha alterada com sucesso!';
-
-    setTimeout(() => {
-      panel.remove();
-  window.location.replace('https://cimadomkayque-ui.github.io/AGT-ARENA/');
-    }, 1800);
   });
 });
+
 
   /* MENU */  
   
