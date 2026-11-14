@@ -22,8 +22,7 @@
 body{
   min-height:100vh;
   overflow-x:hidden;
-  background:
-    radial-gradient(ellipse at top,#211033 0%,#090611 58%);
+  background:radial-gradient(ellipse at top,#211033 0%,#090611 58%);
   color:#fff;
   font-family:Arial,sans-serif;
   padding:20px 15px 50px;
@@ -47,16 +46,16 @@ body::after{
     radial-gradient(ellipse at 25% 75%,rgba(210,205,230,.45),transparent 38%),
     radial-gradient(ellipse at 65% 65%,rgba(155,69,255,.48),transparent 40%),
     radial-gradient(ellipse at 85% 85%,rgba(230,225,255,.28),transparent 35%);
-  animation:smokeRise 19s linear infinite;
+  animation:backgroundSmoke 19s linear infinite;
 }
 body::after{
   left:-10%;
   opacity:.10;
   filter:blur(58px);
-  animation:smokeRise 27s linear infinite;
+  animation-duration:27s;
   animation-delay:-11s;
 }
-@keyframes smokeRise{
+@keyframes backgroundSmoke{
   0%{transform:translate3d(0,0,0) scale(1);opacity:.07}
   50%{transform:translate3d(3%,-65%,0) scale(1.12);opacity:.16}
   100%{transform:translate3d(-3%,-135%,0) scale(1.2);opacity:.07}
@@ -75,7 +74,6 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   justify-content:center;
   z-index:2;
 }
-
 .back-arrow{
   position:absolute;
   left:0;
@@ -102,31 +100,27 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   font-weight:1000;
   letter-spacing:9px;
   line-height:1.1;
-
   background:linear-gradient(
     180deg,
-    #ffffff 0%,
+    #fff 0%,
     #f4f6ff 16%,
     #bfc7d5 34%,
-    #ffffff 48%,
+    #fff 48%,
     #8995a8 67%,
     #e8edf5 82%,
-    #ffffff 100%
+    #fff 100%
   );
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
   -webkit-text-stroke:1px rgba(255,255,255,.65);
-
   filter:
     drop-shadow(0 2px 0 #3b4050)
     drop-shadow(0 0 5px rgba(255,255,255,.75))
     drop-shadow(0 0 13px rgba(174,190,220,.55))
     drop-shadow(0 0 22px rgba(139,53,255,.45));
-
   animation:logoSilver 3.5s ease-in-out infinite alternate;
 }
-
 .logo::before{
   content:"";
   position:absolute;
@@ -135,18 +129,10 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   bottom:0;
   height:2px;
   border-radius:50%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #ffffff,
-    #b9c5d8,
-    #ffffff,
-    transparent
-  );
+  background:linear-gradient(90deg,transparent,#fff,#b9c5d8,#fff,transparent);
   box-shadow:0 0 8px #fff,0 0 17px #a98aff;
   opacity:.85;
 }
-
 @keyframes logoSilver{
   from{
     filter:
@@ -170,7 +156,6 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   position:relative;
   z-index:1;
 }
-
 .card{
   background:var(--card);
   border:1px solid #39234e;
@@ -182,7 +167,7 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   -webkit-backdrop-filter:blur(7px);
 }
 
-/* CARTÃO PRINCIPAL DO PERFIL */
+/* CARTÃO PRINCIPAL */
 .profile-head{
   text-align:center;
   position:relative;
@@ -195,123 +180,152 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
 }
 
 /*
-  FUMAÇA DENTRO DO CARTÃO:
-  começa abaixo do ONLINE e sobe em direção ao topo.
-  Fica atrás da foto, do nick e dos outros elementos.
+  FUMAÇA ORGÂNICA:
+  O SVG cria distorções irregulares nas formas.
+  As camadas sobem de baixo para cima e se desfazem.
 */
-.profile-head::before,
-.profile-head::after{
-  content:"";
+.profile-smoke{
   position:absolute;
-  pointer-events:none;
+  inset:0;
   z-index:0;
-  left:-12%;
-  width:124%;
-  height:85%;
-  bottom:-8%;
-  opacity:.65;
-  filter:blur(24px);
+  overflow:hidden;
+  pointer-events:none;
+  border-radius:inherit;
+  contain:paint;
+}
+.smoke-layer{
+  position:absolute;
+  left:-25%;
+  bottom:-55%;
+  width:150%;
+  height:150%;
+  opacity:.72;
+  filter:url(#realSmoke) blur(3px);
   transform:translate3d(0,0,0);
-
+  will-change:transform,opacity;
   background:
-    radial-gradient(
-      ellipse at 18% 85%,
-      rgba(238,242,255,.52) 0%,
-      rgba(238,242,255,.16) 24%,
-      transparent 48%
-    ),
-    radial-gradient(
-      ellipse at 48% 92%,
-      rgba(166,91,255,.58) 0%,
-      rgba(166,91,255,.19) 28%,
-      transparent 54%
-    ),
-    radial-gradient(
-      ellipse at 78% 80%,
-      rgba(238,232,255,.48) 0%,
-      rgba(238,232,255,.13) 26%,
-      transparent 52%
-    ),
-    radial-gradient(
-      ellipse at 60% 60%,
-      rgba(124,62,190,.25) 0%,
-      transparent 58%
-    );
-
-  animation:profileSmoke 10s ease-in-out infinite;
+    radial-gradient(ellipse at 12% 86%,
+      rgba(255,255,255,.0) 0 13%,
+      rgba(235,235,255,.56) 17%,
+      rgba(235,235,255,.12) 27%,
+      transparent 40%),
+    radial-gradient(ellipse at 36% 91%,
+      transparent 0 12%,
+      rgba(171,105,255,.62) 18%,
+      rgba(171,105,255,.16) 29%,
+      transparent 43%),
+    radial-gradient(ellipse at 63% 88%,
+      transparent 0 10%,
+      rgba(255,255,255,.58) 16%,
+      rgba(255,255,255,.14) 28%,
+      transparent 43%),
+    radial-gradient(ellipse at 88% 94%,
+      transparent 0 12%,
+      rgba(161,91,255,.56) 18%,
+      rgba(161,91,255,.12) 31%,
+      transparent 45%),
+    radial-gradient(ellipse at 48% 75%,
+      rgba(215,196,255,.28),
+      transparent 58%);
+  animation:smokeUpOne 13s ease-in-out infinite;
+}
+.smoke-layer.layer-two{
+  left:-35%;
+  bottom:-70%;
+  width:170%;
+  height:160%;
+  opacity:.54;
+  filter:url(#realSmokeTwo) blur(5px);
+  background:
+    radial-gradient(ellipse at 20% 90%,
+      transparent 0 9%,
+      rgba(255,255,255,.65) 15%,
+      rgba(255,255,255,.10) 26%,
+      transparent 42%),
+    radial-gradient(ellipse at 52% 94%,
+      transparent 0 12%,
+      rgba(154,80,255,.70) 19%,
+      rgba(154,80,255,.14) 31%,
+      transparent 46%),
+    radial-gradient(ellipse at 82% 88%,
+      transparent 0 10%,
+      rgba(237,233,255,.62) 17%,
+      rgba(237,233,255,.12) 29%,
+      transparent 45%);
+  animation:smokeUpTwo 17s ease-in-out infinite;
+  animation-delay:-8s;
+}
+.smoke-layer.layer-three{
+  left:-15%;
+  bottom:-85%;
+  width:130%;
+  height:155%;
+  opacity:.38;
+  filter:url(#realSmoke) blur(7px);
+  background:
+    radial-gradient(ellipse at 28% 92%,
+      transparent 0 8%,
+      rgba(198,166,255,.65) 15%,
+      transparent 35%),
+    radial-gradient(ellipse at 72% 90%,
+      transparent 0 9%,
+      rgba(255,255,255,.62) 16%,
+      transparent 37%);
+  animation:smokeUpThree 20s ease-in-out infinite;
+  animation-delay:-4s;
 }
 
-.profile-head::after{
-  left:-20%;
-  width:140%;
-  height:95%;
-  bottom:-12%;
-  opacity:.42;
-  filter:blur(34px);
-
-  background:
-    radial-gradient(
-      ellipse at 30% 88%,
-      rgba(255,255,255,.42) 0%,
-      transparent 43%
-    ),
-    radial-gradient(
-      ellipse at 72% 75%,
-      rgba(151,83,255,.52) 0%,
-      transparent 48%
-    ),
-    radial-gradient(
-      ellipse at 50% 55%,
-      rgba(218,205,255,.24) 0%,
-      transparent 55%
-    );
-
-  animation:profileSmokeSecond 14s ease-in-out infinite;
-  animation-delay:-5s;
-}
-
-@keyframes profileSmoke{
+@keyframes smokeUpOne{
   0%{
-    transform:translate3d(-2%,12%,0) scale(.95);
-    opacity:.30;
-  }
-  30%{
-    transform:translate3d(2%,-15%,0) scale(1.08);
-    opacity:.68;
-  }
-  65%{
-    transform:translate3d(-3%,-48%,0) scale(1.14);
-    opacity:.48;
-  }
-  100%{
-    transform:translate3d(2%,-85%,0) scale(1.2);
+    transform:translate3d(-2%,18%,0) scale(.95);
     opacity:.10;
   }
-}
-
-@keyframes profileSmokeSecond{
-  0%{
-    transform:translate3d(3%,15%,0) scale(1.08);
-    opacity:.18;
+  20%{opacity:.70}
+  50%{
+    transform:translate3d(3%,-22%,0) scale(1.08);
+    opacity:.76;
   }
-  35%{
-    transform:translate3d(-3%,-22%,0) scale(1.16);
-    opacity:.48;
-  }
-  70%{
-    transform:translate3d(2%,-60%,0) scale(1.22);
-    opacity:.34;
-  }
+  80%{opacity:.46}
   100%{
-    transform:translate3d(-2%,-100%,0) scale(1.28);
+    transform:translate3d(-3%,-78%,0) scale(1.16);
+    opacity:.05;
+  }
+}
+@keyframes smokeUpTwo{
+  0%{
+    transform:translate3d(3%,20%,0) scale(1.02);
     opacity:.08;
   }
+  25%{opacity:.55}
+  55%{
+    transform:translate3d(-4%,-28%,0) scale(1.13);
+    opacity:.58;
+  }
+  100%{
+    transform:translate3d(4%,-95%,0) scale(1.2);
+    opacity:.04;
+  }
+}
+@keyframes smokeUpThree{
+  0%{
+    transform:translate3d(-4%,18%,0) scale(.9);
+    opacity:.04;
+  }
+  35%{opacity:.42}
+  65%{
+    transform:translate3d(4%,-35%,0) scale(1.13);
+    opacity:.38;
+  }
+  100%{
+    transform:translate3d(-2%,-100%,0) scale(1.2);
+    opacity:0;
+  }
 }
 
-/* CONTEÚDO ACIMA DA FUMAÇA */
-.profile-head > *{
+/* CONTEÚDO NA FRENTE DA FUMAÇA */
+.profile-head > *:not(.profile-smoke){
   position:relative;
-  z-index:1;
+  z-index:2;
 }
 
 .avatar-wrap{
@@ -323,9 +337,8 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   background:linear-gradient(135deg,var(--green),var(--purple),#d9b4ff);
   box-shadow:0 0 25px #8b35ff55;
   position:relative;
-  z-index:2;
+  z-index:3;
 }
-
 .avatar-media{
   width:100%;
   height:100%;
@@ -333,13 +346,11 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   overflow:hidden;
   background:#241a32;
 }
-
 .avatar-media img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
-
 .avatar-placeholder{
   width:100%;
   height:100%;
@@ -347,7 +358,6 @@ button{cursor:pointer;font-family:inherit;font-weight:bold}
   place-items:center;
   font-size:55px;
 }
-
 .avatar-edit{
   display:none;
   position:absolute;
@@ -387,14 +397,12 @@ h1{
   margin-bottom:10px;
   overflow-wrap:anywhere;
 }
-
 .profile-email{
   color:#d0c6dc;
   font-size:13px;
   overflow-wrap:anywhere;
   margin:0 auto 13px;
 }
-
 .logout-button{
   display:none;
   border:1px solid #70435d;
@@ -440,9 +448,7 @@ body.is-owner .logout-button{display:inline-block}
   background:#36e66b;
   box-shadow:0 0 9px #36e66b;
 }
-.online-status.offline .online-dot{
-  background:#888;
-}
+.online-status.offline .online-dot{background:#888}
 
 h2{
   font-size:17px;
@@ -567,7 +573,13 @@ body.is-owner .owner-only{display:block}
 .score-nick{font-size:13px;font-weight:bold;overflow-wrap:anywhere}
 .score-date{font-size:11px;color:var(--muted);margin-top:5px}
 .score-number{font-weight:1000;font-size:18px;white-space:nowrap;text-align:right}
-.score-label{font-size:9px;letter-spacing:1.5px;color:var(--muted);display:block;margin-bottom:3px}
+.score-label{
+  font-size:9px;
+  letter-spacing:1.5px;
+  color:var(--muted);
+  display:block;
+  margin-bottom:3px;
+}
 .rank-gold .score-nick,.rank-gold .score-number{color:#ffd45c}
 .rank-silver .score-nick,.rank-silver .score-number{color:#d8e0ec}
 .rank-bronze .score-nick,.rank-bronze .score-number{color:#d99a68}
@@ -599,11 +611,7 @@ footer{
 @media(max-width:520px){
   body{padding:12px 12px 40px}
   .topbar{height:65px;margin-bottom:18px}
-  .logo{
-    font-size:37px;
-    letter-spacing:7px;
-    padding:5px 14px 8px;
-  }
+  .logo{font-size:37px;letter-spacing:7px;padding:5px 14px 8px}
   .back-arrow{font-size:32px;left:0}
   .card{padding:19px}
   .profile-head{padding-top:25px}
@@ -611,21 +619,67 @@ footer{
   .scores-heading{align-items:flex-start;flex-direction:column}
   .see-history{font-size:10px}
   .score-number{font-size:16px}
+  .smoke-layer{filter:url(#realSmoke) blur(4px)}
 }
 
 @media(prefers-reduced-motion:reduce){
-  body::before,
-  body::after,
-  .logo,
-  .profile-head::before,
-  .profile-head::after{
-    animation:none;
+  body::before,body::after,.logo,
+  .smoke-layer{
+    animation:none!important;
   }
 }
 </style>
 </head>
 
 <body>
+
+<!-- FILTROS SVG PARA DISTORCER A FUMAÇA -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="0" height="0"
+     style="position:absolute;overflow:hidden"
+     aria-hidden="true">
+  <filter id="realSmoke" x="-35%" y="-35%" width="170%" height="170%">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency="0.012 0.035"
+      numOctaves="3"
+      seed="8"
+      result="noise">
+      <animate
+        attributeName="baseFrequency"
+        values="0.012 0.035;0.018 0.050;0.010 0.030;0.012 0.035"
+        dur="13s"
+        repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap
+      in="SourceGraphic"
+      in2="noise"
+      scale="48"
+      xChannelSelector="R"
+      yChannelSelector="G"/>
+  </filter>
+
+  <filter id="realSmokeTwo" x="-35%" y="-35%" width="170%" height="170%">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency="0.018 0.045"
+      numOctaves="4"
+      seed="17"
+      result="noise">
+      <animate
+        attributeName="baseFrequency"
+        values="0.018 0.045;0.010 0.032;0.020 0.052;0.018 0.045"
+        dur="16s"
+        repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap
+      in="SourceGraphic"
+      in2="noise"
+      scale="62"
+      xChannelSelector="R"
+      yChannelSelector="G"/>
+  </filter>
+</svg>
 
 <header class="topbar">
   <a class="back-arrow" href="./index.html" aria-label="Voltar ao site">←</a>
@@ -635,6 +689,13 @@ footer{
 <main class="container">
 
   <section class="card profile-head">
+
+    <!-- CAMADAS ANIMADAS DE FUMAÇA -->
+    <div class="profile-smoke" aria-hidden="true">
+      <div class="smoke-layer"></div>
+      <div class="smoke-layer layer-two"></div>
+      <div class="smoke-layer layer-three"></div>
+    </div>
 
     <div class="avatar-wrap">
       <div class="avatar-media" id="avatar-media">
@@ -672,7 +733,6 @@ footer{
 
   <section class="card">
     <h2>👤 Sobre o jogador</h2>
-
     <p id="bio-display" class="note">
       Este jogador ainda não adicionou uma biografia.
     </p>
@@ -716,12 +776,10 @@ footer{
 
   <a class="card scores-card" id="scores-link" href="#"
      aria-label="Abrir histórico completo de scores">
-
     <div class="scores-heading">
       <h2>🏆 Melhores scores</h2>
       <span class="see-history">VER HISTÓRICO COMPLETO →</span>
     </div>
-
     <div id="scores" class="score-list">
       <p class="empty">Carregando melhores scores...</p>
     </div>
