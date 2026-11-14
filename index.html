@@ -1526,6 +1526,96 @@ aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-panel">
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  
   window.agtSupabase = db;  
   
+/* DETECTAR RECUPERAÇÃO DE SENHA */
+
+db.auth.onAuthStateChange(async function(event, session) {
+  if (event !== 'PASSWORD_RECOVERY') return;
+
+  if (document.getElementById('agt-recovery-panel')) return;
+
+  const panel = document.createElement('div');
+
+  panel.id = 'agt-recovery-panel';
+
+  panel.style.cssText = `
+    position:fixed;
+    inset:0;
+    z-index:999999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.95);
+  `;
+
+  panel.innerHTML = `
+    <form id="agt-recovery-form"
+      style="width:100%;max-width:400px;padding:28px;background:#100d19;color:white;border:1px solid #36e66b;border-radius:16px;font-family:Arial;">
+
+      <h2 style="color:#36e66b;text-align:center;">NOVA SENHA</h2>
+
+      <p style="text-align:center;color:#ccc;">
+        Cadastre sua nova senha do AGT Arena.
+      </p>
+
+      <input id="agt-new-password" type="password"
+        placeholder="Nova senha" minlength="6" required
+        style="box-sizing:border-box;width:100%;padding:14px;margin:10px 0;background:#211c2d;color:white;border:1px solid #555;border-radius:8px;">
+
+      <input id="agt-confirm-password" type="password"
+        placeholder="Confirmar nova senha" minlength="6" required
+        style="box-sizing:border-box;width:100%;padding:14px;margin:10px 0;background:#211c2d;color:white;border:1px solid #555;border-radius:8px;">
+
+      <button type="submit"
+        style="width:100%;padding:14px;margin-top:12px;background:#36e66b;color:#07110a;font-weight:bold;border:0;border-radius:8px;">
+        SALVAR NOVA SENHA
+      </button>
+
+      <p id="agt-recovery-message" style="text-align:center;color:white;"></p>
+    </form>
+  `;
+
+  document.body.appendChild(panel);
+
+  document.getElementById('agt-recovery-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const password = document.getElementById('agt-new-password').value;
+    const confirmation = document.getElementById('agt-confirm-password').value;
+    const message = document.getElementById('agt-recovery-message');
+    const button = this.querySelector('button');
+
+    if (password.length < 6) {
+      message.textContent = 'A senha precisa ter pelo menos 6 caracteres.';
+      return;
+    }
+
+    if (password !== confirmation) {
+      message.textContent = 'As senhas não coincidem.';
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'SALVANDO...';
+
+    const { error } = await db.auth.updateUser({ password });
+
+    if (error) {
+      message.textContent = 'Erro: ' + error.message;
+      button.disabled = false;
+      button.textContent = 'SALVAR NOVA SENHA';
+      return;
+    }
+
+    message.textContent = 'Senha alterada com sucesso!';
+
+    setTimeout(() => {
+      panel.remove();
+      window.location.replace('https://cimadomkayque-ui.github.io/AGT-ARENA/');
+    }, 1800);
+  });
+});
+
   /* MENU */  
   
   const menuToggle = document.getElementById('menu-toggle');  
