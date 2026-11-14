@@ -1031,31 +1031,57 @@ section { padding:75px 8%; }
   box-shadow:0 0 25px #25d36673;  
 }  
   
-.youtube-btn {  
-  display:flex;  
-  align-items:center;  
-  justify-content:center;  
-  width:62px;  
-  height:62px;  
-  border-radius:50%;  
-  background:linear-gradient(145deg,#ff3030,#b90000);  
-  border:1px solid #ff5555;  
-  color:#fff;  
-  box-shadow:0 0 20px #ff00004d;  
-  text-decoration:none;  
-  transition:.3s;  
-}  
-  
-.youtube-btn svg {  
-  width:30px;  
-  height:30px;  
-  fill:currentColor;  
-}  
-  
-.youtube-btn:hover {  
-  transform:translateY(-4px) scale(1.08);  
-  box-shadow:0 0 28px #ff000099;  
-}  
+
+.community-links {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.youtube-btn,
+.discord-btn {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  color:#fff;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.youtube-btn {
+  background:linear-gradient(145deg,#ff3030,#b90000);
+  border:1px solid #ff5555;
+  box-shadow:0 0 20px #ff00004d;
+}
+
+.youtube-btn svg,
+.discord-btn svg {
+  width:30px;
+  height:30px;
+  fill:currentColor;
+}
+
+.youtube-btn:hover {
+  transform:translateY(-4px) scale(1.08);
+  box-shadow:0 0 28px #ff000099;
+}
+
+.discord-btn {
+  background:linear-gradient(145deg,#7289ff,#3949ab);
+  border:1px solid #9baaff;
+  box-shadow:0 0 20px #5865f266;
+}
+
+.discord-btn:hover {
+  transform:translateY(-4px) scale(1.08);
+  box-shadow:0 0 28px #5865f2cc;
+}
+
   
 /* RODAPÉ */  
   
@@ -1163,8 +1189,17 @@ footer span { color:var(--neon); }
   
   .whatsapp-btn svg { width:20px;height:20px; }  
   .whatsapp-name { font-size:11px; }  
-  .youtube-btn { width:56px;height:56px; }  
-  .youtube-btn svg { width:27px;height:27px; }  
+  .youtube-btn,
+.discord-btn {
+  width:56px;
+  height:56px;
+}
+
+.youtube-btn svg,
+.discord-btn svg {
+  width:27px;
+  height:27px;
+} 
   
   .agt-ranking-item {  
     gap:9px;  
@@ -1411,46 +1446,32 @@ aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-panel">
 </div>
 
   </div>  
-</section>  <section class="recruit" id="recrutamento">  
-  <h2>SUA PRÓXIMA <span style="color:#bd75ff">HISTÓRIA</span> COMEÇA AQUI.</h2>    <p>  
-    Tem habilidade, determinação e vontade de evoluir?  
-    Então venha conhecer a família AGT!  
-  </p>    <div class="recruit-social">  
-    <div class="whatsapp-buttons">  <a class="whatsapp-btn"  
-     href="https://wa.me/5511948646144"  
-     target="_blank"  
-     rel="noopener"  
-     aria-label="WhatsApp Quik">  
-    <svg viewBox="0 0 32 32" aria-hidden="true">  
-      <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>  
-    </svg>  
-    <span class="whatsapp-name">Quik</span>  
-  </a>  
 
-  <a class="whatsapp-btn"  
-     href="https://wa.me/5512991173752"  
-     target="_blank"  
-     rel="noopener"  
-     aria-label="WhatsApp Souza">  
-    <svg viewBox="0 0 32 32" aria-hidden="true">  
-      <path d="M16.02 3C8.85 3 3.02 8.79 3.02 15.92c0 2.28.6 4.5 1.75 6.45L3 29l6.82-1.78a13.1 13.1 0 0 0 6.2 1.57h.01c7.17 0 13-5.8 13-12.93 0-3.46-1.35-6.7-3.8-9.13A12.9 12.9 0 0 0 16.02 3zm0 23.6h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.04 1.05 1.08-3.93-.25-.4a10.64 10.64 0 0 1-1.65-5.69c0-5.88 4.8-10.66 10.68-10.66 2.85 0 5.53 1.11 7.55 3.13a10.56 10.56 0 0 1 3.12 7.54c0 5.88-4.8 10.67-10.69 10.67zm5.86-7.99c-.32-.16-1.9-.94-2.2-1.05-.3-.11-.51-.16-.72.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.84-1.59-1.87-1.78-2.19-.19-.32-.02-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.62-.53-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.1-1.12 2.67s1.15 3.09 1.31 3.3c.16.21 2.26 3.44 5.48 4.83.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.9-.78 2.17-1.53.27-.76.27-1.4.19-1.54-.08-.14-.29-.22-.61-.38z"/>  
-    </svg>  
-    <span class="whatsapp-name">Souza</span>  
-  </a>  
+<div class="community-links">
 
-</div>  
+  <a class="youtube-btn"
+     href="https://youtube.com/@agtquikyt"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Canal AGT QUIK YT">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+    </svg>
+  </a>
 
-<a class="youtube-btn"  
-   href="https://youtube.com/@agtquikyt"  
-   target="_blank"  
-   rel="noopener"  
-   aria-label="Canal AGT QUIK YT">  
-  <svg viewBox="0 0 24 24" aria-hidden="true">  
-    <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>  
-  </svg>  
-</a>
+  <a class="discord-btn"
+    href="https://discord.gg/3cujqksppG"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Entrar no Discord AGT"
+     title="Entrar no Discord AGT">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19.73 5.02A18.2 18.2 0 0 0 15.25 3.6l-.55 1.12a16.7 16.7 0 0 0-5.4 0L8.75 3.6a18.2 18.2 0 0 0-4.48 1.42C1.43 9.2.66 13.28 1.04 17.3a18.3 18.3 0 0 0 5.5 2.78l1.19-1.94a11.8 11.8 0 0 1-1.87-.9l.46-.36a13.1 13.1 0 0 0 11.36 0l.46.36a11.8 11.8 0 0 1-1.87.9l1.19 1.94a18.3 18.3 0 0 0 5.5-2.78c.45-4.66-.77-8.7-3.23-12.28ZM8.9 14.75c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2.02.99 2 2.2c0 1.21-.88 2.2-2 2.2Zm6.2 0c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2.02.99 2 2.2c0 1.21-.88 2.2-2 2.2Z"/>
+    </svg>
+  </a>
 
-  </div>  
+</div>
+
 </section>  </div>  
 </main>  <footer>  
   <div class="logo">AGT <span>ARENA</span></div>  
