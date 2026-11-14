@@ -1,0 +1,911 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090611">
+  <title>AGT Social | Clã AGT</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --bg: #090611;
+      --panel: #151020;
+      --panel2: #1d172b;
+      --green: #a4ff70;
+      --purple: #9b5cff;
+      --text: #f5f1ff;
+      --muted: #aaa0ba;
+      --border: rgba(255,255,255,.10);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at top, rgba(116,54,190,.20), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    header {
+      min-height: 75px;
+      padding: 15px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9,6,17,.88);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      color: var(--green);
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(164,255,112,.35);
+    }
+
+    .brand span {
+      color: white;
+    }
+
+    .back-link {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    .back-link:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    main {
+      width: min(1100px, 94%);
+      margin: 35px auto;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+      font-size: clamp(27px, 5vw, 40px);
+      margin-bottom: 8px;
+    }
+
+    .welcome h1 span {
+      color: var(--green);
+    }
+
+    .welcome p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: linear-gradient(145deg, var(--panel2), var(--panel));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,.2);
+    }
+
+    .panel h2 {
+      font-size: 17px;
+      margin-bottom: 15px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+      padding: 12px;
+      color: white;
+      background: #0d0915;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--green);
+    }
+
+    .primary-btn {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 15px;
+      color: #10150b;
+      background: var(--green);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .primary-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    .secondary-btn {
+      background: #302440;
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px;
+    }
+
+    .secondary-btn:hover {
+      border-color: var(--purple);
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tab {
+      background: #211a2d;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px 13px;
+      border-radius: 9px;
+    }
+
+    .tab.active {
+      color: var(--green);
+      border-color: var(--green);
+      background: rgba(164,255,112,.08);
+    }
+
+    .person, .conversation {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .person:last-child, .conversation:last-child {
+      border-bottom: 0;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7441b8, #29203c);
+      color: white;
+      font-weight: 900;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .person-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .person-info strong {
+      display: block;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+
+    .person-info small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 15px 0;
+      line-height: 1.5;
+    }
+
+    #chat-area {
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chat-header {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      font-weight: bold;
+    }
+
+    #messages {
+      flex: 1;
+      min-height: 250px;
+      max-height: 430px;
+      overflow-y: auto;
+      padding: 15px 0;
+    }
+
+    .message {
+      width: fit-content;
+      max-width: 85%;
+      background: #292038;
+      border: 1px solid var(--border);
+      border-radius: 12px 12px 12px 3px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+
+    .message.mine {
+      margin-left: auto;
+      background: rgba(100,150,65,.18);
+      border-color: rgba(164,255,112,.25);
+      border-radius: 12px 12px 3px 12px;
+    }
+
+    .message small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    #message-form {
+      display: flex;
+      gap: 9px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    #status {
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 720px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 13px 4%;
+      }
+
+      main {
+        margin-top: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">AGT <span>SOCIAL</span></div>
+    <a class="back-link" href="./index.html">← Voltar à Arena</a>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <h1>Conecte-se à <span>AGT</span></h1>
+      <p>Adicione amigos, converse no privado e fique conectado com seu clã.</p>
+    </section>
+
+    <section id="login-panel" class="panel hidden">
+      <h2>Entre na sua conta AGT</h2>
+      <p class="empty">Use o mesmo e-mail e senha da sua conta do AGT Arena.</p>
+
+      <form id="login-form">
+        <input id="login-email" type="email" placeholder="Seu e-mail" required>
+        <br><br>
+        <input id="login-password" type="password" placeholder="Sua senha" required>
+        <br><br>
+        <button class="primary-btn" type="submit">ENTRAR</button>
+      </form>
+    </section>
+
+    <section id="social-app" class="layout hidden">
+      <aside>
+        <div class="panel">
+          <h2>🔎 Encontrar jogadores</h2>
+          <form id="search-form" class="search-box">
+            <input id="search-nick" placeholder="Digite o nick..." required>
+            <button class="primary-btn" type="submit">Buscar</button>
+          </form>
+          <div id="search-results" class="empty">Pesquise jogadores pelo nick.</div>
+        </div>
+
+        <br>
+
+        <div class="panel">
+          <h2>👥 Amigos</h2>
+          <div id="friends-list" class="empty">Carregando amigos...</div>
+        </div>
+
+        <br>
+
+        <div class="panel">
+          <h2>📨 Solicitações</h2>
+          <div id="requests-list" class="empty">Carregando solicitações...</div>
+        </div>
+      </aside>
+
+      <section class="panel" id="chat-area">
+        <div id="chat-header">💬 Direct AGT</div>
+
+        <div class="tabs">
+          <button class="tab active" type="button">Mensagens</button>
+          <button class="tab" type="button" disabled title="Disponível em uma próxima atualização">Voz em grupo — em breve</button>
+        </div>
+
+        <div id="messages" class="empty">
+          Selecione um amigo para começar uma conversa.
+        </div>
+
+        <form id="message-form" class="hidden">
+          <input id="message-input" maxlength="4000" placeholder="Digite sua mensagem..." required>
+          <button class="primary-btn" type="submit">Enviar</button>
+        </form>
+      </section>
+    </section>
+
+    <p id="status">Conectando ao AGT Social...</p>
+  </main>
+  
+<script>
+  // CONEXÃO COM O MESMO PROJETO SUPABASE DO AGT ARENA
+  const SUPABASE_URL = "https://lbknsgfpfxkvypkxbcmy.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA";
+
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  let currentUser = null;
+  let currentProfile = null;
+  let currentConversation = null;
+  let messageChannel = null;
+
+  const $ = (id) => document.getElementById(id);
+
+  function setStatus(message) {
+    $("status").textContent = message;
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    })[char]);
+  }
+
+  function avatarHTML(profile) {
+    const nick = escapeHTML(profile?.nick || "?");
+    if (profile?.avatar_url) {
+      return `<div class="avatar"><img src="${escapeHTML(profile.avatar_url)}" alt="${nick}"></div>`;
+    }
+    return `<div class="avatar">${nick.charAt(0).toUpperCase()}</div>`;
+  }
+
+  async function loadMyProfile() {
+    const { data, error } = await db
+      .from("profiles")
+      .select("id,nick,avatar_url,bio")
+      .eq("id", currentUser.id)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    currentProfile = data;
+    if (!currentProfile) {
+      throw new Error("Seu perfil não foi encontrado. Entre primeiro no AGT Arena e confira seu cadastro.");
+    }
+  }
+
+  async function startSocial() {
+    $("login-panel").classList.add("hidden");
+    $("social-app").classList.remove("hidden");
+
+    try {
+      await loadMyProfile();
+      setStatus("Conectado como " + (currentProfile.nick || "jogador") + ".");
+      await loadFriends();
+      await loadRequests();
+    } catch (error) {
+      setStatus("Não foi possível carregar seu perfil: " + error.message);
+    }
+  }
+
+  async function showLogin() {
+    currentUser = null;
+    currentProfile = null;
+    $("social-app").classList.add("hidden");
+    $("login-panel").classList.remove("hidden");
+    setStatus("Entre com a mesma conta usada no AGT Arena.");
+  }
+
+  $("login-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = $("login-email").value.trim();
+    const password = $("login-password").value;
+
+    setStatus("Entrando na sua conta...");
+
+    const { data, error } = await db.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      setStatus("Erro ao entrar: " + error.message);
+      return;
+    }
+
+    currentUser = data.user;
+    await startSocial();
+  });
+
+  // Verifica se já existe uma sessão compartilhada com o AGT Arena.
+  async function initializeSocial() {
+    const { data, error } = await db.auth.getSession();
+
+    if (error) {
+      setStatus("Erro ao verificar sessão: " + error.message);
+      await showLogin();
+      return;
+    }
+
+    currentUser = data.session?.user || null;
+
+    if (currentUser) {
+      await startSocial();
+    } else {
+      await showLogin();
+    }
+  }
+
+  db.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_OUT") {
+      currentUser = null;
+      currentProfile = null;
+      showLogin();
+    } else if (event === "SIGNED_IN" && session?.user) {
+      currentUser = session.user;
+      startSocial();
+    }
+  });
+
+  // BUSCAR JOGADORES
+  $("search-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!currentUser) return;
+
+    const nick = $("search-nick").value.trim();
+
+    if (nick.length < 2) {
+      $("search-results").textContent = "Digite pelo menos 2 caracteres.";
+      return;
+    }
+
+    $("search-results").textContent = "Buscando jogadores...";
+
+    const { data, error } = await db
+      .from("profiles")
+      .select("id,nick,avatar_url")
+      .ilike("nick", `%${nick}%`)
+      .neq("id", currentUser.id)
+      .limit(15);
+
+    if (error) {
+      $("search-results").textContent = "Erro na busca: " + error.message;
+      return;
+    }
+
+    if (!data?.length) {
+      $("search-results").textContent = "Nenhum jogador encontrado.";
+      return;
+    }
+
+    $("search-results").innerHTML = "";
+
+    for (const profile of data) {
+      const item = document.createElement("div");
+      item.className = "person";
+      item.innerHTML = `
+        ${avatarHTML(profile)}
+        <div class="person-info">
+          <strong>${escapeHTML(profile.nick)}</strong>
+          <small>Jogador AGT</small>
+        </div>
+        <button class="secondary-btn" type="button">Adicionar</button>
+      `;
+
+      item.querySelector("button").addEventListener("click", () => {
+        sendFriendRequest(profile.id, item.querySelector("button"));
+      });
+
+      $("search-results").appendChild(item);
+    }
+  });
+
+  // ENVIAR SOLICITAÇÃO DE AMIZADE
+  async function sendFriendRequest(receiverId, button) {
+    button.disabled = true;
+    button.textContent = "Enviando...";
+
+    const { error } = await db
+      .from("friend_requests")
+      .insert({
+        sender_id: currentUser.id,
+        receiver_id: receiverId,
+        status: "pending"
+      });
+
+    if (error) {
+      button.disabled = false;
+      button.textContent = "Adicionar";
+
+      if (error.code === "23505") {
+        setStatus("Já existe uma solicitação pendente entre esses jogadores.");
+      } else {
+        setStatus("Não foi possível enviar: " + error.message);
+      }
+      return;
+    }
+
+    button.textContent = "Enviado";
+    setStatus("Solicitação de amizade enviada!");
+  }
+
+  // CARREGAR AMIGOS
+  async function loadFriends() {
+    const { data: links, error } = await db
+      .from("friendships")
+      .select("user1_id,user2_id")
+      .or(`user1_id.eq.${currentUser.id},user2_id.eq.${currentUser.id}`);
+
+    if (error) {
+      $("friends-list").textContent = "Erro ao carregar amigos: " + error.message;
+      return;
+    }
+
+    const friendIds = (links || []).map(link =>
+      link.user1_id === currentUser.id ? link.user2_id : link.user1_id
+    );
+
+    if (!friendIds.length) {
+      $("friends-list").textContent = "Você ainda não tem amigos. Use a busca para encontrar jogadores!";
+      return;
+    }
+
+    const { data: profiles, error: profileError } = await db
+      .from("profiles")
+      .select("id,nick,avatar_url")
+      .in("id", friendIds);
+
+    if (profileError) {
+      $("friends-list").textContent = "Erro ao carregar perfis: " + profileError.message;
+      return;
+    }
+
+    $("friends-list").innerHTML = "";
+
+    for (const profile of profiles || []) {
+      const item = document.createElement("div");
+      item.className = "person";
+      item.innerHTML = `
+        ${avatarHTML(profile)}
+        <div class="person-info">
+          <strong>${escapeHTML(profile.nick)}</strong>
+          <small>Amigo</small>
+        </div>
+        <button class="primary-btn" type="button">Conversar</button>
+      `;
+
+      item.querySelector("button").addEventListener("click", () => {
+        openDirect(profile);
+      });
+
+      $("friends-list").appendChild(item);
+    }
+  }
+
+  // SOLICITAÇÕES RECEBIDAS
+  async function loadRequests() {
+    const { data: requests, error } = await db
+      .from("friend_requests")
+      .select("id,sender_id,created_at")
+      .eq("receiver_id", currentUser.id)
+      .eq("status", "pending")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      $("requests-list").textContent = "Erro ao carregar solicitações: " + error.message;
+      return;
+    }
+
+    if (!requests?.length) {
+      $("requests-list").textContent = "Nenhuma solicitação pendente.";
+      return;
+    }
+
+    const senderIds = requests.map(request => request.sender_id);
+
+    const { data: profiles, error: profileError } = await db
+      .from("profiles")
+      .select("id,nick,avatar_url")
+      .in("id", senderIds);
+
+    if (profileError) {
+      $("requests-list").textContent = "Erro ao buscar jogadores: " + profileError.message;
+      return;
+    }
+
+    $("requests-list").innerHTML = "";
+
+    for (const request of requests) {
+      const profile = (profiles || []).find(p => p.id === request.sender_id);
+      if (!profile) continue;
+
+      const item = document.createElement("div");
+      item.className = "person";
+      item.innerHTML = `
+        ${avatarHTML(profile)}
+        <div class="person-info">
+          <strong>${escapeHTML(profile.nick)}</strong>
+          <small>Quer ser seu amigo</small>
+        </div>
+        <button class="primary-btn" type="button">Aceitar</button>
+        <button class="secondary-btn" type="button">Recusar</button>
+      `;
+
+      const buttons = item.querySelectorAll("button");
+
+      buttons[0].addEventListener("click", () => respondFriendRequest(request.id, "accept", item));
+      buttons[1].addEventListener("click", () => respondFriendRequest(request.id, "reject", item));
+
+      $("requests-list").appendChild(item);
+    }
+  }
+
+  async function respondFriendRequest(requestId, action, item) {
+    const rpcName = action === "accept"
+      ? "accept_friend_request"
+      : "reject_friend_request";
+
+    const { error } = await db.rpc(rpcName, {
+      request_id: requestId
+    });
+
+    if (error) {
+      setStatus("Não foi possível responder: " + error.message);
+      return;
+    }
+
+    item.remove();
+    setStatus(action === "accept" ? "Amizade aceita!" : "Solicitação recusada.");
+
+    await loadFriends();
+    await loadRequests();
+  }
+
+  // ABRIR CONVERSA — A PARTE 3 COMPLETA O DIRECT.
+  async function openDirect(profile) {
+    setStatus("Abrindo conversa com " + profile.nick + "...");
+    currentConversation = null;
+    $("chat-header").textContent = "💬 " + profile.nick;
+    $("messages").textContent = "Preparando conversa...";
+    $("message-form").classList.add("hidden");
+
+    const { data, error } = await db.rpc("create_direct_conversation", {
+      other_user_id: profile.id
+    });
+
+    if (error) {
+      $("messages").textContent = "Não foi possível abrir a conversa: " + error.message;
+      setStatus("Verifique se a amizade foi aceita.");
+      return;
+    }
+
+    currentConversation = data;
+    setStatus("Conversa aberta com " + profile.nick + ".");
+    await loadMessages();
+  }
+
+  initializeSocial();
+</script>
+
+<script>
+  // CARREGAR MENSAGENS DA CONVERSA
+  async function loadMessages() {
+    if (!currentConversation) return;
+
+    const { data, error } = await db
+      .from("messages")
+      .select("id,sender_id,body,created_at")
+      .eq("conversation_id", currentConversation)
+      .order("created_at", { ascending: true })
+      .limit(100);
+
+    if (error) {
+      $("messages").textContent = "Erro ao carregar mensagens: " + error.message;
+      return;
+    }
+
+    renderMessages(data || []);
+    $("message-form").classList.remove("hidden");
+  }
+
+  // MOSTRAR MENSAGENS NA TELA
+  function renderMessages(messages) {
+    const area = $("messages");
+    area.innerHTML = "";
+
+    if (!messages.length) {
+      area.textContent = "Conversa iniciada! Envie a primeira mensagem.";
+      return;
+    }
+
+    for (const message of messages) {
+      const item = document.createElement("div");
+
+      item.className = "message" +
+        (message.sender_id === currentUser.id ? " mine" : "");
+
+      const date = new Date(message.created_at);
+      const time = date.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+
+      item.innerHTML = `
+        ${escapeHTML(message.body)}
+        <small>${time}</small>
+      `;
+
+      area.appendChild(item);
+    }
+
+    area.scrollTop = area.scrollHeight;
+  }
+
+  // ENVIAR MENSAGEM
+  $("message-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!currentUser || !currentConversation) return;
+
+    const input = $("message-input");
+    const body = input.value.trim();
+
+    if (!body) return;
+
+    const sendButton = $("message-form").querySelector("button");
+    sendButton.disabled = true;
+    sendButton.textContent = "Enviando...";
+
+    const { error } = await db
+      .from("messages")
+      .insert({
+        conversation_id: currentConversation,
+        sender_id: currentUser.id,
+        body: body
+      });
+
+    sendButton.disabled = false;
+    sendButton.textContent = "Enviar";
+
+    if (error) {
+      setStatus("Erro ao enviar mensagem: " + error.message);
+      return;
+    }
+
+    input.value = "";
+    await loadMessages();
+  });
+
+  // ATUALIZAÇÃO EM TEMPO REAL
+  async function subscribeMessages() {
+    if (messageChannel) {
+      await db.removeChannel(messageChannel);
+      messageChannel = null;
+    }
+
+    if (!currentConversation) return;
+
+    messageChannel = db
+      .channel("agt-social-messages-" + currentConversation)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "messages",
+          filter: "conversation_id=eq." + currentConversation
+        },
+        async (payload) => {
+          if (
+            payload.new &&
+            payload.new.conversation_id === currentConversation
+          ) {
+            await loadMessages();
+          }
+        }
+      )
+      .subscribe((status) => {
+        if (status === "SUBSCRIBED") {
+          setStatus("Direct conectado em tempo real.");
+        } else if (status === "CHANNEL_ERROR") {
+          setStatus("Não foi possível conectar as mensagens em tempo real.");
+        }
+      });
+  }
+
+  // COMPLETA A ABERTURA DA CONVERSA
+  const originalOpenDirect = openDirect;
+
+  openDirect = async function(profile) {
+    await originalOpenDirect(profile);
+
+    if (currentConversation) {
+      await subscribeMessages();
+    }
+  };
+</script>
+
+</body>
+</html>
