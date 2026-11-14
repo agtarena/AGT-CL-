@@ -643,7 +643,7 @@ footer {
 
       const melhores = new Map();
 
-     capturasResult.forEach(registro => {
+   capturasResult.forEach(registro => {
   const nick = (registro.nick || '').trim();
   const clan = (registro.clan || '').trim().toUpperCase();
 
@@ -654,13 +654,21 @@ footer {
   if(!nick || !integranteAGT) return;
 
   const chave = nick.toLowerCase();
-          melhores.set(chave,{
-            nick,
-            score,
-            data:registro.source_date
-          });
-        }
-      });
+  const score = Number(registro.score || 0);
+
+  if(!Number.isFinite(score)) return;
+
+  if(
+    !melhores.has(chave) ||
+    score > melhores.get(chave).score
+  ) {
+    melhores.set(chave,{
+      nick,
+      score,
+      data:registro.source_date
+    });
+  }
+});
 
       const ranking = Array.from(melhores.values())
         .sort((a,b) => b.score-a.score);
