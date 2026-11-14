@@ -1862,16 +1862,41 @@ document.getElementById('agt-forgot-password').addEventListener('click', async f
   
   /* SAIR DA CONTA */  
   
-  document.getElementById('agt-logout').addEventListener('click', async function() {  
-    const {error} = await db.auth.signOut();  
-  
-    if (error) {  
-      avisarPerfil('Erro ao sair: ' + error.message);  
-    } else {  
-      avisar('Você saiu da sua conta.');  
-      fecharMenu();  
-    }  
-  });  
+ 
+/* RECUPERAÇÃO DE SENHA */
+
+const forgotPasswordButton = document.getElementById('agt-forgot-password');
+
+if (forgotPasswordButton) {
+  forgotPasswordButton.addEventListener('click', async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('agt-login-email').value.trim();
+
+    if (!email) {
+      avisar('Digite seu e-mail no campo de login primeiro.');
+      return;
+    }
+
+    try {
+      avisar('Enviando solicitação de recuperação...');
+
+      const { error } = await db.auth.resetPasswordForEmail(email, {
+        redirectTo: 'https://cimadomkayque-ui.github.io/AGT-ARENA/'
+      });
+
+      if (error) {
+        avisar('Erro ao enviar: ' + error.message);
+        return;
+      }
+
+      avisar('Solicitação enviada! Verifique sua caixa de entrada e também o spam.');
+    } catch (error) {
+      avisar('Erro inesperado: ' + error.message);
+    }
+  });
+}
+
   
    
   
