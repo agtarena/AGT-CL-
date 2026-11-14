@@ -1579,89 +1579,99 @@ footer span { color:var(--neon); }
     });
   });
 
-  /* ELEMENTOS DA CONTA */
+ 
+/* ELEMENTOS DA CONTA */
 
-  const loggedOutArea = document.getElementById('logged-out-area');
-  const loggedInArea = document.getElementById('logged-in-area');
-  const authMessage = document.getElementById('agt-message');
-  const profileMessage = document.getElementById('profile-message');
-  const profileNick = document.getElementById('profile-nick');
-  const profileEmail = document.getElementById('profile-email');
-  const avatarContainer = document.getElementById('profile-avatar-container');
-  const avatarFile = document.getElementById('agt-avatar-file');
+const loggedOutArea = document.getElementById('logged-out-area');
+const loggedInArea = document.getElementById('logged-in-area');
+const authMessage = document.getElementById('agt-message');
+const profileMessage = document.getElementById('profile-message');
+const profileNick = document.getElementById('profile-nick');
+const profileEmail = document.getElementById('profile-email');
+const avatarContainer = document.getElementById('profile-avatar-container');
+const avatarFile = document.getElementById('agt-avatar-file');
 
-  let currentUser = null;
+let currentUser = null;
 
-  function avisar(texto) {
-    authMessage.textContent = texto;
+function avisar(texto) {
+  authMessage.textContent = texto;
+}
+
+function avisarPerfil(texto) {
+  profileMessage.textContent = texto;
+}
+
+function mostrarAvatar(url) {
+  avatarContainer.replaceChildren();
+
+  if (url) {
+    const img = document.createElement('img');
+    img.className = 'profile-avatar';
+    img.src = url;
+    img.alt = 'Foto de perfil';
+
+    img.onerror = function() {
+      avatarContainer.innerHTML =
+        '<div class="profile-avatar-placeholder">🐍</div>';
+    };
+
+    avatarContainer.appendChild(img);
+  } else {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'profile-avatar-placeholder';
+    placeholder.textContent = '🐍';
+    avatarContainer.appendChild(placeholder);
+  }
+}
+
+function atualizarInterfaceConta(session) {
+  const user = session?.user || null;
+  currentUser = user;
+
+  loggedOutArea.hidden = !!user;
+  loggedInArea.hidden = !user;
+
+  if (!user) {
+    mostrarAvatar(null);
+    return;
   }
 
-  function avisarPerfil(texto) {
-    profileMessage.textContent = texto;
+  const nick = user.user_metadata?.nick ||
+    user.email?.split('@')[0] ||
+    'Jogador AGT';
+
+  profileNick.textContent = nick;
+  profileEmail.textContent = user.email || '';
+
+  mostrarAvatar(user.user_metadata?.avatar_url || null);
+
+  carregarPerfilPublico(user);
+}
+
+/* CARREGAR PERFIL PÚBLICO */
+
+async function carregarPerfilPublico(user) {
+  const { data, error } = await db
+    .from('profiles')
+    .select('nick, avatar_url')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Erro ao carregar perfil público:', error.message);
+    return;
   }
 
-  function mostrarAvatar(url) {
-    avatarContainer.replaceChildren();
+  if (data) {
+    profileNick.textContent =
+      data.nick || user.user_metadata?.nick ||
+      user.email?.split('@')[0] || 'Jogador AGT';
 
-    if (url) {
-      const img = document.createElement('img');
-      img.className = 'profile-avatar';
-      img.src = url;
-      img.alt = 'Foto de perfil';
-      img.onerror = function() {
-        avatarContainer.innerHTML = '<div class="profile-avatar-placeholder">🐍</div>';
-      };
-      avatarContainer.appendChild(img);
-    } else {
-      const placeholder = document.createElement('div');
-      placeholder.className = 'profile-avatar-placeholder';
-      placeholder.textContent = '🐍';
-      avatarContainer.appendChild(placeholder);
-    }
+    mostrarAvatar(
+      data.avatar_url || user.user_metadata?.avatar_url || null
+    );
   }
-
-  function atualizarInterfaceConta(session) {
-    const user = session?.user || null;
-    currentUser = user;
-
-    loggedOutArea.hidden = !!user;
-    loggedInArea.hidden = !user;
-
-    if (!user) {
-      mostrarAvatar(null);
-      return;
-    }
-
-    const nick = user.user_metadata?.nick ||
-      user.email?.split('@')[0] ||
-      'Jogador AGT';
-
-    profileNick.textContent = nick;
-    profileEmail.textContent = user.email || '';
-    mostrarAvatar(user.user_metadata?.avatar_url || null);
-
-    carregarPerfilPublico(user);
-  }
-
-  /* CARREGAR PERFIL PÚBLICO */
-
-  async function carregarPerfilPublico(user) {
-    const {data,error} = await db
-      .from('profiles')
-      .select('nick, avatar_url')
-      .eq('id',user.id)
-      .maybeSingle();
-
-    if (error) {
-      console.warn('Perfil público ainda não configurado:',error.message);
-      return;
-    }
-
-    if (data) {
-      profileNick.textContent = data.nick || user.user_metadata?.nick || user.email;
-      mostrarAvatar(data.avatar_url || user.user_metadata?.avatar_url || null);
-    }
-  }
+}
 
   /* CADASTRO */
 
@@ -1681,7 +1691,9 @@ footer span { color:var(--neon); }
     button.disabled = true;
     avisar('Criando sua conta...');
 
-    try {
+   let etapa = 'envio da imagem';
+
+try {
       const {data,error} = await db.auth.signUp({
         email,
         password,
