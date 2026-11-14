@@ -833,15 +833,15 @@ function showMessage(id,message,isError=false){
 function normalizeNick(value){
   let nick=String(value||'').trim();
   nick=nick.replace(/^AGT\s*\|\s*/i,'').trim();
-  return nick?'AGT | '+nick:'';
+  return nick?'AGT| '+nick:'';
 }
 
 function nickInputValue(value){
-  return String(value||'').replace(/^AGT\s*\|\s*/i,'').trim();
+  return String(value||'').trim();
 }
 
 function displayNickValue(value){
-  return String(value||'').replace(/^AGT\s*\|\s*/i,'').trim();
+  return String(value||'').trim();
 }
 
 function renderAvatar(url){
