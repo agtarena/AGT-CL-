@@ -179,6 +179,45 @@ input:focus{border-color:var(--purple)}
 }
 .mic-btn{background:#302440;color:white;border:1px solid var(--border);padding:9px 12px;border-radius:8px}
 .mic-btn.muted{background:rgba(255,100,124,.15);border-color:var(--danger);color:#ff9baa}
+/* NOVA INTERFACE AGT SOCIAL */
+.layout{grid-template-columns:360px minmax(0,1fr);gap:18px}
+.social-sidebar{min-width:0}
+.search-panel{position:relative;margin-bottom:14px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.search-box{align-items:center;gap:9px;margin:0;padding:5px 10px;border:1px solid var(--border);border-radius:12px;background:#0d0915}
+.search-icon{font-size:23px;color:var(--purple-light);line-height:1}
+.search-box input{border:0;background:transparent;padding:10px 2px;min-width:0;flex:1;box-shadow:none}
+.search-box input:focus{border:0;box-shadow:none}
+.search-submit{border:0;background:rgba(155,92,255,.16);color:var(--purple-light);border-radius:8px;padding:9px 11px;font-size:12px;font-weight:800}
+.search-results{padding:0 2px;max-height:220px;overflow:auto}
+.community-panel{padding:17px 15px}
+.community-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.community-heading h2{font-size:20px;margin:4px 0 0}
+.eyebrow,.list-caption{font-size:10px;letter-spacing:1.5px;font-weight:900;color:var(--muted)}
+.community-menu-wrap{position:relative}
+.menu-dots{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);color:white;background:#211a2d;font-size:23px;line-height:1}
+.community-menu{position:absolute;right:0;top:42px;z-index:30;width:180px;padding:6px;background:#1a1425;border:1px solid var(--border);border-radius:11px;box-shadow:0 14px 35px rgba(0,0,0,.45)}
+.community-menu button{width:100%;padding:11px 10px;border:0;border-radius:7px;text-align:left;color:var(--text);background:transparent;font-size:13px}
+.community-menu button:hover{background:rgba(155,92,255,.15);color:var(--purple-light)}
+.main-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:4px;border-radius:10px;background:#0d0915;margin-bottom:15px}
+.main-tab{border:0;border-radius:8px;padding:10px 8px;color:var(--muted);background:transparent;font-weight:800;font-size:13px}
+.main-tab.active{color:#fff;background:linear-gradient(135deg,var(--purple2),#4b267b);box-shadow:0 4px 14px rgba(155,92,255,.2)}
+.main-view{display:none}
+.main-view.active{display:block}
+.list-caption{margin:4px 0 8px}
+#recent-list,#friends-list,#requests-list{min-height:180px}
+#recent-list .conversation{cursor:pointer}
+.general-call-card{margin-top:8px;padding:17px;background:radial-gradient(circle at 90% 0,rgba(155,92,255,.25),transparent 42%),linear-gradient(145deg,rgba(45,29,68,.98),rgba(17,12,26,.98))}
+.general-call-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:rgba(155,92,255,.18);font-size:25px;margin-bottom:12px}
+.general-call-card h3{font-size:18px}
+.general-call-card p{font-size:13px}
+.private-call-hint{margin-top:13px;padding:13px;border:1px solid var(--border);border-radius:11px;background:rgba(9,6,17,.45)}
+.private-call-hint strong{font-size:13px}
+.private-call-hint p{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}
+#chat-area{min-height:590px}
+#chat-header{min-height:48px}
+#messages{min-height:330px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}#chat-area{min-height:480px}}
+@media(max-width:520px){.community-panel{padding:14px}.search-submit{padding:9px}#messages{min-height:240px}}
 @media(max-width:850px){.layout{grid-template-columns:1fr}}
 @media(max-width:520px){
   header{padding:11px 4%}main{margin-top:23px}.panel{padding:15px}
@@ -214,48 +253,66 @@ input:focus{border-color:var(--purple)}
   </section>
 
   <section id="social-app" class="layout hidden">
-    <aside>
-      <div class="panel">
-        <h2>🔎 Encontrar jogadores</h2>
+    <aside class="social-sidebar">
+      <div class="search-panel">
         <form id="search-form" class="search-box">
+          <span class="search-icon" aria-hidden="true">⌕</span>
           <input id="search-nick" placeholder="Digite o nick..." required>
-          <button class="primary-btn" type="submit">Buscar</button>
+          <button class="search-submit" type="submit" aria-label="Buscar jogador">Buscar</button>
         </form>
-        <div id="search-results" class="empty">Pesquise jogadores pelo nick.</div>
+        <div id="search-results" class="search-results empty">Pesquise jogadores pelo nick.</div>
       </div>
 
-      <div class="panel">
-        <h2>👥 Comunidade</h2>
-        <div class="tabs">
-          <button class="tab active" data-list-tab="friends" type="button">Amigos</button>
-          <button class="tab" data-list-tab="recent" type="button">Conversas</button>
-          <button class="tab" data-list-tab="requests" type="button">Solicitações</button>
-        </div>
-        <div id="friends-list" class="section-view active empty">Carregando amigos...</div>
-        <div id="recent-list" class="section-view empty">Carregando conversas...</div>
-        <div id="requests-list" class="section-view empty">Carregando solicitações...</div>
-      </div>
-
-      <div class="panel">
-        <h2>🌐 Ligação geral AGT</h2>
-        <div class="call-card">
-          <h3>Sala comunitária</h3>
-          <p>Entre na sala para conversar por voz com outros membros da AGT.</p>
-          <div class="call-actions">
-            <button id="join-general-call" class="primary-btn" type="button">🎙️ Entrar na sala</button>
-            <button id="leave-general-call" class="danger-btn" type="button" disabled>Sair da sala</button>
+      <div class="panel community-panel">
+        <div class="community-heading">
+          <div><span class="eyebrow">COMUNIDADE AGT</span><h2>Mensagens</h2></div>
+          <div class="community-menu-wrap">
+            <button id="community-menu-toggle" class="menu-dots" type="button" aria-label="Abrir menu da comunidade" aria-expanded="false">⋮</button>
+            <div id="community-menu" class="community-menu hidden">
+              <button type="button" data-list-tab="friends">👥 Amigos</button>
+              <button type="button" data-list-tab="requests">✉️ Solicitações</button>
+            </div>
           </div>
-          <div id="general-call-status" class="call-status">Sala não conectada.</div>
-          <div id="general-participants" class="participant-list"></div>
-          <div class="call-controls">
-            <button id="general-mute" class="mic-btn hidden" type="button">🎙️ Microfone ligado</button>
+        </div>
+
+        <div class="main-tabs" role="tablist" aria-label="Seções do AGT Social">
+          <button class="main-tab active" data-main-tab="conversations" type="button">Conversas</button>
+          <button class="main-tab" data-main-tab="calls" type="button">Chamadas</button>
+        </div>
+
+        <div id="conversations-view" class="main-view active">
+          <div class="list-caption">SUAS CONVERSAS</div>
+          <div id="recent-list" class="section-view active empty">Carregando conversas...</div>
+          <div id="friends-list" class="section-view empty">Carregando amigos...</div>
+          <div id="requests-list" class="section-view empty">Carregando solicitações...</div>
+        </div>
+
+        <div id="calls-view" class="main-view">
+          <div class="list-caption">CHAMADA DA COMUNIDADE</div>
+          <div class="call-card general-call-card">
+            <div class="general-call-icon">🌐</div>
+            <h3>Ligação geral AGT</h3>
+            <p>Uma sala de voz comunitária para conversar com os membros do clã durante as partidas.</p>
+            <div class="call-actions">
+              <button id="join-general-call" class="primary-btn" type="button">🎙️ Entrar na sala</button>
+              <button id="leave-general-call" class="danger-btn" type="button" disabled>Sair da sala</button>
+            </div>
+            <div id="general-call-status" class="call-status">Sala não conectada.</div>
+            <div id="general-participants" class="participant-list"></div>
+            <div class="call-controls">
+              <button id="general-mute" class="mic-btn hidden" type="button">🎙️ Microfone ligado</button>
+            </div>
+          </div>
+          <div class="private-call-hint">
+            <strong>📞 Ligações privadas</strong>
+            <p>Abra uma conversa e toque em “Ligar” para falar diretamente com um amigo.</p>
           </div>
         </div>
       </div>
     </aside>
 
     <section class="panel" id="chat-area">
-      <div id="chat-header"><span>💬 Direct AGT</span></div>
+      <div id="chat-header"><span>💬 Selecione uma conversa</span></div>
 
       <div id="incoming-call" class="incoming-call hidden">
         <p id="incoming-call-text">Você está recebendo uma ligação.</p>
@@ -320,6 +377,8 @@ let activeGeneralRoom=null;
 let privatePeer=null;
 let localStream=null;
 let generalPeers=new Map();
+let generalPeerPromises=new Map();
+let pendingGeneralIce=new Map();
 let remoteStreams=new Map();
 
 let privateCallActive=false;
@@ -359,16 +418,44 @@ function avatarHTML(profile,showOnline=false){
 }
 
 function setListTab(name){
-  document.querySelectorAll("[data-list-tab]").forEach(button=>{
-    button.classList.toggle("active",button.dataset.listTab===name);
-  });
   ["friends","recent","requests"].forEach(id=>{
     $(id+"-list").classList.toggle("active",id===name);
   });
+  if(name==="friends"||name==="requests"){
+    $("community-menu").classList.add("hidden");
+    $("community-menu-toggle").setAttribute("aria-expanded","false");
+    setMainTab("conversations");
+  }
+}
+
+function setMainTab(name){
+  document.querySelectorAll("[data-main-tab]").forEach(button=>{
+    button.classList.toggle("active",button.dataset.mainTab===name);
+  });
+  $("conversations-view").classList.toggle("active",name==="conversations");
+  $("calls-view").classList.toggle("active",name==="calls");
+  if(name==="conversations" && !$("friends-list").classList.contains("active") && !$("requests-list").classList.contains("active")){
+    $("recent-list").classList.add("active");
+  }
 }
 
 document.querySelectorAll("[data-list-tab]").forEach(button=>{
   button.addEventListener("click",()=>setListTab(button.dataset.listTab));
+});
+document.querySelectorAll("[data-main-tab]").forEach(button=>{
+  button.addEventListener("click",()=>setMainTab(button.dataset.mainTab));
+});
+$("community-menu-toggle").addEventListener("click",()=>{
+  const menu=$("community-menu");
+  const opening=menu.classList.contains("hidden");
+  menu.classList.toggle("hidden",!opening);
+  $("community-menu-toggle").setAttribute("aria-expanded",String(opening));
+});
+document.addEventListener("click",event=>{
+  if(!event.target.closest(".community-menu-wrap")){
+    $("community-menu").classList.add("hidden");
+    $("community-menu-toggle").setAttribute("aria-expanded","false");
+  }
 });
 
 /* =========================================================
@@ -825,8 +912,25 @@ async function sendCallSignal(roomId,toUser,eventType,payload={}){
   if(error)throw error;
 }
 
-function subscribeCallSignals(roomId,callback){
-  return db.channel("agt-call-signals-"+roomId+"-"+currentUser.id)
+function waitForRealtimeSubscription(channel,label="canal"){
+  return new Promise((resolve,reject)=>{
+    let settled=false;
+    const timeout=setTimeout(()=>{
+      if(!settled){settled=true;db.removeChannel(channel);reject(new Error("Tempo esgotado ao conectar "+label+"."))}
+    },15000);
+    channel.subscribe(status=>{
+      if(settled)return;
+      if(status==="SUBSCRIBED"){
+        settled=true;clearTimeout(timeout);resolve(channel);
+      }else if(status==="CHANNEL_ERROR"||status==="TIMED_OUT"||status==="CLOSED"){
+        settled=true;clearTimeout(timeout);db.removeChannel(channel);reject(new Error("Não foi possível conectar "+label+" ("+status+")."));
+      }
+    });
+  });
+}
+
+async function subscribeCallSignals(roomId,callback){
+  const channel=db.channel("agt-call-signals-"+roomId+"-"+currentUser.id)
     .on("postgres_changes",{
       event:"INSERT",schema:"public",table:"call_signals",
       filter:"room_id=eq."+roomId
@@ -834,8 +938,9 @@ function subscribeCallSignals(roomId,callback){
       const signal=payload.new;
       if(signal.from_user===currentUser.id)return;
       if(signal.to_user&&signal.to_user!==currentUser.id)return;
-      callback(signal);
-    }).subscribe();
+      Promise.resolve(callback(signal)).catch(error=>console.error("Erro ao processar sinal:",error));
+    });
+  return waitForRealtimeSubscription(channel,"sinalização da chamada");
 }
 
 /* =========================================================
@@ -914,7 +1019,7 @@ async function startPrivateCall(){
 
 async function subscribePrivateSignals(roomId){
   if(privateSignalChannel){await db.removeChannel(privateSignalChannel);privateSignalChannel=null}
-  privateSignalChannel=subscribeCallSignals(roomId,handlePrivateSignal);
+  privateSignalChannel=await subscribeCallSignals(roomId,handlePrivateSignal);
 }
 
 async function createPrivatePeer(roomId,remoteUser){
@@ -1086,8 +1191,25 @@ async function joinGeneralCall(){
     setGeneralStatus("Você entrou na sala geral AGT.");
   }catch(error){
     setGeneralStatus("Erro ao entrar: "+error.message);
+    const failedRoom=activeGeneralRoom;
+    if(generalSignalChannel){await db.removeChannel(generalSignalChannel);generalSignalChannel=null}
+    if(generalParticipantChannel){await db.removeChannel(generalParticipantChannel);generalParticipantChannel=null}
+    for(const [userId,peer] of generalPeers){
+      peer.close();
+      removeRemoteAudio("general-"+userId);
+    }
+    generalPeers.clear();
+    generalPeerPromises.clear();
+    pendingGeneralIce.clear();
+    if(failedRoom){
+      try{await db.rpc("leave_call_room",{p_room_id:failedRoom})}catch(cleanupError){}
+    }
+    activeGeneralRoom=null;
+    generalCallActive=false;
     $("join-general-call").disabled=false;
     $("leave-general-call").disabled=true;
+    $("general-mute").classList.add("hidden");
+    $("general-participants").innerHTML="";
     stopLocalStream();
   }
 }
@@ -1103,21 +1225,16 @@ async function subscribeGeneralCall(roomId){
     generalParticipantChannel=null;
   }
 
-  generalSignalChannel=subscribeCallSignals(
-    roomId,
-    handleGeneralSignal
-  );
+  generalSignalChannel=await subscribeCallSignals(roomId,handleGeneralSignal);
 
-  generalParticipantChannel=db.channel("agt-general-members-"+roomId)
+  const participantChannel=db.channel("agt-general-members-"+roomId)
     .on("postgres_changes",{
       event:"*",
       schema:"public",
       table:"call_participants",
       filter:"room_id=eq."+roomId
-    },async()=>{
-      await loadGeneralParticipants();
-    })
-    .subscribe();
+    },async()=>{await loadGeneralParticipants()});
+  generalParticipantChannel=await waitForRealtimeSubscription(participantChannel,"lista de participantes");
 }
 
 async function loadGeneralParticipants(){
@@ -1154,8 +1271,9 @@ async function loadGeneralParticipants(){
   }
 
   for(const userId of remoteIds){
-    if(!generalPeers.has(userId)&&currentUser.id<userId){
-      await startGeneralPeer(userId,true);
+    if(!generalPeers.has(userId)&&!generalPeerPromises.has(userId)&&currentUser.id<userId){
+      try{await startGeneralPeer(userId,true)}
+      catch(error){console.error("Falha ao iniciar áudio com participante:",error)}
     }
   }
 
@@ -1163,6 +1281,8 @@ async function loadGeneralParticipants(){
     if(!remoteIds.includes(userId)){
       peer.close();
       generalPeers.delete(userId);
+      generalPeerPromises.delete(userId);
+      pendingGeneralIce.delete(userId);
       removeRemoteAudio("general-"+userId);
     }
   }
@@ -1173,112 +1293,94 @@ async function loadGeneralParticipants(){
 }
 
 async function startGeneralPeer(remoteUser,createOffer){
-  if(!generalCallActive||generalPeers.has(remoteUser))return;
+  if(!generalCallActive)return null;
+  if(generalPeers.has(remoteUser))return generalPeers.get(remoteUser);
+  if(generalPeerPromises.has(remoteUser))return generalPeerPromises.get(remoteUser);
 
-  const stream=await getLocalStream();
-  const peer=new RTCPeerConnection(RTC_CONFIG);
+  const creation=(async()=>{
+    const stream=await getLocalStream();
+    if(!generalCallActive)throw new Error("A chamada geral foi encerrada.");
+    const peer=new RTCPeerConnection(RTC_CONFIG);
+    stream.getTracks().forEach(track=>peer.addTrack(track,stream));
 
-  stream.getTracks().forEach(track=>{
-    peer.addTrack(track,stream);
-  });
+    peer.ontrack=event=>{
+      const incomingStream=event.streams?.[0];
+      if(incomingStream)addRemoteAudio("general-"+remoteUser,incomingStream);
+    };
+    peer.onicecandidate=event=>{
+      if(event.candidate&&activeGeneralRoom){
+        sendCallSignal(activeGeneralRoom,remoteUser,"ice_candidate",{candidate:event.candidate.toJSON()})
+          .catch(error=>console.error("Erro ao enviar ICE:",error));
+      }
+    };
+    peer.onconnectionstatechange=()=>{
+      if(peer.connectionState==="connected")setGeneralStatus("Áudio conectado com os participantes da sala.");
+      else if(peer.connectionState==="failed")setGeneralStatus("Falha na conexão de áudio. Verifique a rede e tente entrar novamente.");
+    };
 
-  peer.ontrack=event=>{
-    addRemoteAudio("general-"+remoteUser,event.streams[0]);
-  };
-
-  peer.onicecandidate=event=>{
-    if(event.candidate){
-      sendCallSignal(
-        activeGeneralRoom,
-        remoteUser,
-        "ice_candidate",
-        {candidate:event.candidate.toJSON()}
-      ).catch(error=>{
-        console.error("Erro ao enviar ICE:",error);
-      });
-    }
-  };
-
-  peer.onconnectionstatechange=()=>{
-    if(peer.connectionState==="failed"){
-      setGeneralStatus(
-        "Falha na conexão de áudio com um participante."
-      );
-    }
-  };
-
-  generalPeers.set(remoteUser,peer);
-
-  if(createOffer){
-    try{
+    generalPeers.set(remoteUser,peer);
+    if(createOffer){
       const offer=await peer.createOffer();
       await peer.setLocalDescription(offer);
-
-      await sendCallSignal(
-        activeGeneralRoom,
-        remoteUser,
-        "offer",
-        {description:peer.localDescription.toJSON()}
-      );
-    }catch(error){
-      console.error("Erro ao iniciar conexão geral:",error);
+      await sendCallSignal(activeGeneralRoom,remoteUser,"offer",{description:peer.localDescription.toJSON()});
     }
-  }
+    return peer;
+  })();
 
-  return peer;
+  generalPeerPromises.set(remoteUser,creation);
+  try{return await creation}
+  catch(error){
+    const failedPeer=generalPeers.get(remoteUser);
+    if(failedPeer){failedPeer.close();generalPeers.delete(remoteUser)}
+    throw error;
+  }finally{generalPeerPromises.delete(remoteUser)}
 }
 
+async function flushGeneralIce(remoteUser,peer){
+  const queued=pendingGeneralIce.get(remoteUser)||[];
+  pendingGeneralIce.delete(remoteUser);
+  for(const candidate of queued)await peer.addIceCandidate(candidate);
+}
+
+async function queueOrAddGeneralIce(remoteUser,peer,candidate){
+  if(peer?.remoteDescription){await peer.addIceCandidate(candidate);return}
+  const queue=pendingGeneralIce.get(remoteUser)||[];
+  queue.push(candidate);
+  pendingGeneralIce.set(remoteUser,queue);
+}
 async function handleGeneralSignal(signal){
   if(!generalCallActive)return;
-
   const data=signal.payload||{};
   const remoteUser=signal.from_user;
-
   try{
     let peer=generalPeers.get(remoteUser);
-
     if(signal.event_type==="offer"){
-      if(!peer){
-        peer=await startGeneralPeer(remoteUser,false);
-      }
-
+      if(!peer)peer=await startGeneralPeer(remoteUser,false);
+      if(!peer)return;
       await peer.setRemoteDescription(data.description);
-
+      await flushGeneralIce(remoteUser,peer);
       const answer=await peer.createAnswer();
       await peer.setLocalDescription(answer);
-
-      await sendCallSignal(
-        activeGeneralRoom,
-        remoteUser,
-        "answer",
-        {description:peer.localDescription.toJSON()}
-      );
-
+      await sendCallSignal(activeGeneralRoom,remoteUser,"answer",{description:peer.localDescription.toJSON()});
     }else if(signal.event_type==="answer"){
       if(peer&&!peer.currentRemoteDescription){
         await peer.setRemoteDescription(data.description);
+        await flushGeneralIce(remoteUser,peer);
       }
-
-    }else if(signal.event_type==="ice_candidate"){
-      if(peer&&data.candidate){
-        await peer.addIceCandidate(data.candidate);
-      }
-
+    }else if(signal.event_type==="ice_candidate"&&data.candidate){
+      if(!peer&&generalPeerPromises.has(remoteUser))peer=await generalPeerPromises.get(remoteUser);
+      await queueOrAddGeneralIce(remoteUser,peer,data.candidate);
     }else if(signal.event_type==="hangup"){
-      if(peer){
-        peer.close();
-        generalPeers.delete(remoteUser);
-        removeRemoteAudio("general-"+remoteUser);
-      }
-
+      if(peer){peer.close();generalPeers.delete(remoteUser);removeRemoteAudio("general-"+remoteUser)}
+      generalPeerPromises.delete(remoteUser);
+      pendingGeneralIce.delete(remoteUser);
       await loadGeneralParticipants();
     }
-
   }catch(error){
     console.error("Erro na sinalização da sala geral:",error);
+    setGeneralStatus("Erro ao conectar áudio: "+error.message);
   }
 }
-
 async function leaveGeneralCall(){
   const roomId=activeGeneralRoom;
 
@@ -1301,6 +1403,8 @@ async function leaveGeneralCall(){
   }
 
   generalPeers.clear();
+  generalPeerPromises.clear();
+  pendingGeneralIce.clear();
 
   if(generalSignalChannel){
     await db.removeChannel(generalSignalChannel);
