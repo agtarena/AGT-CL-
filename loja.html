@@ -1,0 +1,1015 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090611">
+<title>AGT Store | AGT Arena</title>
+
+<style>
+:root {
+  --bg: #090611;
+  --panel: #151020;
+  --purple: #8b35ff;
+  --neon: #bd75ff;
+  --line: #49266b;
+  --muted: #aaa0b9;
+  --green: #7dffbd;
+  --white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% -15%, #351653 0, transparent 42%),
+    var(--bg);
+  color: var(--white);
+  font-family: Arial, sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+header {
+  height: 76px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #392052;
+  background: #090611ed;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  font-weight: 1000;
+  letter-spacing: 2px;
+  font-size: 25px;
+  background: linear-gradient(180deg,#fff,#b8bdca,#fff,#778394);
+  color: transparent;
+  background-clip: text;
+}
+
+.brand span {
+  color: #bd75ff;
+}
+
+.back {
+  color: #e7d8f8;
+  text-decoration: none;
+  border: 1px solid #63328d;
+  border-radius: 9px;
+  padding: 10px 14px;
+  font-size: 13px;
+  background: #21152f;
+}
+
+.back:hover {
+  border-color: var(--neon);
+  box-shadow: 0 0 15px #8b35ff44;
+}
+
+main {
+  width: min(1180px,92%);
+  margin: 0 auto;
+  padding: 38px 0 70px;
+}
+
+.hero {
+  text-align: center;
+  padding: 28px 12px 34px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #c99bff;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(34px,6vw,58px);
+  margin: 12px 0 10px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 25px #8b35ff66;
+}
+
+.hero p {
+  max-width: 620px;
+  margin: auto;
+  color: #bdb1ca;
+  line-height: 1.65;
+  font-size: 14px;
+}
+
+.store-info {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.pill {
+  border: 1px solid #553477;
+  background: #1b1128;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+  color: #d9c6ef;
+}
+
+.pill b {
+  color: var(--green);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.sidebar,
+.content-panel {
+  background: linear-gradient(145deg,#191126,#100b19);
+  border: 1px solid #43265f;
+  border-radius: 16px;
+}
+
+.sidebar {
+  padding: 17px;
+  position: sticky;
+  top: 94px;
+}
+
+.sidebar h2 {
+  font-size: 12px;
+  color: #c99bff;
+  letter-spacing: 2px;
+  margin: 4px 8px 14px;
+}
+
+.category {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 11px;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #c8bdd3;
+  text-align: left;
+  cursor: pointer;
+  margin: 3px 0;
+  font-size: 13px;
+}
+
+.category .ico {
+  width: 24px;
+  text-align: center;
+  font-size: 17px;
+}
+
+.category:hover,
+.category.active {
+  background: #32194b;
+  border-color: #7540a1;
+  color: #fff;
+}
+
+.side-note {
+  border-top: 1px solid #39234f;
+  margin-top: 16px;
+  padding: 15px 8px 4px;
+  color: #93869f;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.content-panel {
+  padding: 20px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 19px;
+  flex-wrap: wrap;
+}
+
+.toolbar h2 {
+  font-size: 19px;
+}
+
+.toolbar p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.sort {
+  background: #21172e;
+  color: #eee;
+  border: 1px solid #563078;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 14px;
+}
+
+.item {
+  overflow: hidden;
+  border: 1px solid #3e2854;
+  border-radius: 13px;
+  background: linear-gradient(160deg,#21152f,#110c19);
+  transition: .2s;
+}
+
+.item:hover {
+  transform: translateY(-3px);
+  border-color: #9d5bd1;
+  box-shadow: 0 10px 25px #0005,0 0 16px #8b35ff22;
+}
+
+.preview {
+  height: 155px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%,#57277c55,transparent 62%),
+    linear-gradient(135deg,#21152f,#100b19);
+}
+
+.preview:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,transparent 25%,#ffffff09 50%,transparent 75%);
+  pointer-events: none;
+}
+
+.avatar {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+  background: linear-gradient(145deg,#38204f,#100b19);
+  position: relative;
+  z-index: 1;
+}
+
+.frame-violet {
+  border: 4px solid #bd75ff;
+  box-shadow: 0 0 0 3px #55277a,0 0 22px #bd75ff99;
+}
+
+.frame-gold {
+  border: 4px solid #ffd36b;
+  box-shadow: 0 0 0 3px #80531e,0 0 22px #ffc34f99;
+}
+
+.frame-ice {
+  border: 4px solid #a9f1ff;
+  box-shadow: 0 0 0 3px #32728a,0 0 22px #76e8ff99;
+}
+
+.bg-nebula {
+  background: radial-gradient(circle at 30% 35%,#b35aff,#39205f 38%,#090611 78%);
+}
+
+.bg-ice {
+  background: radial-gradient(circle at 70% 25%,#9ff4ff,#23506d 40%,#090d19 80%);
+}
+
+.bg-fire {
+  background: radial-gradient(circle at 50% 30%,#ffb45b,#8c263b 42%,#160817 80%);
+}
+
+.nick {
+  font-size: 21px;
+  font-weight: 1000;
+  letter-spacing: 1px;
+  z-index: 1;
+  text-shadow: 0 0 14px currentColor;
+}
+
+.nick-neon { color: #d9a3ff; }
+.nick-gold { color: #ffd36b; }
+.nick-ice { color: #a9f1ff; }
+
+.preview-label {
+  position: absolute;
+  bottom: 9px;
+  left: 10px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #d9c7e9;
+  text-transform: uppercase;
+}
+
+.item-body {
+  padding: 13px;
+}
+
+.item-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+}
+
+.item h3 {
+  font-size: 13px;
+}
+
+.tag {
+  font-size: 9px;
+  color: #d6b4ff;
+  border: 1px solid #71419a;
+  background: #8b35ff20;
+  padding: 4px 6px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.item p {
+  color: #9f93ab;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 8px 0 12px;
+  min-height: 32px;
+}
+
+.item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.price {
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.price small {
+  display: block;
+  color: #8f829c;
+  font-size: 9px;
+  font-weight: normal;
+  margin-top: 3px;
+}
+
+.details {
+  border: 1px solid #7942a5;
+  background: #351a50;
+  color: #fff;
+  padding: 8px 11px;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.details:hover {
+  background: #512477;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  color: #a99bb5;
+  padding: 45px 10px;
+  font-size: 13px;
+}
+
+.notice {
+  margin-top: 18px;
+  border: 1px solid #60452a;
+  background: #241a12;
+  border-radius: 10px;
+  padding: 13px;
+  color: #d9c5a9;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.notice strong {
+  color: #ffe0a3;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #000b;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 20;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.dialog {
+  width: min(420px,100%);
+  background: #171020;
+  border: 1px solid #7540a1;
+  border-radius: 15px;
+  padding: 22px;
+  box-shadow: 0 20px 70px #000b;
+}
+
+.dialog h2 {
+  font-size: 19px;
+  margin-bottom: 9px;
+}
+
+.dialog p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b9adca;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 20px;
+}
+
+.close {
+  border: 1px solid #5b456d;
+  background: #21172e;
+  color: #eee;
+  padding: 9px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media(max-width:850px) {
+  .grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:620px) {
+  header {
+    height: 65px;
+    padding: 0 4%;
+  }
+
+  .brand { font-size: 20px; }
+
+  .back {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+
+  main { padding-top: 20px; }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    padding: 12px;
+  }
+
+  .sidebar h2 { margin-bottom: 8px; }
+
+  .categories {
+    display: flex;
+    overflow-x: auto;
+    gap: 5px;
+  }
+
+  .category {
+    width: auto;
+    white-space: nowrap;
+    padding: 10px;
+  }
+
+  .side-note { display: none; }
+
+  .content-panel { padding: 13px; }
+
+  .grid { gap: 9px; }
+
+  .preview { height: 130px; }
+
+  .item-body { padding: 10px; }
+
+  .item h3 { font-size: 12px; }
+
+  .item p {
+    font-size: 10px;
+    min-height: 45px;
+  }
+
+  .details { padding: 8px; }
+
+  .toolbar h2 { font-size: 17px; }
+}
+
+@media(max-width:380px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .preview { height: 115px; }
+
+  .price { font-size: 11px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="back" href="./index.html">← Voltar à AGT Arena</a>
+  <div class="brand">AGT <span>STORE</span></div>
+  <div style="width:86px"></div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="eyebrow">PERSONALIZE SUA IDENTIDADE</div>
+
+  <h1>AGT STORE</h1>
+
+  <p>
+    Deixe seu perfil com a sua cara. Explore molduras,
+    fundos, estilos de nick e itens especiais para se
+    destacar na comunidade AGT Arena.
+  </p>
+
+  <div class="store-info">
+    <span class="pill">✦ Itens cosméticos</span>
+    <span class="pill">◈ <b>Novidades em breve</b></span>
+    <span class="pill">◎ Sua identidade, seu estilo</span>
+  </div>
+</section>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+  <h2>CATEGORIAS</h2>
+
+  <div class="categories">
+
+    <button class="category active" data-filter="all">
+      <span class="ico">✦</span> Todos os itens
+    </button>
+
+    <button class="category" data-filter="frames">
+      <span class="ico">◉</span> Molduras
+    </button>
+
+    <button class="category" data-filter="backgrounds">
+      <span class="ico">▧</span> Fundos de perfil
+    </button>
+
+    <button class="category" data-filter="nicks">
+      <span class="ico">Aa</span> Estilos de nick
+    </button>
+
+    <button class="category" data-filter="badges">
+      <span class="ico">✧</span> Emblemas
+    </button>
+
+    <button class="category" data-filter="cards">
+      <span class="ico">▣</span> Cartões de jogador
+    </button>
+
+  </div>
+
+  <div class="side-note">
+    Os itens serão vinculados à sua conta para que você
+    possa equipar, trocar e organizar suas personalizações.
+  </div>
+
+</aside>
+
+<section class="content-panel">
+
+  <div class="toolbar">
+    <div>
+      <h2 id="sectionTitle">Todos os itens</h2>
+      <p id="itemCount">12 itens demonstrativos</p>
+    </div>
+
+    <select class="sort" id="sort">
+      <option value="featured">Em destaque</option>
+      <option value="name">Nome A–Z</option>
+      <option value="category">Categoria</option>
+    </select>
+  </div>
+
+  <div class="grid" id="productGrid">
+
+    <!-- MOLDURAS -->
+
+    <article class="item" data-category="frames" data-name="Violeta Cósmica">
+      <div class="preview">
+        <div class="avatar frame-violet">A</div>
+        <span class="preview-label">MOLDURA</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Violeta Cósmica</h3>
+          <span class="tag">RARO</span>
+        </div>
+        <p>Um brilho roxo para destacar sua foto de perfil.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Violeta Cósmica">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="item" data-category="frames" data-name="Ouro Imperial">
+      <div class="preview">
+        <div class="avatar frame-gold">A</div>
+        <span class="preview-label">MOLDURA</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Ouro Imperial</h3>
+          <span class="tag">ÉPICO</span>
+        </div>
+        <p>Acabamento dourado com presença marcante.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Ouro Imperial">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="item" data-category="frames" data-name="Gelo Ártico">
+      <div class="preview">
+        <div class="avatar frame-ice">A</div>
+        <span class="preview-label">MOLDURA</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Gelo Ártico</h3>
+          <span class="tag">RARO</span>
+        </div>
+        <p>Um visual gelado com brilho azul-claro.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Gelo Ártico">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- FUNDOS -->
+
+    <article class="item" data-category="backgrounds" data-name="Nebulosa">
+      <div class="preview bg-nebula">
+        <span class="preview-label">FUNDO DE PERFIL</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Nebulosa</h3>
+          <span class="tag">ÉPICO</span>
+        </div>
+        <p>Uma atmosfera cósmica em roxo e violeta.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Nebulosa">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="item" data-category="backgrounds" data-name="Aurora Glacial">
+      <div class="preview bg-ice">
+        <span class="preview-label">FUNDO DE PERFIL</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Aurora Glacial</h3>
+          <span class="tag">RARO</span>
+        </div>
+        <p>Tons frios para um perfil elegante e tecnológico.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Aurora Glacial">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="item" data-category="backgrounds" data-name="Chamas">
+      <div class="preview bg-fire">
+        <span class="preview-label">FUNDO DE PERFIL</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Chamas</h3>
+          <span class="tag">RARO</span>
+        </div>
+        <p>Um fundo intenso em vermelho e dourado.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Chamas">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- ESTILOS DE NICK -->
+
+    <article class="item" data-category="nicks" data-name="Neon Pulse">
+      <div class="preview">
+        <span class="nick nick-neon">SEU NICK</span>
+        <span class="preview-label">ESTILO DE NICK</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Neon Pulse</h3>
+          <span class="tag">RARO</span>
+        </div>
+        <p>Tipografia luminosa em violeta.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Neon Pulse">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="item" data-category="nicks" data-name="Golden Name">
+      <div class="preview">
+        <span class="nick nick-gold">SEU NICK</span>
+        <span class="preview-label">ESTILO DE NICK</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Golden Name</h3>
+          <span class="tag">ÉPICO</span>
+        </div>
+        <p>Nome com acabamento dourado metálico.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Golden Name">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="item" data-category="nicks" data-name="Ice Text">
+      <div class="preview">
+        <span class="nick nick-ice">SEU NICK</span>
+        <span class="preview-label">ESTILO DE NICK</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Ice Text</h3>
+          <span class="tag">RARO</span>
+        </div>
+        <p>Estilo cristalino em azul-gelo.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Ice Text">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- EMBLEMAS -->
+
+    <article class="item" data-category="badges" data-name="Ícone Lenda">
+      <div class="preview">
+        <div class="avatar" style="border:2px solid #ffd36b;color:#ffd36b">✦</div>
+        <span class="preview-label">EMBLEMA</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Ícone Lenda</h3>
+          <span class="tag">ÉPICO</span>
+        </div>
+        <p>Um símbolo especial para exibir no perfil.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Ícone Lenda">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="item" data-category="badges" data-name="Emblema AGT">
+      <div class="preview">
+        <div class="avatar" style="border:2px solid #bd75ff;color:#e2c4ff;font-weight:1000;font-size:22px">AGT</div>
+        <span class="preview-label">EMBLEMA</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Emblema AGT</h3>
+          <span class="tag">ESPECIAL</span>
+        </div>
+        <p>Identificação visual temática da comunidade.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Emblema AGT">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- CARTÃO DE JOGADOR -->
+
+    <article class="item" data-category="cards" data-name="Cartão Eclipse">
+      <div class="preview">
+        <div style="width:145px;height:85px;border:1px solid #bd75ff;border-radius:9px;background:linear-gradient(120deg,#3c1b58,#11101e);display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 0 20px #8b35ff55">
+          <span style="font-size:25px">◉</span>
+          <b style="font-size:12px;letter-spacing:1px">PLAYER</b>
+        </div>
+        <span class="preview-label">CARTÃO DE JOGADOR</span>
+      </div>
+      <div class="item-body">
+        <div class="item-top">
+          <h3>Cartão Eclipse</h3>
+          <span class="tag">ÉPICO</span>
+        </div>
+        <p>Um cartão especial para apresentar seu perfil.</p>
+        <div class="item-bottom">
+          <div class="price">Preço em breve<small>Compra individual ou anúncio elegível</small></div>
+          <button class="details" data-item="Cartão Eclipse">DETALHES</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="empty" id="empty">
+    Nenhum item encontrado nesta categoria.
+  </div>
+
+  <div class="notice">
+    <strong>Prévia da loja:</strong>
+    esta primeira versão apresenta o visual e o catálogo
+    demonstrativo. Compras, inventário da conta e anúncios
+    recompensados ainda não estão conectados; nenhum
+    pagamento será solicitado nesta página.
+  </div>
+
+</section>
+</div>
+</main>
+
+<!-- JANELA DE DETALHES -->
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+  <div class="dialog">
+    <h2 id="modalTitle">Item da AGT Store</h2>
+
+    <p id="modalText"></p>
+
+    <div class="dialog-actions">
+      <button class="close" id="closeModal">Fechar</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const categories = [...document.querySelectorAll('.category')];
+const items = [...document.querySelectorAll('.item')];
+
+const title = document.getElementById('sectionTitle');
+const count = document.getElementById('itemCount');
+const empty = document.getElementById('empty');
+const sort = document.getElementById('sort');
+const grid = document.getElementById('productGrid');
+
+const labels = {
+  all: 'Todos os itens',
+  frames: 'Molduras',
+  backgrounds: 'Fundos de perfil',
+  nicks: 'Estilos de nick',
+  badges: 'Emblemas',
+  cards: 'Cartões de jogador'
+};
+
+let activeFilter = 'all';
+
+function render() {
+
+  let visible = items.filter(item =>
+    activeFilter === 'all' ||
+    item.dataset.category === activeFilter
+  );
+
+  if (sort.value === 'name') {
+    visible.sort((a,b) =>
+      a.dataset.name.localeCompare(b.dataset.name,'pt-BR')
+    );
+  }
+
+  if (sort.value === 'category') {
+    visible.sort((a,b) =>
+      a.dataset.category.localeCompare(b.dataset.category)
+    );
+  }
+
+  items.forEach(item => {
+    item.style.display = visible.includes(item) ? '' : 'none';
+  });
+
+  visible.forEach(item => grid.appendChild(item));
+
+  title.textContent = labels[activeFilter];
+
+  count.textContent =
+    `${visible.length} ${
+      visible.length === 1
+      ? 'item demonstrativo'
+      : 'itens demonstrativos'
+    }`;
+
+  empty.style.display = visible.length ? 'none' : 'block';
+}
+
+categories.forEach(button => {
+
+  button.addEventListener('click', () => {
+
+    categories.forEach(b => b.classList.remove('active'));
+
+    button.classList.add('active');
+
+    activeFilter = button.dataset.filter;
+
+    render();
+
+  });
+
+});
+
+sort.addEventListener('change',render);
+
+// DETALHES DOS ITENS
+
+const modal = document.getElementById('modal');
+
+document.querySelectorAll('.details').forEach(button => {
+
+  button.addEventListener('click', () => {
+
+    document.getElementById('modalTitle').textContent =
+      button.dataset.item;
+
+    document.getElementById('modalText').textContent =
+      'Este item faz parte do catálogo visual inicial da AGT Store. A compra, o desbloqueio por anúncio e o envio para o inventário serão ativados quando a loja estiver conectada ao sistema de contas e pagamentos.';
+
+    modal.classList.add('open');
+
+  });
+
+});
+
+function closeModal() {
+  modal.classList.remove('open');
+}
+
+document.getElementById('closeModal')
+  .addEventListener('click',closeModal);
+
+modal.addEventListener('click',e => {
+  if (e.target === modal) closeModal();
+});
+
+document.addEventListener('keydown',e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+</script>
+
+</body>
+</html>
