@@ -1,36 +1,246 @@
-<!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090611"><title>Loja AGT | AGT Arena</title>
-<style>
-:root{--bg:#090611;--card:#171020;--purple:#8b35ff;--neon:#bd75ff;--muted:#aaa0b9;--gold:#ffd36e}*{box-sizing:border-box;margin:0;padding:0}body{background:radial-gradient(ellipse at top,#211036 0,#090611 55%);color:#fff;font-family:Arial,sans-serif;min-height:100vh}a{color:inherit;text-decoration:none}.top{position:sticky;top:0;z-index:5;background:#090611ed;border-bottom:1px solid #392052;padding:14px 6%;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:24px;font-weight:1000;letter-spacing:2px;color:#fff;text-shadow:0 0 12px #9b42ff}.top-actions{display:flex;align-items:center;gap:10px}.wallet{border:1px solid #8c6424;border-radius:12px;padding:9px 12px;background:linear-gradient(135deg,#30200d,#171020);color:#ffe4a0;font-weight:800;font-size:13px}.back{padding:10px 14px;border:1px solid #6730a0;border-radius:10px;background:#171020}.wrap{width:min(1100px,92%);margin:35px auto 70px}.intro{text-align:center;margin-bottom:28px}.intro h1{font-size:clamp(30px,5vw,46px);color:#d7a5ff;text-shadow:0 0 20px #8b35ff66}.intro p{color:var(--muted);margin-top:9px;line-height:1.6}.notice{padding:13px 16px;border:1px solid #68408d;background:#1b1128;border-radius:12px;color:#d9c5ec;margin:18px 0}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:25px 0}.tab{border:1px solid #563078;background:#171020;color:#fff;border-radius:10px;padding:11px 15px;cursor:pointer}.tab.active{background:#512080;border-color:#bd75ff}.section-title{font-size:21px;color:#d6a4ff;margin:25px 0 14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}.item{background:linear-gradient(145deg,#21152f,#120d1c);border:1px solid #563078;border-radius:16px;padding:15px;min-width:0}.preview{height:105px;border-radius:12px;margin-bottom:13px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:21px;letter-spacing:1px;background:#0d0915;border:2px solid #8d4bd0;color:#fff;text-shadow:0 0 10px #bd75ff}.preview.neon-purple{border:3px solid #c56cff;box-shadow:inset 0 0 20px #8b35ff66,0 0 18px #8b35ff88}.preview.galaxy{background:radial-gradient(circle at 25% 30%,#f3a4ff,transparent 18%),radial-gradient(circle at 75% 65%,#387bff,transparent 22%),linear-gradient(135deg,#10051f,#462078,#080c24);border:2px solid #b47bff}.preview.flame{background:radial-gradient(ellipse at bottom,#ffb12e,#9b174d 35%,#170d29 75%);border:2px solid #ff9b52}.preview.butterfly{background:radial-gradient(circle at 25% 25%,#ffb8f1 0 4%,transparent 5%),radial-gradient(circle at 75% 65%,#d59bff 0 5%,transparent 6%),linear-gradient(135deg,#21102f,#6a3a75);border:2px solid #e2a8ff}.preview.cyber{background:linear-gradient(90deg,transparent 48%,#a74cff55 50%,transparent 52%),linear-gradient(0deg,transparent 48%,#a74cff55 50%,transparent 52%),linear-gradient(135deg,#100b20,#32145a);background-size:24px 24px;border:2px solid #a84dff}.preview.floral{background:radial-gradient(circle at 20% 30%,#ffb6e8 0 7%,transparent 8%),radial-gradient(circle at 75% 60%,#d8a4ff 0 8%,transparent 9%),linear-gradient(135deg,#21142d,#4a2b4c);border:2px solid #e6a6e6}.preview.gold{background:linear-gradient(120deg,#6d4710,#ffe18a,#a16a16);color:#2b1a00;text-shadow:none}.preview.ice{background:linear-gradient(120deg,#173c65,#b6edff,#426bba);color:#09213a;text-shadow:none}.preview.prism{background:linear-gradient(110deg,#ff6cae,#c17cff,#69cfff,#7dffc2);color:#23102d;text-shadow:none}.item h3{font-size:16px;margin-bottom:6px}.item p{font-size:13px;color:var(--muted);line-height:1.5;min-height:38px}.item-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px}.price{color:var(--gold);font-weight:900}.action{border:0;border-radius:9px;padding:10px 12px;background:linear-gradient(120deg,#8b35ff,#bd75ff);color:white;font-weight:800;cursor:pointer}.action:disabled{opacity:.5;cursor:not-allowed}.empty{color:var(--muted);padding:18px;border:1px dashed #563078;border-radius:12px}.packages{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.pack{padding:16px;border:1px solid #76552b;border-radius:14px;background:linear-gradient(145deg,#251a0e,#171020);text-align:center}.pack strong{display:block;color:#ffe09a;font-size:23px;margin:7px 0}.pack span{color:#c9b99e;font-size:13px}.pack button{margin-top:12px;width:100%;opacity:.6;cursor:not-allowed}.admin{margin-top:35px;padding:20px;border:1px solid #a66b31;border-radius:16px;background:#1b140f}.admin h2{color:#ffd58b;margin-bottom:12px}.admin-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:12px 0}.admin input,.admin select,.admin textarea{width:100%;padding:11px;border:1px solid #624b36;border-radius:8px;background:#100c10;color:#fff}.admin button{padding:11px;border:0;border-radius:8px;background:#8b5b24;color:#fff;font-weight:800;cursor:pointer}.admin small{color:#c5b7a6;line-height:1.6}.msg{margin:12px 0;color:#e7d3ff;min-height:18px;font-size:13px}footer{text-align:center;color:#8e829c;padding:25px;font-size:12px}@media(max-width:520px){.brand{font-size:18px}.top{padding:12px 4%}.wallet{font-size:11px;padding:8px}.back{font-size:12px;padding:9px}.wrap{margin-top:25px}}
-</style></head><body>
-<header class="top"><a class="brand" href="./index.html">AGT ARENA</a><div class="top-actions"><div class="wallet">🪙 <span id="balance">0 moedas</span></div><a class="back" href="./index.html">← Início</a></div></header>
-<main class="wrap"><div class="intro"><h1>LOJA AGT</h1><p>Personalize seu perfil, destaque seu nick e mostre seu estilo na arena.</p></div>
-<div class="notice" id="login-notice">Entre na sua conta pelo menu do site AGT para consultar sua carteira e comprar itens.</div>
-<div class="tabs"><button class="tab active" data-filter="all">Todos</button><button class="tab" data-filter="frame">Molduras · 10 moedas</button><button class="tab" data-filter="background">Fundos · 20 moedas</button><button class="tab" data-filter="nick">Estilos de nick · 15 moedas</button></div>
-<h2 class="section-title">Personalizações disponíveis</h2><div class="grid" id="items"><div class="empty">Carregando catálogo...</div></div><p class="msg" id="store-msg" aria-live="polite"></p>
-<section id="comprar-moedas"><h2 class="section-title">Comprar moedas AGT</h2><p style="color:#aaa0b9;line-height:1.6;margin-bottom:14px">Escolha um pacote. A integração de pagamento será ativada em uma próxima etapa, com confirmação segura antes de adicionar moedas à carteira.</p><div class="packages">
-<div class="pack">Inicial<strong>20 moedas</strong><span>R$ 5,00</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Bronze<strong>50 moedas</strong><span>R$ 12,00 · 4% off</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Prata<strong>100 moedas</strong><span>R$ 23,50 · 6% off</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Ouro<strong>200 moedas</strong><span>R$ 47,00 · 6% off</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Diamante<strong>500 moedas</strong><span>R$ 115,00 · 8% off</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Supremo<strong>1.000 moedas</strong><span>R$ 225,00 · 10% off</span><button class="action" disabled>Em breve</button></div>
-</div></section>
-<section class="admin" id="admin-area" hidden><h2>⚙ Administração da loja</h2><small>Área visível somente para o administrador autorizado no Supabase. Ajustes de saldo e catálogo são validados no banco.</small>
-<h3 style="margin-top:18px">Ajustar moedas de um jogador</h3><div class="admin-form"><input id="admin-email" type="email" placeholder="E-mail exato da conta do jogador"><input id="admin-amount" type="number" placeholder="Quantidade (+ credita / - debita)"><input id="admin-reason" placeholder="Motivo do ajuste"><button id="admin-adjust">Aplicar ajuste</button></div>
-<h3 style="margin-top:18px">Cadastrar item</h3><div class="admin-form"><input id="item-id" placeholder="UUID do item (preencha para editar preço/dados)"><input id="item-slug" placeholder="Identificador único (ex.: moldura-azul)"><input id="item-name" placeholder="Nome do item"><select id="item-category"><option value="frame">Moldura</option><option value="background">Fundo</option><option value="nick">Estilo de nick</option></select><input id="item-price" type="number" min="0" placeholder="Preço em moedas"><input id="item-visual" placeholder="Visual (neon-purple, galaxy, flame...)" value="neon-purple"><input id="item-description" placeholder="Descrição"><button id="admin-save-item">Cadastrar / atualizar item</button></div><p class="msg" id="admin-msg" aria-live="polite"></p></section>
-</main><footer>AGT ARENA · ALIANÇA • GARRA • TALENTO</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-(function(){const SUPABASE_URL='https://lbknsgfpfxkvypkxbcmy.supabase.co';const SUPABASE_KEY='sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);let user=null;let owned=new Set();let filter='all';const balanceEl=document.getElementById('balance');const itemsEl=document.getElementById('items');const msg=document.getElementById('store-msg');const loginNotice=document.getElementById('login-notice');const adminArea=document.getElementById('admin-area');const adminMsg=document.getElementById('admin-msg');const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-async function loadBalance(){if(!user){balanceEl.textContent='Entre na conta';return}const {data,error}=await db.rpc('agt_get_wallet_balance');if(error){balanceEl.textContent='Indisponível';console.warn(error);return}balanceEl.textContent=Number(data||0).toLocaleString('pt-BR')+' moedas'}
-function previewClass(key){return ['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism'].includes(key)?key:'neon-purple'}
-async function loadItems(){itemsEl.innerHTML='<div class="empty">Carregando catálogo...</div>';let q=db.from('agt_store_items').select('id,slug,name,category,price,description,visual_key').eq('active',true).order('category').order('price');if(filter!=='all')q=q.eq('category',filter);const {data,error}=await q;if(error){itemsEl.innerHTML='<div class="empty">Não foi possível carregar a loja. Execute primeiro o SQL de instalação no Supabase.</div>';return}if(user){const own=await db.from('agt_user_items').select('item_id').eq('user_id',user.id);owned=new Set((own.data||[]).map(x=>x.item_id))}itemsEl.innerHTML='';if(!data?.length){itemsEl.innerHTML='<div class="empty">Nenhum item nesta categoria no momento.</div>';return}data.forEach(item=>{const has=owned.has(item.id);const el=document.createElement('article');el.className='item';el.innerHTML=`<div class="preview ${previewClass(item.visual_key)}">${esc(item.category==='frame'?'AGT':item.category==='background'?'PERFIL':'SEU NICK')}</div><h3>${esc(item.name)}</h3><p>${esc(item.description)}</p><div class="item-bottom"><span class="price">🪙 ${Number(item.price)} moedas</span><button class="action" ${!user||has?'disabled':''}>${has?'Adquirido':'Comprar'}</button></div>`;const btn=el.querySelector('button');if(user&&!has)btn.addEventListener('click',()=>buy(item,btn));if(has){const equip=document.createElement('button');equip.className='action';equip.style.marginTop='9px';equip.style.width='100%';equip.textContent='Equipar';equip.addEventListener('click',()=>equipItem(item,equip));el.appendChild(equip)}itemsEl.appendChild(el)})}
-async function buy(item,btn){if(!user){msg.textContent='Entre na sua conta pelo menu da página inicial para comprar.';return}btn.disabled=true;btn.textContent='Processando...';const {data,error}=await db.rpc('agt_buy_store_item',{p_item_id:item.id});if(error){msg.textContent=error.message;btn.disabled=false;btn.textContent='Comprar';return}balanceEl.textContent=Number(data||0).toLocaleString('pt-BR')+' moedas';msg.textContent='Compra realizada! O item já está no seu inventário.';await loadItems()}
-async function equipItem(item,btn){btn.disabled=true;const {error}=await db.rpc('agt_equip_store_item',{p_item_id:item.id});btn.disabled=false;msg.textContent=error?'Não foi possível equipar: '+error.message:'Item equipado! A personalização foi salva na sua conta.'}
-async function init(){const {data}=await db.auth.getSession();user=data.session?.user||null;loginNotice.hidden=!!user;if(user){await loadBalance();const {data:isAdmin}=await db.rpc('agt_is_store_admin');adminArea.hidden=!isAdmin}else{balanceEl.textContent='Entre na conta'}await loadItems()}
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;loadItems()}));
-db.auth.onAuthStateChange(()=>{setTimeout(init,0)});
-document.getElementById('admin-adjust').addEventListener('click',async()=>{adminMsg.textContent='Localizando conta...';const email=document.getElementById('admin-email').value.trim();const amount=Number(document.getElementById('admin-amount').value);const reason=document.getElementById('admin-reason').value.trim();const {data:found,error:findError}=await db.rpc('agt_admin_find_user',{p_email:email});if(findError||!found?.length){adminMsg.textContent=findError?.message||'Conta não encontrada.';return}const {data,error}=await db.rpc('agt_admin_adjust_coins',{p_user_id:found[0].user_id,p_amount:amount,p_reason:reason});adminMsg.textContent=error?'Erro: '+error.message:'Saldo atualizado de '+(found[0].nick||found[0].email)+'. Novo saldo: '+data+' moedas.'});
-document.getElementById('admin-save-item').addEventListener('click',async()=>{adminMsg.textContent='Salvando item...';const vals={p_item_id:document.getElementById('item-id').value.trim()||null,p_slug:document.getElementById('item-slug').value.trim(),p_name:document.getElementById('item-name').value.trim(),p_category:document.getElementById('item-category').value,p_price:Number(document.getElementById('item-price').value),p_description:document.getElementById('item-description').value.trim(),p_visual_key:document.getElementById('item-visual').value.trim(),p_active:true};const {error}=await db.rpc('agt_admin_save_item',vals);adminMsg.textContent=error?'Erro: '+error.message:'Item cadastrado com sucesso!';if(!error){await loadItems();['item-id','item-slug','item-name','item-price','item-description'].forEach(id=>document.getElementById(id).value='')}});
-init();})();
-</script></body></html>
+-- ============================================================
+-- AGT ARENA — CARTEIRA, LOJA E PERSONALIZAÇÃO
+-- Execute uma única vez em Supabase > SQL Editor > New query.
+-- Não altera profiles nem agt_ranking_daily.
+-- ============================================================
+
+create table if not exists public.agt_wallets (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  balance bigint not null default 0 check (balance >= 0),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.agt_wallet_transactions (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  amount bigint not null,
+  balance_after bigint not null,
+  transaction_type text not null check (transaction_type in ('admin_credit','admin_debit','item_purchase','coin_purchase','refund')),
+  description text not null default '',
+  created_at timestamptz not null default now()
+);
+create index if not exists agt_wallet_transactions_user_created_idx
+  on public.agt_wallet_transactions(user_id, created_at desc);
+
+create table if not exists public.agt_store_items (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique,
+  name text not null,
+  category text not null check (category in ('frame','background','nick')),
+  price integer not null check (price >= 0),
+  description text not null default '',
+  visual_key text not null default 'violet',
+  active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.agt_user_items (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  item_id uuid not null references public.agt_store_items(id) on delete cascade,
+  purchased_at timestamptz not null default now(),
+  primary key(user_id, item_id)
+);
+
+create table if not exists public.agt_profile_equipment (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  category text not null check (category in ('frame','background','nick')),
+  item_id uuid references public.agt_store_items(id) on delete set null,
+  equipped_at timestamptz not null default now(),
+  primary key(user_id, category)
+);
+
+-- Administradores são cadastrados manualmente pelo proprietário no SQL Editor.
+create table if not exists public.agt_store_admins (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+
+-- Carteira automática para contas novas e contas já existentes.
+create or replace function public.agt_create_wallet_for_user()
+returns trigger language plpgsql security definer set search_path = public, auth
+as $$
+begin
+  insert into public.agt_wallets(user_id, balance) values (new.id, 0)
+  on conflict (user_id) do nothing;
+  return new;
+end;
+$$;
+drop trigger if exists agt_auth_user_wallet on auth.users;
+create trigger agt_auth_user_wallet after insert on auth.users
+for each row execute function public.agt_create_wallet_for_user();
+insert into public.agt_wallets(user_id, balance)
+select id, 0 from auth.users on conflict (user_id) do nothing;
+
+alter table public.agt_wallets enable row level security;
+alter table public.agt_wallet_transactions enable row level security;
+alter table public.agt_store_items enable row level security;
+alter table public.agt_user_items enable row level security;
+alter table public.agt_profile_equipment enable row level security;
+alter table public.agt_store_admins enable row level security;
+
+-- Leitura apenas do próprio saldo e histórico; catálogo ativo é público.
+drop policy if exists agt_wallet_select_own on public.agt_wallets;
+create policy agt_wallet_select_own on public.agt_wallets for select to authenticated using (user_id = auth.uid());
+drop policy if exists agt_wallet_tx_select_own on public.agt_wallet_transactions;
+create policy agt_wallet_tx_select_own on public.agt_wallet_transactions for select to authenticated using (user_id = auth.uid());
+drop policy if exists agt_items_read_active on public.agt_store_items;
+create policy agt_items_read_active on public.agt_store_items for select to anon, authenticated using (active = true);
+drop policy if exists agt_user_items_select_own on public.agt_user_items;
+create policy agt_user_items_select_own on public.agt_user_items for select to authenticated using (user_id = auth.uid());
+drop policy if exists agt_equipment_select_own on public.agt_profile_equipment;
+drop policy if exists agt_equipment_read_public on public.agt_profile_equipment;
+create policy agt_equipment_read_public on public.agt_profile_equipment for select to anon, authenticated using (true);
+
+revoke all on public.agt_wallets, public.agt_wallet_transactions, public.agt_store_items,
+  public.agt_user_items, public.agt_profile_equipment, public.agt_store_admins from anon, authenticated;
+grant select on public.agt_store_items to anon, authenticated;
+grant select on public.agt_wallets, public.agt_wallet_transactions,
+  public.agt_user_items to authenticated;
+grant select on public.agt_profile_equipment to anon, authenticated;
+
+create or replace function public.agt_is_store_admin()
+returns boolean language sql stable security definer set search_path = public
+as $$ select exists(select 1 from public.agt_store_admins where user_id = auth.uid()); $$;
+
+create or replace function public.agt_get_wallet_balance()
+returns bigint language plpgsql stable security definer set search_path = public
+as $$
+declare v_balance bigint;
+begin
+  if auth.uid() is null then raise exception 'Faça login para consultar sua carteira.'; end if;
+  select balance into v_balance from public.agt_wallets where user_id = auth.uid();
+  return coalesce(v_balance, 0);
+end;
+$$;
+
+create or replace function public.agt_buy_store_item(p_item_id uuid)
+returns bigint language plpgsql security definer set search_path = public
+as $$
+declare v_item public.agt_store_items%rowtype; v_balance bigint;
+begin
+  if auth.uid() is null then raise exception 'Faça login para comprar.'; end if;
+  select * into v_item from public.agt_store_items where id = p_item_id and active = true;
+  if not found then raise exception 'Este item não está disponível.'; end if;
+  if exists(select 1 from public.agt_user_items where user_id=auth.uid() and item_id=p_item_id) then
+    raise exception 'Você já possui este item.';
+  end if;
+  insert into public.agt_wallets(user_id,balance) values(auth.uid(),0) on conflict(user_id) do nothing;
+  select balance into v_balance from public.agt_wallets where user_id=auth.uid() for update;
+  if v_balance < v_item.price then raise exception 'Moedas insuficientes.'; end if;
+  update public.agt_wallets set balance=balance-v_item.price, updated_at=now()
+    where user_id=auth.uid() returning balance into v_balance;
+  insert into public.agt_user_items(user_id,item_id) values(auth.uid(),p_item_id);
+  insert into public.agt_wallet_transactions(user_id,amount,balance_after,transaction_type,description)
+    values(auth.uid(),-v_item.price,v_balance,'item_purchase','Compra: '||v_item.name);
+  return v_balance;
+end;
+$$;
+
+create or replace function public.agt_equip_store_item(p_item_id uuid)
+returns boolean language plpgsql security definer set search_path = public
+as $$
+declare v_category text;
+begin
+  if auth.uid() is null then raise exception 'Faça login para equipar itens.'; end if;
+  select i.category into v_category
+  from public.agt_user_items ui join public.agt_store_items i on i.id=ui.item_id
+  where ui.user_id=auth.uid() and ui.item_id=p_item_id;
+  if v_category is null then raise exception 'Você não possui este item.'; end if;
+  insert into public.agt_profile_equipment(user_id,category,item_id,equipped_at)
+  values(auth.uid(),v_category,p_item_id,now())
+  on conflict(user_id,category) do update set item_id=excluded.item_id,equipped_at=now();
+  return true;
+end;
+$$;
+
+create or replace function public.agt_admin_adjust_coins(p_user_id uuid,p_amount bigint,p_reason text)
+returns bigint language plpgsql security definer set search_path = public
+as $$
+declare v_balance bigint;
+begin
+  if not public.agt_is_store_admin() then raise exception 'Acesso restrito à administração.'; end if;
+  if p_amount=0 or abs(p_amount)>1000000 then raise exception 'Quantidade inválida.'; end if;
+  insert into public.agt_wallets(user_id,balance) values(p_user_id,0) on conflict(user_id) do nothing;
+  select balance into v_balance from public.agt_wallets where user_id=p_user_id for update;
+  if v_balance+p_amount<0 then raise exception 'O saldo não pode ficar negativo.'; end if;
+  update public.agt_wallets set balance=balance+p_amount,updated_at=now()
+  where user_id=p_user_id returning balance into v_balance;
+  insert into public.agt_wallet_transactions(user_id,amount,balance_after,transaction_type,description)
+  values(p_user_id,p_amount,v_balance,case when p_amount>0 then 'admin_credit' else 'admin_debit' end,coalesce(nullif(p_reason,''),'Ajuste administrativo'));
+  return v_balance;
+end;
+$$;
+
+create or replace function public.agt_admin_save_item(
+  p_item_id uuid, p_slug text, p_name text, p_category text, p_price integer,
+  p_description text, p_visual_key text, p_active boolean default true
+) returns uuid language plpgsql security definer set search_path = public
+as $$
+declare v_id uuid;
+begin
+  if not public.agt_is_store_admin() then raise exception 'Acesso restrito à administração.'; end if;
+  if p_category not in ('frame','background','nick') or p_price<0 or p_price>100000 then
+    raise exception 'Categoria ou preço inválido.';
+  end if;
+  if p_item_id is null then
+    insert into public.agt_store_items(slug,name,category,price,description,visual_key,active)
+    values(lower(trim(p_slug)),trim(p_name),p_category,p_price,coalesce(p_description,''),coalesce(p_visual_key,'violet'),coalesce(p_active,true)) returning id into v_id;
+  else
+    update public.agt_store_items set slug=lower(trim(p_slug)),name=trim(p_name),category=p_category,
+      price=p_price,description=coalesce(p_description,''),visual_key=coalesce(p_visual_key,'violet'),
+      active=coalesce(p_active,true),updated_at=now() where id=p_item_id returning id into v_id;
+    if v_id is null then raise exception 'Item não encontrado.'; end if;
+  end if;
+  return v_id;
+end;
+$$;
+
+create or replace function public.agt_admin_find_user(p_email text)
+returns table(user_id uuid,email text,nick text) language plpgsql security definer set search_path = public, auth
+as $$
+begin
+  if not public.agt_is_store_admin() then raise exception 'Acesso restrito à administração.'; end if;
+  return query select u.id,u.email,coalesce(p.nick,'')
+  from auth.users u left join public.profiles p on p.id=u.id
+  where lower(u.email)=lower(trim(p_email)) limit 1;
+end;
+$$;
+
+revoke all on function public.agt_is_store_admin() from public, anon;
+revoke all on function public.agt_get_wallet_balance() from public, anon;
+revoke all on function public.agt_buy_store_item(uuid) from public, anon;
+revoke all on function public.agt_equip_store_item(uuid) from public, anon;
+revoke all on function public.agt_admin_adjust_coins(uuid,bigint,text) from public, anon;
+revoke all on function public.agt_admin_save_item(uuid,text,text,text,integer,text,text,boolean) from public, anon;
+revoke all on function public.agt_admin_find_user(text) from public, anon;
+grant execute on function public.agt_is_store_admin(), public.agt_get_wallet_balance(),
+  public.agt_buy_store_item(uuid), public.agt_equip_store_item(uuid) to authenticated;
+grant execute on function public.agt_admin_adjust_coins(uuid,bigint,text),
+  public.agt_admin_save_item(uuid,text,text,text,integer,text,text,boolean),
+  public.agt_admin_find_user(text) to authenticated;
+
+-- Itens iniciais: 4 molduras, 4 fundos e 4 estilos de nick.
+insert into public.agt_store_items(slug,name,category,price,description,visual_key) values
+('frame-neon-roxo','Moldura Neon Roxo','frame',10,'Borda violeta com brilho neon.','neon-purple'),
+('frame-galaxia','Moldura Galáxia','frame',10,'Brilho cósmico em tons de roxo e azul.','galaxy'),
+('frame-fogo','Moldura Chamas','frame',10,'Contorno quente e intenso.','flame'),
+('frame-borboleta','Moldura Borboletas','frame',10,'Detalhes delicados em lilás.','butterfly'),
+('bg-galaxia','Fundo Galáxia','background',20,'Nebulosa violeta para seu perfil.','galaxy'),
+('bg-cyber','Fundo Cyber Roxo','background',20,'Grade futurista neon.','cyber'),
+('bg-floral','Fundo Floral','background',20,'Flores suaves em tons lilás.','floral'),
+('bg-chamas','Fundo Chamas','background',20,'Energia e fogo em roxo.','flame'),
+('nick-neon','Nick Neon','nick',15,'Texto violeta com brilho.','neon-purple'),
+('nick-dourado','Nick Dourado','nick',15,'Destaque dourado metálico.','gold'),
+('nick-gelo','Nick Gelo','nick',15,'Visual frio em azul claro.','ice'),
+('nick-arcoiris','Nick Prisma','nick',15,'Gradiente colorido e vibrante.','prism')
+on conflict(slug) do update set name=excluded.name,category=excluded.category,price=excluded.price,
+ description=excluded.description,visual_key=excluded.visual_key,active=true;
+
+-- CADASTRO DO DONO COMO ADMINISTRADOR:
+-- 1) No Supabase: Authentication > Users. Copie o UUID da sua própria conta.
+-- 2) Substitua o UUID abaixo e execute a linha (uma única vez):
+-- insert into public.agt_store_admins(user_id) values ('COLE_AQUI_SEU_AUTH_USER_UUID') on conflict do nothing;
+
+-- Segurança: não há RPC para creditar moedas por compra de pacote ainda.
+-- A integração de pagamento deverá confirmar o pagamento no servidor/webhook.
