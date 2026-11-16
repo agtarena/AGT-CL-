@@ -9,13 +9,23 @@
 <style>
 :root{--bg:#090611;--card:#151020;--purple:#8b35ff;--neon:#bd75ff;--white:#fff;--muted:#aaa0b9}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:radial-gradient(ellipse at 50% 0%,#32164e55,transparent 45%),var(--bg);color:var(--white);font-family:Arial,sans-serif;min-height:100vh}
+body{background:var(--bg);color:var(--white);font-family:Arial,sans-serif;min-height:100vh;position:relative}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.24;background:radial-gradient(ellipse at 50% 0%,#32164e55,transparent 45%),var(--bg);background-size:cover;background-position:center}
+body.profile-bg-galaxy::before{background:radial-gradient(circle at 18% 25%,#d16cff99,transparent 24%),radial-gradient(circle at 82% 68%,#367bff88,transparent 30%),radial-gradient(circle at 50% 100%,#5d1e9b88,transparent 45%),linear-gradient(135deg,#080617,#1b0b35,#080d24)}
+body.profile-bg-cyber::before{background:linear-gradient(90deg,transparent 48%,#a74cff66 50%,transparent 52%),linear-gradient(0deg,transparent 48%,#a74cff66 50%,transparent 52%),linear-gradient(135deg,#080617,#32145a);background-size:28px 28px,28px 28px,cover}
+body.profile-bg-floral::before{background:radial-gradient(circle at 14% 22%,#ffb6e888 0 5%,transparent 7%),radial-gradient(circle at 82% 70%,#d8a4ff88 0 7%,transparent 9%),radial-gradient(circle at 60% 15%,#f4c5ff66 0 4%,transparent 6%),linear-gradient(135deg,#160d22,#4a2b4c,#120b20)}
+body.profile-bg-flame::before{background:radial-gradient(ellipse at 50% 100%,#ff9b5299,transparent 38%),radial-gradient(ellipse at 10% 85%,#9b174d88,transparent 35%),linear-gradient(135deg,#100817,#321020,#090611)}
+body.profile-bg-aurora::before{background:radial-gradient(ellipse at 20% 20%,#58ffd877,transparent 35%),radial-gradient(ellipse at 75% 35%,#8b5cff88,transparent 38%),radial-gradient(ellipse at 50% 90%,#247bba88,transparent 42%),linear-gradient(135deg,#07151c,#160c2b,#07121d)}
+body.profile-bg-nebula::before{background:radial-gradient(circle at 25% 35%,#f06bff99,transparent 24%),radial-gradient(circle at 70% 65%,#654cff99,transparent 28%),radial-gradient(circle at 50% 50%,#1d367a88,transparent 45%),linear-gradient(135deg,#090615,#190c35,#080b1d)}
+body.profile-bg-ocean::before{background:radial-gradient(ellipse at 20% 30%,#35d7ff88,transparent 32%),radial-gradient(ellipse at 80% 70%,#2565d988,transparent 38%),linear-gradient(135deg,#061522,#0a3150,#07101e)}
+body.profile-bg-crimson::before{background:radial-gradient(ellipse at 20% 25%,#ff526c88,transparent 32%),radial-gradient(ellipse at 80% 70%,#8b1d5888,transparent 36%),linear-gradient(135deg,#170711,#351020,#090611)}
+header,main,footer{position:relative;z-index:1}
 a{color:inherit}
 header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 7%;background:#090611f2;border-bottom:1px solid #392052;backdrop-filter:blur(12px)}
 .logo{font-size:25px;font-weight:1000;letter-spacing:2px;background:linear-gradient(180deg,#fff,#dce1e9,#7d8795,#fff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 7px #8b35ff99)}
 .header-links{display:flex;gap:9px;flex-wrap:wrap}.header-links a,.button{border:1px solid #563078;border-radius:9px;background:#171020;color:#fff;text-decoration:none;padding:11px 14px;font-size:12px;font-weight:bold;cursor:pointer}.header-links a:hover,.button:hover{border-color:var(--neon);background:#261638}
 main{width:min(1000px,92%);margin:32px auto 60px}.page-title{text-align:center;margin-bottom:25px}.page-title h1{font-size:clamp(28px,5vw,42px);color:#eadcff;text-shadow:0 0 18px #8b35ff66}.page-title p{color:var(--muted);margin-top:8px;font-size:13px}
-.panel{background:linear-gradient(145deg,#1d142c,#100c19);border:1px solid #49266b;border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:0 14px 40px #0003}
+.panel{background:linear-gradient(145deg,rgba(29,20,44,.84),rgba(16,12,25,.82));backdrop-filter:blur(3px);border:1px solid #49266b;border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:0 14px 40px #0003}
 .profile-head{display:flex;align-items:center;gap:22px;flex-wrap:wrap}.avatar-wrap{width:118px;height:118px;flex:0 0 118px;position:relative}.avatar-wrap img,.avatar-placeholder{width:118px;height:118px;border-radius:50%;object-fit:cover;border:3px solid var(--neon);box-shadow:0 0 24px #8b35ff66;background:#21152f}.avatar-placeholder{display:flex;align-items:center;justify-content:center;font-size:48px}.profile-main{flex:1;min-width:210px}.profile-main h2{font-size:clamp(23px,4vw,32px);overflow-wrap:anywhere}.profile-main .email{color:#aaa0b9;font-size:12px;margin-top:7px;overflow-wrap:anywhere}.profile-main .member{display:inline-block;margin-top:12px;color:#d7b4ff;background:#8b35ff22;border:1px solid #8b35ff66;border-radius:20px;padding:6px 11px;font-size:10px;font-weight:bold}
 .section-heading{color:#d9b5ff;font-size:16px;margin-bottom:13px;letter-spacing:.5px}.bio{color:#d3c9df;line-height:1.7;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}.nick-chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #62328b;background:#261638;border-radius:20px;padding:8px 12px;color:#e7d7ff;font-size:12px}.chip.primary{border-color:#b987ff;background:#54208066}/* DESEMPENHO, CONQUISTAS E PÓDIO — VISUAL AGT */
 .performance-card{position:relative;overflow:hidden;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:19px;border:1px solid #7040a0;border-radius:15px;background:radial-gradient(circle at 12% 50%,#9d55ff35,transparent 38%),linear-gradient(115deg,#211333,#100b1b);box-shadow:inset 0 0 25px #8b35ff12,0 8px 25px #0004}
@@ -31,10 +41,10 @@ main{width:min(1000px,92%);margin:32px auto 60px}.page-title{text-align:center;m
 .avatar-wrap.frame-galaxy img,.avatar-wrap.frame-galaxy .avatar-placeholder{border:4px solid #9c8cff;box-shadow:0 0 8px #9c8cff,0 0 24px #467dff}
 .avatar-wrap.frame-flame img,.avatar-wrap.frame-flame .avatar-placeholder{border:4px solid #ff9852;box-shadow:0 0 8px #ff9852,0 0 24px #ff4b35}
 .avatar-wrap.frame-butterfly img,.avatar-wrap.frame-butterfly .avatar-placeholder{border:4px solid #efaaff;box-shadow:0 0 8px #efaaff,0 0 24px #c45cff}
-.profile-head.bg-galaxy{border-radius:14px;padding:18px;background:radial-gradient(circle at 20% 20%,#b75cff66,transparent 25%),radial-gradient(circle at 80% 70%,#367bff55,transparent 28%),linear-gradient(120deg,#160a2c,#30134b,#0b1027)}
-.profile-head.bg-cyber{border-radius:14px;padding:18px;background:linear-gradient(90deg,transparent 48%,#a74cff33 50%,transparent 52%),linear-gradient(0deg,transparent 48%,#a74cff33 50%,transparent 52%),linear-gradient(120deg,#100b20,#32145a);background-size:24px 24px}
-.profile-head.bg-floral{border-radius:14px;padding:18px;background:radial-gradient(circle at 15% 25%,#ffb6e855 0 7%,transparent 8%),radial-gradient(circle at 85% 70%,#d8a4ff55 0 8%,transparent 9%),linear-gradient(120deg,#21142d,#4a2b4c)}
-.profile-head.bg-flame{border-radius:14px;padding:18px;background:radial-gradient(ellipse at bottom,#ff9b5233,#9b174d22 35%,transparent 75%),linear-gradient(120deg,#211020,#120b1a)}
+
+
+
+
 .profile-main h2.nick-neon-purple{color:#e3b4ff;text-shadow:0 0 8px #bd75ff,0 0 18px #8b35ff}
 .profile-main h2.nick-gold{background:linear-gradient(90deg,#fff0a8,#d99a27,#fff0a8);-webkit-background-clip:text;background-clip:text;color:transparent}
 .profile-main h2.nick-ice{color:#b9eaff;text-shadow:0 0 10px #4caaff}
@@ -113,9 +123,9 @@ main{width:min(1000px,92%);margin:32px auto 60px}.page-title{text-align:center;m
   if(equipmentError){console.warn('Personalizações do perfil:',equipmentError.message);}
   const visuals={frame:'',background:'',nick:''};
   (equipped||[]).forEach(row=>{if(row.category&&row.item?.visual_key)visuals[row.category]=row.item.visual_key;});
-  const safeVisual=['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism'];
+  const safeVisual=['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism','aurora','nebula','ocean','crimson'];
   if(safeVisual.includes(visuals.frame))$('avatar-wrap').classList.add('frame-'+visuals.frame);
-  if(safeVisual.includes(visuals.background))document.querySelector('.profile-head').classList.add('bg-'+visuals.background);
+  if(safeVisual.includes(visuals.background))document.body.classList.add('profile-bg-'+visuals.background);
   if(safeVisual.includes(visuals.nick))$('profile-nick').classList.add('nick-'+visuals.nick);
   $('profile-nick').textContent=profile.nick||'Jogador AGT';setAvatar(profile.avatar_url|| (isOwner?user.user_metadata?.avatar_url:null));$('profile-bio').textContent=profile.bio||'Este jogador ainda não adicionou uma biografia.';showNicks(profile);
   if(isOwner){$('profile-email').textContent=user.email||'';$('edit-panel').hidden=false;$('avatar-upload-label').hidden=false;$('edit-nick').value=profile.nick||'';$('edit-bio').value=profile.bio;profile.nicks.forEach(n=>addNickField(n));if(!profile.nicks.length)addNickField();}
