@@ -1,36 +1,638 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090611"><title>Loja AGT | AGT Arena</title>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090611">
+<title>Loja AGT | AGT Arena</title>
+
 <style>
-:root{--bg:#090611;--card:#171020;--purple:#8b35ff;--neon:#bd75ff;--muted:#aaa0b9;--gold:#ffd36e}*{box-sizing:border-box;margin:0;padding:0}body{background:radial-gradient(ellipse at top,#211036 0,#090611 55%);color:#fff;font-family:Arial,sans-serif;min-height:100vh}a{color:inherit;text-decoration:none}.top{position:sticky;top:0;z-index:5;background:#090611ed;border-bottom:1px solid #392052;padding:14px 6%;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:24px;font-weight:1000;letter-spacing:2px;color:#fff;text-shadow:0 0 12px #9b42ff}.top-actions{display:flex;align-items:center;gap:10px}.wallet{flex-shrink:0;white-space:nowrap;border:1px solid #8c6424;border-radius:12px;padding:9px 12px;background:linear-gradient(135deg,#30200d,#171020);color:#ffe4a0;font-weight:800;font-size:13px}.back{padding:10px 14px;border:1px solid #6730a0;border-radius:10px;background:#171020}.wrap{width:min(1100px,92%);margin:35px auto 70px}.intro{text-align:center;margin-bottom:28px}.intro h1{font-size:clamp(30px,5vw,46px);color:#d7a5ff;text-shadow:0 0 20px #8b35ff66}.intro p{color:var(--muted);margin-top:9px;line-height:1.6}.notice{padding:13px 16px;border:1px solid #68408d;background:#1b1128;border-radius:12px;color:#d9c5ec;margin:18px 0}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:25px 0}.tab{border:1px solid #563078;background:#171020;color:#fff;border-radius:10px;padding:11px 15px;cursor:pointer}.tab.active{background:#512080;border-color:#bd75ff}.section-title{font-size:21px;color:#d6a4ff;margin:25px 0 14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}.item{background:linear-gradient(145deg,#21152f,#120d1c);border:1px solid #563078;border-radius:16px;padding:15px;min-width:0}.preview{height:105px;border-radius:12px;margin-bottom:13px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:21px;letter-spacing:1px;background:#0d0915;border:2px solid #8d4bd0;color:#fff;text-shadow:0 0 10px #bd75ff}.preview.neon-purple{border:3px solid #c56cff;box-shadow:inset 0 0 20px #8b35ff66,0 0 18px #8b35ff88}.preview.galaxy{background:radial-gradient(circle at 25% 30%,#f3a4ff,transparent 18%),radial-gradient(circle at 75% 65%,#387bff,transparent 22%),linear-gradient(135deg,#10051f,#462078,#080c24);border:2px solid #b47bff}.preview.flame{background:radial-gradient(ellipse at bottom,#ffb12e,#9b174d 35%,#170d29 75%);border:2px solid #ff9b52}.preview.butterfly{background:radial-gradient(circle at 25% 25%,#ffb8f1 0 4%,transparent 5%),radial-gradient(circle at 75% 65%,#d59bff 0 5%,transparent 6%),linear-gradient(135deg,#21102f,#6a3a75);border:2px solid #e2a8ff}.preview.cyber{background:linear-gradient(90deg,transparent 48%,#a74cff55 50%,transparent 52%),linear-gradient(0deg,transparent 48%,#a74cff55 50%,transparent 52%),linear-gradient(135deg,#100b20,#32145a);background-size:24px 24px;border:2px solid #a84dff}.preview.floral{background:radial-gradient(circle at 20% 30%,#ffb6e8 0 7%,transparent 8%),radial-gradient(circle at 75% 60%,#d8a4ff 0 8%,transparent 9%),linear-gradient(135deg,#21142d,#4a2b4c);border:2px solid #e6a6e6}.preview.gold{background:linear-gradient(120deg,#6d4710,#ffe18a,#a16a16);color:#2b1a00;text-shadow:none}.preview.ice{background:linear-gradient(120deg,#173c65,#b6edff,#426bba);color:#09213a;text-shadow:none}.preview.prism{background:linear-gradient(110deg,#ff6cae,#c17cff,#69cfff,#7dffc2);color:#23102d;text-shadow:none}.preview.aurora{background:radial-gradient(ellipse at 20% 20%,#58ffd8,#183c55 45%,#100b20);border-color:#58ffd8}.preview.nebula{background:radial-gradient(circle at 25% 35%,#f06bff,transparent 30%),radial-gradient(circle at 70% 65%,#654cff,transparent 35%),linear-gradient(135deg,#090615,#190c35);border-color:#c16cff}.preview.ocean{background:radial-gradient(ellipse at 20% 30%,#35d7ff,transparent 35%),linear-gradient(135deg,#061522,#0a3150);border-color:#35d7ff}.preview.crimson{background:radial-gradient(ellipse at 20% 25%,#ff526c,transparent 35%),linear-gradient(135deg,#170711,#351020);border-color:#ff526c}.item h3{font-size:16px;margin-bottom:6px}.item p{font-size:13px;color:var(--muted);line-height:1.5;min-height:38px}.item-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px}.price{color:var(--gold);font-weight:900}.action{border:0;border-radius:9px;padding:10px 12px;background:linear-gradient(120deg,#8b35ff,#bd75ff);color:white;font-weight:800;cursor:pointer}.action:disabled{opacity:.5;cursor:not-allowed}.empty{color:var(--muted);padding:18px;border:1px dashed #563078;border-radius:12px}.packages{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.pack{padding:16px;border:1px solid #76552b;border-radius:14px;background:linear-gradient(145deg,#251a0e,#171020);text-align:center}.pack strong{display:block;color:#ffe09a;font-size:23px;margin:7px 0}.pack span{color:#c9b99e;font-size:13px}.pack button{margin-top:12px;width:100%;opacity:.6;cursor:not-allowed}.admin{margin-top:35px;padding:20px;border:1px solid #a66b31;border-radius:16px;background:#1b140f}.admin h2{color:#ffd58b;margin-bottom:12px}.admin-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:12px 0}.admin input,.admin select,.admin textarea{width:100%;padding:11px;border:1px solid #624b36;border-radius:8px;background:#100c10;color:#fff}.admin button{padding:11px;border:0;border-radius:8px;background:#8b5b24;color:#fff;font-weight:800;cursor:pointer}.admin small{color:#c5b7a6;line-height:1.6}.msg{margin:12px 0;color:#e7d3ff;min-height:18px;font-size:13px}footer{text-align:center;color:#8e829c;padding:25px;font-size:12px}@media(max-width:520px){.brand{font-size:18px}.top{padding:12px 4%}.wallet{font-size:11px;padding:8px}.back{font-size:12px;padding:9px}.wrap{margin-top:25px}}
-</style></head><body>
-<header class="top"><a class="brand" href="./index.html">AGT ARENA</a><div class="top-actions"><div class="wallet">🪙 <span id="balance">0</span></div><a class="back" href="./index.html">← Início</a></div></header>
-<main class="wrap"><div class="intro"><h1>LOJA AGT</h1><p>Personalize seu perfil, destaque seu nick e mostre seu estilo na arena.</p></div>
-<div class="notice" id="login-notice">Entre na sua conta pelo menu do site AGT para consultar sua carteira e comprar itens.</div>
-<div class="tabs"><button class="tab active" data-filter="all">Todos</button><button class="tab" data-filter="frame">Molduras · 10 moedas</button><button class="tab" data-filter="background">Fundos · 20 moedas</button><button class="tab" data-filter="nick">Estilos de nick · 15 moedas</button></div>
-<h2 class="section-title">Personalizações disponíveis</h2><div class="grid" id="items"><div class="empty">Carregando catálogo...</div></div><p class="msg" id="store-msg" aria-live="polite"></p>
-<section id="comprar-moedas"><h2 class="section-title">Comprar moedas AGT</h2><p style="color:#aaa0b9;line-height:1.6;margin-bottom:14px">Escolha um pacote. A integração de pagamento será ativada em uma próxima etapa, com confirmação segura antes de adicionar moedas à carteira.</p><div class="packages">
-<div class="pack">Inicial<strong>20 moedas</strong><span>R$ 5,00</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Bronze<strong>50 moedas</strong><span>R$ 12,00 · 4% off</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Prata<strong>100 moedas</strong><span>R$ 23,50 · 6% off</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Ouro<strong>200 moedas</strong><span>R$ 47,00 · 6% off</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Diamante<strong>500 moedas</strong><span>R$ 115,00 · 8% off</span><button class="action" disabled>Em breve</button></div>
-<div class="pack">Supremo<strong>1.000 moedas</strong><span>R$ 225,00 · 10% off</span><button class="action" disabled>Em breve</button></div>
-</div></section>
-<section class="admin" id="admin-area" hidden><h2>⚙ Administração da loja</h2><small>Área visível somente para o administrador autorizado no Supabase. Ajustes de saldo e catálogo são validados no banco.</small>
-<h3 style="margin-top:18px">Ajustar moedas de um jogador</h3><div class="admin-form"><input id="admin-email" type="email" placeholder="E-mail exato da conta do jogador"><input id="admin-amount" type="number" placeholder="Quantidade (+ credita / - debita)"><input id="admin-reason" placeholder="Motivo do ajuste"><button id="admin-adjust">Aplicar ajuste</button></div>
-<h3 style="margin-top:18px">Cadastrar item</h3><div class="admin-form"><input id="item-id" placeholder="UUID do item (preencha para editar preço/dados)"><input id="item-slug" placeholder="Identificador único (ex.: moldura-azul)"><input id="item-name" placeholder="Nome do item"><select id="item-category"><option value="frame">Moldura</option><option value="background">Fundo</option><option value="nick">Estilo de nick</option></select><input id="item-price" type="number" min="0" placeholder="Preço em moedas"><input id="item-visual" placeholder="Visual (neon-purple, galaxy, flame...)" value="neon-purple"><input id="item-description" placeholder="Descrição"><button id="admin-save-item">Cadastrar / atualizar item</button></div><p class="msg" id="admin-msg" aria-live="polite"></p></section>
-</main><footer>AGT ARENA · ALIANÇA • GARRA • TALENTO</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-(function(){const SUPABASE_URL='https://lbknsgfpfxkvypkxbcmy.supabase.co';const SUPABASE_KEY='sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);let user=null;let owned=new Set();let filter='all';const balanceEl=document.getElementById('balance');const itemsEl=document.getElementById('items');const msg=document.getElementById('store-msg');const loginNotice=document.getElementById('login-notice');const adminArea=document.getElementById('admin-area');const adminMsg=document.getElementById('admin-msg');const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-async function loadBalance(){if(!user){balanceEl.textContent='Entre na conta';return}const {data,error}=await db.rpc('agt_get_wallet_balance');if(error){balanceEl.textContent='Indisponível';console.warn(error);return}balanceEl.textContent=Number(data||0).toLocaleString('pt-BR')}
-function previewClass(key){return ['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism','aurora','nebula','ocean','crimson'].includes(key)?key:'neon-purple'}
-async function loadItems(){itemsEl.innerHTML='<div class="empty">Carregando catálogo...</div>';let q=db.from('agt_store_items').select('id,slug,name,category,price,description,visual_key').eq('active',true).order('category').order('price');if(filter!=='all')q=q.eq('category',filter);const {data,error}=await q;if(error){itemsEl.innerHTML='<div class="empty">Não foi possível carregar a loja. Execute primeiro o SQL de instalação no Supabase.</div>';return}if(user){const own=await db.from('agt_user_items').select('item_id').eq('user_id',user.id);owned=new Set((own.data||[]).map(x=>x.item_id))}itemsEl.innerHTML='';if(!data?.length){itemsEl.innerHTML='<div class="empty">Nenhum item nesta categoria no momento.</div>';return}data.forEach(item=>{const has=owned.has(item.id);const el=document.createElement('article');el.className='item';el.innerHTML=`<div class="preview ${previewClass(item.visual_key)}">${esc(item.category==='frame'?'AGT':item.category==='background'?'PERFIL':'SEU NICK')}</div><h3>${esc(item.name)}</h3><p>${esc(item.description)}</p><div class="item-bottom"><span class="price">🪙 ${Number(item.price)} moedas</span><button class="action" ${!user||has?'disabled':''}>${has?'Adquirido':'Comprar'}</button></div>`;const btn=el.querySelector('button');if(user&&!has)btn.addEventListener('click',()=>buy(item,btn));if(has){const equip=document.createElement('button');equip.className='action';equip.style.marginTop='9px';equip.style.width='100%';equip.textContent='Equipar';equip.addEventListener('click',()=>equipItem(item,equip));el.appendChild(equip)}itemsEl.appendChild(el)})}
-async function buy(item,btn){if(!user){msg.textContent='Entre na sua conta pelo menu da página inicial para comprar.';return}btn.disabled=true;btn.textContent='Processando...';const {data,error}=await db.rpc('agt_buy_store_item',{p_item_id:item.id});if(error){msg.textContent=error.message;btn.disabled=false;btn.textContent='Comprar';return}balanceEl.textContent=Number(data||0).toLocaleString('pt-BR');msg.textContent='Compra realizada! O item já está no seu inventário.';await loadItems()}
-async function equipItem(item,btn){btn.disabled=true;const {error}=await db.rpc('agt_equip_store_item',{p_item_id:item.id});btn.disabled=false;msg.textContent=error?'Não foi possível equipar: '+error.message:'Item equipado! A personalização foi salva na sua conta.'}
-async function init(){const {data}=await db.auth.getSession();user=data.session?.user||null;loginNotice.hidden=!!user;if(user){await loadBalance();const {data:isAdmin,error:adminError}=await db.rpc('agt_is_store_admin');adminArea.hidden=!!adminError||!isAdmin;if(adminError){msg.textContent='Não foi possível verificar a permissão de administrador: '+adminError.message+' (confira se o SQL da loja foi executado).'}else if(!isAdmin){msg.textContent='Loja carregada. A área administrativa aparece somente para a conta cadastrada como administradora no Supabase.'}}else{balanceEl.textContent='Entre na conta'}await loadItems()}
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;loadItems()}));
-db.auth.onAuthStateChange(()=>{setTimeout(init,0)});
-document.getElementById('admin-adjust').addEventListener('click',async()=>{adminMsg.textContent='Localizando conta...';const email=document.getElementById('admin-email').value.trim();const amount=Number(document.getElementById('admin-amount').value);const reason=document.getElementById('admin-reason').value.trim();const {data:found,error:findError}=await db.rpc('agt_admin_find_user',{p_email:email});if(findError||!found?.length){adminMsg.textContent=findError?.message||'Conta não encontrada.';return}const {data,error}=await db.rpc('agt_admin_adjust_coins',{p_user_id:found[0].user_id,p_amount:amount,p_reason:reason});adminMsg.textContent=error?'Erro: '+error.message:'Saldo atualizado de '+(found[0].nick||found[0].email)+'. Novo saldo: '+data+' moedas.'});
-document.getElementById('admin-save-item').addEventListener('click',async()=>{adminMsg.textContent='Salvando item...';const vals={p_item_id:document.getElementById('item-id').value.trim()||null,p_slug:document.getElementById('item-slug').value.trim(),p_name:document.getElementById('item-name').value.trim(),p_category:document.getElementById('item-category').value,p_price:Number(document.getElementById('item-price').value),p_description:document.getElementById('item-description').value.trim(),p_visual_key:document.getElementById('item-visual').value.trim(),p_active:true};const {error}=await db.rpc('agt_admin_save_item',vals);adminMsg.textContent=error?'Erro: '+error.message:'Item cadastrado com sucesso!';if(!error){await loadItems();['item-id','item-slug','item-name','item-price','item-description'].forEach(id=>document.getElementById(id).value='')}});
-init();})();
-</script></body></html>
+:root{--bg:#090611;--card:#171020;--purple:#8b35ff;--neon:#bd75ff;--muted:#aaa0b9;--gold:#ffd36e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(ellipse at top,#211036 0,#090611 55%);color:#fff;font-family:Arial,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;z-index:5;background:#090611ed;border-bottom:1px solid #392052;padding:14px 6%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:24px;font-weight:1000;letter-spacing:2px;color:#fff;text-shadow:0 0 12px #9b42ff}
+.top-actions{display:flex;align-items:center;gap:10px}
+.wallet{flex-shrink:0;white-space:nowrap;border:1px solid #8c6424;border-radius:12px;padding:9px 12px;background:linear-gradient(135deg,#30200d,#171020);color:#ffe4a0;font-weight:800;font-size:13px}
+.back{padding:10px 14px;border:1px solid #6730a0;border-radius:10px;background:#171020}
+.wrap{width:min(1100px,92%);margin:35px auto 70px}
+.intro{text-align:center;margin-bottom:28px}
+.intro h1{font-size:clamp(30px,5vw,46px);color:#d7a5ff;text-shadow:0 0 20px #8b35ff66}
+.intro p{color:var(--muted);margin-top:9px;line-height:1.6}
+.notice{padding:13px 16px;border:1px solid #68408d;background:#1b1128;border-radius:12px;color:#d9c5ec;margin:18px 0}
+.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:25px 0}
+.tab{border:1px solid #563078;background:#171020;color:#fff;border-radius:10px;padding:11px 15px;cursor:pointer}
+.tab.active{background:#512080;border-color:#bd75ff}
+.section-title{font-size:21px;color:#d6a4ff;margin:25px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.item{background:linear-gradient(145deg,#21152f,#120d1c);border:1px solid #563078;border-radius:16px;padding:15px;min-width:0}
+.preview{height:105px;border-radius:12px;margin-bottom:13px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:21px;letter-spacing:1px;background:#0d0915;border:2px solid #8d4bd0;color:#fff;text-shadow:0 0 10px #bd75ff}
+.preview.neon-purple{border:3px solid #c56cff;box-shadow:inset 0 0 20px #8b35ff66,0 0 18px #8b35ff88}
+.preview.galaxy{background:radial-gradient(circle at 25% 30%,#f3a4ff,transparent 18%),radial-gradient(circle at 75% 65%,#387bff,transparent 22%),linear-gradient(135deg,#10051f,#462078,#080c24);border:2px solid #b47bff}
+.preview.flame{background:radial-gradient(ellipse at bottom,#ffb12e,#9b174d 35%,#170d29 75%);border:2px solid #ff9b52}
+.preview.butterfly{background:radial-gradient(circle at 25% 25%,#ffb8f1 0 4%,transparent 5%),radial-gradient(circle at 75% 65%,#d59bff 0 5%,transparent 6%),linear-gradient(135deg,#21102f,#6a3a75);border:2px solid #e2a8ff}
+.preview.cyber{background:linear-gradient(90deg,transparent 48%,#a74cff55 50%,transparent 52%),linear-gradient(0deg,transparent 48%,#a74cff55 50%,transparent 52%),linear-gradient(135deg,#100b20,#32145a);background-size:24px 24px;border:2px solid #a84dff}
+.preview.floral{background:radial-gradient(circle at 20% 30%,#ffb6e8 0 7%,transparent 8%),radial-gradient(circle at 75% 60%,#d8a4ff 0 8%,transparent 9%),linear-gradient(135deg,#21142d,#4a2b4c);border:2px solid #e6a6e6}
+.preview.gold{background:linear-gradient(120deg,#6d4710,#ffe18a,#a16a16);color:#2b1a00;text-shadow:none}
+.preview.ice{background:linear-gradient(120deg,#173c65,#b6edff,#426bba);color:#09213a;text-shadow:none}
+.preview.prism{background:linear-gradient(110deg,#ff6cae,#c17cff,#69cfff,#7dffc2);color:#23102d;text-shadow:none}
+.preview.aurora{background:radial-gradient(ellipse at 20% 20%,#58ffd8,#183c55 45%,#100b20);border-color:#58ffd8}
+.preview.nebula{background:radial-gradient(circle at 25% 35%,#f06bff,transparent 30%),radial-gradient(circle at 70% 65%,#654cff,transparent 35%),linear-gradient(135deg,#090615,#190c35);border-color:#c16cff}
+.preview.ocean{background:radial-gradient(ellipse at 20% 30%,#35d7ff,transparent 35%),linear-gradient(135deg,#061522,#0a3150);border-color:#35d7ff}
+.preview.crimson{background:radial-gradient(ellipse at 20% 25%,#ff526c,transparent 35%),linear-gradient(135deg,#170711,#351020);border-color:#ff526c}
+.item h3{font-size:16px;margin-bottom:6px}
+.item p{font-size:13px;color:var(--muted);line-height:1.5;min-height:38px}
+.item-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px}
+.price{color:var(--gold);font-weight:900}
+.action{border:0;border-radius:9px;padding:10px 12px;background:linear-gradient(120deg,#8b35ff,#bd75ff);color:white;font-weight:800;cursor:pointer}
+.action:disabled{opacity:.5;cursor:not-allowed}
+.empty{color:var(--muted);padding:18px;border:1px dashed #563078;border-radius:12px}
+.packages{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.pack{padding:16px;border:1px solid #76552b;border-radius:14px;background:linear-gradient(145deg,#251a0e,#171020);text-align:center}
+.pack strong{display:block;color:#ffe09a;font-size:23px;margin:7px 0}
+.pack span{color:#c9b99e;font-size:13px}
+.pack button{margin-top:12px;width:100%}
+.admin{margin-top:35px;padding:20px;border:1px solid #a66b31;border-radius:16px;background:#1b140f}
+.admin h2{color:#ffd58b;margin-bottom:12px}
+.admin-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:12px 0}
+.admin input,.admin select,.admin textarea{width:100%;padding:11px;border:1px solid #624b36;border-radius:8px;background:#100c10;color:#fff}
+.admin button{padding:11px;border:0;border-radius:8px;background:#8b5b24;color:#fff;font-weight:800;cursor:pointer}
+.admin small{color:#c5b7a6;line-height:1.6}
+.msg{margin:12px 0;color:#e7d3ff;min-height:18px;font-size:13px}
+footer{text-align:center;color:#8e829c;padding:25px;font-size:12px}
+@media(max-width:520px){
+.brand{font-size:18px}
+.top{padding:12px 4%}
+.wallet{font-size:11px;padding:8px}
+.back{font-size:12px;padding:9px}
+.wrap{margin-top:25px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+<a class="brand" href="./index.html">AGT ARENA</a>
+<div class="top-actions">
+<div class="wallet">🪙 <span id="balance">0</span></div>
+<a class="back" href="./index.html">← Início</a>
+</div>
+</header>
+
+<main class="wrap">
+
+<div class="intro">
+<h1>LOJA AGT</h1>
+<p>Personalize seu perfil, destaque seu nick e mostre seu estilo na arena.</p>
+</div>
+
+<div class="notice" id="login-notice">
+Entre na sua conta pelo menu do site AGT para consultar sua carteira e comprar itens.
+</div>
+
+<div class="tabs">
+<button class="tab active" data-filter="all">Todos</button>
+<button class="tab" data-filter="frame">Molduras · 10 moedas</button>
+<button class="tab" data-filter="background">Fundos · 20 moedas</button>
+<button class="tab" data-filter="nick">Estilos de nick · 15 moedas</button>
+</div>
+
+<h2 class="section-title">Personalizações disponíveis</h2>
+<div class="grid" id="items">
+<div class="empty">Carregando catálogo...</div>
+</div>
+
+<p class="msg" id="store-msg" aria-live="polite"></p>
+
+<section id="comprar-moedas">
+<h2 class="section-title">Comprar moedas AGT</h2>
+<p style="color:#aaa0b9;line-height:1.6;margin-bottom:14px">
+Escolha um pacote e pague com segurança pelo Mercado Pago.
+</p>
+
+<div class="packages">
+
+<div class="pack">
+Inicial
+<strong>20 moedas</strong>
+<span>R$ 5,00</span>
+<button class="action buy-coins" data-package="inicial">Comprar</button>
+</div>
+
+<div class="pack">
+Bronze
+<strong>50 moedas</strong>
+<span>R$ 12,00 · 4% off</span>
+<button class="action buy-coins" data-package="bronze">Comprar</button>
+</div>
+
+<div class="pack">
+Prata
+<strong>100 moedas</strong>
+<span>R$ 23,50 · 6% off</span>
+<button class="action buy-coins" data-package="prata">Comprar</button>
+</div>
+
+<div class="pack">
+Ouro
+<strong>200 moedas</strong>
+<span>R$ 47,00 · 6% off</span>
+<button class="action buy-coins" data-package="ouro">Comprar</button>
+</div>
+
+<div class="pack">
+Diamante
+<strong>500 moedas</strong>
+<span>R$ 115,00 · 8% off</span>
+<button class="action buy-coins" data-package="diamante">Comprar</button>
+</div>
+
+<div class="pack">
+Supremo
+<strong>1.000 moedas</strong>
+<span>R$ 225,00 · 10% off</span>
+<button class="action buy-coins" data-package="supremo">Comprar</button>
+</div>
+
+</div>
+
+<p class="msg" id="payment-msg" aria-live="polite"></p>
+</section>
+
+<section class="admin" id="admin-area" hidden>
+<h2>⚙ Administração da loja</h2>
+<small>Área visível somente para o administrador autorizado no Supabase. Ajustes de saldo e catálogo são validados no banco.</small>
+
+<h3 style="margin-top:18px">Ajustar moedas de um jogador</h3>
+
+<div class="admin-form">
+<input id="admin-email" type="email" placeholder="E-mail exato da conta do jogador">
+<input id="admin-amount" type="number" placeholder="Quantidade (+ credita / - debita)">
+<input id="admin-reason" placeholder="Motivo do ajuste">
+<button id="admin-adjust">Aplicar ajuste</button>
+</div>
+
+<h3 style="margin-top:18px">Cadastrar item</h3>
+
+<div class="admin-form">
+<input id="item-id" placeholder="UUID do item (preencha para editar preço/dados)">
+<input id="item-slug" placeholder="Identificador único (ex.: moldura-azul)">
+<input id="item-name" placeholder="Nome do item">
+
+<select id="item-category">
+<option value="frame">Moldura</option>
+<option value="background">Fundo</option>
+<option value="nick">Estilo de nick</option>
+</select>
+
+<input id="item-price" type="number" min="0" placeholder="Preço em moedas">
+<input id="item-visual" placeholder="Visual (neon-purple, galaxy, flame...)" value="neon-purple">
+<input id="item-description" placeholder="Descrição">
+<button id="admin-save-item">Cadastrar / atualizar item</button>
+</div>
+
+<p class="msg" id="admin-msg" aria-live="polite"></p>
+</section>
+
+</main>
+
+<footer>AGT ARENA · ALIANÇA • GARRA • TALENTO</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+(function(){
+
+const SUPABASE_URL='https://lbknsgfpfxkvypkxbcmy.supabase.co';
+const SUPABASE_KEY='sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
+
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+let user=null;
+let owned=new Set();
+let filter='all';
+
+const balanceEl=document.getElementById('balance');
+const itemsEl=document.getElementById('items');
+const msg=document.getElementById('store-msg');
+const loginNotice=document.getElementById('login-notice');
+const adminArea=document.getElementById('admin-area');
+const adminMsg=document.getElementById('admin-msg');
+
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[c]));
+
+/* ==========================================
+   INTEGRAÇÃO DE PAGAMENTO - MERCADO PAGO
+========================================== */
+
+async function buyCoins(packageCode,button){
+
+  const paymentMsg=document.getElementById('payment-msg');
+
+  if(!user){
+    paymentMsg.textContent='Entre na sua conta antes de comprar moedas.';
+    return;
+  }
+
+  button.disabled=true;
+  button.textContent='Criando pedido...';
+  paymentMsg.textContent='Conectando ao Mercado Pago...';
+
+  try{
+
+    const {data,error}=await db.functions.invoke(
+      'mp-create-order',
+      {
+        body:{
+          package:packageCode
+        }
+      }
+    );
+
+    if(error){
+
+      let details=error.message||'Não foi possível criar o pedido.';
+
+      if(error.context){
+        try{
+          const response=await error.context.json();
+          details=response.error||response.message||details;
+        }catch(_){}
+      }
+
+      throw new Error(details);
+    }
+
+    if(!data||!data.success||!data.checkout_url){
+      throw new Error(
+        data?.error||'O Mercado Pago não retornou o link de pagamento.'
+      );
+    }
+
+    paymentMsg.textContent='Pedido criado! Redirecionando para o Mercado Pago...';
+
+    window.location.href=data.checkout_url;
+
+  }catch(error){
+
+    console.error('Erro ao comprar moedas:',error);
+
+    paymentMsg.textContent=
+      'Não foi possível iniciar o pagamento: '+error.message;
+
+    button.disabled=false;
+    button.textContent='Comprar';
+  }
+}
+
+document.querySelectorAll('.buy-coins').forEach(button=>{
+  button.addEventListener('click',()=>{
+    buyCoins(button.dataset.package,button);
+  });
+});
+
+/* ==========================================
+   CARTEIRA E CATÁLOGO
+========================================== */
+
+async function loadBalance(){
+
+  if(!user){
+    balanceEl.textContent='Entre na conta';
+    return;
+  }
+
+  const {data,error}=await db.rpc('agt_get_wallet_balance');
+
+  if(error){
+    balanceEl.textContent='Indisponível';
+    console.warn(error);
+    return;
+  }
+
+  balanceEl.textContent=Number(data||0).toLocaleString('pt-BR');
+}
+
+function previewClass(key){
+
+  return [
+    'neon-purple','galaxy','flame','butterfly','cyber',
+    'floral','gold','ice','prism','aurora','nebula',
+    'ocean','crimson'
+  ].includes(key)?key:'neon-purple';
+}
+
+async function loadItems(){
+
+  itemsEl.innerHTML='<div class="empty">Carregando catálogo...</div>';
+
+  let q=db.from('agt_store_items')
+    .select('id,slug,name,category,price,description,visual_key')
+    .eq('active',true)
+    .order('category')
+    .order('price');
+
+  if(filter!=='all'){
+    q=q.eq('category',filter);
+  }
+
+  const {data,error}=await q;
+
+  if(error){
+    itemsEl.innerHTML='<div class="empty">Não foi possível carregar a loja. Execute primeiro o SQL de instalação no Supabase.</div>';
+    return;
+  }
+
+  if(user){
+
+    const own=await db.from('agt_user_items')
+      .select('item_id')
+      .eq('user_id',user.id);
+
+    owned=new Set((own.data||[]).map(x=>x.item_id));
+  }
+
+  itemsEl.innerHTML='';
+
+  if(!data?.length){
+    itemsEl.innerHTML='<div class="empty">Nenhum item nesta categoria no momento.</div>';
+    return;
+  }
+
+  data.forEach(item=>{
+
+    const has=owned.has(item.id);
+    const el=document.createElement('article');
+
+    el.className='item';
+
+    el.innerHTML=`
+      <div class="preview ${previewClass(item.visual_key)}">
+        ${esc(item.category==='frame'?'AGT':item.category==='background'?'PERFIL':'SEU NICK')}
+      </div>
+      <h3>${esc(item.name)}</h3>
+      <p>${esc(item.description)}</p>
+      <div class="item-bottom">
+        <span class="price">🪙 ${Number(item.price)} moedas</span>
+        <button class="action" ${!user||has?'disabled':''}>
+          ${has?'Adquirido':'Comprar'}
+        </button>
+      </div>
+    `;
+
+    const btn=el.querySelector('button');
+
+    if(user&&!has){
+      btn.addEventListener('click',()=>buy(item,btn));
+    }
+
+    if(has){
+
+      const equip=document.createElement('button');
+
+      equip.className='action';
+      equip.style.marginTop='9px';
+      equip.style.width='100%';
+      equip.textContent='Equipar';
+
+      equip.addEventListener('click',()=>equipItem(item,equip));
+
+      el.appendChild(equip);
+    }
+
+    itemsEl.appendChild(el);
+  });
+}
+
+/* ==========================================
+   COMPRA DE PERSONALIZAÇÕES
+========================================== */
+
+async function buy(item,btn){
+
+  if(!user){
+    msg.textContent='Entre na sua conta pelo menu da página inicial para comprar.';
+    return;
+  }
+
+  btn.disabled=true;
+  btn.textContent='Processando...';
+
+  const {data,error}=await db.rpc(
+    'agt_buy_store_item',
+    {p_item_id:item.id}
+  );
+
+  if(error){
+    msg.textContent=error.message;
+    btn.disabled=false;
+    btn.textContent='Comprar';
+    return;
+  }
+
+  balanceEl.textContent=Number(data||0).toLocaleString('pt-BR');
+  msg.textContent='Compra realizada! O item já está no seu inventário.';
+
+  await loadItems();
+}
+
+/* ==========================================
+   EQUIPAR PERSONALIZAÇÕES
+========================================== */
+
+async function equipItem(item,btn){
+
+  btn.disabled=true;
+
+  const {error}=await db.rpc(
+    'agt_equip_store_item',
+    {p_item_id:item.id}
+  );
+
+  btn.disabled=false;
+
+  msg.textContent=error
+    ?'Não foi possível equipar: '+error.message
+    :'Item equipado! A personalização foi salva na sua conta.';
+}
+
+/* ==========================================
+   INICIALIZAÇÃO E LOGIN
+========================================== */
+
+async function init(){
+
+  const {data}=await db.auth.getSession();
+
+  user=data.session?.user||null;
+
+  loginNotice.hidden=!!user;
+
+  if(user){
+
+    await loadBalance();
+
+    const {data:isAdmin,error:adminError}=await db.rpc(
+      'agt_is_store_admin'
+    );
+
+    adminArea.hidden=!!adminError||!isAdmin;
+
+    if(adminError){
+
+      msg.textContent=
+        'Não foi possível verificar a permissão de administrador: '+
+        adminError.message+
+        ' (confira se o SQL da loja foi executado).';
+
+    }else if(!isAdmin){
+
+      msg.textContent=
+        'Loja carregada. A área administrativa aparece somente para a conta cadastrada como administradora no Supabase.';
+    }
+
+  }else{
+
+    balanceEl.textContent='Entre na conta';
+  }
+
+  await loadItems();
+}
+
+/* ==========================================
+   FILTROS DO CATÁLOGO
+========================================== */
+
+document.querySelectorAll('.tab').forEach(b=>{
+
+  b.addEventListener('click',()=>{
+
+    document.querySelectorAll('.tab').forEach(x=>{
+      x.classList.remove('active');
+    });
+
+    b.classList.add('active');
+
+    filter=b.dataset.filter;
+
+    loadItems();
+  });
+});
+
+db.auth.onAuthStateChange(()=>{
+  setTimeout(init,0);
+});
+
+/* ==========================================
+   ADMINISTRAÇÃO - AJUSTE DE MOEDAS
+========================================== */
+
+document.getElementById('admin-adjust')
+.addEventListener('click',async()=>{
+
+  adminMsg.textContent='Localizando conta...';
+
+  const email=document.getElementById('admin-email').value.trim();
+  const amount=Number(document.getElementById('admin-amount').value);
+  const reason=document.getElementById('admin-reason').value.trim();
+
+  const {data:found,error:findError}=await db.rpc(
+    'agt_admin_find_user',
+    {p_email:email}
+  );
+
+  if(findError||!found?.length){
+    adminMsg.textContent=findError?.message||'Conta não encontrada.';
+    return;
+  }
+
+  const {data,error}=await db.rpc(
+    'agt_admin_adjust_coins',
+    {
+      p_user_id:found[0].user_id,
+      p_amount:amount,
+      p_reason:reason
+    }
+  );
+
+  adminMsg.textContent=error
+    ?'Erro: '+error.message
+    :'Saldo atualizado de '+(found[0].nick||found[0].email)+
+      '. Novo saldo: '+data+' moedas.';
+});
+
+/* ==========================================
+   ADMINISTRAÇÃO - CADASTRAR ITEM
+========================================== */
+
+document.getElementById('admin-save-item')
+.addEventListener('click',async()=>{
+
+  adminMsg.textContent='Salvando item...';
+
+  const vals={
+
+    p_item_id:
+      document.getElementById('item-id').value.trim()||null,
+
+    p_slug:
+      document.getElementById('item-slug').value.trim(),
+
+    p_name:
+      document.getElementById('item-name').value.trim(),
+
+    p_category:
+      document.getElementById('item-category').value,
+
+    p_price:
+      Number(document.getElementById('item-price').value),
+
+    p_description:
+      document.getElementById('item-description').value.trim(),
+
+    p_visual_key:
+      document.getElementById('item-visual').value.trim(),
+
+    p_active:true
+  };
+
+  const {error}=await db.rpc('agt_admin_save_item',vals);
+
+  adminMsg.textContent=error
+    ?'Erro: '+error.message
+    :'Item cadastrado com sucesso!';
+
+  if(!error){
+
+    await loadItems();
+
+    [
+      'item-id',
+      'item-slug',
+      'item-name',
+      'item-price',
+      'item-description'
+    ].forEach(id=>{
+      document.getElementById(id).value='';
+    });
+  }
+});
+
+/* INICIA A LOJA */
+
+init();
+
+})();
+</script>
+
+</body>
+</html>
