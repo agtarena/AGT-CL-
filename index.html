@@ -1066,7 +1066,8 @@ section {
 /* RODAPÉ */
 
 footer {
-  padding:30px 8%;
+  margin-top:48px;
+  padding:42px 8% 38px;
   text-align:center;
   color:var(--muted);
   font-size:13px;
@@ -1186,20 +1187,20 @@ footer span {color:var(--neon)}
   .agt-ranking-score strong {font-size:12px}
   .agt-ranking-details {font-size:9px}
   .agt-player-avatar {width:35px;height:35px}
-  footer {padding:28px 6%;font-size:12px}
+  footer {padding:42px 6% 38px;font-size:12px;margin-top:30px;line-height:1.9}
 }
 
 
 /* CARTEIRA AGT */
 .agt-wallet {
-  display:flex; align-items:center; gap:9px; padding:8px 11px;
+  display:flex; align-items:center; gap:7px; padding:8px 10px; flex:0 0 auto; min-width:0;
   border:1px solid #8c6424; border-radius:12px;
   background:linear-gradient(135deg,#30200d,#171020 75%);
   color:#ffe4a0; font-size:13px; font-weight:800;
   box-shadow:0 0 15px #e8a92822;
 }
 .agt-wallet[hidden] {display:none !important}
-.agt-wallet-value {white-space:nowrap; font-variant-numeric:tabular-nums}
+.agt-wallet-value {white-space:nowrap; font-variant-numeric:tabular-nums; display:inline-block; min-width:1ch;}
 .agt-wallet-plus {
   width:25px;height:25px;border:0;border-radius:8px;cursor:pointer;
   color:#1b1205;background:linear-gradient(135deg,#ffe38b,#d99a27);
@@ -1207,7 +1208,7 @@ footer span {color:var(--neon)}
 }
 .agt-wallet-plus:hover {filter:brightness(1.12);transform:scale(1.05)}
 @media(max-width:600px){
-  .agt-wallet{gap:5px;padding:6px 7px;font-size:11px}
+  .agt-wallet{gap:4px;padding:6px 6px;font-size:11px;max-width:max-content}.agt-wallet>span:first-child{font-size:16px;line-height:1;flex:0 0 auto}.agt-wallet-value{font-size:11px;}
   .agt-wallet-plus{width:23px;height:23px}
   header{gap:7px}
 }
@@ -1223,7 +1224,7 @@ footer span {color:var(--neon)}
 <header>
   <div class="agt-wallet" id="agt-wallet" hidden>
     <span aria-hidden="true">🪙</span>
-    <span class="agt-wallet-value" id="agt-wallet-value">0 moedas</span>
+    <span class="agt-wallet-value" id="agt-wallet-value">0</span>
     <button class="agt-wallet-plus" id="agt-wallet-plus" type="button" aria-label="Comprar moedas" title="Comprar moedas">+</button>
   </div>
   <div class="logo">Clã AGT</div>
@@ -1669,7 +1670,7 @@ footer span {color:var(--neon)}
       return;
     }
     const saldo = Number(data || 0);
-    walletValue.textContent = saldo.toLocaleString('pt-BR') + (saldo === 1 ? ' moeda' : ' moedas');
+    walletValue.textContent = saldo.toLocaleString('pt-BR');
   }
 
   function avisar(texto) {
@@ -2152,15 +2153,15 @@ footer span {color:var(--neon)}
 
     const jogadores = Array.from(jogadoresPorNick.values());
 
+    // A classificação AGT é definida pela pontuação, não pela posição geral
+    // recebida da API. Assim, 20 mil pontos sempre ficam acima de 17 mil e 8 mil.
     jogadores.sort((a,b) => {
+      const scoreDiff = Number(b.score || 0) - Number(a.score || 0);
+      if (scoreDiff !== 0) return scoreDiff;
       const posA = Number(a.position);
       const posB = Number(b.position);
-
       if (Number.isFinite(posA) && Number.isFinite(posB)) return posA-posB;
-      if (Number.isFinite(posA)) return -1;
-      if (Number.isFinite(posB)) return 1;
-
-      return Number(b.score || 0)-Number(a.score || 0);
+      return String(a.nick || '').localeCompare(String(b.nick || ''), 'pt-BR');
     });
 
     rankingList.innerHTML = '';
@@ -2197,7 +2198,7 @@ footer span {color:var(--neon)}
 
       const details = document.createElement('span');
       details.className = 'agt-ranking-details';
-      details.textContent = `${colocacao}º lugar AGT • Posição geral: #${player.position ?? '-'}`;
+      details.textContent = `${colocacao}º lugar AGT • ${player.position ? 'Posição geral: #'+player.position : 'Classificado por pontuação'}`;
 
       info.append(nick,details);
 
