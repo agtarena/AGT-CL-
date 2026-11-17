@@ -206,6 +206,8 @@ Supremo
 <script>
 (function(){
 
+'use strict';
+
 const SUPABASE_URL='https://lbknsgfpfxkvypkxbcmy.supabase.co';
 const SUPABASE_KEY='sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA';
 
@@ -214,6 +216,7 @@ const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let user=null;
 let owned=new Set();
 let filter='all';
+let buyingCoins=false;
 
 const balanceEl=document.getElementById('balance');
 const itemsEl=document.getElementById('items');
@@ -221,6 +224,7 @@ const msg=document.getElementById('store-msg');
 const loginNotice=document.getElementById('login-notice');
 const adminArea=document.getElementById('admin-area');
 const adminMsg=document.getElementById('admin-msg');
+const paymentMsg=document.getElementById('payment-msg');
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({
 '&':'&amp;',
@@ -231,29 +235,62 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({
 }[c]));
 
 /* ==========================================
-   INTEGRAÇÃO DE PAGAMENTO - MERCADO PAGO
+   INTEGRAÇÃO SEGURA - MERCADO PAGO
 ========================================== */
 
 async function buyCoins(packageCode,button){
 
-  const paymentMsg=document.getElementById('payment-msg');
+  if(buyingCoins)return;
 
-  if(!user){
-    paymentMsg.textContent='Entre na sua conta antes de comprar moedas.';
+  if(!packageCode){
+    paymentMsg.textContent='Pacote inválido.';
     return;
   }
 
-  button.disabled=true;
+  buyingCoins=true;
+
+  const allButtons=[...document.querySelectorAll('.buy-coins')];
+
+  allButtons.forEach(b=>b.disabled=true);
+
+  const originalText=button.textContent;
+
   button.textContent='Criando pedido...';
-  paymentMsg.textContent='Conectando ao Mercado Pago...';
+  paymentMsg.textContent='Verificando sua sessão...';
 
   try{
+
+    /* Busca a sessão atualizada do Supabase */
+
+    const {data:sessionData,error:sessionError}=await db.auth.getSession();
+
+    if(sessionError){
+      throw new Error('Não foi possível verificar seu login. Entre novamente na sua conta.');
+    }
+
+    const session=sessionData?.session;
+
+    if(!session?.access_token){
+      throw new Error('Sua sessão expirou. Entre novamente na sua conta para comprar moedas.');
+    }
+
+    paymentMsg.textContent='Conectando ao Mercado Pago...';
+
+    /*
+      A Edge Function recebe package_code.
+      O preço e a quantidade de moedas são definidos
+      exclusivamente no servidor.
+    */
 
     const {data,error}=await db.functions.invoke(
       'mp-create-order',
       {
         body:{
-          package:packageCode
+          package_code:packageCode
+        },
+        headers:{
+          Authorization:'Bearer '+session.access_token,
+          apikey:SUPABASE_KEY
         }
       }
     );
@@ -272,32 +309,66 @@ async function buyCoins(packageCode,button){
       throw new Error(details);
     }
 
-    if(!data||!data.success||!data.checkout_url){
+    /*
+      A função configurada retorna checkout_url,
+      order_id, package, coins e amount.
+      Não exige data.success.
+    */
+
+    if(!data||!data.checkout_url){
       throw new Error(
         data?.error||'O Mercado Pago não retornou o link de pagamento.'
       );
     }
 
+    /* Verifica se o endereço é HTTPS e pertence ao Mercado Pago */
+
+    let checkoutUrl;
+
+    try{
+      checkoutUrl=new URL(data.checkout_url);
+    }catch(_){
+      throw new Error('O endereço de pagamento retornado é inválido.');
+    }
+
+    const host=checkoutUrl.hostname.toLowerCase();
+
+    const trustedHost=
+      host==='mercadopago.com.br'||
+      host.endsWith('.mercadopago.com.br')||
+      host==='mercadopago.com'||
+      host.endsWith('.mercadopago.com');
+
+    if(checkoutUrl.protocol!=='https:'||!trustedHost){
+      throw new Error('O endereço de pagamento não passou pela verificação de segurança.');
+    }
+
     paymentMsg.textContent='Pedido criado! Redirecionando para o Mercado Pago...';
 
-    window.location.href=data.checkout_url;
+    window.location.assign(checkoutUrl.href);
 
   }catch(error){
 
     console.error('Erro ao comprar moedas:',error);
 
     paymentMsg.textContent=
-      'Não foi possível iniciar o pagamento: '+error.message;
+      'Não foi possível iniciar o pagamento: '+
+      (error.message||'Erro inesperado.');
 
-    button.disabled=false;
-    button.textContent='Comprar';
+    buyingCoins=false;
+
+    allButtons.forEach(b=>b.disabled=false);
+
+    button.textContent=originalText;
   }
 }
 
 document.querySelectorAll('.buy-coins').forEach(button=>{
+
   button.addEventListener('click',()=>{
     buyCoins(button.dataset.package,button);
   });
+
 });
 
 /* ==========================================
@@ -359,6 +430,10 @@ async function loadItems(){
       .eq('user_id',user.id);
 
     owned=new Set((own.data||[]).map(x=>x.item_id));
+
+  }else{
+
+    owned=new Set();
   }
 
   itemsEl.innerHTML='';
@@ -503,6 +578,7 @@ async function init(){
   }else{
 
     balanceEl.textContent='Entre na conta';
+    adminArea.hidden=true;
   }
 
   await loadItems();
