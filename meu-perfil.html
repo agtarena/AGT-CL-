@@ -203,6 +203,7 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
       const result=await db.from('agt_ranking_daily')
         .select('nick,score,source_date,position')
         .ilike('nick',variant)
+        .gte('source_date','2026-05-17')
         .order('source_date',{ascending:false})
         .range(page,page+999);
       if(result.error){console.warn('Histórico de score:',result.error.message);break;}
