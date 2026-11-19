@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090611">
+<meta name="description" content="Central de Ajuda AGT Arena: guias para criar perfil, consultar rankings, usar a loja e participar da comunidade.">
+<link rel="icon" type="image/png" href="./logo.png">
+<title>Central de Ajuda | AGT Arena</title>
+<style>
+:root{--bg:#090611;--panel:#171020;--purple:#8b35ff;--neon:#bd75ff;--muted:#aaa0b9;--line:#49266b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#351451 0,transparent 45%),var(--bg);color:#fff;font-family:Arial,sans-serif;line-height:1.6}
+a{color:#d8b6ff}
+header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 6%;background:#090611ed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.brand{font-size:22px;font-weight:1000;letter-spacing:2px;color:#e8d5ff;text-decoration:none;text-shadow:0 0 12px #8b35ff88}
+.back{padding:9px 13px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-size:12px}
+main{width:min(1050px,92%);margin:35px auto 65px}
+.hero{text-align:center;margin:35px 0 28px}
+.eyebrow{color:var(--neon);font-size:11px;font-weight:bold;letter-spacing:3px}
+h1{font-size:clamp(30px,6vw,48px);margin:8px 0;color:#f2e8ff}
+.hero p{color:var(--muted);max-width:680px;margin:auto}
+.search{display:block;width:min(680px,100%);margin:22px auto;padding:15px 17px;border:1px solid #70409a;border-radius:12px;background:#130d1e;color:#fff;font-size:15px;outline:none}
+.search:focus{border-color:var(--neon);box-shadow:0 0 15px #8b35ff33}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:25px 0}
+.card,.guide,.assistant{background:linear-gradient(145deg,#1d142c,#100b19);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card a{display:block;color:#e7d5ff;text-decoration:none;font-weight:bold;margin-bottom:5px}
+.card p,.muted{font-size:13px;color:var(--muted)}
+h2{font-size:21px;color:#e7d5ff;margin:32px 0 13px}
+h3{font-size:16px;color:#d8b6ff;margin:17px 0 6px}
+.guide{margin:12px 0}
+.guide p,.guide li{font-size:14px;color:#d0c5dc}
+.guide ol,.guide ul{padding-left:22px;margin:8px 0}
+.pill{display:inline-block;color:#d8b6ff;background:#8b35ff22;border:1px solid #8b35ff66;border-radius:20px;padding:3px 9px;font-size:10px;font-weight:bold;margin-bottom:8px}
+.note{border-left:3px solid #bd75ff;padding:11px 14px;background:#8b35ff12;color:#d7c9e6;border-radius:0 8px 8px 0;font-size:13px;margin:14px 0}
+.assistant{margin-top:30px;border-color:#7541a0}
+.chat-log{height:250px;overflow:auto;padding:12px;background:#0d0915;border:1px solid #39234f;border-radius:10px;margin:12px 0}
+.bubble{max-width:92%;padding:10px 12px;border-radius:10px;margin:8px 0;font-size:13px;white-space:pre-wrap}
+.bot{background:#251634;border:1px solid #563078;color:#eee}
+.user{background:#49206e;margin-left:auto;color:#fff}
+.chat-form{display:flex;gap:8px}
+.chat-form input{flex:1;min-width:0;padding:12px;border:1px solid #563078;border-radius:9px;background:#100b19;color:#fff}
+.chat-form button{padding:0 16px;border:0;border-radius:9px;background:linear-gradient(100deg,#7624df,#ad55ff);color:#fff;font-weight:bold;cursor:pointer}
+.small{font-size:11px;color:#8e819b;margin-top:10px}
+footer{text-align:center;color:#887b96;font-size:11px;padding:25px;border-top:1px solid #2d1b40}
+[hidden]{display:none!important}
+@media(max-width:520px){header{padding:12px 4%}.brand{font-size:18px}.chat-form{flex-direction:column}.chat-form button{padding:12px}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="./index.html">AGT ARENA</a><a class="back" href="./index.html">← VOLTAR AO INÍCIO</a></header>
+<main>
+<section class="hero">
+ <div class="eyebrow">SUPORTE OFICIAL DA COMUNIDADE</div>
+ <h1>Central de Ajuda</h1>
+ <p>Encontre orientações para começar, configurar seu perfil, acompanhar sua evolução e aproveitar os recursos disponíveis no AGT Arena.</p>
+ <input class="search" id="help-search" type="search" placeholder="Pesquise uma dúvida, por exemplo: como criar perfil?" aria-label="Pesquisar na Central de Ajuda">
+</section>
+<div class="grid" id="help-categories">
+ <div class="card"><a href="#conta">👤 Conta e acesso</a><p>Cadastro, login, recuperação de senha e perfil.</p></div>
+ <div class="card"><a href="#perfil">🖼️ Meu perfil</a><p>Nick, apelidos, foto, biografia e histórico.</p></div>
+ <div class="card"><a href="#rankings">🏆 Rankings e patentes</a><p>Como acompanhar scores, posições e evolução.</p></div>
+ <div class="card"><a href="#loja">🪙 Loja e moedas</a><p>Saldo, itens, compras e recompensas.</p></div>
+ <div class="card"><a href="#social">💜 Social</a><p>Encontrar jogadores e usar os recursos sociais.</p></div>
+ <div class="card"><a href="#recrutamento">⚔️ Recrutamento</a><p>Como enviar sua inscrição para o clã.</p></div>
+</div>
+<section class="guide" id="conta" data-search="conta cadastro criar conta registrar email senha login entrar recuperar senha">
+ <span class="pill">PRIMEIROS PASSOS</span><h2>1. Criar conta e entrar</h2>
+ <ol><li>Abra a página inicial do AGT Arena e abra o menu de navegação.</li><li>Na área de cadastro, informe seu e-mail, crie uma senha e escolha um nick que contenha “AGT”, conforme a regra do cadastro.</li><li>Conclua o cadastro e, se o Supabase solicitar, confirme seu e-mail.</li><li>Para voltar, use a opção de login com o mesmo e-mail e senha.</li><li>Se não lembrar a senha, use a opção de recuperação de senha na área de acesso.</li></ol>
+ <p class="note">Use um e-mail ao qual você tenha acesso. Nunca compartilhe sua senha com outros jogadores ou com a equipe por mensagens.</p>
+</section>
+<section class="guide" id="perfil" data-search="perfil editar nick apelido nicks foto avatar biografia bio histórico scores">
+ <span class="pill">PERSONALIZAÇÃO</span><h2>2. Criar e editar seu perfil</h2>
+ <ol><li>Entre na sua conta e abra “Meu perfil” pelo menu.</li><li>Use a opção de editar para preencher seu nick principal, adicionar nicks associados e escrever sua biografia.</li><li>Escolha uma foto de perfil e salve as alterações.</li><li>Os nicks cadastrados ficam associados à sua conta. Um nick reservado não deve ser usado por outra conta; em caso de conflito, procure a administração.</li><li>Consulte seu histórico e seus melhores scores na própria página do perfil.</li></ol>
+ <p class="note">Confira a escrita do nick antes de salvar. O sistema de reserva considera variações de maiúsculas/minúsculas, espaços e o prefixo “AGT |”.</p>
+</section>
+<section class="guide" id="rankings" data-search="ranking diário mensal patente score pontos classificação histórico">
+ <span class="pill">EVOLUÇÃO</span><h2>3. Rankings e patentes</h2>
+ <ul><li><b>Ranking diário:</b> mostra os jogadores AGT identificados nos dados coletados para o dia.</li><li><b>Ranking mensal:</b> soma o melhor score diário de cada nick ao longo do mês, conforme os registros disponíveis.</li><li><b>Rank de patentes:</b> consolida o histórico associado aos perfis. O período válido começa em 17/05/2026.</li><li><b>Histórico de scores:</b> permite consultar os registros vinculados aos nicks do perfil.</li></ul>
+ <p class="note">Os rankings dependem da coleta e da disponibilidade dos dados de origem. Se uma lista estiver vazia ou mostrar “aguardando”, isso pode significar que ainda não há registros disponíveis para aquele período.</p>
+</section>
+<section class="guide" id="loja" data-search="loja moedas comprar itens moldura fundo saldo recompensas transações score">
+ <span class="pill">ITENS E SALDO</span><h2>4. Loja AGT e moedas</h2>
+ <ol><li>Abra “Loja AGT” pelo menu e entre na conta para consultar seu saldo.</li><li>Veja os itens disponíveis e o custo indicado em moedas.</li><li>Antes de confirmar, confira o item e o valor. O saldo e as compras são validados no banco de dados.</li><li>Consulte o histórico da loja para acompanhar movimentações e compras registradas.</li></ol>
+ <p class="note">As regras de recompensa por score estão em implantação. Não considere pontos antigos como convertidos automaticamente; consulte o saldo e o histórico exibidos na loja.</p>
+</section>
+<section class="guide" id="social" data-search="social amigos adicionar amizade mensagem direct conversa chamada grupo">
+ <span class="pill">COMUNIDADE</span><h2>5. Área Social</h2>
+ <ol><li>Abra “Social” pelo menu principal.</li><li>Use a pesquisa para localizar jogadores e abrir perfis.</li><li>Quando disponível, envie ou responda solicitações de amizade e acesse suas conversas.</li><li>Use os controles exibidos na própria área para conversar e acessar os recursos de comunicação liberados para sua conta.</li></ol>
+ <p class="note">Os recursos sociais podem depender de autenticação, permissões do banco e disponibilidade do navegador. Se algo não carregar, atualize a página e tente novamente.</p>
+</section>
+<section class="guide" id="recrutamento" data-search="recrutamento inscrição entrar clã formulário whatsapp email">
+ <span class="pill">FAÇA PARTE</span><h2>6. Como se inscrever para o clã</h2>
+ <ol><li>Na página inicial, vá até a seção “Recrutamento”.</li><li>Abra o formulário e preencha os dados solicitados com atenção.</li><li>Escolha a forma de envio disponível, como WhatsApp ou preparação de e-mail.</li><li>A equipe AGT analisará a inscrição. O envio não representa entrada automática no clã.</li></ol>
+</section>
+<section class="assistant" id="assistente">
+ <span class="pill">ASSISTENTE DE AJUDA</span><h2>💬 Pergunte sobre o AGT Arena</h2>
+ <p class="muted">Digite uma dúvida sobre cadastro, perfil, rankings, patentes, loja, moedas, área social ou recrutamento.</p>
+ <div class="chat-log" id="chat-log" role="log" aria-live="polite"><div class="bubble bot">Olá! Sou o assistente de ajuda do AGT Arena. Posso orientar sobre os recursos e os passos descritos nesta central.</div></div>
+ <form class="chat-form" id="chat-form"><input id="chat-question" maxlength="300" autocomplete="off" placeholder="Ex.: Como adiciono outro nick ao perfil?" aria-label="Sua pergunta"><button type="submit">Enviar</button></form>
+ <p class="small">Esta versão usa respostas guiadas e conteúdo oficial da Central de Ajuda. Ainda não é uma IA generativa; ela não inventa informações e encaminha dúvidas fora da base para o suporte humano. Uma IA real exige integração segura no servidor.</p>
+</section>
+</main>
+<footer>AGT ARENA • ALIANÇA • GARRA • TALENTO</footer>
+<script>
+const search=document.getElementById('help-search');
+const searchable=[...document.querySelectorAll('[data-search]')];
+search.addEventListener('input',()=>{
+ const q=search.value.trim().toLocaleLowerCase('pt-BR');
+ searchable.forEach(section=>{section.hidden=!!q&&!((section.innerText+' '+section.dataset.search).toLocaleLowerCase('pt-BR').includes(q));});
+});
+const log=document.getElementById('chat-log');
+function bubble(text,who){const el=document.createElement('div');el.className='bubble '+who;el.textContent=text;log.appendChild(el);log.scrollTop=log.scrollHeight;}
+function answer(q){
+ const s=q.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+ const rules=[
+  [/cadastro|criar conta|registrar|senha|login|entrar|acesso/,'Para criar sua conta, abra o menu da página inicial, use a área de cadastro, informe e-mail, senha e um nick contendo AGT. Depois, entre com o mesmo e-mail e senha. Para senha esquecida, use a recuperação de senha.'],
+  [/perfil|nick|apelido|avatar|foto|biografia|bio/,'Entre na conta, abra Meu perfil e use Editar para alterar o nick principal, nicks associados, foto e biografia. Confira os dados antes de salvar.'],
+  [/ranking|score|pontuacao|historico/,'O ranking diário usa os registros do dia; o mensal soma o melhor score diário por nick. O histórico do perfil mostra os registros associados aos nicks. A atualização depende da coleta de dados.'],
+  [/patente|patentes/,'O rank de patentes consolida scores históricos associados aos perfis. O período válido começa em 17/05/2026.'],
+  [/loja|moeda|comprar|compra|saldo|recompensa/,'Na Loja AGT, entre na conta para consultar o saldo, escolha um item e confira o custo antes de confirmar. O histórico registra movimentações. As recompensas por score estão em implantação; não considere scores antigos convertidos.'],
+  [/social|amigo|amizade|mensagem|direct|conversa|chamada/,'Abra Social pelo menu principal. Pesquise jogadores e use os recursos de amizade e comunicação que estiverem disponíveis para sua conta.'],
+  [/recrut|inscri|entrar no cla|clã/,'Na página inicial, vá até Recrutamento, preencha o formulário e escolha o método de envio. A equipe analisa a inscrição; enviar não garante entrada automática.'],
+  [/administr|suporte|ajuda|erro|problema/,'Se o passo a passo não resolver, use o canal oficial de suporte indicado na página inicial e informe a página, o que tentou fazer e a mensagem de erro. Nunca envie sua senha.']
+ ];
+ const found=rules.find(([rx])=>rx.test(s));
+ return found?found[1]:'Não encontrei essa informação na Central de Ajuda. Posso responder somente sobre os recursos documentados do AGT Arena. Consulte os guias acima ou procure o suporte oficial pelo canal indicado na página inicial.';
+}
+document.getElementById('chat-form').addEventListener('submit',e=>{
+ e.preventDefault();const input=document.getElementById('chat-question');const q=input.value.trim();if(!q)return;
+ bubble(q,'user');bubble(answer(q),'bot');input.value='';input.focus();
+});
+</script>
+</body>
+</html>
