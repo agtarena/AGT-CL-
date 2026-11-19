@@ -90,6 +90,21 @@
 .preview.ocean{background:radial-gradient(ellipse at 20% 25%,#58eaffaa,transparent 35%),radial-gradient(ellipse at 80% 70%,#0878caaa,transparent 40%),repeating-linear-gradient(165deg,transparent 0 17px,#7ceeff22 18px 20px),linear-gradient(135deg,#031326,#045477 52%,#020b20);border:2px solid #5ceaff;box-shadow:inset 0 0 20px #12bce866,0 0 17px #12bce888}
 .preview.ruby{background:radial-gradient(ellipse at 25% 25%,#ff7b91aa,transparent 36%),radial-gradient(ellipse at 80% 70%,#b40038aa,transparent 42%),linear-gradient(135deg,#19030d,#7b102e 52%,#210512);border:2px solid #ff6689;box-shadow:inset 0 0 20px #ff174466,0 0 18px #ff174488}
 
+
+/* Novas molduras premium */
+.preview-frame.imperial-gold-frame .preview-avatar{border:5px double #f7cf65;box-shadow:0 0 9px #fff0a8,0 0 20px #d99a24,0 0 32px #8b5a12}
+.preview-frame.diamond-crown-frame .preview-avatar{border:5px double #dffaff;box-shadow:0 0 9px #fff,0 0 20px #78dfff,0 0 32px #648dff}
+.preview-frame.rose-pearl-frame .preview-avatar{border:5px dotted #ffe4f1;box-shadow:0 0 0 3px #d879ad,0 0 15px #ffb8df,0 0 30px #a94d88}
+.preview-frame.royal-ruby-frame .preview-avatar{border:5px double #ffb0a7;box-shadow:0 0 0 3px #c18a38,0 0 18px #e51c50}
+.preview-frame.silver-diamond-frame .preview-avatar{border:5px double #f3fbff;box-shadow:0 0 0 3px #9eb5c9,0 0 22px #a9eaff}
+.preview-frame.pink-sapphire-frame .preview-avatar{border:5px double #ffc7ef;box-shadow:0 0 0 3px #b84c9a,0 0 22px #ff72d2}
+.preview.rose-pearl-garden{background:radial-gradient(circle at 18% 24%,#fff2f8 0 3%,transparent 4%),radial-gradient(circle at 78% 68%,#ffe4ed 0 4%,transparent 5%),radial-gradient(ellipse at 25% 30%,#d85e9d,transparent 45%),linear-gradient(135deg,#2a1025,#a84e79,#30182f);border:2px solid #f4c5d9}
+.preview.golden-galaxy{background:radial-gradient(circle at 22% 28%,#fff4b0 0 2%,transparent 3%),radial-gradient(circle at 76% 67%,#ffe6a0 0 2%,transparent 3%),radial-gradient(ellipse at 60% 40%,#b77a24,transparent 45%),linear-gradient(135deg,#100b12,#5b3b18,#17101b);border:2px solid #e6c36a}
+.preview.diamond-aurora{background:radial-gradient(ellipse at 25% 25%,#9ff5ff99,transparent 40%),radial-gradient(ellipse at 75% 70%,#c9a8ff99,transparent 42%),linear-gradient(135deg,#06172d,#285a83,#21183f);border:2px solid #bfeaff}
+.preview.pink-velvet{background:radial-gradient(ellipse at 20% 20%,#ffb8df99,transparent 40%),radial-gradient(ellipse at 80% 75%,#b84e8c99,transparent 45%),linear-gradient(135deg,#210b1b,#71304f,#160c20);border:2px solid #f4a9d0}
+.preview.royal-marble{background:repeating-linear-gradient(125deg,transparent 0 28px,#d8b56a33 29px 31px),linear-gradient(135deg,#08090d,#34313a,#100d12);border:2px solid #d8b56a}
+.preview.sapphire-palace{background:radial-gradient(circle at 25% 25%,#d6f7ff 0 2%,transparent 3%),radial-gradient(circle at 76% 68%,#8ecbff 0 3%,transparent 4%),linear-gradient(135deg,#06152e,#174e8a,#20194a);border:2px solid #8ecbff}
+
 </style></head><body>
 <header class="top"><a class="brand" href="./index.html">AGT ARENA</a><div class="top-actions"><div class="wallet">🪙 <span id="balance">0 moedas</span></div><a class="back" href="./index.html">← Início</a></div></header>
 <main class="wrap"><div class="intro"><h1>LOJA AGT</h1><p>Personalize seu perfil, destaque seu nick e mostre seu estilo na arena.</p></div>
@@ -189,7 +204,19 @@ const newCatalogItems=[
 {category:'nick',slug:'nick-mint-glow',name:'Mint Glow',visual:'mint-nick',description:'Nick verde menta luminoso.',price:15},
 {category:'nick',slug:'nick-sakura',name:'Sakura',visual:'sakura-nick',description:'Nick rosa com brilho suave.',price:15},
 {category:'nick',slug:'nick-royal-gold',name:'Royal Gold',visual:'royal-nick',description:'Nick dourado metálico.',price:15},
-{category:'nick',slug:'nick-rainbow',name:'Rainbow',visual:'rainbow-nick',description:'Nick multicolorido em degradê.',price:15}
+{category:'nick',slug:'nick-rainbow',name:'Rainbow',visual:'rainbow-nick',description:'Nick multicolorido em degradê.',price:15},
+{category:'frame',slug:'moldura-imperial-gold',name:'Imperial Gold',visual:'imperial-gold-frame',description:'Ouro metálico em camadas, com brilho de moldura premium.',price:30},
+{category:'frame',slug:'moldura-diamond-crown',name:'Diamond Crown',visual:'diamond-crown-frame',description:'Cristais de diamante com reflexos azulados e acabamento luxuoso.',price:35},
+{category:'frame',slug:'moldura-rose-pearl',name:'Rose Pearl',visual:'rose-pearl-frame',description:'Moldura rosa acetinada com pérolas delicadas ao redor do avatar.',price:30},
+{category:'frame',slug:'moldura-royal-ruby',name:'Royal Ruby',visual:'royal-ruby-frame',description:'Aro rubi com detalhes dourados e brilho intenso.',price:25},
+{category:'frame',slug:'moldura-silver-diamond',name:'Silver Diamond',visual:'silver-diamond-frame',description:'Prata polida com halo de diamantes gelados.',price:30},
+{category:'frame',slug:'moldura-pink-sapphire',name:'Pink Sapphire',visual:'pink-sapphire-frame',description:'Safiras rosas luminosas em uma moldura elegante.',price:30},
+{category:'background',slug:'fundo-rose-pearl-garden',name:'Rose Pearl Garden',visual:'rose-pearl-garden',description:'Jardim rosa sofisticado com pérolas luminosas e tons champagne.',price:25},
+{category:'background',slug:'fundo-golden-galaxy',name:'Golden Galaxy',visual:'golden-galaxy',description:'Galáxia dourada com partículas brilhantes e nebulosas.',price:25},
+{category:'background',slug:'fundo-diamond-aurora',name:'Diamond Aurora',visual:'diamond-aurora',description:'Aurora azul e violeta com reflexos de cristal e diamante.',price:25},
+{category:'background',slug:'fundo-pink-velvet',name:'Pink Velvet',visual:'pink-velvet',description:'Veludo rosa profundo com luzes suaves e detalhes perolados.',price:20},
+{category:'background',slug:'fundo-royal-marble',name:'Royal Marble',visual:'royal-marble',description:'Mármore preto com veios dourados de aparência real.',price:25},
+{category:'background',slug:'fundo-sapphire-palace',name:'Sapphire Palace',visual:'sapphire-palace',description:'Palácio azul safira com brilho de cristais e luz celestial.',price:25}
 ];
 async function seedProfileBackgrounds(){const {data:existing,error}=await db.from('agt_store_items').select('slug').in('slug',newCatalogItems.map(x=>x.slug));if(error){console.warn('Catálogo de personalizações:',error.message);return}const slugs=new Set((existing||[]).map(x=>x.slug));for(const item of newCatalogItems){if(slugs.has(item.slug))continue;const {error:saveError}=await db.rpc('agt_admin_save_item',{p_item_id:null,p_slug:item.slug,p_name:item.name,p_category:item.category,p_price:item.price,p_description:item.description,p_visual_key:item.visual,p_active:true});if(saveError)console.warn('Não foi possível cadastrar '+item.name+': '+saveError.message);}}
 async function syncScoreCoinRewards(){if(!user)return;msg.textContent='Recompensas por score em atualização. Seus pontos antigos não serão convertidos em moedas.';}
