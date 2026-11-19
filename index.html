@@ -89,6 +89,58 @@ header {
   -webkit-text-fill-color:transparent;
 }
 
+/* AVISO DE DESENVOLVIMENTO E SUPORTE */
+header { position:sticky; }
+.agt-development-notice {
+  position:absolute;
+  top:calc(100% + 10px);
+  right:7%;
+  z-index:35;
+  width:min(340px,calc(100vw - 28px));
+  padding:12px 14px;
+  border:1px solid #7541a0;
+  border-radius:11px;
+  background:linear-gradient(145deg,rgba(29,17,44,.97),rgba(10,7,17,.97));
+  box-shadow:0 8px 26px #0008,0 0 15px #8b35ff22;
+  color:#d9cde7;
+  font-size:11px;
+  line-height:1.5;
+}
+.agt-development-notice strong {
+  display:block;
+  margin-bottom:3px;
+  color:#d4a8ff;
+  font-size:12px;
+}
+.agt-support-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  margin-top:9px;
+  padding:7px 11px;
+  border:1px solid #25d366;
+  border-radius:7px;
+  background:#128c4a;
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  text-decoration:none;
+  transition:.2s;
+}
+.agt-support-link:hover {
+  background:#16a85a;
+  box-shadow:0 0 13px #25d36655;
+}
+@media(max-width:600px) {
+  .agt-development-notice {
+    right:12px;
+    top:calc(100% + 8px);
+    width:min(310px,calc(100vw - 24px));
+    padding:10px 12px;
+  }
+}
+
 /* BOTÃO DO MENU */
 
 .menu-toggle {
@@ -1268,6 +1320,14 @@ footer span {color:var(--neon)}
     <span></span>
     <span></span>
   </button>
+
+  <aside class="agt-development-notice" id="agt-development-notice" aria-label="Aviso de desenvolvimento">
+    <strong>Plataforma em desenvolvimento</strong>
+    Bugs ou problemas na plataforma podem ocorrer. Caso precise de ajuda, entre em contato com o suporte.
+    <a class="agt-support-link" href="https://wa.me/5512991173752" target="_blank" rel="noopener noreferrer" aria-label="Falar com o suporte pelo WhatsApp">
+      <span aria-hidden="true">☏</span> Falar com o suporte
+    </a>
+  </aside>
 </header>
 
 <div class="menu-overlay" id="menu-overlay"></div>
