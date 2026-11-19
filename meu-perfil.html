@@ -75,6 +75,16 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
 .profile-main h2.nick-royal-nick{background:linear-gradient(90deg,#fff1a8,#d49b27,#fff1a8);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
 .profile-main h2.nick-rainbow-nick{background:linear-gradient(90deg,#ff7373,#ffc45c,#fff36b,#6dffb0,#65caff,#c28bff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
 
+/* Garantia de aplicação dos estilos de nick no título real do perfil */
+#profile-nick.nick-rose-nick{background:linear-gradient(90deg,#ffe0d2,#df8c9e,#ffe6a8);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
+#profile-nick.nick-ruby-nick{background:linear-gradient(90deg,#ff9aa8,#ed174c,#ff6a4d);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
+#profile-nick.nick-cyan-nick{background:linear-gradient(90deg,#b9ffff,#27d9ff,#5e8cff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
+#profile-nick.nick-violet-nick{background:linear-gradient(90deg,#e6b8ff,#9a42ff,#ff8bea);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
+#profile-nick.nick-mint-nick{background:linear-gradient(90deg,#d4ffe8,#42e6a0,#9bffe0);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
+#profile-nick.nick-sakura-nick{background:linear-gradient(90deg,#ffe0f4,#ff85c8,#c49aff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
+#profile-nick.nick-royal-nick{background:linear-gradient(90deg,#fff1a8,#d49b27,#fff1a8);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
+#profile-nick.nick-rainbow-nick{background:linear-gradient(90deg,#ff7373,#ffc45c,#fff36b,#6dffb0,#65caff,#c28bff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
+
 /* PERSONALIZAÇÕES EQUIPADAS DA LOJA AGT */
 .avatar-wrap.frame-neon-purple img,.avatar-wrap.frame-neon-purple .avatar-placeholder{border:4px solid #d078ff;box-shadow:0 0 8px #d078ff,0 0 24px #8b35ff}
 .avatar-wrap.frame-galaxy img,.avatar-wrap.frame-galaxy .avatar-placeholder{border:4px solid #9c8cff;box-shadow:0 0 8px #9c8cff,0 0 24px #467dff}
@@ -161,7 +171,7 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
     const {data:equipped,error:equipmentError}=await db.from('agt_profile_equipment').select('category,item:agt_store_items(visual_key,name)').eq('user_id',profileId);
     if(equipmentError){console.warn('Personalizações do perfil:',equipmentError.message);return;}
     const visuals={frame:'',background:'',nick:''};
-    (equipped||[]).forEach(row=>{const linked=Array.isArray(row.item)?row.item[0]:row.item;const category=String(row.category||'').toLowerCase();const key=linked?.visual_key;if(!key)return;const target=category.includes('background')||category.includes('fundo')?'background':category.includes('frame')||category.includes('moldura')?'frame':category.includes('nick')?'nick':category;if(Object.prototype.hasOwnProperty.call(visuals,target))visuals[target]=key;});
+    (equipped||[]).forEach(row=>{const linked=Array.isArray(row.item)?row.item[0]:row.item;const category=String(row.category||'').toLowerCase();const key=linked?.visual_key;if(!key)return;const target=category.includes('background')||category.includes('fundo')||category.includes('bg')?'background':category.includes('frame')||category.includes('moldura')?'frame':category.includes('nick')||category.includes('name')||category.includes('nickname')?'nick':category;if(Object.prototype.hasOwnProperty.call(visuals,target))visuals[target]=key;});
     $('avatar-wrap').className='avatar-wrap';
     $('profile-nick').classList.remove(...safeVisual.map(key=>'nick-'+key));
     document.body.classList.remove(...safeVisual.map(key=>'profile-bg-'+key));
