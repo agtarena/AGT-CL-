@@ -117,6 +117,13 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
     <p class="status" id="page-status" aria-live="polite">Carregando...</p>
   </section>
   <section class="panel"><div class="bio-heading"><h3 class="section-heading">BIOGRAFIA</h3><button class="button" id="edit-bio-open" type="button" hidden>✏️ EDITAR</button></div><p class="bio" id="profile-bio">Este jogador ainda não adicionou uma biografia.</p><div id="bio-editor" hidden><div class="field"><textarea id="bio-inline-input" maxlength="240" placeholder="Conte um pouco sobre você..."></textarea><small class="muted-note">Até 240 caracteres.</small></div><div class="form-actions"><button class="button primary-button" id="bio-inline-save" type="button">SALVAR BIOGRAFIA</button><button class="button" id="bio-inline-cancel" type="button">CANCELAR</button></div><p class="status" id="bio-inline-status" aria-live="polite"></p></div></section>
+  <section class="panel" id="custom-background-panel" hidden>
+    <h3 class="section-heading">🖼️ FUNDO PERSONALIZADO</h3>
+    <p class="muted-note" style="margin-bottom:12px">Envie uma imagem da galeria do seu celular ou computador para usar como fundo do perfil. Cada novo envio custa <strong>20 moedas</strong>. JPG, PNG ou WEBP · até 5 MB.</p>
+    <label class="button primary-button" for="profile-background-file">📷 ESCOLHER IMAGEM · 20 MOEDAS</label>
+    <input id="profile-background-file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+    <p class="status" id="background-upload-status" aria-live="polite"></p>
+  </section>
   <section class="panel"><h3 class="section-heading">NICKS DO JOGADOR</h3><div class="nick-chips" id="profile-nicks"><span class="chip">Carregando...</span></div></section>
   <section class="panel"><h3 class="section-heading">DESEMPENHO E SCORES</h3><div class="performance-card"><div class="performance-medal" id="performance-medal">🏆</div><div class="performance-info"><strong id="performance-rank">CLASSIFICAÇÃO AGT</strong><span id="performance-detail">Sua melhor posição registrada</span></div><div class="performance-score"><strong id="stat-best">—</strong><small>MAIOR SCORE</small></div></div><div class="stats"><div class="stat"><strong id="stat-days">—</strong><span>DIAS COM SCORE</span></div><div class="stat"><strong id="stat-last">—</strong><span>ÚLTIMA APARIÇÃO</span></div><div class="stat"><strong id="stat-total">—</strong><span>REGISTROS ENCONTRADOS</span></div></div></section>
 
@@ -190,6 +197,21 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
   profile=data;profile.bio=profile.bio||'';profile.nicks=Array.isArray(profile.nicks)?profile.nicks:[];
   // Personalizações equipadas: consulta o estado confirmado no banco e aplica no perfil.
   const safeVisual=['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism','aurora','nebula','ocean','crimson','street-purple','cyber-v2','violet-nebula','matrix','pink-cosmos','blue-galaxy','lilac-dream','rose-gold','starry-night','tropical','red-venom','dark-carbon','pink-neon','blue-fire','sakura','emerald','rose-glow','ruby-frame','ice-frame','royal-frame','cyber-frame','emerald-frame','sakura-frame','obsidian-frame','rose-nick','ruby-nick','cyan-nick','violet-nick','mint-nick','sakura-nick','royal-nick','rainbow-nick'];
+
+  async function loadCustomProfileBackground(){
+    const {data:backgrounds,error}=await db.from('agt_profile_custom_backgrounds')
+      .select('storage_path,created_at').eq('user_id',profileId).eq('status','completed')
+      .order('created_at',{ascending:false}).limit(1);
+    if(error){console.warn('Fundo personalizado:',error.message);return;}
+    const styleId='agt-custom-profile-background-style';
+    let style=document.getElementById(styleId);
+    if(!backgrounds?.length){if(style)style.remove();return;}
+    const {data:signed,error:signedError}=await db.storage.from('agt-profile-backgrounds').createSignedUrl(backgrounds[0].storage_path,3600);
+    if(signedError||!signed?.signedUrl){console.warn('Não foi possível abrir o fundo personalizado:',signedError?.message);return;}
+    if(!style){style=document.createElement('style');style.id=styleId;document.head.appendChild(style);}
+    style.textContent='body::before{background-image:linear-gradient(#08061155,#08061155),url("'+signed.signedUrl.replace(/["\\]/g,'')+'")!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}';
+  }
+
   async function loadProfileEquipment(){
     const {data:equipped,error:equipmentError}=await db.from('agt_profile_equipment').select('category,item:agt_store_items(visual_key,name)').eq('user_id',profileId);
     if(equipmentError){console.warn('Personalizações do perfil:',equipmentError.message);return;}
@@ -203,10 +225,11 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
     if(safeVisual.includes(visuals.nick))$('profile-nick').classList.add('nick-'+visuals.nick);
   }
   await loadProfileEquipment();
+  await loadCustomProfileBackground();
   window.addEventListener('storage',event=>{if(event.key==='agt-profile-equipment-updated')loadProfileEquipment();});
-  window.addEventListener('focus',()=>loadProfileEquipment());
+  window.addEventListener('focus',()=>{loadProfileEquipment();loadCustomProfileBackground();});
   $('profile-nick').textContent=profile.nick||'Jogador AGT';setAvatar(profile.avatar_url|| (isOwner?user.user_metadata?.avatar_url:null));$('profile-bio').textContent=profile.bio||'Este jogador ainda não adicionou uma biografia.';showNicks(profile);
-  if(isOwner){$('edit-bio-open').hidden=false;$('bio-inline-input').value=profile.bio;$('profile-email').textContent=user.email||'';$('edit-panel').hidden=false;$('avatar-upload-label').hidden=false;$('edit-nick').value=profile.nick||'';profile.nicks.forEach(n=>addNickField(n));if(!profile.nicks.length)addNickField();}
+  if(isOwner){$('custom-background-panel').hidden=false;$('edit-bio-open').hidden=false;$('bio-inline-input').value=profile.bio;$('profile-email').textContent=user.email||'';$('edit-panel').hidden=false;$('avatar-upload-label').hidden=false;$('edit-nick').value=profile.nick||'';profile.nicks.forEach(n=>addNickField(n));if(!profile.nicks.length)addNickField();}
   else {$('profile-email').textContent='';}
   status.textContent=isOwner?'Este é o seu perfil. Somente você pode editar suas informações.':'Perfil público da comunidade AGT.';
   $('edit-bio-open').addEventListener('click',()=>{$('bio-inline-input').value=profile.bio||'';$('bio-editor').hidden=false;$('edit-bio-open').hidden=true;$('bio-inline-input').focus();});
@@ -214,6 +237,46 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
   $('bio-inline-save').addEventListener('click',async()=>{const bio=$('bio-inline-input').value.trim();$('bio-inline-save').disabled=true;$('bio-inline-status').textContent='Salvando...';const {data:saved,error:saveError}=await db.from('profiles').update({bio}).eq('id',user.id).select('id,nick,avatar_url,bio,nicks').single();if(saveError){$('bio-inline-status').textContent='Erro ao salvar: '+saveError.message;}else{profile=saved;$('profile-bio').textContent=profile.bio||'Este jogador ainda não adicionou uma biografia.';$('bio-inline-status').textContent='Biografia atualizada!';$('bio-editor').hidden=true;$('edit-bio-open').hidden=false;} $('bio-inline-save').disabled=false;});
   $('add-nick').addEventListener('click',()=>addNickField());
   $('save-profile').addEventListener('click',async()=>{const nick=$('edit-nick').value.trim();const aliases=[...$('edit-nicks').querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);const unique=[];const seen=new Set([nick.toLowerCase()]);aliases.forEach(n=>{const k=n.toLowerCase();if(!seen.has(k)){seen.add(k);unique.push(n);}});if(!nick){$('edit-status').textContent='Informe um nick principal.';return;}if(unique.length>20){$('edit-status').textContent='Você pode cadastrar até 20 nicks adicionais.';return;}$('save-profile').disabled=true;$('edit-status').textContent='Salvando perfil...';const {data:claimData,error:claimError}=await db.rpc('agt_register_nicks',{p_nicks:[nick,...unique]});if(claimError){$('edit-status').textContent='Não foi possível reservar os nicks: '+claimError.message;$('save-profile').disabled=false;return;}const payload={id:user.id,nick,avatar_url:profile.avatar_url||null,bio:profile.bio||'',nicks:unique};const {data:saved,error:saveError}=await db.from('profiles').upsert(payload,{onConflict:'id'}).select('id,nick,avatar_url,bio,nicks').single();if(saveError){$('edit-status').textContent='Erro ao salvar: '+saveError.message+'. Os nicks reservados continuam vinculados à sua conta; tente salvar novamente.';}else{profile=saved;showNicks(profile);$('profile-nick').textContent=profile.nick;await db.auth.updateUser({data:{nick}});$('edit-status').textContent='Perfil atualizado e nicks reservados com sucesso!';} $('save-profile').disabled=false;});
+
+  $('profile-background-file').addEventListener('change',async function(){
+    const file=this.files?.[0];if(!file)return;
+    const uploadStatus=$('background-upload-status');
+    if(!['image/jpeg','image/png','image/webp'].includes(file.type)){uploadStatus.textContent='Escolha uma imagem JPG, PNG ou WEBP.';this.value='';return;}
+    if(file.size>5*1024*1024){uploadStatus.textContent='A imagem deve ter no máximo 5 MB.';this.value='';return;}
+    if(!isOwner||!user){uploadStatus.textContent='Entre na sua conta para enviar um fundo.';this.value='';return;}
+    const label=document.querySelector('label[for="profile-background-file"]');
+    label?.classList.add('disabled');uploadStatus.textContent='Reservando 20 moedas...';
+    let reservationId=null,uploadedPath=null,completed=false;
+    try{
+      const {data:reserved,error:reserveError}=await db.rpc('agt_reserve_custom_background');
+      if(reserveError)throw reserveError;
+      reservationId=typeof reserved==='string'?reserved:(reserved?.id||reserved?.reservation_id||reserved?.[0]?.id);
+      if(!reservationId)throw new Error('O sistema não retornou a reserva do envio.');
+      const {data:record,error:recordError}=await db.from('agt_profile_custom_backgrounds')
+        .select('storage_path').eq('id',reservationId).eq('user_id',user.id).single();
+      if(recordError)throw recordError;
+      uploadedPath=record.storage_path;
+      uploadStatus.textContent='Enviando imagem...';
+      const {error:uploadError}=await db.storage.from('agt-profile-backgrounds').upload(uploadedPath,file,{upsert:false,contentType:file.type,cacheControl:'3600'});
+      if(uploadError)throw uploadError;
+      uploadStatus.textContent='Confirmando envio...';
+      const {error:completeError}=await db.rpc('agt_complete_custom_background',{p_id:reservationId});
+      if(completeError)throw completeError;
+      completed=true;
+      uploadStatus.textContent='Fundo enviado e ativado! Foram descontadas 20 moedas.';
+      await loadCustomProfileBackground();
+    }catch(error){
+      console.error('Upload de fundo personalizado:',error);
+      if(reservationId&&!completed){
+        const {error:cancelError}=await db.rpc('agt_cancel_custom_background',{p_id:reservationId});
+        if(cancelError)console.error('Falha ao estornar reserva do fundo:',cancelError);
+      }
+      uploadStatus.textContent='Não foi possível concluir o envio: '+(error.message||'erro desconhecido')+(reservationId?' Se houve reserva, o sistema tentou estornar as 20 moedas.':'');
+    }finally{
+      label?.classList.remove('disabled');this.value='';
+    }
+  });
+
   $('profile-avatar-file').addEventListener('change',async function(){const file=this.files?.[0];if(!file)return;if(!['image/jpeg','image/png','image/webp'].includes(file.type)){status.textContent='Escolha JPG, PNG ou WEBP.';this.value='';return;}if(file.size>5*1024*1024){status.textContent='A imagem deve ter no máximo 5 MB.';this.value='';return;}status.textContent='Enviando foto...';try{const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';const path=`${user.id}/avatar.${ext}`;const {error:uploadError}=await db.storage.from('agt-avatars').upload(path,file,{upsert:true,contentType:file.type,cacheControl:'3600'});if(uploadError)throw uploadError;const {data:publicData}=db.storage.from('agt-avatars').getPublicUrl(path);const url=publicData.publicUrl+'?v='+Date.now();const {error:updateError}=await db.from('profiles').upsert({id:user.id,nick:profile.nick,avatar_url:url,bio:profile.bio,nicks:profile.nicks},{onConflict:'id'});if(updateError)throw updateError;profile.avatar_url=url;setAvatar(url);await db.auth.updateUser({data:{avatar_url:url}});status.textContent='Foto atualizada com sucesso!';}catch(e){status.textContent='Erro ao atualizar foto: '+e.message;}finally{this.value='';}});
   // Consolida scores históricos de todos os nicks vinculados ao perfil.
   function normalizeNick(value){
