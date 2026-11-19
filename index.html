@@ -1464,7 +1464,7 @@ footer span {color:var(--neon)}
 
       <p class="ranking-description">
         Os melhores jogadores da AGT no SlitherMania.
-        Acompanhe as pontuações e conquiste o topo!
+        Acompanhe os scores e conquiste o topo!
       </p>
 
       <div class="agt-ranking-heading">
@@ -1486,8 +1486,8 @@ footer span {color:var(--neon)}
       <h3>Ranking mensal AGT</h3>
 
       <p class="ranking-description">
-        Os três jogadores que mais pontuaram no mês,
-        considerando a melhor pontuação diária de cada integrante.
+        Os três jogadores com maior score no mês,
+        considerando o maior score diário de cada integrante.
       </p>
 
       <div class="agt-ranking-heading">
@@ -1628,7 +1628,7 @@ footer span {color:var(--neon)}
         <div class="recruit-field"><label for="recruit-discord">Tem disponibilidade para chamadas no Discord? *</label><select id="recruit-discord" name="Chamadas no Discord" required><option value="">Selecione</option><option>Sim, posso participar por voz</option><option>Às vezes</option><option>Não consigo usar voz, mas acompanho o chat</option></select></div>
         <div class="recruit-field"><label for="recruit-mic">Possui microfone/fone com microfone?</label><select id="recruit-mic" name="Microfone"><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Às vezes</option></select></div>
         <fieldset class="recruit-field full"><legend>Em qual função você se encaixa? * (pode marcar mais de uma)</legend><div class="recruit-options">
-          <label><input type="checkbox" name="Funções" value="Ranqueador"> Ranqueador — segura a massa e busca pontuação</label>
+          <label><input type="checkbox" name="Funções" value="Ranqueador"> Ranqueador — segura a massa e busca score</label>
           <label><input type="checkbox" name="Funções" value="Farmador"> Farmador — coleta massa e apoia as doações</label>
           <label><input type="checkbox" name="Funções" value="Protetor"> Protetor — defende e dá cobertura ao ranqueador</label>
           <label><input type="checkbox" name="Funções" value="Apoio / estratégia"> Apoio / estratégia</label>
@@ -2284,7 +2284,7 @@ footer span {color:var(--neon)}
 
     const jogadores = Array.from(jogadoresPorNick.values());
 
-    // A classificação AGT é definida pela pontuação, não pela posição geral
+    // A classificação AGT é definida pelo score, não pela posição geral
     // recebida da API. Assim, 20 mil de score sempre ficam acima de 17 mil e 8 mil.
     jogadores.sort((a,b) => {
       const scoreDiff = Number(b.score || 0) - Number(a.score || 0);
@@ -2329,7 +2329,7 @@ footer span {color:var(--neon)}
 
       const details = document.createElement('span');
       details.className = 'agt-ranking-details';
-      details.textContent = `${colocacao}º lugar AGT • ${player.position ? 'Posição geral: #'+player.position : 'Classificado por pontuação'}`;
+      details.textContent = `${colocacao}º lugar AGT • ${player.position ? 'Posição geral: #'+player.position : 'Classificado por score'}`;
 
       info.append(nick,details);
 
@@ -2450,7 +2450,7 @@ footer span {color:var(--neon)}
 
       if (!ranking.length) {
         monthStatus.textContent = 'SEM DADOS';
-        monthList.innerHTML = '<p class="agt-ranking-empty">Ainda não há pontuações registradas para este mês. O ranking será preenchido conforme os dados diários forem coletados.</p>';
+        monthList.innerHTML = '<p class="agt-ranking-empty">Ainda não há scores registrados para este mês. O ranking será preenchido conforme os dados diários forem coletados.</p>';
         monthUpdated.textContent = '';
         return;
       }
@@ -2477,7 +2477,7 @@ footer span {color:var(--neon)}
 
         const details = document.createElement('span');
         details.className = 'agt-ranking-details';
-        details.textContent = `${index+1}º lugar mensal • ${player.dias} dia(s) pontuados`;
+        details.textContent = `${index+1}º lugar mensal • ${player.dias} dia(s) com score`;
 
         info.append(nick,details);
 
