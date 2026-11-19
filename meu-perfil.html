@@ -49,6 +49,19 @@ main{width:min(1000px,92%);margin:32px auto 60px}.page-title{text-align:center;m
 
 
 /* NOVA COLEÇÃO AGT — FUNDOS, MOLDURAS E NICKS */
+
+/* NOVOS FUNDOS AGT — aplicação nos perfis */
+body.profile-bg-arctic-pulse::before{background:radial-gradient(ellipse at 20% 25%,#b9f7ff88,transparent 35%),radial-gradient(ellipse at 80% 70%,#438dff88,transparent 40%),linear-gradient(135deg,#04182d,#176a9a,#071329)}
+body.profile-bg-inferno-rubro::before{background:radial-gradient(ellipse at 50% 100%,#ffb02e99,transparent 38%),radial-gradient(ellipse at 20% 65%,#ff263f88,transparent 42%),linear-gradient(135deg,#19040b,#6b1020,#12050b)}
+body.profile-bg-cyber-grid::before{background:linear-gradient(90deg,transparent 48%,#42f5ff55 50%,transparent 52%),linear-gradient(0deg,transparent 48%,#b34dff44 50%,transparent 52%),linear-gradient(135deg,#050817,#17113b,#071523);background-size:26px 26px,26px 26px,cover}
+body.profile-bg-royal-purple::before{background:radial-gradient(ellipse at 25% 25%,#b36cff88,transparent 38%),radial-gradient(ellipse at 80% 75%,#e7bd5c66,transparent 40%),linear-gradient(135deg,#130824,#43205e,#10091c)}
+body.profile-bg-deep-ocean::before{background:radial-gradient(ellipse at 20% 20%,#4bffe088,transparent 35%),radial-gradient(ellipse at 80% 80%,#087fca88,transparent 42%),linear-gradient(135deg,#02131e,#034b65,#020b19)}
+body.profile-bg-toxic-green::before{background:radial-gradient(ellipse at 25% 30%,#7cff4288,transparent 36%),radial-gradient(ellipse at 75% 70%,#00a86b88,transparent 40%),linear-gradient(135deg,#031009,#174b20,#050d09)}
+body.profile-bg-sunset-horizon::before{background:radial-gradient(ellipse at 50% 100%,#ffb13b99,transparent 40%),radial-gradient(ellipse at 75% 35%,#f05ba988,transparent 40%),linear-gradient(135deg,#271044,#a43d72,#f18b55)}
+body.profile-bg-white-diamond::before{background:radial-gradient(circle at 25% 25%,#fff8 0 3%,transparent 4%),radial-gradient(circle at 75% 70%,#c7edff88 0 4%,transparent 5%),linear-gradient(135deg,#26374c,#b8d7e8,#52647e)}
+body.profile-bg-shadow-ninja::before{background:repeating-linear-gradient(135deg,transparent 0 17px,#ff244322 18px 20px),radial-gradient(ellipse at 75% 25%,#9b173888,transparent 38%),linear-gradient(135deg,#050509,#210b16,#08080d)}
+body.profile-bg-cosmic-rainbow::before{background:radial-gradient(ellipse at 20% 25%,#ff4cbd99,transparent 38%),radial-gradient(ellipse at 80% 70%,#39caff99,transparent 40%),radial-gradient(ellipse at 55% 50%,#a4ff6a77,transparent 45%),linear-gradient(135deg,#10051e,#30205b,#080d20)}
+
 body.profile-bg-pink-cosmos::before{background:radial-gradient(ellipse at 20% 25%,#ff72c8aa,transparent 35%),radial-gradient(ellipse at 80% 70%,#9b62ffaa,transparent 40%),linear-gradient(135deg,#19071d,#40104b,#090b20)}
 body.profile-bg-blue-galaxy::before{background:radial-gradient(circle at 20% 30%,#65baffaa,transparent 30%),radial-gradient(circle at 80% 70%,#684dffaa,transparent 35%),linear-gradient(135deg,#041025,#102d62,#070b20)}
 body.profile-bg-lilac-dream::before{background:radial-gradient(ellipse at 20% 20%,#f2b8ffaa,transparent 35%),radial-gradient(ellipse at 80% 80%,#b58affaa,transparent 40%),linear-gradient(135deg,#21102d,#60417a,#120d24)}
@@ -196,7 +209,7 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
   if(!data){status.textContent='Este perfil ainda não está disponível.';$('profile-nick').textContent='Jogador não encontrado';return;}
   profile=data;profile.bio=profile.bio||'';profile.nicks=Array.isArray(profile.nicks)?profile.nicks:[];
   // Personalizações equipadas: consulta o estado confirmado no banco e aplica no perfil.
-  const safeVisual=['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism','aurora','nebula','ocean','crimson','street-purple','cyber-v2','violet-nebula','matrix','pink-cosmos','blue-galaxy','lilac-dream','rose-gold','starry-night','tropical','red-venom','dark-carbon','pink-neon','blue-fire','sakura','emerald','rose-glow','ruby-frame','ice-frame','royal-frame','cyber-frame','emerald-frame','sakura-frame','obsidian-frame','rose-nick','ruby-nick','cyan-nick','violet-nick','mint-nick','sakura-nick','royal-nick','rainbow-nick'];
+  const safeVisual=['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism','aurora','nebula','ocean','crimson','street-purple','cyber-v2','violet-nebula','matrix','pink-cosmos','blue-galaxy','lilac-dream','rose-gold','starry-night','tropical','red-venom','dark-carbon','pink-neon','blue-fire','sakura','emerald','arctic-pulse','inferno-rubro','cyber-grid','royal-purple','deep-ocean','toxic-green','sunset-horizon','white-diamond','shadow-ninja','cosmic-rainbow','rose-glow','ruby-frame','ice-frame','royal-frame','cyber-frame','emerald-frame','sakura-frame','obsidian-frame','rose-nick','ruby-nick','cyan-nick','violet-nick','mint-nick','sakura-nick','royal-nick','rainbow-nick'];
 
   async function loadCustomProfileBackground(){
     const {data:backgrounds,error}=await db.from('agt_profile_custom_backgrounds')
