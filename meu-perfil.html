@@ -274,7 +274,7 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
     row.append(icon,copy,state);rankBox.appendChild(row);
   });
   const rewardBox=$('patent-rewards');rewardBox.replaceChildren();
-  rewards.forEach(reward=>{const unlocked=patentPoints>=reward.min,row=document.createElement('div');row.className='patent-reward'+(unlocked?' unlocked');const icon=document.createElement('span');icon.className='patent-reward-icon';icon.textContent=reward.icon;const info=document.createElement('div'),title=document.createElement('b'),detail=document.createElement('small');title.textContent=reward.name;detail.textContent=reward.detail;info.append(title,detail);const state=document.createElement('span');state.className='patent-reward-state';state.textContent=unlocked?'META ALCANÇADA':'🔒 '+fmt(reward.min)+' pts';row.append(icon,info,state);rewardBox.appendChild(row);});
+  rewards.forEach(reward=>{const unlocked=patentPoints>=reward.min,row=document.createElement('div');row.className='patent-reward'+(unlocked?' unlocked':'');const icon=document.createElement('span');icon.className='patent-reward-icon';icon.textContent=reward.icon;const info=document.createElement('div'),title=document.createElement('b'),detail=document.createElement('small');title.textContent=reward.name;detail.textContent=reward.detail;info.append(title,detail);const state=document.createElement('span');state.className='patent-reward-state';state.textContent=unlocked?'META ALCANÇADA':'🔒 '+fmt(reward.min)+' pts';row.append(icon,info,state);rewardBox.appendChild(row);});
 
   const podium=$('score-podium');podium.replaceChildren();
   $('best-scores-link').href='./historico-scores.html?id='+encodeURIComponent(profileId);
