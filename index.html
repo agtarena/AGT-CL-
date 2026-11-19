@@ -1516,8 +1516,8 @@ footer span {color:var(--neon)}
     <div class="card">
       <div class="symbol">⭐</div>
       <h3>Patentes AGT</h3>
-      <p>Futuramente, cada integrante poderá acompanhar seus pontos e sua evolução.</p>
-      <div class="status">EM DESENVOLVIMENTO</div>
+      <p>Acompanhe sua patente, os pontos acumulados pelo score das partidas e as recompensas desbloqueadas no perfil.</p>
+      <a class="btn btn-outline" href="./meu-perfil.html">VER PATENTE NO PERFIL →</a>
     </div>
 
   </div>
@@ -2285,7 +2285,7 @@ footer span {color:var(--neon)}
     const jogadores = Array.from(jogadoresPorNick.values());
 
     // A classificação AGT é definida pela pontuação, não pela posição geral
-    // recebida da API. Assim, 20 mil pontos sempre ficam acima de 17 mil e 8 mil.
+    // recebida da API. Assim, 20 mil de score sempre ficam acima de 17 mil e 8 mil.
     jogadores.sort((a,b) => {
       const scoreDiff = Number(b.score || 0) - Number(a.score || 0);
       if (scoreDiff !== 0) return scoreDiff;
@@ -2340,7 +2340,7 @@ footer span {color:var(--neon)}
       scoreValue.textContent = formatScore(player.score);
 
       const scoreLabel = document.createElement('small');
-      scoreLabel.textContent = 'PONTOS';
+      scoreLabel.textContent = 'SCORE';
 
       score.append(scoreValue,scoreLabel);
       item.append(medal,info,score);
@@ -2488,7 +2488,7 @@ footer span {color:var(--neon)}
         value.textContent = formatScore(player.total);
 
         const label = document.createElement('small');
-        label.textContent = 'PONTOS SOMADOS';
+        label.textContent = 'SCORE SOMADO';
 
         score.append(value,label);
         item.append(medal,info,score);
