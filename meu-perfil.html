@@ -58,14 +58,14 @@ body.profile-bg-pink-neon::before{background:radial-gradient(ellipse at 20% 20%,
 body.profile-bg-blue-fire::before{background:radial-gradient(ellipse at 50% 100%,#39caffaa,transparent 42%),radial-gradient(ellipse at 15% 80%,#365aff88,transparent 35%),linear-gradient(135deg,#030b1c,#092d55,#050611)}
 body.profile-bg-sakura::before{background:radial-gradient(circle at 20% 25%,#ffc3e888 0 5%,transparent 7%),radial-gradient(circle at 78% 65%,#ffb0e888 0 6%,transparent 8%),linear-gradient(135deg,#271327,#63365e,#170d20)}
 body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#65ffb188,transparent 35%),radial-gradient(ellipse at 80% 75%,#20b78b88,transparent 38%),linear-gradient(135deg,#031812,#07513b,#050d12)}
-.avatar-wrap.frame-rose-glow img,.avatar-wrap.frame-rose-glow .avatar-placeholder{border:4px solid #ff8acb;box-shadow:0 0 9px #ff8acb,0 0 24px #e34baf
-.avatar-wrap.frame-ruby-frame img,.avatar-wrap.frame-ruby-frame .avatar-placeholder{border:4px solid #ff365d;box-shadow:0 0 10px #ff365d,0 0 26px #a50035
-.avatar-wrap.frame-ice-frame img,.avatar-wrap.frame-ice-frame .avatar-placeholder{border:4px solid #a9efff;box-shadow:0 0 10px #a9efff,0 0 26px #3b9dff
-.avatar-wrap.frame-royal-frame img,.avatar-wrap.frame-royal-frame .avatar-placeholder{border:4px solid #ffd76a;box-shadow:0 0 10px #ffd76a,0 0 26px #b47b16
-.avatar-wrap.frame-cyber-frame img,.avatar-wrap.frame-cyber-frame .avatar-placeholder{border:4px solid #c16bff;box-shadow:0 0 10px #c16bff,0 0 26px #397dff
-.avatar-wrap.frame-emerald-frame img,.avatar-wrap.frame-emerald-frame .avatar-placeholder{border:4px solid #5affb1;box-shadow:0 0 10px #5affb1,0 0 26px #087e59
-.avatar-wrap.frame-sakura-frame img,.avatar-wrap.frame-sakura-frame .avatar-placeholder{border:4px solid #ffb6e6;box-shadow:0 0 10px #ffb6e6,0 0 26px #bb63d7
-.avatar-wrap.frame-obsidian-frame img,.avatar-wrap.frame-obsidian-frame .avatar-placeholder{border:4px solid #cbd1df;box-shadow:0 0 8px #cbd1df,0 0 22px #596276
+.avatar-wrap.frame-rose-glow img,.avatar-wrap.frame-rose-glow .avatar-placeholder{border:4px solid #ff8acb;box-shadow:0 0 9px #ff8acb,0 0 24px #e34baf}
+.avatar-wrap.frame-ruby-frame img,.avatar-wrap.frame-ruby-frame .avatar-placeholder{border:4px solid #ff365d;box-shadow:0 0 10px #ff365d,0 0 26px #a50035}
+.avatar-wrap.frame-ice-frame img,.avatar-wrap.frame-ice-frame .avatar-placeholder{border:4px solid #a9efff;box-shadow:0 0 10px #a9efff,0 0 26px #3b9dff}
+.avatar-wrap.frame-royal-frame img,.avatar-wrap.frame-royal-frame .avatar-placeholder{border:4px solid #ffd76a;box-shadow:0 0 10px #ffd76a,0 0 26px #b47b16}
+.avatar-wrap.frame-cyber-frame img,.avatar-wrap.frame-cyber-frame .avatar-placeholder{border:4px solid #c16bff;box-shadow:0 0 10px #c16bff,0 0 26px #397dff}
+.avatar-wrap.frame-emerald-frame img,.avatar-wrap.frame-emerald-frame .avatar-placeholder{border:4px solid #5affb1;box-shadow:0 0 10px #5affb1,0 0 26px #087e59}
+.avatar-wrap.frame-sakura-frame img,.avatar-wrap.frame-sakura-frame .avatar-placeholder{border:4px solid #ffb6e6;box-shadow:0 0 10px #ffb6e6,0 0 26px #bb63d7}
+.avatar-wrap.frame-obsidian-frame img,.avatar-wrap.frame-obsidian-frame .avatar-placeholder{border:4px solid #cbd1df;box-shadow:0 0 8px #cbd1df,0 0 22px #596276}
 .profile-main h2.nick-rose-nick{background:linear-gradient(90deg,#ffe0d2,#df8c9e,#ffe6a8);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
 .profile-main h2.nick-ruby-nick{background:linear-gradient(90deg,#ff9aa8,#ed174c,#ff6a4d);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
 .profile-main h2.nick-cyan-nick{background:linear-gradient(90deg,#b9ffff,#27d9ff,#5e8cff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 12px #ffffff22}
@@ -155,16 +155,23 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
   if(!data&&isOwner){const nick=user.user_metadata?.nick||user.email?.split('@')[0]||'Jogador AGT';const {data:created,error:createError}=await db.from('profiles').upsert({id:user.id,nick,avatar_url:user.user_metadata?.avatar_url||null,bio:'',nicks:[]},{onConflict:'id'}).select('id,nick,avatar_url,bio,nicks').single();if(createError){status.textContent='Não foi possível iniciar seu perfil: '+createError.message;return;}data=created;}
   if(!data){status.textContent='Este perfil ainda não está disponível.';$('profile-nick').textContent='Jogador não encontrado';return;}
   profile=data;profile.bio=profile.bio||'';profile.nicks=Array.isArray(profile.nicks)?profile.nicks:[];
-  // Personalizações compradas na Loja AGT são públicas no perfil.
-  const {data:equipped,error:equipmentError}=await db.from('agt_profile_equipment')
-    .select('category,item:agt_store_items(visual_key,name)').eq('user_id',profileId);
-  if(equipmentError){console.warn('Personalizações do perfil:',equipmentError.message);}
-  const visuals={frame:'',background:'',nick:''};
-  (equipped||[]).forEach(row=>{const linked=Array.isArray(row.item)?row.item[0]:row.item;const category=String(row.category||'').toLowerCase();const key=linked?.visual_key;if(!key)return;const target=category.includes('background')||category.includes('fundo')?'background':category.includes('frame')||category.includes('moldura')?'frame':category.includes('nick')?'nick':category;if(Object.prototype.hasOwnProperty.call(visuals,target))visuals[target]=key;});
+  // Personalizações equipadas: consulta o estado confirmado no banco e aplica no perfil.
   const safeVisual=['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism','aurora','nebula','ocean','crimson','street-purple','cyber-v2','violet-nebula','matrix','pink-cosmos','blue-galaxy','lilac-dream','rose-gold','starry-night','tropical','red-venom','dark-carbon','pink-neon','blue-fire','sakura','emerald','rose-glow','ruby-frame','ice-frame','royal-frame','cyber-frame','emerald-frame','sakura-frame','obsidian-frame','rose-nick','ruby-nick','cyan-nick','violet-nick','mint-nick','sakura-nick','royal-nick','rainbow-nick'];
-  if(safeVisual.includes(visuals.frame))$('avatar-wrap').classList.add('frame-'+visuals.frame);
-  if(safeVisual.includes(visuals.background)){document.body.classList.add('profile-bg-'+visuals.background);document.body.dataset.profileBackground=visuals.background;}
-  if(safeVisual.includes(visuals.nick))$('profile-nick').classList.add('nick-'+visuals.nick);
+  async function loadProfileEquipment(){
+    const {data:equipped,error:equipmentError}=await db.from('agt_profile_equipment').select('category,item:agt_store_items(visual_key,name)').eq('user_id',profileId);
+    if(equipmentError){console.warn('Personalizações do perfil:',equipmentError.message);return;}
+    const visuals={frame:'',background:'',nick:''};
+    (equipped||[]).forEach(row=>{const linked=Array.isArray(row.item)?row.item[0]:row.item;const category=String(row.category||'').toLowerCase();const key=linked?.visual_key;if(!key)return;const target=category.includes('background')||category.includes('fundo')?'background':category.includes('frame')||category.includes('moldura')?'frame':category.includes('nick')?'nick':category;if(Object.prototype.hasOwnProperty.call(visuals,target))visuals[target]=key;});
+    $('avatar-wrap').className='avatar-wrap';
+    $('profile-nick').classList.remove(...safeVisual.map(key=>'nick-'+key));
+    document.body.classList.remove(...safeVisual.map(key=>'profile-bg-'+key));
+    if(safeVisual.includes(visuals.frame))$('avatar-wrap').classList.add('frame-'+visuals.frame);
+    if(safeVisual.includes(visuals.background)){document.body.classList.add('profile-bg-'+visuals.background);document.body.dataset.profileBackground=visuals.background;}else delete document.body.dataset.profileBackground;
+    if(safeVisual.includes(visuals.nick))$('profile-nick').classList.add('nick-'+visuals.nick);
+  }
+  await loadProfileEquipment();
+  window.addEventListener('storage',event=>{if(event.key==='agt-profile-equipment-updated')loadProfileEquipment();});
+  window.addEventListener('focus',()=>loadProfileEquipment());
   $('profile-nick').textContent=profile.nick||'Jogador AGT';setAvatar(profile.avatar_url|| (isOwner?user.user_metadata?.avatar_url:null));$('profile-bio').textContent=profile.bio||'Este jogador ainda não adicionou uma biografia.';showNicks(profile);
   if(isOwner){$('edit-bio-open').hidden=false;$('bio-inline-input').value=profile.bio;$('profile-email').textContent=user.email||'';$('edit-panel').hidden=false;$('avatar-upload-label').hidden=false;$('edit-nick').value=profile.nick||'';profile.nicks.forEach(n=>addNickField(n));if(!profile.nicks.length)addNickField();}
   else {$('profile-email').textContent='';}
