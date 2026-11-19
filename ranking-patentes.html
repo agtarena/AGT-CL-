@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090611">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2722%27 fill=%27%23090611%27/%3E%3Ctext x=%2750%27 y=%2764%27 font-size=%2737%27 font-family=%27Arial,sans-serif%27 font-weight=%27900%27 text-anchor=%27middle%27 fill=%27%23b56cff%27%3EAGT%3C/text%3E%3C/svg%3E">
+<title>Rank de Patentes | AGT Arena</title>
+<style>
+:root{--bg:#090611;--purple:#8b35ff;--neon:#bd75ff;--muted:#aaa0b9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#090611 url('./agt-banner2.png') center/cover fixed;color:#fff;font-family:Arial,sans-serif}
+header{min-height:78px;padding:16px 7%;display:flex;align-items:center;justify-content:flex-end;border-bottom:1px solid #392052;background:#090611d9;position:relative}
+.logo{position:absolute;left:50%;transform:translateX(-50%);font-size:clamp(22px,4vw,32px);font-weight:1000;letter-spacing:2px;color:#fff;text-shadow:0 0 12px #8b35ff}
+.back{padding:11px 16px;border:1px solid #7135a9;border-radius:8px;color:#fff;background:#171020;text-decoration:none;font-size:12px;font-weight:bold;position:relative;z-index:1}
+main{width:min(950px,92%);margin:48px auto}
+.heading{text-align:center;margin-bottom:28px}
+.heading h1{font-size:clamp(30px,6vw,46px);margin-bottom:10px;text-shadow:0 0 18px #8b35ff88}
+.heading h1 span{color:#bd75ff}
+.heading p{color:var(--muted);font-size:13px;line-height:1.7}
+.status{display:block;width:fit-content;margin:0 auto 18px;padding:7px 12px;border:1px solid #8b35ff66;border-radius:20px;background:#8b35ff20;color:#bd75ff;font-size:10px;font-weight:bold}
+.ranking-list{display:flex;flex-direction:column;gap:10px}
+.player{display:flex;align-items:center;gap:13px;padding:14px;border:1px solid #39234f;border-radius:11px;background:linear-gradient(110deg,#21152fef,#100c19ef);backdrop-filter:blur(5px)}
+.medal{width:42px;height:42px;display:grid;place-items:center;flex-shrink:0;border-radius:50%;background:#ffffff0b;font-size:22px}
+.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:1px solid #8b35ff}
+.info{flex:1;min-width:0}.nick{display:block;color:#fff;font-size:14px;font-weight:900;overflow-wrap:anywhere;text-decoration:none}.nick:hover{color:#d9b5ff;text-decoration:underline}
+.details{display:block;margin-top:5px;color:#aaa0b9;font-size:11px}
+.stats{text-align:right;flex-shrink:0}.stats strong{display:block;color:#e3c8ff;font-size:16px}.stats small{color:#aaa0b9;font-size:9px}
+.rank-1{border-color:#c99b32;background:linear-gradient(110deg,#3a2b12ef,#17101bef)}.rank-1 .nick,.rank-1 .stats strong{color:#f5cf55}
+.rank-2{border-color:#9ba4b3;background:linear-gradient(110deg,#292d36ef,#17131eef)}.rank-2 .nick,.rank-2 .stats strong{color:#d1d7e1}
+.rank-3{border-color:#a96a3c;background:linear-gradient(110deg,#382216ef,#17101bef)}.rank-3 .nick,.rank-3 .stats strong{color:#d99a6c}
+.empty{padding:22px;border:1px dashed #563078;border-radius:10px;color:#aaa0b9;text-align:center;font-size:13px;line-height:1.7;background:#151020e8}
+.note{margin-top:18px;color:#92859e;font-size:10px;line-height:1.6;text-align:center}
+@media(max-width:560px){header{padding:12px 3%;min-height:68px}.logo{left:43%;font-size:18px}.back{padding:7px;font-size:9px}main{margin:35px auto}.player{gap:8px;padding:10px}.medal,.avatar{width:35px;height:35px}.nick{font-size:12px}.details{font-size:9px}.stats strong{font-size:13px}.stats small{font-size:8px}}
+</style>
+</head>
+<body>
+<header><div class="logo">AGT ARENA</div><a class="back" href="./index.html#ranking">← VOLTAR</a></header>
+<main>
+  <div class="heading"><h1>RANK DE <span>PATENTES</span></h1><p>Classificação geral de todos os integrantes AGT, ordenada pela patente conquistada com o histórico de score.</p></div>
+  <span class="status" id="patent-status">CARREGANDO...</span>
+  <div class="ranking-list" id="patent-ranking"><p class="empty">Calculando patentes de todos os jogadores...</p></div>
+  <p class="note">Conversão: a cada 100.000 de score registrado, são concedidos 1.000 pontos de patente. O histórico começa em 17/05/2026 e soma o maior score diário de cada nick, sem duplicar capturas do mesmo dia.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(async function(){
+  const db=window.supabase.createClient('https://lbknsgfpfxkvypkxbcmy.supabase.co','sb_publishable_HMTbt0R6ffjBExr_kdCYDA_xmnU6xXA');
+  const list=document.getElementById('patent-ranking'),status=document.getElementById('patent-status');
+  const fmt=n=>Number(n||0).toLocaleString('pt-BR');
+  const levels=[
+    {name:'Recruta',min:0,icon:'🎖️'},
+    {name:'Soldado',min:1000,icon:'🪖'},
+    {name:'Cabo',min:3000,icon:'⚔️'},
+    {name:'Sargento',min:6000,icon:'🛡️'},
+    {name:'Tenente',min:10000,icon:'🥉'},
+    {name:'Capitão',min:15000,icon:'🎗️'},
+    {name:'Major',min:22500,icon:'🏅'},
+    {name:'Coronel',min:32500,icon:'🔱'},
+    {name:'General',min:45000,icon:'🥇'},
+    {name:'Elite',min:60000,icon:'👑'}
+  ];
+  const clean=value=>String(value||'').trim().replace(/^AGT\s*\|\s*/i,'').toLowerCase();
+  try{
+    const [profilesResult,aliasesResult]=await Promise.all([
+      db.from('profiles').select('id,nick,nicks,avatar_url'),
+      db.from('profile_nicks').select('user_id,nick')
+    ]);
+    if(profilesResult.error)throw profilesResult.error;
+    if(aliasesResult.error)console.warn('Nicks adicionais:',aliasesResult.error.message);
+    const profiles=new Map(),owners=new Map();
+    (profilesResult.data||[]).forEach(p=>{if(p.id&&p.nick)profiles.set(p.id,{...p,names:[p.nick,...(Array.isArray(p.nicks)?p.nicks:[])]});});
+    (aliasesResult.data||[]).forEach(a=>{const p=profiles.get(a.user_id);if(p&&a.nick)p.names.push(a.nick);});
+    profiles.forEach(p=>p.names.forEach(name=>{const key=clean(name);if(key)owners.set(key,p.id);}));
+    let records=[],offset=0;
+    while(true){
+      const {data,error}=await db.from('agt_ranking_daily').select('nick,score,source_date,fetched_at').gte('source_date','2026-05-17').order('source_date',{ascending:true}).order('fetched_at',{ascending:false}).range(offset,offset+999);
+      if(error)throw error;
+      records.push(...(data||[]));
+      if(!data||data.length<1000)break;
+      offset+=1000;
+    }
+    const daily=new Map();
+    records.forEach(r=>{
+      const nick=String(r.nick||'').trim();
+      if(!nick||!/(^AGT\s*\|)|AGT/i.test(nick))return;
+      const key=clean(nick)+'|'+String(r.source_date||'');
+      const previous=daily.get(key);
+      if(!previous||Number(r.score||0)>Number(previous.score||0))daily.set(key,{nick,score:Math.max(0,Number(r.score)||0)});
+    });
+    const totals=new Map();
+    daily.forEach(r=>{
+      const owner=owners.get(clean(r.nick));
+      const key=owner||'nick:'+clean(r.nick);
+      if(!totals.has(key)){const p=owner?profiles.get(owner):null;totals.set(key,{id:owner||null,nick:p?.nick||r.nick,avatar:p?.avatar_url||null,score:0});}
+      totals.get(key).score+=r.score;
+    });
+    const ranking=[...totals.values()].map(p=>({...p,points:Math.floor(p.score/100),level:levels.reduce((best,l)=>p.points>=l.min?l:best,levels[0])})).sort((a,b)=>b.points-a.points||b.score-a.score||a.nick.localeCompare(b.nick,'pt-BR'));
+    list.replaceChildren();
+    if(!ranking.length){status.textContent='SEM DADOS';list.innerHTML='<p class="empty">Ainda não existem registros de score suficientes para montar o ranking.</p>';return;}
+    ranking.forEach((p,i)=>{
+      const row=document.createElement('div');row.className='player'+(i<3?' rank-'+(i+1):'');
+      const medal=document.createElement('div');medal.className='medal';medal.textContent=['🥇','🥈','🥉'][i]||String(i+1)+'º';row.appendChild(medal);
+      if(p.avatar){const img=document.createElement('img');img.className='avatar';img.src=p.avatar;img.alt='Foto de '+p.nick;row.appendChild(img);}
+      const info=document.createElement('div');info.className='info';
+      const nick=document.createElement(p.id?'a':'span');nick.className='nick';nick.textContent=p.nick;if(p.id)nick.href='./meu-perfil.html?id='+encodeURIComponent(p.id);
+      const details=document.createElement('span');details.className='details';details.textContent=p.level.icon+' '+p.level.name+' • '+fmt(p.score)+' score acumulado';info.append(nick,details);
+      const stats=document.createElement('div');stats.className='stats';const points=document.createElement('strong');points.textContent=fmt(p.points);const label=document.createElement('small');label.textContent='PONTOS DE PATENTE';stats.append(points,label);
+      row.append(info,stats);list.appendChild(row);
+    });
+    status.textContent=ranking.length+' INTEGRANTE'+(ranking.length===1?'':'S')+' CLASSIFICADO(S)';
+  }catch(error){
+    console.error('Erro no rank de patentes:',error);status.textContent='ERRO NA LEITURA';list.innerHTML='<p class="empty">Não foi possível carregar o ranking. Verifique as permissões de leitura de profiles, profile_nicks e agt_ranking_daily no Supabase.</p>';
+  }
+})();
+</script>
+</body>
+</html>
