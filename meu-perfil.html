@@ -116,6 +116,22 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
 .profile-main h2.nick-prism{background:linear-gradient(90deg,#ff83bd,#d09aff,#7ddcff,#a2ffd4);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 @media(max-width:620px){header{padding:13px 4%}.logo{font-size:20px}.header-links a{padding:9px;font-size:10px}main{width:94%;margin-top:22px}.panel{padding:17px}.profile-head{justify-content:center;text-align:center}.profile-main{flex-basis:100%}.stats{grid-template-columns:1fr}.performance-card{grid-template-columns:auto minmax(0,1fr);gap:12px}.performance-medal{width:52px;height:52px;font-size:28px}.performance-score{grid-column:2;text-align:left}.score-podium{gap:6px}.podium-card{padding:12px 4px}.avatar-wrap{margin:auto}}
+
+/* Novas molduras premium para o avatar */
+.avatar-wrap.frame-imperial-gold-frame img,.avatar-wrap.frame-imperial-gold-frame .avatar-placeholder{border:5px double #f7cf65;box-shadow:0 0 0 2px #8e5b18,0 0 12px #fff0a8,0 0 28px #d99a24}
+.avatar-wrap.frame-diamond-crown-frame img,.avatar-wrap.frame-diamond-crown-frame .avatar-placeholder{border:5px double #e6fbff;box-shadow:0 0 0 2px #77cde8,0 0 13px #fff,0 0 30px #78dfff}
+.avatar-wrap.frame-rose-pearl-frame img,.avatar-wrap.frame-rose-pearl-frame .avatar-placeholder{border:5px dotted #ffe4f1;box-shadow:0 0 0 3px #d879ad,0 0 13px #ffb8df,0 0 28px #a94d88}
+.avatar-wrap.frame-royal-ruby-frame img,.avatar-wrap.frame-royal-ruby-frame .avatar-placeholder{border:5px double #ffb0a7;box-shadow:0 0 0 3px #c18a38,0 0 12px #e51c50,0 0 27px #8c1539}
+.avatar-wrap.frame-silver-diamond-frame img,.avatar-wrap.frame-silver-diamond-frame .avatar-placeholder{border:5px double #f3fbff;box-shadow:0 0 0 3px #9eb5c9,0 0 13px #fff,0 0 28px #a9eaff}
+.avatar-wrap.frame-pink-sapphire-frame img,.avatar-wrap.frame-pink-sapphire-frame .avatar-placeholder{border:5px double #ffc7ef;box-shadow:0 0 0 3px #b84c9a,0 0 13px #ffb8e8,0 0 28px #ff72d2}
+/* Novos fundos premium */
+body.profile-bg-rose-pearl-garden::before{background:radial-gradient(circle at 15% 22%,#fff2f8aa 0 2%,transparent 3%),radial-gradient(circle at 82% 68%,#ffe4ed99 0 3%,transparent 4%),radial-gradient(ellipse at 25% 30%,#d85e9d99,transparent 42%),linear-gradient(135deg,#2a1025,#a84e79,#30182f)}
+body.profile-bg-golden-galaxy::before{background:radial-gradient(circle at 22% 28%,#fff4b0aa 0 1.5%,transparent 2.5%),radial-gradient(circle at 76% 67%,#ffe6a0aa 0 2%,transparent 3%),radial-gradient(ellipse at 60% 40%,#b77a2499,transparent 45%),linear-gradient(135deg,#100b12,#5b3b18,#17101b)}
+body.profile-bg-diamond-aurora::before{background:radial-gradient(ellipse at 25% 25%,#9ff5ff99,transparent 40%),radial-gradient(ellipse at 75% 70%,#c9a8ff99,transparent 42%),linear-gradient(135deg,#06172d,#285a83,#21183f)}
+body.profile-bg-pink-velvet::before{background:radial-gradient(ellipse at 20% 20%,#ffb8df99,transparent 40%),radial-gradient(ellipse at 80% 75%,#b84e8c99,transparent 45%),linear-gradient(135deg,#210b1b,#71304f,#160c20)}
+body.profile-bg-royal-marble::before{background:repeating-linear-gradient(125deg,transparent 0 28px,#d8b56a33 29px 31px),linear-gradient(135deg,#08090d,#34313a,#100d12)}
+body.profile-bg-sapphire-palace::before{background:radial-gradient(circle at 25% 25%,#d6f7ffaa 0 1.5%,transparent 2.5%),radial-gradient(circle at 76% 68%,#8ecbffaa 0 2.5%,transparent 3.5%),linear-gradient(135deg,#06152e,#174e8a,#20194a)}
+
 </style>
 </head>
 <body>
@@ -209,7 +225,7 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
   if(!data){status.textContent='Este perfil ainda não está disponível.';$('profile-nick').textContent='Jogador não encontrado';return;}
   profile=data;profile.bio=profile.bio||'';profile.nicks=Array.isArray(profile.nicks)?profile.nicks:[];
   // Personalizações equipadas: consulta o estado confirmado no banco e aplica no perfil.
-  const safeVisual=['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism','aurora','nebula','ocean','crimson','street-purple','cyber-v2','violet-nebula','matrix','pink-cosmos','blue-galaxy','lilac-dream','rose-gold','starry-night','tropical','red-venom','dark-carbon','pink-neon','blue-fire','sakura','emerald','arctic-pulse','inferno-rubro','cyber-grid','royal-purple','deep-ocean','toxic-green','sunset-horizon','white-diamond','shadow-ninja','cosmic-rainbow','rose-glow','ruby-frame','ice-frame','royal-frame','cyber-frame','emerald-frame','sakura-frame','obsidian-frame','rose-nick','ruby-nick','cyan-nick','violet-nick','mint-nick','sakura-nick','royal-nick','rainbow-nick'];
+  const safeVisual=['neon-purple','galaxy','flame','butterfly','cyber','floral','gold','ice','prism','aurora','nebula','ocean','crimson','street-purple','cyber-v2','violet-nebula','matrix','pink-cosmos','blue-galaxy','lilac-dream','rose-gold','starry-night','tropical','red-venom','dark-carbon','pink-neon','blue-fire','sakura','emerald','arctic-pulse','inferno-rubro','cyber-grid','royal-purple','deep-ocean','toxic-green','sunset-horizon','white-diamond','shadow-ninja','cosmic-rainbow','rose-glow','ruby-frame','ice-frame','royal-frame','cyber-frame','emerald-frame','sakura-frame','obsidian-frame','rose-nick','ruby-nick','cyan-nick','violet-nick','mint-nick','sakura-nick','royal-nick','imperial-gold-frame','diamond-crown-frame','rose-pearl-frame','royal-ruby-frame','silver-diamond-frame','pink-sapphire-frame','rose-pearl-garden','golden-galaxy','diamond-aurora','pink-velvet','royal-marble','sapphire-palace'];
 
   async function loadCustomProfileBackground(){
     const {data:backgrounds,error}=await db.from('agt_profile_custom_backgrounds')
