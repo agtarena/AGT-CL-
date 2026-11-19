@@ -699,6 +699,33 @@ section {
   line-height:1.7;
 }
 
+
+/* FORMULÁRIO DE RECRUTAMENTO AGT */
+.recruit-open-btn{display:inline-flex;align-items:center;justify-content:center;margin:12px auto 0;cursor:pointer}
+.recruit-modal{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;padding:18px;background:#05030bdc;backdrop-filter:blur(8px)}
+.recruit-modal.active{display:flex}
+.recruit-dialog{width:min(760px,100%);max-height:92vh;overflow:auto;text-align:left;padding:25px;background:linear-gradient(145deg,#1b1029,#0c0814);border:1px solid #8b35ff;border-radius:18px;box-shadow:0 0 45px #8b35ff44}
+.recruit-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:20px}
+.recruit-dialog-head h2{font-size:25px;color:#d5aaff;margin:0 0 7px}
+.recruit-dialog-head p{font-size:13px;color:#aaa0b9;line-height:1.5;margin:0}
+.recruit-close{flex-shrink:0;width:38px;height:38px;border:1px solid #70409a;border-radius:9px;background:#241535;color:#fff;font-size:23px;cursor:pointer}
+.recruit-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.recruit-field{min-width:0}
+.recruit-field.full{grid-column:1/-1}
+.recruit-field>label,.recruit-field legend{display:block;margin:0 0 7px;color:#d7c5ed;font-size:12px;font-weight:700}
+.recruit-field input:not([type=checkbox]),.recruit-field select,.recruit-field textarea{width:100%;padding:12px;border:1px solid #563078;border-radius:8px;background:#171020;color:#fff;outline:none;font:inherit;font-size:13px}
+.recruit-field textarea{min-height:82px;resize:vertical}
+.recruit-field input:focus,.recruit-field select:focus,.recruit-field textarea:focus{border-color:#bd75ff;box-shadow:0 0 10px #8b35ff33}
+.recruit-options{display:flex;flex-wrap:wrap;gap:9px}
+.recruit-options label{display:inline-flex;align-items:center;gap:7px;padding:9px 11px;border:1px solid #49305f;border-radius:8px;background:#171020;color:#e8def3;font-size:12px;cursor:pointer}
+.recruit-options input{accent-color:#a75aff}
+.recruit-form-note{color:#9e91ad;font-size:11px;line-height:1.5;margin:15px 0}
+.recruit-form-actions{display:flex;flex-wrap:wrap;gap:10px}
+.recruit-form-actions button{flex:1;min-width:190px;padding:14px;border:1px solid #25d366;border-radius:9px;background:linear-gradient(135deg,#128c4a,#075e36);color:white;font-weight:800;cursor:pointer}
+.recruit-form-actions button.email-send{border-color:#a75aff;background:linear-gradient(100deg,#7624df,#ad55ff)}
+.recruit-form-status{min-height:20px;margin-top:12px;color:#d7c9ed;font-size:12px;line-height:1.5}
+@media(max-width:600px){.recruit-modal{padding:8px}.recruit-dialog{padding:17px;max-height:95vh}.recruit-form-grid{grid-template-columns:1fr}.recruit-field.full{grid-column:auto}.recruit-dialog-head h2{font-size:21px}}
+
 /* RANKING */
 
 .ranking-live-card {
@@ -1386,7 +1413,7 @@ footer span {color:var(--neon)}
       e determinados a conquistar o topo no SlitherMania.
     </p>
 
-    <a class="btn" href="#recrutamento">FAÇA PARTE DA AGT</a>
+    <button class="btn recruit-open-btn" type="button" data-open-recruitment>FAÇA PARTE DA AGT</button>
     <a class="btn btn-outline" href="#ranking">VER RANKINGS</a>
 
   </div>
@@ -1504,6 +1531,8 @@ footer span {color:var(--neon)}
     Então venha conhecer a família AGT!
   </p>
 
+  <button class="btn recruit-open-btn" type="button" data-open-recruitment>📝 PREENCHER INSCRIÇÃO</button>
+
   <div class="recruit-social">
 
     <div class="whatsapp-buttons">
@@ -1574,6 +1603,55 @@ footer span {color:var(--neon)}
   <p>Uma família, um propósito, uma aliança.</p>
 </footer>
 
+<div class="recruit-modal" id="recruitment-form-modal" aria-hidden="true">
+  <div class="recruit-dialog" role="dialog" aria-modal="true" aria-labelledby="recruitment-form-title">
+    <div class="recruit-dialog-head">
+      <div><h2 id="recruitment-form-title">Inscrição para a AGT</h2><p>Preencha com atenção. Nossa equipe analisará seu perfil e entrará em contato.</p></div>
+      <button class="recruit-close" type="button" data-close-recruitment aria-label="Fechar formulário">×</button>
+    </div>
+    <form id="agt-recruitment-form">
+      <div class="recruit-form-grid">
+        <div class="recruit-field"><label for="recruit-name">Como podemos chamar você? *</label><input id="recruit-name" name="Nome" required maxlength="60" autocomplete="name"></div>
+        <div class="recruit-field"><label for="recruit-nick">Nick principal no jogo (inclua AGT se já usar) *</label><input id="recruit-nick" name="Nick principal" required maxlength="40"></div>
+        <div class="recruit-field"><label for="recruit-age">Faixa etária *</label><select id="recruit-age" name="Faixa etária" required><option value="">Selecione</option><option>Menor de 18 anos</option><option>18 anos ou mais</option></select></div>
+        <div class="recruit-field"><label for="recruit-device">Em qual dispositivo joga? *</label><select id="recruit-device" name="Dispositivo" required><option value="">Selecione</option><option>Celular / Mobile</option><option>Computador / PC</option><option>Ambos</option></select></div>
+        <div class="recruit-field"><label for="recruit-clan">Já participou de outro clã? *</label><select id="recruit-clan" name="Já participou de outro clã?" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select></div>
+        <div class="recruit-field"><label for="recruit-clan-name">Qual clã? (se aplicável)</label><input id="recruit-clan-name" name="Clã anterior" maxlength="80" placeholder="Nome do clã"></div>
+        <div class="recruit-field"><label for="recruit-referral">Como conheceu a AGT? *</label><select id="recruit-referral" name="Como conheceu a AGT" required><option value="">Selecione</option><option>Amigos / indicação</option><option>Dentro do jogo</option><option>TikTok</option><option>YouTube</option><option>Discord</option><option>Pesquisa na internet</option><option>Outro</option></select></div>
+        <div class="recruit-field"><label for="recruit-region">Cidade/estado ou fuso horário</label><input id="recruit-region" name="Região" maxlength="80" placeholder="Ex.: São Paulo - SP"></div>
+        <fieldset class="recruit-field full"><legend>Quais horários você costuma ter disponibilidade? * (pode marcar mais de um)</legend><div class="recruit-options">
+          <label><input type="checkbox" name="Horários disponíveis" value="Manhã"> Manhã</label><label><input type="checkbox" name="Horários disponíveis" value="Tarde"> Tarde</label><label><input type="checkbox" name="Horários disponíveis" value="Noite"> Noite</label><label><input type="checkbox" name="Horários disponíveis" value="Madrugada"> Madrugada</label><label><input type="checkbox" name="Horários disponíveis" value="Fins de semana"> Fins de semana</label>
+        </div></fieldset>
+        <fieldset class="recruit-field full"><legend>Como você se identifica? (opcional)</legend><div class="recruit-options">
+          <label><input type="radio" name="Gênero" value="Homem"> Homem</label><label><input type="radio" name="Gênero" value="Mulher"> Mulher</label><label><input type="radio" name="Gênero" value="Prefiro não informar"> Prefiro não informar</label>
+        </div></fieldset>
+        <div class="recruit-field"><label for="recruit-discord">Tem disponibilidade para chamadas no Discord? *</label><select id="recruit-discord" name="Chamadas no Discord" required><option value="">Selecione</option><option>Sim, posso participar por voz</option><option>Às vezes</option><option>Não consigo usar voz, mas acompanho o chat</option></select></div>
+        <div class="recruit-field"><label for="recruit-mic">Possui microfone/fone com microfone?</label><select id="recruit-mic" name="Microfone"><option value="">Selecione</option><option>Sim</option><option>Não</option><option>Às vezes</option></select></div>
+        <fieldset class="recruit-field full"><legend>Em qual função você se encaixa? * (pode marcar mais de uma)</legend><div class="recruit-options">
+          <label><input type="checkbox" name="Funções" value="Ranqueador"> Ranqueador — segura a massa e busca pontuação</label>
+          <label><input type="checkbox" name="Funções" value="Farmador"> Farmador — coleta massa e apoia as doações</label>
+          <label><input type="checkbox" name="Funções" value="Protetor"> Protetor — defende e dá cobertura ao ranqueador</label>
+          <label><input type="checkbox" name="Funções" value="Apoio / estratégia"> Apoio / estratégia</label>
+          <label><input type="checkbox" name="Funções" value="Ainda estou aprendendo"> Ainda estou aprendendo</label>
+        </div></fieldset>
+        <div class="recruit-field"><label for="recruit-level">Como avalia sua experiência no Slither.io? *</label><select id="recruit-level" name="Experiência" required><option value="">Selecione</option><option>Iniciante</option><option>Intermediário</option><option>Avançado</option><option>Competitivo</option></select></div>
+        <div class="recruit-field"><label for="recruit-time">Há quanto tempo joga?</label><select id="recruit-time" name="Tempo de jogo"><option value="">Selecione</option><option>Menos de 6 meses</option><option>6 meses a 1 ano</option><option>1 a 3 anos</option><option>Mais de 3 anos</option></select></div>
+        <div class="recruit-field full"><label for="recruit-why">Por que deseja fazer parte da AGT? O que pode agregar ao clã?</label><textarea id="recruit-why" name="Por que quer entrar" maxlength="700" placeholder="Conte um pouco sobre você e seu estilo de jogo..."></textarea></div>
+        <div class="recruit-field"><label for="recruit-whatsapp">Seu número de WhatsApp com DDD *</label><input id="recruit-whatsapp" name="WhatsApp para contato" type="tel" required maxlength="25" placeholder="(12) 99999-9999" autocomplete="tel"></div>
+        <div class="recruit-field"><label for="recruit-contact">Como prefere receber nosso contato? *</label><select id="recruit-contact" name="Preferência de contato" required><option value="">Selecione</option><option>WhatsApp</option><option>E-mail</option></select></div>
+        <div class="recruit-field full"><label class="recruit-options"><input type="checkbox" name="Consentimento" value="Autorizo contato para fins de recrutamento" required> Autorizo a equipe AGT a utilizar estas informações para avaliar minha inscrição e entrar em contato. *</label></div>
+      </div>
+      <p class="recruit-form-note">O envio não garante entrada automática no clã. A equipe AGT avaliará a inscrição e falará com você. Menores de 18 anos devem ter autorização do responsável para participar das atividades do clã.</p>
+      <div class="recruit-form-actions">
+        <button type="submit" name="delivery" value="whatsapp">Enviar inscrição pelo WhatsApp</button>
+        <button class="email-send" type="submit" name="delivery" value="email">Preparar inscrição por e-mail</button>
+      </div>
+      <div class="recruit-form-status" id="recruit-form-status" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -1583,6 +1661,59 @@ footer span {color:var(--neon)}
 
   const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   window.agtSupabase = db;
+
+
+  /* INSCRIÇÃO DE RECRUTAMENTO AGT */
+  const recruitmentModal = document.getElementById('recruitment-form-modal');
+  const recruitmentForm = document.getElementById('agt-recruitment-form');
+  const recruitmentStatus = document.getElementById('recruit-form-status');
+
+  function openRecruitmentForm() {
+    recruitmentModal.classList.add('active');
+    recruitmentModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    document.getElementById('recruit-name')?.focus();
+  }
+  function closeRecruitmentForm() {
+    recruitmentModal.classList.remove('active');
+    recruitmentModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
+  document.querySelectorAll('[data-open-recruitment]').forEach(button => button.addEventListener('click',openRecruitmentForm));
+  document.querySelectorAll('[data-close-recruitment]').forEach(button => button.addEventListener('click',closeRecruitmentForm));
+  recruitmentModal?.addEventListener('click',event => { if(event.target===recruitmentModal) closeRecruitmentForm(); });
+  document.addEventListener('keydown',event => { if(event.key==='Escape' && recruitmentModal?.classList.contains('active')) closeRecruitmentForm(); });
+
+  recruitmentForm?.addEventListener('submit',event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const horarios = [...form.querySelectorAll('input[name="Horários disponíveis"]:checked')].map(x=>x.value);
+    const funcoes = [...form.querySelectorAll('input[name="Funções"]:checked')].map(x=>x.value);
+    if(!horarios.length) { recruitmentStatus.textContent='Selecione pelo menos um horário disponível.'; return; }
+    if(!funcoes.length) { recruitmentStatus.textContent='Selecione pelo menos uma função no clã.'; return; }
+    const data = new FormData(form);
+    const linhas = [];
+    for(const [key,value] of data.entries()) {
+      if(key==='delivery' || key==='Consentimento') continue;
+      const existentes = linhas.findIndex(item=>item.key===key);
+      if(existentes>=0) linhas[existentes].value += ', '+value;
+      else linhas.push({key,value});
+    }
+    const mensagem = 'NOVA INSCRIÇÃO — RECRUTAMENTO AGT\n\n' +
+      linhas.map(item=>item.key+': '+item.value).join('\n') +
+      '\n\nConsentimento: Autorizado para fins de recrutamento.';
+    const delivery = event.submitter?.value || 'whatsapp';
+    if(delivery==='email') {
+      const subject=encodeURIComponent('Inscrição de recrutamento — AGT');
+      const body=encodeURIComponent(mensagem);
+      window.location.href='mailto:cimadomkayque@gmail.com?subject='+subject+'&body='+body;
+      recruitmentStatus.textContent='Seu aplicativo de e-mail deve abrir com a inscrição preenchida. Revise e toque em Enviar para concluir.';
+    } else {
+      const url='https://wa.me/5512991173752?text='+encodeURIComponent(mensagem);
+      window.open(url,'_blank','noopener');
+      recruitmentStatus.textContent='O WhatsApp foi aberto com a inscrição preenchida. Revise a mensagem e toque em Enviar para concluir.';
+    }
+  });
 
   /* MENU */
 
