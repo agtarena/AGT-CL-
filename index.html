@@ -1513,11 +1513,19 @@ footer span {color:var(--neon)}
       <div class="status">AGUARDANDO INTEGRAÇÃO</div>
     </div>
 
-    <div class="card">
-      <div class="symbol">⭐</div>
-      <h3>Patentes AGT</h3>
-      <p>Acompanhe sua patente, os pontos acumulados pelo score das partidas e as recompensas desbloqueadas no perfil.</p>
-      <a class="btn btn-outline" href="./meu-perfil.html">VER PATENTE NO PERFIL →</a>
+    <div class="card ranking-live-card patent-ranking-card">
+      <div class="symbol">🎖️</div>
+      <h3>Rank de patentes</h3>
+      <p class="ranking-description">Os integrantes AGT com as maiores patentes, calculadas pelo histórico de score.</p>
+      <div class="agt-ranking-heading">
+        <span class="agt-ranking-date">CLASSIFICAÇÃO GERAL AGT</span>
+        <span class="agt-ranking-status" id="agt-patent-status">CALCULANDO...</span>
+      </div>
+      <div class="agt-ranking-list" id="agt-patent-list" aria-live="polite">
+        <p class="agt-ranking-empty">Carregando rank de patentes...</p>
+      </div>
+      <span class="agt-ranking-updated" id="agt-patent-updated"></span>
+      <a href="./ranking-patentes.html" class="btn btn-outline monthly-ranking-button">VER MAIS PATENTES →</a>
     </div>
 
   </div>
@@ -2511,12 +2519,134 @@ footer span {color:var(--neon)}
     }
   }
 
+  /* RANK DE PATENTES AGT — HISTÓRICO DESDE 17/05/2026 */
+  const patentList=document.getElementById('agt-patent-list');
+  const patentStatus=document.getElementById('agt-patent-status');
+  const patentUpdated=document.getElementById('agt-patent-updated');
+  const patentLevels=[
+    {name:'Recruta',min:0,icon:'🎖️'},
+    {name:'Soldado',min:1000,icon:'🪖'},
+    {name:'Cabo',min:3000,icon:'⚔️'},
+    {name:'Sargento',min:6000,icon:'🛡️'},
+    {name:'Tenente',min:10000,icon:'🥉'},
+    {name:'Capitão',min:15000,icon:'🎗️'},
+    {name:'Major',min:22500,icon:'🏅'},
+    {name:'Coronel',min:32500,icon:'🔱'},
+    {name:'General',min:45000,icon:'🥇'},
+    {name:'Elite',min:60000,icon:'👑'}
+  ];
+  async function carregarRankPatentes(){
+    try{
+      const [profilesResult,aliasesResult]=await Promise.all([
+        db.from('profiles').select('id,nick,nicks,avatar_url'),
+        db.from('profile_nicks').select('user_id,nick')
+      ]);
+      if(profilesResult.error) throw profilesResult.error;
+      if(aliasesResult.error) console.warn('Nicks adicionais no rank de patentes:',aliasesResult.error.message);
+      const players=new Map();
+      const aliasOwner=new Map();
+      (profilesResult.data||[]).forEach(p=>{
+        if(!p.id||!p.nick)return;
+        players.set(p.id,{id:p.id,nick:p.nick,avatar_url:p.avatar_url,names:[p.nick,...(Array.isArray(p.nicks)?p.nicks:[])]});
+      });
+      (aliasesResult.data||[]).forEach(a=>{
+        const p=players.get(a.user_id);
+        if(p&&a.nick)p.names.push(a.nick);
+      });
+      const cleanNick=value=>String(value||'').trim().replace(/^AGT\\s*\\|\\s*/i,'').toLowerCase();
+      players.forEach(p=>p.names.forEach(name=>{
+        const key=cleanNick(name);
+        if(key)aliasOwner.set(key,p.id);
+      }));
+      let all=[],offset=0;
+      while(true){
+        const {data,error}=await db.from('agt_ranking_daily')
+          .select('nick,score,source_date,fetched_at')
+          .gte('source_date','2026-05-17')
+          .order('source_date',{ascending:true})
+          .order('fetched_at',{ascending:false})
+          .range(offset,offset+999);
+        if(error)throw error;
+        all.push(...(data||[]));
+        if(!data||data.length<1000)break;
+        offset+=1000;
+      }
+      const daily=new Map();
+      all.forEach(row=>{
+        const raw=String(row.nick||'').trim();
+        if(!raw||!/(^AGT\\s*\\|)|AGT/i.test(raw))return;
+        const key=cleanNick(raw)+'|'+String(row.source_date||'');
+        const old=daily.get(key);
+        if(!old||Number(row.score||0)>Number(old.score||0))daily.set(key,{nick:raw,score:Math.max(0,Number(row.score)||0),source_date:row.source_date});
+      });
+      const totals=new Map();
+      daily.forEach(row=>{
+        const alias=cleanNick(row.nick);
+        const owner=aliasOwner.get(alias);
+        const key=owner||('nick:'+alias);
+        if(!totals.has(key))totals.set(key,{id:owner||null,nick:owner?players.get(owner).nick:row.nick,avatar_url:owner?players.get(owner).avatar_url:null,score:0});
+        totals.get(key).score+=row.score;
+      });
+      const ranking=[...totals.values()].map(p=>{
+        p.points=Math.floor(p.score/100);
+        p.level=patentLevels.reduce((best,level)=>p.points>=level.min?level:best,patentLevels[0]);
+        return p;
+      }).sort((a,b)=>b.points-a.points||b.score-a.score||a.nick.localeCompare(b.nick,'pt-BR'));
+      patentList.innerHTML='';
+      if(!ranking.length){
+        patentStatus.textContent='SEM DADOS';
+        patentList.innerHTML='<p class="agt-ranking-empty">Ainda não há histórico suficiente para montar o rank de patentes.</p>';
+        return;
+      }
+      ranking.slice(0,3).forEach((p,index)=>{
+        const item=document.createElement('div');
+        item.className='agt-ranking-item rank-'+(index+1);
+        const medal=document.createElement('div');
+        medal.className='agt-ranking-medal';
+        medal.textContent=['🥇','🥈','🥉'][index];
+        if(p.avatar_url){
+          const avatar=document.createElement('img');
+          avatar.className='agt-player-avatar';
+          avatar.src=p.avatar_url;
+          avatar.alt='Foto de '+p.nick;
+          item.append(medal,avatar);
+        }else item.appendChild(medal);
+        const info=document.createElement('div');
+        info.className='agt-ranking-info';
+        const nick=document.createElement(p.id?'a':'span');
+        nick.className='agt-ranking-nick'+(p.id?' agt-profile-link':'');
+        nick.textContent=p.nick;
+        if(p.id)nick.href='./meu-perfil.html?id='+encodeURIComponent(p.id);
+        const detail=document.createElement('span');
+        detail.className='agt-ranking-details';
+        detail.textContent=(index+1)+'º lugar • '+p.level.icon+' '+p.level.name;
+        info.append(nick,detail);
+        const value=document.createElement('div');
+        value.className='agt-ranking-score';
+        const points=document.createElement('strong');
+        points.textContent=formatScore(p.points);
+        const label=document.createElement('small');
+        label.textContent='PONTOS DE PATENTE';
+        value.append(points,label);
+        item.append(info,value);
+        patentList.appendChild(item);
+      });
+      patentStatus.textContent=ranking.length+' JOGADOR'+(ranking.length===1?'':'ES');
+      patentUpdated.textContent='Conversão: 100.000 score = 1.000 pontos de patente';
+    }catch(error){
+      console.error('Erro no rank de patentes:',error);
+      patentStatus.textContent='ERRO NA LEITURA';
+      patentList.innerHTML='<p class="agt-ranking-empty">Não foi possível carregar o rank de patentes. Verifique as permissões das tabelas de perfis e histórico no Supabase.</p>';
+    }
+  }
+
   /* INICIALIZAÇÃO E ATUALIZAÇÕES */
 
   async function iniciarRankings() {
     await carregarPerfisPublicos();
     await carregarRankingAGT();
     await carregarRankingMensal();
+    await carregarRankPatentes();
   }
 
   iniciarRankings();
@@ -2525,6 +2655,7 @@ footer span {color:var(--neon)}
     await carregarPerfisPublicos();
     await carregarRankingAGT();
     await carregarRankingMensal();
+    await carregarRankPatentes();
   },60000);
 
 })();
