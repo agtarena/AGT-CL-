@@ -118,7 +118,9 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
   <section class="panel"><div class="bio-heading"><h3 class="section-heading">BIOGRAFIA</h3><button class="button" id="edit-bio-open" type="button" hidden>✏️ EDITAR</button></div><p class="bio" id="profile-bio">Este jogador ainda não adicionou uma biografia.</p><div id="bio-editor" hidden><div class="field"><textarea id="bio-inline-input" maxlength="240" placeholder="Conte um pouco sobre você..."></textarea><small class="muted-note">Até 240 caracteres.</small></div><div class="form-actions"><button class="button primary-button" id="bio-inline-save" type="button">SALVAR BIOGRAFIA</button><button class="button" id="bio-inline-cancel" type="button">CANCELAR</button></div><p class="status" id="bio-inline-status" aria-live="polite"></p></div></section>
   <section class="panel"><h3 class="section-heading">NICKS DO JOGADOR</h3><div class="nick-chips" id="profile-nicks"><span class="chip">Carregando...</span></div></section>
   <section class="panel"><h3 class="section-heading">DESEMPENHO E SCORES</h3><div class="performance-card"><div class="performance-medal" id="performance-medal">🏆</div><div class="performance-info"><strong id="performance-rank">CLASSIFICAÇÃO AGT</strong><span id="performance-detail">Sua melhor posição registrada</span></div><div class="performance-score"><strong id="stat-best">—</strong><small>MAIOR SCORE</small></div></div><div class="stats"><div class="stat"><strong id="stat-days">—</strong><span>DIAS COM SCORE</span></div><div class="stat"><strong id="stat-last">—</strong><span>ÚLTIMA APARIÇÃO</span></div><div class="stat"><strong id="stat-total">—</strong><span>REGISTROS ENCONTRADOS</span></div></div></section>
-  <details class="patent-dropdown panel">
+
+  <a class="panel best-scores-link" id="best-scores-link" href="#"><div class="best-scores-head"><h3 class="section-heading">MELHORES SCORES</h3><span>VER HISTÓRICO COMPLETO →</span></div><p class="muted-note best-scores-note">Os três maiores scores registrados entre todos os nicks vinculados a este perfil.</p><div class="score-podium" id="score-podium"><p class="muted-note">Carregando melhores pontuações...</p></div></a>
+    <details class="patent-dropdown panel">
     <summary class="patent-dropdown-toggle"><span>🎖️ PATENTES</span><span class="patent-dropdown-arrow">⌄</span></summary>
     <div class="patent-panel patent-compact-panel">
       <p class="patent-compact-intro">Veja os pontos de patente e o score necessários para alcançar cada nível.</p>
@@ -126,7 +128,6 @@ body.profile-bg-emerald::before{background:radial-gradient(ellipse at 20% 20%,#6
       <p class="patent-note">Conversão: 100.000 de score = 1.000 pontos de patente. O histórico considera o maior score diário de cada nick vinculado, sem duplicar o mesmo dia.</p>
     </div>
   </details>
-  <a class="panel best-scores-link" id="best-scores-link" href="#"><div class="best-scores-head"><h3 class="section-heading">MELHORES SCORES</h3><span>VER HISTÓRICO COMPLETO →</span></div><p class="muted-note best-scores-note">Os três maiores scores registrados entre todos os nicks vinculados a este perfil.</p><div class="score-podium" id="score-podium"><p class="muted-note">Carregando melhores pontuações...</p></div></a>
   <section class="panel" id="edit-panel" hidden>
     <h3 class="section-heading">EDITAR MEU PERFIL</h3>
     <div class="edit-grid">
